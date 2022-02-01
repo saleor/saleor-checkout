@@ -1,6 +1,5 @@
 import * as React from "react";
-import Icon from "./components/Icon";
-import Text from "./components/Text";
+import Text from "@components/Text";
 
 export const Checkout = () => {
   return (
@@ -11,7 +10,6 @@ export const Checkout = () => {
       <Text size="sm" color="secondary">
         (Greatest checkout ever)
       </Text>
-      <Icon />
     </div>
   );
 };
