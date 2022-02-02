@@ -1,25 +1,33 @@
 import clsx from "clsx";
 import React from "react";
+import { useTextField } from "@react-aria/textfield";
 
 interface TextInputProps {
   onChange: (value: string) => void;
   value: string;
-  name: string;
   label: string;
   optional?: boolean;
   error?: boolean;
   errorMessage?: string;
 }
 
-const TextInput: React.FC<TextInputProps> = ({
-  onChange,
-  value,
-  name,
-  label,
-  optional = false,
-  error,
-  errorMessage,
-}) => {
+const TextInput: React.FC<TextInputProps> = (props) => {
+  const {
+    onChange,
+    value,
+    label,
+    optional = false,
+    error,
+    errorMessage,
+  } = props;
+
+  const ref = React.useRef<HTMLInputElement | null>(null);
+
+  const { labelProps, inputProps, errorMessageProps } = useTextField(
+    props,
+    ref
+  );
+
   const inputClasses = clsx("text-input", {
     "text-input-filled": !!value,
     "text-input-error": error,
@@ -29,25 +37,22 @@ const TextInput: React.FC<TextInputProps> = ({
     "text-input-filled-label": !!value,
   });
 
-  const errorFieldId = `${name}Error`;
-
   return (
     <div className="relative">
       <input
-        id={name}
-        type="text"
-        aria-describedby={errorFieldId}
+        ref={ref}
+        {...inputProps}
         className={inputClasses}
         value={value}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           onChange(event.target.value)
         }
       />
-      <label htmlFor={name} className={labelClasses}>
+      <label {...labelProps} className={labelClasses}>
         {optional ? label : `${label}*`}
       </label>
       {error && (
-        <span className="text-xs text-text-error" id={errorFieldId}>
+        <span className="text-xs text-text-error" {...errorMessageProps}>
           {errorMessage}
         </span>
       )}
