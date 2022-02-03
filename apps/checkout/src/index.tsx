@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createClient, Provider } from "urql";
+import { createClient, Provider as UrqlProvider } from "urql";
 
 import "./index.css";
 import { Checkout } from "./Checkout";
 import reportWebVitals from "./reportWebVitals";
+import { getCurrentRegion } from "./lib/regions";
+import { I18nProvider } from "@react-aria/i18n";
 
 const client = createClient({
   url: "https://vercel-saleor-cloud.graphcdn.app/",
@@ -15,9 +17,11 @@ const root = ReactDOM.createRoot(document.getElementById("root")!);
 
 root.render(
   <React.StrictMode>
-    <Provider value={client}>
-      <Checkout />
-    </Provider>
+    <I18nProvider locale={getCurrentRegion()}>
+      <UrqlProvider value={client}>
+        <Checkout />
+      </UrqlProvider>
+    </I18nProvider>
   </React.StrictMode>
 );
 

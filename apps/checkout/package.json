@@ -5,6 +5,7 @@
   "dependencies": {
     "@craco/craco": "^6.4.3",
     "@react-aria/textfield": "^3.5.0",
+    "@react-aria/i18n": "^3.3.4",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
