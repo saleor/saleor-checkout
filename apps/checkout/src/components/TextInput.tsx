@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTextField } from "@react-aria/textfield";
 
 interface TextInputProps
@@ -16,7 +16,22 @@ interface TextInputProps
 }
 
 export const TextInput: React.FC<TextInputProps> = (props) => {
-  const { label, optional = false, error, errorMessage, ...rest } = props;
+  const {
+    label,
+    optional = false,
+    error,
+    errorMessage,
+    value,
+    onChange,
+  } = props;
+
+  const [labelFixed, setLabelFixed] = useState(false);
+
+  useEffect(() => {
+    if (!labelFixed && value) {
+      setLabelFixed(true);
+    }
+  }, [value]);
 
   const ref = React.useRef<HTMLInputElement | null>(null);
 
@@ -26,17 +41,27 @@ export const TextInput: React.FC<TextInputProps> = (props) => {
   );
 
   const inputClasses = clsx("text-input", {
-    "text-input-filled": !!value,
     "text-input-error": error,
   });
 
   const labelClasses = clsx("text-input-label", {
-    "text-input-filled-label": !!value,
+    "text-input-filled-label": labelFixed,
   });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLabelFixed(!!event.target.value);
+    onChange(event);
+  };
 
   return (
     <div className="relative">
-      <input ref={ref} {...inputProps} className={inputClasses} {...rest} />
+      <input
+        ref={ref}
+        {...inputProps}
+        className={inputClasses}
+        value={value}
+        onChange={handleChange}
+      />
       <label {...labelProps} className={labelClasses}>
         {optional ? label : `${label}*`}
       </label>
