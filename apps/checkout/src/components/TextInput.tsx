@@ -2,8 +2,12 @@ import clsx from "clsx";
 import React from "react";
 import { useTextField } from "@react-aria/textfield";
 
-interface TextInputProps {
-  onChange: (value: string) => void;
+interface TextInputProps
+  extends React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  > {
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
   label: string;
   optional?: boolean;
@@ -11,15 +15,8 @@ interface TextInputProps {
   errorMessage?: string;
 }
 
-const TextInput: React.FC<TextInputProps> = (props) => {
-  const {
-    onChange,
-    value,
-    label,
-    optional = false,
-    error,
-    errorMessage,
-  } = props;
+export const TextInput: React.FC<TextInputProps> = (props) => {
+  const { label, optional = false, error, errorMessage, ...rest } = props;
 
   const ref = React.useRef<HTMLInputElement | null>(null);
 
@@ -39,15 +36,7 @@ const TextInput: React.FC<TextInputProps> = (props) => {
 
   return (
     <div className="relative">
-      <input
-        ref={ref}
-        {...inputProps}
-        className={inputClasses}
-        value={value}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          onChange(event.target.value)
-        }
-      />
+      <input ref={ref} {...inputProps} className={inputClasses} {...rest} />
       <label {...labelProps} className={labelClasses}>
         {optional ? label : `${label}*`}
       </label>
@@ -59,5 +48,3 @@ const TextInput: React.FC<TextInputProps> = (props) => {
     </div>
   );
 };
-
-export default TextInput;
