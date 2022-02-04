@@ -1848,6 +1848,19 @@
     "@react-types/shared" "^3.9.0"
     clsx "^1.1.1"
 
+"@react-aria/i18n@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@react-aria/i18n/-/i18n-3.3.4.tgz#172b8bcff0273410e67af31f7d84e49dd3ada463"
+  integrity sha512-1DV3I82UfL2dT8WBI/88TwtokO80B7ISSyuz6rO/6n7q76A/nC2AtVINbrGYrcKsCcxCEoEMxW5RVJ39fcLijA==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@internationalized/date" "3.0.0-alpha.1"
+    "@internationalized/message" "^3.0.2"
+    "@internationalized/number" "^3.0.2"
+    "@react-aria/ssr" "^3.0.3"
+    "@react-aria/utils" "^3.10.0"
+    "@react-types/shared" "^3.10.0"
+
 "@react-aria/interactions@^3.6.0":
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/@react-aria/interactions/-/interactions-3.7.0.tgz#eb19c1068b557a6b6df1e1c4abef07de719e9f25"
@@ -1867,20 +1880,6 @@
     "@react-types/label" "^3.5.0"
     "@react-types/shared" "^3.10.0"
 
-"@react-aria/ssr@^3.1.0":
-"@react-aria/i18n@^3.3.4":
-  version "3.3.4"
-  resolved "https://registry.yarnpkg.com/@react-aria/i18n/-/i18n-3.3.4.tgz#172b8bcff0273410e67af31f7d84e49dd3ada463"
-  integrity sha512-1DV3I82UfL2dT8WBI/88TwtokO80B7ISSyuz6rO/6n7q76A/nC2AtVINbrGYrcKsCcxCEoEMxW5RVJ39fcLijA==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@internationalized/date" "3.0.0-alpha.1"
-    "@internationalized/message" "^3.0.2"
-    "@internationalized/number" "^3.0.2"
-    "@react-aria/ssr" "^3.0.3"
-    "@react-aria/utils" "^3.10.0"
-    "@react-types/shared" "^3.10.0"
-
 "@react-aria/ssr@^3.0.3", "@react-aria/ssr@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@react-aria/ssr/-/ssr-3.1.0.tgz#b7163e6224725c30121932a8d1422ef91d1fab22"
@@ -1888,7 +1887,6 @@
   dependencies:
     "@babel/runtime" "^7.6.2"
 
-<<<<<<< HEAD
 "@react-aria/textfield@^3.5.0":
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/@react-aria/textfield/-/textfield-3.5.0.tgz#d711378e351b1374e6f11eda2896e6e481f0b0ba"
@@ -1902,9 +1900,6 @@
     "@react-types/textfield" "^3.3.0"
 
 "@react-aria/utils@^3.10.0", "@react-aria/utils@^3.9.0":
-=======
-"@react-aria/utils@^3.10.0":
->>>>>>> Add basic localization
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/@react-aria/utils/-/utils-3.11.0.tgz#215ea23a5435672a822cd713bdb8217972c5c80b"
   integrity sha512-4yFA8E9xqDCUlolYSsoyp/qxrkiQrnEqx1BQOrKDuicpW7MBJ39pJC23YFMpyK2a6xEptc6xJEeIEFJXp57jJw==
@@ -1922,7 +1917,6 @@
   dependencies:
     "@babel/runtime" "^7.6.2"
 
-<<<<<<< HEAD
 "@react-types/label@^3.5.0":
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/@react-types/label/-/label-3.5.0.tgz#c7093871f42c62e1b5523f61a0856a2f58d4cf2a"
@@ -1931,14 +1925,10 @@
     "@react-types/shared" "^3.9.0"
 
 "@react-types/shared@^3.10.0", "@react-types/shared@^3.10.1", "@react-types/shared@^3.9.0":
-=======
-"@react-types/shared@^3.10.0", "@react-types/shared@^3.10.1":
->>>>>>> Add basic localization
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/@react-types/shared/-/shared-3.10.1.tgz#16cd3038361dee63f351fa4d0fd25d90480a149b"
   integrity sha512-U3dLJtstvOiZ8XLrWdNv9WXuruoDyfIfSXguTs9N0naDdO+M0MIbt/1Hg7Toe43ueAe56GM14IFL+S0/jhv8ow==
 
-<<<<<<< HEAD
 "@react-types/textfield@^3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@react-types/textfield/-/textfield-3.3.0.tgz#07a447fda327df4843e7d36cbd00f87f8a73e725"
@@ -1946,8 +1936,6 @@
   dependencies:
     "@react-types/shared" "^3.9.0"
 
-=======
->>>>>>> Add basic localization
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-babel/-/plugin-babel-5.3.0.tgz#9cb1c5146ddd6a4968ad96f209c50c62f92f9879"
