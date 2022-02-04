@@ -40,6 +40,11 @@ const theme = {
     8: "32px",
     9: "36px",
     10: "40px",
+    12: "48px",
+    13: "52px",
+    19: "76px",
+    20: "80px",
+    100: "1400px",
   },
   fontWeight: {
     normal: 400,
