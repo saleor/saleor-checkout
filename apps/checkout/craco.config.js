@@ -8,6 +8,7 @@ module.exports = {
       "@icons": path.resolve(__dirname, "src/assets/icons/"),
       "@assets": path.resolve(__dirname, "src/assets/"),
       "@graphql": path.resolve(__dirname, "src/graphql"),
+      "@lib": path.resolve(__dirname, "src/lib"),
     },
   },
 };

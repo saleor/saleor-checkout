@@ -1,5 +1,42 @@
 query Checkout($token: UUID!) {
   checkout(token: $token) {
+    id
     email
+    lines {
+      id
+      quantity
+      totalPrice {
+        gross {
+          currency
+          amount
+        }
+      }
+      variant {
+        pricing {
+          onSale
+          price {
+            gross {
+              currency
+              amount
+            }
+          }
+          priceUndiscounted {
+            gross {
+              currency
+              amount
+            }
+          }
+        }
+        name
+        product {
+          name
+        }
+        media {
+          alt
+          url
+          type
+        }
+      }
+    }
   }
 }

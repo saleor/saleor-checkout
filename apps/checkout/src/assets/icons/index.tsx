@@ -10,7 +10,7 @@ import ExclamationIcon from "./alert.svg";
 import GiftCardIcon from "./giftCard.svg";
 import PenIcon from "./edit.svg";
 import ErrorIcon from "./error.svg";
-import LabelIcon from "discount.svg";
+import LabelIcon from "./discount.svg";
 
 export {
   LabelIcon,

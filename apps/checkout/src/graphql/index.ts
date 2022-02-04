@@ -1749,6 +1749,7 @@ export type CheckoutErrorCode =
   | 'INVALID_SHIPPING_METHOD'
   | 'MISSING_CHANNEL_SLUG'
   | 'NOT_FOUND'
+  | 'NO_LINES'
   | 'PAYMENT_ERROR'
   | 'PRODUCT_NOT_PUBLISHED'
   | 'PRODUCT_UNAVAILABLE_FOR_PURCHASE'
@@ -2537,6 +2538,11 @@ export type CountryDisplay = {
   country: Scalars['String'];
   /** Country tax. */
   vat?: Maybe<Vat>;
+};
+
+export type CountryFilterInput = {
+  /** Boolean for filtering countries by having shipping zone assigned.If 'true', return countries with shipping zone assigned.If 'false', return countries without any shipping zone assigned.If the argument is not provided (null), return all countries. */
+  attachedToShippingZones?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Create JWT token. */
@@ -8253,6 +8259,8 @@ export type PaymentError = {
   field?: Maybe<Scalars['String']>;
   /** The error message. */
   message?: Maybe<Scalars['String']>;
+  /** List of varint IDs which causes the error. */
+  variants?: Maybe<Array<Scalars['ID']>>;
 };
 
 /** An enumeration. */
@@ -8265,11 +8273,13 @@ export type PaymentErrorCode =
   | 'INVALID_SHIPPING_METHOD'
   | 'NOT_FOUND'
   | 'NOT_SUPPORTED_GATEWAY'
+  | 'NO_CHECKOUT_LINES'
   | 'PARTIAL_PAYMENT_NOT_ALLOWED'
   | 'PAYMENT_ERROR'
   | 'REQUIRED'
   | 'SHIPPING_ADDRESS_NOT_SET'
   | 'SHIPPING_METHOD_NOT_SET'
+  | 'UNAVAILABLE_VARIANT_IN_CHANNEL'
   | 'UNIQUE';
 
 export type PaymentFilterInput = {
@@ -8435,6 +8445,7 @@ export type PermissionGroupErrorCode =
   | 'UNIQUE';
 
 export type PermissionGroupFilterInput = {
+  ids?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   search?: InputMaybe<Scalars['String']>;
 };
 
@@ -11235,6 +11246,7 @@ export type ShopAvailableShippingMethodsArgs = {
 
 /** Represents a shop resource containing general shop data and configuration. */
 export type ShopCountriesArgs = {
+  filter?: InputMaybe<CountryFilterInput>;
   languageCode?: InputMaybe<LanguageCodeEnum>;
 };
 
@@ -11510,6 +11522,7 @@ export type StaffUpdateInput = {
 };
 
 export type StaffUserInput = {
+  ids?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   search?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<StaffMemberStatus>;
 };
@@ -12712,13 +12725,50 @@ export type CheckoutQueryVariables = Exact<{
 }>;
 
 
-export type CheckoutQuery = { __typename?: 'Query', checkout?: { __typename?: 'Checkout', email: string } | null };
+export type CheckoutQuery = { __typename?: 'Query', checkout?: { __typename?: 'Checkout', id: string, email: string, lines?: Array<{ __typename?: 'CheckoutLine', id: string, quantity: number, totalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, variant: { __typename?: 'ProductVariant', name: string, pricing?: { __typename?: 'VariantPricingInfo', onSale?: boolean | null, price?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, priceUndiscounted?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null } | null, product: { __typename?: 'Product', name: string }, media?: Array<{ __typename?: 'ProductMedia', alt: string, url: string, type: ProductMediaType }> | null } } | null> | null } | null };
 
 
 export const CheckoutDocument = gql`
     query Checkout($token: UUID!) {
   checkout(token: $token) {
+    id
     email
+    lines {
+      id
+      quantity
+      totalPrice {
+        gross {
+          currency
+          amount
+        }
+      }
+      variant {
+        pricing {
+          onSale
+          price {
+            gross {
+              currency
+              amount
+            }
+          }
+          priceUndiscounted {
+            gross {
+              currency
+              amount
+            }
+          }
+        }
+        name
+        product {
+          name
+        }
+        media {
+          alt
+          url
+          type
+        }
+      }
+    }
   }
 }
     `;

@@ -5,7 +5,8 @@
       "@sections/*": ["./src/sections/*"],
       "@icons": ["./src/assets/icons"],
       "@assets/*": ["./src/assets/*"],
-      "@graphql": ["./src/graphql"]
+      "@graphql": ["./src/graphql"],
+      "@lib/*": ["./src/lib/*"]
     },
     "types": ["react/next", "react-dom/next"],
     "target": "es5",

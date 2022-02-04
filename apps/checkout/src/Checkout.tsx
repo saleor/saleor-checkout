@@ -4,8 +4,9 @@ import { useFormattedMessages } from "./lib/messages";
 // import { Text } from "@components/Text";
 // import { useCheckoutQuery } from "@graphql";
 import PageHeader from "@sections/PageHeader";
-import Summary from "@sections/Summary";
+import { Summary } from "@sections/Summary";
 import CheckoutForm from "@sections/CheckoutForm";
+import { Suspense } from "react";
 
 // const SuspenseTest = () => {
 //   const [{ data }] = useCheckoutQuery({
@@ -27,7 +28,9 @@ export const Checkout = () => {
       <div className="page-content">
         <CheckoutForm />
         <div className="page-divider" />
-        <Summary />
+        <Suspense fallback={"Loading..."}>
+          <Summary />
+        </Suspense>
       </div>
     </div>
   );

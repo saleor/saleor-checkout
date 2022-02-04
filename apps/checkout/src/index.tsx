@@ -9,7 +9,7 @@ import { getCurrentRegion } from "./lib/regions";
 import { I18nProvider } from "@react-aria/i18n";
 
 const client = createClient({
-  url: "https://vercel-saleor-cloud.graphcdn.app/",
+  url: "https://stable.staging.saleor.cloud/graphql/",
   suspense: true,
 });
 
