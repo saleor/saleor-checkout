@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Font size set for rem */
+
+html {
+  font-size: 62.5%;
+}
+
 /* TextInput */
 
 .input {
@@ -42,11 +48,11 @@
 
   /* General Layout */
   .page {
-    @apply mx-auto flex flex-col pt-8 md:pt-10 px-4 md:px-10 xl:px-20 2xl:w-100;
+    @apply mx-auto flex flex-col pt-8 md:pt-10 px-10 md:px-10 xl:px-8 2xl:w-350;
   }
 
   .page-header {
-    @apply mb-10 md:mb-12;
+    @apply mb-4 md:mb-12;
   }
 
   .page-content {
@@ -54,7 +60,7 @@
   }
 
   .page-divider {
-    @apply h-6 md:h-full w-full md:w-13 xl:w-19;
+    @apply h-6 md:h-full w-full md:w-12 xl:w-18;
   }
 
   /* Summary */
