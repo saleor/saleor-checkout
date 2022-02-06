@@ -11,6 +11,7 @@ import { I18nProvider } from "@react-aria/i18n";
 const client = createClient({
   url: "https://stable.staging.saleor.cloud/graphql/",
   suspense: true,
+  requestPolicy: "cache-first",
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);

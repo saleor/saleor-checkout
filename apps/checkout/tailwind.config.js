@@ -38,11 +38,10 @@ const theme = {
   fontFamily: {
     sans: ["Inter"],
   },
-  spacing: getSpacing(
-    0.4,
-    "rem",
-    [0, 1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 18, 8, 350]
-  ),
+  spacing: {
+    px: "1px",
+    ...getSpacing(0.4, "rem", [0, 1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 18, 8, 350]),
+  },
   fontWeight: {
     normal: 400,
     bold: 600,

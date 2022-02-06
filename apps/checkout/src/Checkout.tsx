@@ -1,5 +1,4 @@
 // import { Suspense } from "react";
-import { useFormattedMessages } from "./lib/messages";
 
 // import { Text } from "@components/Text";
 // import { useCheckoutQuery } from "@graphql";
@@ -7,6 +6,7 @@ import PageHeader from "@sections/PageHeader";
 import { Summary } from "@sections/Summary";
 import CheckoutForm from "@sections/CheckoutForm";
 import { Suspense } from "react";
+import { useCheckoutQuery } from "@graphql";
 
 // const SuspenseTest = () => {
 //   const [{ data }] = useCheckoutQuery({

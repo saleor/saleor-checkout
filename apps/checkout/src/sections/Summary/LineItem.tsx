@@ -1,51 +1,18 @@
-import { ProductMediaType } from "@graphql";
-import React from "react";
+import { CheckoutLine } from "@graphql";
+import React, { Suspense } from "react";
 import kittyCatImg from "@assets/images/kittycat.jpeg";
 import { Text } from "@components/Text";
-import { PlusIcon, MinusIcon } from "@assets/icons";
 import clsx from "clsx";
 import { Money } from "@components/Money";
-import { useFormattedMessages } from "@lib/messages";
-import { useFormattedMoney } from "@lib/money";
+import { useFormattedMessages } from "@hooks/useFormattedMessages";
+import { useFormattedMoney } from "@hooks/useFormattedMoney";
+import LineItemQuantitySelector from "./LineItemQuantitySelector";
 
-export type CheckoutLine = {
-  __typename?: "CheckoutLine";
-  id: string;
-  quantity: number;
-  totalPrice?: {
-    __typename?: "TaxedMoney";
-    gross: { __typename?: "Money"; currency: string; amount: number };
-  } | null;
-  variant: {
-    __typename?: "ProductVariant";
-    name: string;
-    pricing?: {
-      __typename?: "VariantPricingInfo";
-      onSale?: boolean | null;
-      price?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
-      priceUndiscounted?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
-    } | null;
-    product: { __typename?: "Product"; name: string };
-    media?: Array<{
-      __typename?: "ProductMedia";
-      alt: string;
-      url: string;
-      type: ProductMediaType;
-    }> | null;
-  };
-};
-
-interface CheckoutLineItemProps {
+interface LineItemProps {
   line: CheckoutLine;
 }
 
-export const CheckoutLineItem: React.FC<CheckoutLineItemProps> = ({ line }) => {
+export const LineItem: React.FC<LineItemProps> = ({ line }) => {
   const {
     quantity,
     totalPrice,
@@ -65,7 +32,7 @@ export const CheckoutLineItem: React.FC<CheckoutLineItemProps> = ({ line }) => {
   const multiplePieces = quantity > 1;
 
   return (
-    <div className="h-18 flex flex-row justify-between mb-6">
+    <div className="h-18 summary-row mb-6">
       <div className="flex flex-row">
         <div className="h-18 w-18 mr-4">
           {productImage ? (
@@ -90,13 +57,9 @@ export const CheckoutLineItem: React.FC<CheckoutLineItemProps> = ({ line }) => {
         </div>
       </div>
       <div className="flex flex-col items-end">
-        <div className="flex flex-row mb-3">
-          <img src={PlusIcon} alt="add" />
-          <Text bold className="mx-3">
-            {quantity}
-          </Text>
-          <img src={MinusIcon} alt="remove" />
-        </div>
+        <Suspense fallback="Loading lol xD">
+          <LineItemQuantitySelector line={line} />
+        </Suspense>
         <div className="flex flex-row justify-end">
           {pricing?.onSale && (
             <Money

@@ -65,7 +65,11 @@ html {
 
   /* Summary */
   .summary {
-    @apply flex flex-col w-full md:w-1/2 xl:w-1/3 border p-6;
+    @apply flex flex-col w-full md:w-1/2 xl:w-1/3 border border-border-primary px-6 py-8;
+  }
+
+  .summary-row {
+    @apply flex flex-row justify-between;
   }
 
   /* Checkout Form */

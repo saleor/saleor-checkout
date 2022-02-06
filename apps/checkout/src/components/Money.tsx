@@ -1,7 +1,9 @@
-import { useNumberFormatter } from "@react-aria/i18n";
 import clsx from "clsx";
 import { Text, TextProps } from "./Text";
-import { Money as MoneyType, useFormattedMoney } from "@lib/money";
+import {
+  Money as MoneyType,
+  useFormattedMoney,
+} from "@hooks/useFormattedMoney";
 
 export interface MoneyProps<TMoney extends MoneyType> extends TextProps {
   money?: TMoney;

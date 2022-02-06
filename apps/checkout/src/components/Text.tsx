@@ -19,11 +19,12 @@ export const Text: React.FC<TextProps> = ({
 }) => {
   const classes = clsx(
     {
-      "text-base": !size,
+      "text-text-primary": !color,
       "text-text-secondary": color === "secondary",
       "text-text-tertiary": color === "tertiary",
       "text-error": color === "error",
       "text-sm": size === "sm",
+      "text-base": !size,
       "text-lg": size === "lg",
       "text-xl": size === "xl" || title,
       "font-bold": bold || title,
