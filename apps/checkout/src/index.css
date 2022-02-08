@@ -48,7 +48,7 @@ html {
 
   /* General Layout */
   .page {
-    @apply mx-auto flex flex-col pt-8 md:pt-10 px-10 md:px-10 xl:px-8 2xl:w-350;
+    @apply min-h-screen bg-background-primary mx-auto flex flex-col pt-8 md:pt-10 px-10 md:px-10 xl:px-8 2xl:w-350;
   }
 
   .page-header {
@@ -70,6 +70,10 @@ html {
 
   .summary-row {
     @apply flex flex-row justify-between;
+  }
+
+  .delete-row-button {
+    @apply absolute -left-4 top-1 bg-button-secondary hover:bg-button-quaternary active:bg-button-tertiary w-8 h-8 flex items-center justify-center rounded-full;
   }
 
   /* Checkout Form */

@@ -10,6 +10,10 @@ const getSpacing = (
 
 const theme = {
   colors: {
+    background: {
+      primary: "#E5E5E5",
+      secondary: "#FFFFFF",
+    },
     text: {
       primary: "#394052",
       secondary: "#8A919F",
@@ -20,6 +24,7 @@ const theme = {
       primary: "#394052",
       secondary: "#FFFFFF",
       tertiary: "#DEE4EF",
+      quaternary: "#EEF1F7",
       transparent: "transparent",
     },
     border: {

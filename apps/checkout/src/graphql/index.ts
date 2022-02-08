@@ -12737,6 +12737,14 @@ export type CheckoutLinesUpdateMutationVariables = Exact<{
 
 export type CheckoutLinesUpdateMutation = { __typename?: 'Mutation', checkoutLinesUpdate?: { __typename?: 'CheckoutLinesUpdate', errors: Array<{ __typename?: 'CheckoutError', message?: string | null, field?: string | null, code: CheckoutErrorCode }>, checkout?: { __typename?: 'Checkout', token: string, lines?: Array<{ __typename?: 'CheckoutLine', id: string, quantity: number, totalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, variant: { __typename?: 'ProductVariant', id: string, name: string, pricing?: { __typename?: 'VariantPricingInfo', onSale?: boolean | null, price?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, priceUndiscounted?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null } | null, product: { __typename?: 'Product', name: string }, media?: Array<{ __typename?: 'ProductMedia', alt: string, url: string, type: ProductMediaType }> | null } } | null> | null } | null } | null };
 
+export type CheckoutLineDeleteMutationVariables = Exact<{
+  token: Scalars['UUID'];
+  lineId?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type CheckoutLineDeleteMutation = { __typename?: 'Mutation', checkoutLineDelete?: { __typename?: 'CheckoutLineDelete', errors: Array<{ __typename?: 'CheckoutError', message?: string | null, field?: string | null, code: CheckoutErrorCode }>, checkout?: { __typename?: 'Checkout', token: string, lines?: Array<{ __typename?: 'CheckoutLine', id: string, quantity: number, totalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, variant: { __typename?: 'ProductVariant', id: string, name: string, pricing?: { __typename?: 'VariantPricingInfo', onSale?: boolean | null, price?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, priceUndiscounted?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null } | null, product: { __typename?: 'Product', name: string }, media?: Array<{ __typename?: 'ProductMedia', alt: string, url: string, type: ProductMediaType }> | null } } | null> | null } | null } | null };
+
 export const CheckoutLineFragmentDoc = gql`
     fragment CheckoutLineFragment on CheckoutLine {
   id
@@ -12833,4 +12841,25 @@ export const CheckoutLinesUpdateDocument = gql`
 
 export function useCheckoutLinesUpdateMutation() {
   return Urql.useMutation<CheckoutLinesUpdateMutation, CheckoutLinesUpdateMutationVariables>(CheckoutLinesUpdateDocument);
+};
+export const CheckoutLineDeleteDocument = gql`
+    mutation CheckoutLineDelete($token: UUID!, $lineId: ID) {
+  checkoutLineDelete(token: $token, lineId: $lineId) {
+    errors {
+      message
+      field
+      code
+    }
+    checkout {
+      token
+      lines {
+        ...CheckoutLineFragment
+      }
+    }
+  }
+}
+    ${CheckoutLineFragmentDoc}`;
+
+export function useCheckoutLineDeleteMutation() {
+  return Urql.useMutation<CheckoutLineDeleteMutation, CheckoutLineDeleteMutationVariables>(CheckoutLineDeleteDocument);
 };

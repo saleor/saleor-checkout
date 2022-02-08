@@ -7,6 +7,7 @@ import { Money } from "@components/Money";
 import { useFormattedMessages } from "@hooks/useFormattedMessages";
 import { useFormattedMoney } from "@hooks/useFormattedMoney";
 import LineItemQuantitySelector from "./LineItemQuantitySelector";
+import LineItemDelete from "./LineItemDelete";
 
 interface LineItemProps {
   line: CheckoutLine;
@@ -33,8 +34,9 @@ export const LineItem: React.FC<LineItemProps> = ({ line }) => {
 
   return (
     <div className="h-18 summary-row mb-6">
-      <div className="flex flex-row">
-        <div className="h-18 w-18 mr-4">
+      <div className="relative flex flex-row">
+        <LineItemDelete line={line} />
+        <div className="h-18 w-18 mr-4 z-1">
           {productImage ? (
             <img
               className="object-contain"

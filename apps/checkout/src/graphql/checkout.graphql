@@ -83,3 +83,19 @@ mutation CheckoutLinesUpdate($token: UUID!, $lines: [CheckoutLineInput]!) {
     }
   }
 }
+
+mutation CheckoutLineDelete($token: UUID!, $lineId: ID) {
+  checkoutLineDelete(token: $token, lineId: $lineId) {
+    errors {
+      message
+      field
+      code
+    }
+    checkout {
+      token
+      lines {
+        ...CheckoutLineFragment
+      }
+    }
+  }
+}
