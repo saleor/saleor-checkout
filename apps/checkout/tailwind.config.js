@@ -8,11 +8,18 @@ const getSpacing = (
   }, {});
 };
 
+const spacing = getSpacing(
+  0.4,
+  "rem",
+  [0, 1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 18, 21, 28, 256, 350]
+);
+
 const theme = {
   colors: {
     background: {
-      primary: "#E5E5E5",
+      primary: "#FAFAFA",
       secondary: "#FFFFFF",
+      tertiary: "#EEF1F7",
     },
     text: {
       primary: "#394052",
@@ -45,7 +52,7 @@ const theme = {
   },
   spacing: {
     px: "1px",
-    ...getSpacing(0.4, "rem", [0, 1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 18, 8, 350]),
+    ...spacing,
   },
   fontWeight: {
     normal: 400,
@@ -58,7 +65,9 @@ const theme = {
     lg: ["1.6rem", "2.3rem"],
     xl: ["3.2rem", "4.6rem"],
   },
-  extend: {},
+  extend: {
+    minHeight: spacing,
+  },
 };
 
 module.exports = {
