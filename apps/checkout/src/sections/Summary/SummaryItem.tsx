@@ -1,9 +1,9 @@
 import { CheckoutLine } from "@graphql";
 import React from "react";
-import kittyCatImg from "@assets/images/kittycat.jpeg";
 import { Text } from "@components/Text";
 import { SummaryItemMoneySection } from "./SummaryItemMoneySection";
 import { SummaryItemDelete } from "./SummaryItemDelete";
+import { PhotoIcon } from "@icons";
 
 interface LineItemProps {
   line: CheckoutLine;
@@ -32,11 +32,7 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
               src={productImage?.url}
             />
           ) : (
-            <img
-              className="summary-item-image object-cover"
-              alt="product image"
-              src={kittyCatImg}
-            />
+            <img className="object-cover" alt="product image" src={PhotoIcon} />
           )}
         </div>
       </div>

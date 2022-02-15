@@ -109,7 +109,7 @@ html {
   }
 
   .summary-item-image {
-    @apply w-18 h-18;
+    @apply w-18 h-18 flex items-center justify-center;
   }
 
   .summary .delete-row-button {
