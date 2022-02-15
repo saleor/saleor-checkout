@@ -18,6 +18,7 @@ export const Text: React.FC<TextProps> = ({
   className,
 }) => {
   const classes = clsx(
+    "text",
     {
       "text-text-primary": !color,
       "text-text-secondary": color === "secondary",

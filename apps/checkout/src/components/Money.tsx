@@ -22,7 +22,7 @@ export const Money = <TMoney extends MoneyType>({
   }
 
   return (
-    <Text {...textProps} className={clsx(className)}>
+    <Text {...textProps} className={clsx("money", className)}>
       {formattedMoney}
     </Text>
   );

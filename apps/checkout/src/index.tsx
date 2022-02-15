@@ -17,13 +17,13 @@ const client = createClient({
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
 root.render(
-  <React.StrictMode>
-    <I18nProvider locale={getCurrentRegion()}>
-      <UrqlProvider value={client}>
-        <Checkout />
-      </UrqlProvider>
-    </I18nProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <I18nProvider locale={getCurrentRegion()}>
+    <UrqlProvider value={client}>
+      <Checkout />
+    </UrqlProvider>
+  </I18nProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

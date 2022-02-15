@@ -12720,14 +12720,16 @@ export type _Service = {
   sdl?: Maybe<Scalars['String']>;
 };
 
-export type CheckoutLineFragment = { __typename?: 'CheckoutLine', id: string, quantity: number, totalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, variant: { __typename?: 'ProductVariant', id: string, name: string, pricing?: { __typename?: 'VariantPricingInfo', onSale?: boolean | null, price?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, priceUndiscounted?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null } | null, product: { __typename?: 'Product', name: string }, media?: Array<{ __typename?: 'ProductMedia', alt: string, url: string, type: ProductMediaType }> | null } };
+export type CheckoutLineFragment = { __typename?: 'CheckoutLine', id: string, quantity: number, totalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, variant: { __typename?: 'ProductVariant', id: string, name: string, pricing?: { __typename?: 'VariantPricingInfo', onSale?: boolean | null, price?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, priceUndiscounted?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null } | null, product: { __typename?: 'Product', name: string }, media?: Array<{ __typename?: 'ProductMedia', alt: string, type: ProductMediaType, url: string }> | null } };
+
+export type CheckoutFragment = { __typename?: 'Checkout', id: string, email: string, totalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', amount: number, currency: string }, tax: { __typename?: 'Money', currency: string, amount: number } } | null, shippingPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', amount: number, currency: string } } | null, subtotalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', amount: number, currency: string } } | null, lines?: Array<{ __typename?: 'CheckoutLine', id: string, quantity: number, totalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, variant: { __typename?: 'ProductVariant', id: string, name: string, pricing?: { __typename?: 'VariantPricingInfo', onSale?: boolean | null, price?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, priceUndiscounted?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null } | null, product: { __typename?: 'Product', name: string }, media?: Array<{ __typename?: 'ProductMedia', alt: string, type: ProductMediaType, url: string }> | null } } | null> | null };
 
 export type CheckoutQueryVariables = Exact<{
   token: Scalars['UUID'];
 }>;
 
 
-export type CheckoutQuery = { __typename?: 'Query', checkout?: { __typename?: 'Checkout', id: string, email: string, totalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', amount: number, currency: string }, tax: { __typename?: 'Money', currency: string, amount: number } } | null, shippingPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', amount: number, currency: string } } | null, subtotalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', amount: number, currency: string } } | null, lines?: Array<{ __typename?: 'CheckoutLine', id: string, quantity: number, totalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, variant: { __typename?: 'ProductVariant', id: string, name: string, pricing?: { __typename?: 'VariantPricingInfo', onSale?: boolean | null, price?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, priceUndiscounted?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null } | null, product: { __typename?: 'Product', name: string }, media?: Array<{ __typename?: 'ProductMedia', alt: string, url: string, type: ProductMediaType }> | null } } | null> | null } | null };
+export type CheckoutQuery = { __typename?: 'Query', checkout?: { __typename?: 'Checkout', id: string, email: string, totalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', amount: number, currency: string }, tax: { __typename?: 'Money', currency: string, amount: number } } | null, shippingPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', amount: number, currency: string } } | null, subtotalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', amount: number, currency: string } } | null, lines?: Array<{ __typename?: 'CheckoutLine', id: string, quantity: number, totalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, variant: { __typename?: 'ProductVariant', id: string, name: string, pricing?: { __typename?: 'VariantPricingInfo', onSale?: boolean | null, price?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, priceUndiscounted?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null } | null, product: { __typename?: 'Product', name: string }, media?: Array<{ __typename?: 'ProductMedia', alt: string, type: ProductMediaType, url: string }> | null } } | null> | null } | null };
 
 export type CheckoutLinesUpdateMutationVariables = Exact<{
   token: Scalars['UUID'];
@@ -12735,7 +12737,7 @@ export type CheckoutLinesUpdateMutationVariables = Exact<{
 }>;
 
 
-export type CheckoutLinesUpdateMutation = { __typename?: 'Mutation', checkoutLinesUpdate?: { __typename?: 'CheckoutLinesUpdate', errors: Array<{ __typename?: 'CheckoutError', message?: string | null, field?: string | null, code: CheckoutErrorCode }>, checkout?: { __typename?: 'Checkout', token: string, lines?: Array<{ __typename?: 'CheckoutLine', id: string, quantity: number, totalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, variant: { __typename?: 'ProductVariant', id: string, name: string, pricing?: { __typename?: 'VariantPricingInfo', onSale?: boolean | null, price?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, priceUndiscounted?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null } | null, product: { __typename?: 'Product', name: string }, media?: Array<{ __typename?: 'ProductMedia', alt: string, url: string, type: ProductMediaType }> | null } } | null> | null } | null } | null };
+export type CheckoutLinesUpdateMutation = { __typename?: 'Mutation', checkoutLinesUpdate?: { __typename?: 'CheckoutLinesUpdate', errors: Array<{ __typename?: 'CheckoutError', message?: string | null, field?: string | null, code: CheckoutErrorCode }>, checkout?: { __typename?: 'Checkout', token: string, lines?: Array<{ __typename?: 'CheckoutLine', id: string, quantity: number, totalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, variant: { __typename?: 'ProductVariant', id: string, name: string, pricing?: { __typename?: 'VariantPricingInfo', onSale?: boolean | null, price?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, priceUndiscounted?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null } | null, product: { __typename?: 'Product', name: string }, media?: Array<{ __typename?: 'ProductMedia', alt: string, type: ProductMediaType, url: string }> | null } } | null> | null } | null } | null };
 
 export type CheckoutLineDeleteMutationVariables = Exact<{
   token: Scalars['UUID'];
@@ -12743,7 +12745,7 @@ export type CheckoutLineDeleteMutationVariables = Exact<{
 }>;
 
 
-export type CheckoutLineDeleteMutation = { __typename?: 'Mutation', checkoutLineDelete?: { __typename?: 'CheckoutLineDelete', errors: Array<{ __typename?: 'CheckoutError', message?: string | null, field?: string | null, code: CheckoutErrorCode }>, checkout?: { __typename?: 'Checkout', token: string, lines?: Array<{ __typename?: 'CheckoutLine', id: string, quantity: number, totalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, variant: { __typename?: 'ProductVariant', id: string, name: string, pricing?: { __typename?: 'VariantPricingInfo', onSale?: boolean | null, price?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, priceUndiscounted?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null } | null, product: { __typename?: 'Product', name: string }, media?: Array<{ __typename?: 'ProductMedia', alt: string, url: string, type: ProductMediaType }> | null } } | null> | null } | null } | null };
+export type CheckoutLineDeleteMutation = { __typename?: 'Mutation', checkoutLineDelete?: { __typename?: 'CheckoutLineDelete', errors: Array<{ __typename?: 'CheckoutError', message?: string | null, field?: string | null, code: CheckoutErrorCode }>, checkout?: { __typename?: 'Checkout', token: string, lines?: Array<{ __typename?: 'CheckoutLine', id: string, quantity: number, totalPrice?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, variant: { __typename?: 'ProductVariant', id: string, name: string, pricing?: { __typename?: 'VariantPricingInfo', onSale?: boolean | null, price?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null, priceUndiscounted?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } | null } | null, product: { __typename?: 'Product', name: string }, media?: Array<{ __typename?: 'ProductMedia', alt: string, type: ProductMediaType, url: string }> | null } } | null> | null } | null } | null };
 
 export const CheckoutLineFragmentDoc = gql`
     fragment CheckoutLineFragment on CheckoutLine {
@@ -12778,45 +12780,50 @@ export const CheckoutLineFragmentDoc = gql`
     }
     media {
       alt
-      url
       type
+      url(size: 72)
     }
   }
 }
     `;
-export const CheckoutDocument = gql`
-    query Checkout($token: UUID!) {
-  checkout(token: $token) {
-    id
-    email
-    totalPrice {
-      gross {
-        amount
-        currency
-      }
-      tax {
-        currency
-        amount
-      }
+export const CheckoutFragmentDoc = gql`
+    fragment CheckoutFragment on Checkout {
+  id
+  email
+  totalPrice {
+    gross {
+      amount
+      currency
     }
-    shippingPrice {
-      gross {
-        amount
-        currency
-      }
+    tax {
+      currency
+      amount
     }
-    subtotalPrice {
-      gross {
-        amount
-        currency
-      }
+  }
+  shippingPrice {
+    gross {
+      amount
+      currency
     }
-    lines {
-      ...CheckoutLineFragment
+  }
+  subtotalPrice {
+    gross {
+      amount
+      currency
     }
+  }
+  lines {
+    ...CheckoutLineFragment
   }
 }
     ${CheckoutLineFragmentDoc}`;
+export const CheckoutDocument = gql`
+    query Checkout($token: UUID!) {
+  checkout(token: $token) {
+    ...CheckoutFragment
+  }
+}
+    ${CheckoutFragmentDoc}`;
 
 export function useCheckoutQuery(options: Omit<Urql.UseQueryArgs<CheckoutQueryVariables>, 'query'>) {
   return Urql.useQuery<CheckoutQuery>({ query: CheckoutDocument, ...options });

@@ -30,41 +30,45 @@ fragment CheckoutLineFragment on CheckoutLine {
     }
     media {
       alt
-      url
       type
+      url(size: 72)
     }
+  }
+}
+
+fragment CheckoutFragment on Checkout {
+  id
+  email
+  totalPrice {
+    gross {
+      amount
+      currency
+    }
+    tax {
+      currency
+      amount
+    }
+  }
+  shippingPrice {
+    gross {
+      amount
+      currency
+    }
+  }
+  subtotalPrice {
+    gross {
+      amount
+      currency
+    }
+  }
+  lines {
+    ...CheckoutLineFragment
   }
 }
 
 query Checkout($token: UUID!) {
   checkout(token: $token) {
-    id
-    email
-    totalPrice {
-      gross {
-        amount
-        currency
-      }
-      tax {
-        currency
-        amount
-      }
-    }
-    shippingPrice {
-      gross {
-        amount
-        currency
-      }
-    }
-    subtotalPrice {
-      gross {
-        amount
-        currency
-      }
-    }
-    lines {
-      ...CheckoutLineFragment
-    }
+    ...CheckoutFragment
   }
 }
 

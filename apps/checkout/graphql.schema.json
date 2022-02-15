@@ -39058,7 +39058,7 @@
               },
               {
                 "name": "input",
-                "description": "('List of fields required to create or upgrade product variant ', 'channel listings.')",
+                "description": "('List of fields required to create or upgrade product variant channel listings.',)",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,

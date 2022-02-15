@@ -18,19 +18,21 @@ import { useCheckoutQuery } from "@graphql";
 
 export const Checkout = () => {
   return (
-    <div className="page">
-      <PageHeader />
-      {/* <Text size="sm" color="secondary">
+    <div className="app">
+      <div className="page">
+        <PageHeader />
+        {/* <Text size="sm" color="secondary">
         <Suspense fallback={"Loading..."}>
           <SuspenseTest />
         </Suspense>
       </Text> */}
-      <div className="page-content">
-        <CheckoutForm />
-        <div className="page-divider" />
-        <Suspense fallback={"Loading..."}>
-          <Summary />
-        </Suspense>
+        <div className="page-content">
+          <CheckoutForm />
+          <div className="page-divider" />
+          <Suspense fallback={"Loading..."}>
+            <Summary />
+          </Suspense>
+        </div>
       </div>
     </div>
   );
