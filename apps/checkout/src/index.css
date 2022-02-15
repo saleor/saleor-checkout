@@ -84,9 +84,16 @@ html {
     @apply sm:text-xl;
   }
 
-  .summary-title img,
   .summary-title .money {
     @apply sm:hidden;
+  }
+
+  .summary-title img {
+    @apply sm:hidden transition-all;
+  }
+
+  .summary-title.open img {
+    @apply origin-center rotate-180;
   }
 
   .summary-items {

@@ -7,6 +7,7 @@ import Divider from "@components/Divider";
 import { Money } from "@components/Money";
 import { ChevronDownIcon } from "@icons";
 import { Transition } from "@headlessui/react";
+import clsx from "clsx";
 
 interface SummaryProps {}
 
@@ -31,7 +32,7 @@ export const Summary: React.FC<SummaryProps> = ({}) => {
 
   return (
     <div className="summary">
-      <div className="summary-title">
+      <div className={clsx("summary-title", isOpen && "open")}>
         <div className="flex flex-row items-center">
           <Text title>{formatMessage("summary")}</Text>
           <img
