@@ -67,8 +67,6 @@ export const SummaryItemMoneySection: React.FC<
     updateLines(getUpdateLineVars(quantity));
   };
 
-  console.log({ quantity });
-
   const debouncedSubmit = useCallback(
     debounce((quantity) => handleSubmit(quantity), 2000),
     []
@@ -92,7 +90,8 @@ export const SummaryItemMoneySection: React.FC<
     <div className="flex flex-col items-end">
       <div className="flex flex-row mb-3">
         <IconButton
-          onClick={() => {
+          aria-label="add item quantity"
+          onPress={() => {
             setQuantity(quantity - 1);
           }}
         >
@@ -102,10 +101,9 @@ export const SummaryItemMoneySection: React.FC<
           {quantity}
         </Text>
         <IconButton
-          onClick={() => {
-            // console.log("HEYYYA");
-            handleSubmit(quantity + 1);
-            // setQuantity(quantity + 1);
+          aria-label="subtract item quantity"
+          onPress={() => {
+            setQuantity(quantity + 1);
           }}
         >
           <img src={PlusIcon} alt="add" />
@@ -114,6 +112,7 @@ export const SummaryItemMoneySection: React.FC<
       <div className="flex flex-row justify-end">
         {pricing?.onSale && (
           <Money
+            ariaLabel={formatMessage("undiscountedPriceLabel")}
             money={{
               currency: pricing?.priceUndiscounted?.gross?.currency as string,
               amount:
@@ -123,6 +122,7 @@ export const SummaryItemMoneySection: React.FC<
           />
         )}
         <Money
+          ariaLabel={formatMessage("totalPriceLabel")}
           money={{
             currency: piecePrice?.currency as string,
             amount: (piecePrice?.amount || 0) * quantity,
@@ -134,7 +134,12 @@ export const SummaryItemMoneySection: React.FC<
         />
       </div>
       {multiplePieces && (
-        <Text size="sm" color="secondary" className="ml-4">
+        <Text
+          ariaLabel={formatMessage("singlePiecePriceLabel")}
+          size="sm"
+          color="secondary"
+          className="ml-4"
+        >
           {`${formattedPiecePrice} ${formatMessage("each")}`}
         </Text>
       )}

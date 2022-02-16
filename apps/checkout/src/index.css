@@ -56,7 +56,11 @@ html {
   }
 
   .page-header {
-    @apply mb-4 md:mb-12;
+    @apply mb-6 md:mb-12;
+  }
+
+  .page-header .saleor-logo {
+    @apply h-10;
   }
 
   .page-content {
@@ -102,10 +106,6 @@ html {
 
   .summary-row {
     @apply flex flex-row justify-between;
-  }
-
-  .summary-left-col {
-    @apply w-18;
   }
 
   .summary-item-image {

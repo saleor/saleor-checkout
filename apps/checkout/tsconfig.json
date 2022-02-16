@@ -4,6 +4,7 @@
       "@components/*": ["./src/components/*"],
       "@sections/*": ["./src/sections/*"],
       "@icons": ["./src/assets/icons"],
+      "@images": ["./src/assets/images"],
       "@assets/*": ["./src/assets/*"],
       "@graphql": ["./src/graphql"],
       "@lib/*": ["./src/lib/*"],

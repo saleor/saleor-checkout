@@ -17,5 +17,14 @@
   "adressNotSupported": "We do not support shipment to this address",
   "otherCountriesNotSupported": "We do not support shipment to other countries",
   "useAsBilling": "Use as billing address",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "itemNameLabel": "item name",
+  "variantNameLabel": "variant name",
+  "undiscountedPriceLabel": "undiscountedPrice",
+  "totalPriceLabel": "total price",
+  "singlePiecePriceLabel": "single piece price",
+  "subtotalLabel": "subtotal",
+  "taxCostLabel": "tax cost",
+  "totalLabel": "total price",
+  "shippingCostLabel": "shipping cost"
 }

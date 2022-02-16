@@ -7,6 +7,9 @@ export interface TextProps {
   bold?: boolean;
   title?: boolean;
   className?: string;
+  ariaLabel?: string;
+  labeledBy?: string;
+  id?: string;
 }
 
 export const Text: React.FC<TextProps> = ({
@@ -16,6 +19,9 @@ export const Text: React.FC<TextProps> = ({
   bold,
   title,
   className,
+  ariaLabel,
+  labeledBy,
+  id,
 }) => {
   const classes = clsx(
     "text",
@@ -33,9 +39,16 @@ export const Text: React.FC<TextProps> = ({
     className
   );
 
+  const textProps = {
+    className: classes,
+    "aria-label": ariaLabel,
+    "labeled-by": ariaLabel,
+    id: id,
+  };
+
   if (size === "xl") {
-    return <h2 className={classes}>{children}</h2>;
+    return <h2 {...textProps}>{children}</h2>;
   }
 
-  return <p className={classes}>{children}</p>;
+  return <p {...textProps}>{children}</p>;
 };

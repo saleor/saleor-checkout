@@ -55,37 +55,54 @@ export const Summary: React.FC<SummaryProps> = ({}) => {
       >
         <div className="w-full h-12" />
         <ul className="summary-items">
-          {data?.checkout?.lines.map((line: CheckoutLine, idx) => (
-            <SummaryItem line={line} key={line.id + idx} />
+          {data?.checkout?.lines.map((line: CheckoutLine) => (
+            <SummaryItem line={line} key={line.id} />
           ))}
         </ul>
-        <div className="flex flex-col max-w-full px-6 ml-0 md:ml-18">
+        <div className="flex flex-col max-w-full px-6 ml-0 md:ml-22">
           <div className="summary-row">
-            <Text bold>{formatMessage("subtotal")}</Text>
-            <Money bold money={data?.checkout?.subtotalPrice?.gross} />
+            <Text id={formatMessage("subtotalLabel")} bold>
+              {formatMessage("subtotal")}
+            </Text>
+            <Money
+              labeledBy={formatMessage("subtotalLabel")}
+              bold
+              money={data?.checkout?.subtotalPrice?.gross}
+            />
           </div>
           <Divider className="my-4" />
           <div className="summary-row mb-2">
-            <Text color="secondary">{formatMessage("shippingCost")}</Text>
+            <Text id={formatMessage("shippingCostLabel")} color="secondary">
+              {formatMessage("shippingCost")}
+            </Text>
             <Money
+              labeledBy={formatMessage("shippingCostLabel")}
               color="secondary"
               money={data?.checkout?.shippingPrice?.gross}
             />
           </div>
           <div className="summary-row">
-            <Text color="secondary">
+            <Text id={formatMessage("taxCostLabel")} color="secondary">
               {formatMessage("taxCost", {
                 taxPercentage: getTaxPercentage(),
               })}
             </Text>
-            <Money color="secondary" money={taxCost} />
+            <Money
+              labeledBy={formatMessage("taxCostLabel")}
+              color="secondary"
+              money={taxCost}
+            />
           </div>
           <Divider className="my-4" />
           <div className="summary-row">
-            <Text size="lg" bold>
+            <Text id={formatMessage("totalLabel")} size="lg" bold>
               {formatMessage("total")}
             </Text>
-            <Money bold money={totalPrice} />
+            <Money
+              bold
+              money={totalPrice}
+              labeledBy={formatMessage("totalLabel")}
+            />
           </div>
         </div>
       </Transition>

@@ -4,6 +4,7 @@ import { Text } from "@components/Text";
 import { SummaryItemMoneySection } from "./SummaryItemMoneySection";
 import { SummaryItemDelete } from "./SummaryItemDelete";
 import { PhotoIcon } from "@icons";
+import { useFormattedMessages } from "@hooks/useFormattedMessages";
 
 interface LineItemProps {
   line: CheckoutLine;
@@ -17,6 +18,8 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
       media,
     },
   } = line;
+
+  const formatMessage = useFormattedMessages();
 
   const productImage = media?.find(({ type }) => type === "IMAGE");
 
@@ -32,16 +35,26 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
               src={productImage?.url}
             />
           ) : (
-            <img className="object-cover" alt="product image" src={PhotoIcon} />
+            <img
+              className="object-cover"
+              alt="product image placeholder"
+              src={PhotoIcon}
+            />
           )}
         </div>
       </div>
       <div className="summary-row w-full">
         <div className="flex flex-col">
-          <Text bold className="mb-2">
+          <Text
+            bold
+            ariaLabel={formatMessage("itemNameLabel")}
+            className="mb-2"
+          >
             {productName}
           </Text>
-          <Text>{variantName}</Text>
+          <Text ariaLabel={formatMessage("variantNameLabel")}>
+            {variantName}
+          </Text>
         </div>
         <SummaryItemMoneySection line={line} />
       </div>
