@@ -9,16 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@saleor/app-bridge": "^0.1.5",
+    "@saleor/macaw-ui": "mirumee/macaw-ui#8bad114",
     "next": "12.0.7",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@types/react": "17.0.37",
     "config": "*",
     "eslint": "7.32.0",
     "next-transpile-modules": "9.0.0",
     "tsconfig": "*",
-    "@types/react": "17.0.37",
     "typescript": "^4.5.3"
   }
 }
