@@ -8,19 +8,18 @@ import { Money } from "@components/Money";
 import { ChevronDownIcon } from "@icons";
 import { Transition } from "@headlessui/react";
 import clsx from "clsx";
+import { useCheckout } from "@hooks/useCheckout";
 
 interface SummaryProps {}
 
 export const Summary: React.FC<SummaryProps> = ({}) => {
   const [isOpen, setOpen] = useState(true);
-  const [{ data }] = useCheckoutQuery({
-    variables: { token: "f683e21b-7171-460d-96bf-50557b2fb5de" },
-  });
+  const { checkout } = useCheckout();
 
   const formatMessage = useFormattedMessages();
 
-  const totalPrice = data?.checkout?.totalPrice?.gross;
-  const taxCost = data?.checkout?.totalPrice?.tax;
+  const totalPrice = checkout?.totalPrice?.gross;
+  const taxCost = checkout?.totalPrice?.tax;
 
   const getTaxPercentage = (): number => {
     if (!totalPrice || !taxCost) {
@@ -34,7 +33,9 @@ export const Summary: React.FC<SummaryProps> = ({}) => {
     <div className="summary">
       <div className={clsx("summary-title", isOpen && "open")}>
         <div className="flex flex-row items-center">
-          <Text title>{formatMessage("summary")}</Text>
+          <Text size="lg" bold>
+            {formatMessage("summary")}
+          </Text>
           <img
             src={ChevronDownIcon}
             alt="chevron-down"
@@ -55,11 +56,11 @@ export const Summary: React.FC<SummaryProps> = ({}) => {
       >
         <div className="w-full h-12" />
         <ul className="summary-items">
-          {data?.checkout?.lines.map((line: CheckoutLine) => (
+          {checkout?.lines.map((line: CheckoutLine) => (
             <SummaryItem line={line} key={line.id} />
           ))}
         </ul>
-        <div className="flex flex-col max-w-full px-6 ml-0 md:ml-22">
+        <div className="summary-recap">
           <div className="summary-row">
             <Text id={formatMessage("subtotalLabel")} bold>
               {formatMessage("subtotal")}
@@ -67,7 +68,7 @@ export const Summary: React.FC<SummaryProps> = ({}) => {
             <Money
               labeledBy={formatMessage("subtotalLabel")}
               bold
-              money={data?.checkout?.subtotalPrice?.gross}
+              money={checkout?.subtotalPrice?.gross}
             />
           </div>
           <Divider className="my-4" />
@@ -78,7 +79,7 @@ export const Summary: React.FC<SummaryProps> = ({}) => {
             <Money
               labeledBy={formatMessage("shippingCostLabel")}
               color="secondary"
-              money={data?.checkout?.shippingPrice?.gross}
+              money={checkout?.shippingPrice?.gross}
             />
           </div>
           <div className="summary-row">
@@ -95,7 +96,7 @@ export const Summary: React.FC<SummaryProps> = ({}) => {
           </div>
           <Divider className="my-4" />
           <div className="summary-row">
-            <Text id={formatMessage("totalLabel")} size="lg" bold>
+            <Text id={formatMessage("totalLabel")} size="md" bold>
               {formatMessage("total")}
             </Text>
             <Money

@@ -13,6 +13,7 @@ import { useFormattedMessages } from "@hooks/useFormattedMessages";
 import { useFormattedMoney } from "@hooks/useFormattedMoney";
 import { Money } from "@components/Money";
 import clsx from "clsx";
+import { getDataWithToken } from "@lib/utils";
 
 interface LineItemQuantitySelectorProps {
   line: CheckoutLine;
@@ -51,6 +52,7 @@ export const SummaryItemMoneySection: React.FC<
     }
   }, [fetching]);
 
+  getDataWithToken({});
   const getUpdateLineVars = (
     quantity: number
   ): CheckoutLinesUpdateMutationVariables => ({

@@ -2,6 +2,7 @@ import PageHeader from "@sections/PageHeader";
 import { Summary } from "@sections/Summary";
 import CheckoutForm from "@sections/CheckoutForm";
 import { Suspense } from "react";
+import { SummaryPlaceholder } from "@sections/Summary/SummaryPlaceholder";
 
 export const Checkout = () => {
   return (
@@ -11,9 +12,10 @@ export const Checkout = () => {
         <div className="page-content">
           <CheckoutForm />
           <div className="page-divider" />
-          <Suspense fallback={"Loading..."}>
+          <Suspense fallback={<SummaryPlaceholder />}>
             <Summary />
           </Suspense>
+          <SummaryPlaceholder />
         </div>
       </div>
     </div>

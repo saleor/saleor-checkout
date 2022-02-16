@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 
 export interface TextProps {
-  size?: "sm" | "lg" | "xl";
+  size?: "sm" | "md" | "lg" | "xl";
   color?: "secondary" | "tertiary" | "error";
   bold?: boolean;
   title?: boolean;
@@ -32,6 +32,7 @@ export const Text: React.FC<TextProps> = ({
       "text-error": color === "error",
       "text-sm": size === "sm",
       "text-base": !size,
+      "text-md": size === "md",
       "text-lg": size === "lg",
       "text-xl": size === "xl" || title,
       "font-bold": bold || title,
@@ -46,7 +47,7 @@ export const Text: React.FC<TextProps> = ({
     id: id,
   };
 
-  if (size === "xl") {
+  if (size === "xl" || size === "lg") {
     return <h2 {...textProps}>{children}</h2>;
   }
 

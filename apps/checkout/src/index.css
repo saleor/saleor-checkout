@@ -116,6 +116,10 @@ html {
     @apply absolute -left-4 top-1 border border-border-primary bg-button-secondary hover:border-border-active active:border-border-active active:bg-button-tertiary w-8 h-8 flex items-center justify-center rounded-full;
   }
 
+  .summary-recap {
+    @apply flex flex-col max-w-full px-6 ml-0 md:ml-22;
+  }
+
   /* Checkout Form */
   .checkout-form {
     @apply flex flex-col w-full lg:w-1/2 xl:w-2/3;

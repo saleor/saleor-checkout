@@ -17,6 +17,8 @@ const client = createClient({
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
 root.render(
+  // disabled temporarily because of headless-ui transition not working
+  // yest with React 18
   // <React.StrictMode>
   <I18nProvider locale={getCurrentRegion()}>
     <UrqlProvider value={client}>
