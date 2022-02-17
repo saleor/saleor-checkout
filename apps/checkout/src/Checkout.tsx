@@ -15,7 +15,6 @@ export const Checkout = () => {
           <Suspense fallback={<SummaryPlaceholder />}>
             <Summary />
           </Suspense>
-          <SummaryPlaceholder />
         </div>
       </div>
     </div>

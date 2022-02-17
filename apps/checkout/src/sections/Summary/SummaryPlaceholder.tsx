@@ -50,7 +50,7 @@ export const SummaryPlaceholder: React.FC<SummaryPlaceholderProps> = ({}) => {
             <Skeleton className="w-22" />
             <Skeleton className="w-18" />
           </div>
-          <Divider />
+          <Divider className="bg-skeleton" />
           <div className="summary-row my-6">
             <Skeleton className="w-16" />
             <Skeleton className="w-14" />
@@ -59,7 +59,7 @@ export const SummaryPlaceholder: React.FC<SummaryPlaceholderProps> = ({}) => {
             <Skeleton className="w-19" />
             <Skeleton className="w-10" />
           </div>
-          <Divider />
+          <Divider className="bg-skeleton" />
           <div className="summary-row my-6">
             <Skeleton className="w-14" />
             <Skeleton className="w-12" />

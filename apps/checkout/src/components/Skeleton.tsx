@@ -8,7 +8,7 @@ interface SkeletonProps {
 const Skeleton: React.FC<SkeletonProps> = ({ children, className }) => {
   if (children) return <>{children}</>;
 
-  const classes = clsx("min-h-3", "w-full", "bg-border-primary", className);
+  const classes = clsx("min-h-3", "w-full", "bg-skeleton", className);
 
   return <div className={classes} />;
 };
