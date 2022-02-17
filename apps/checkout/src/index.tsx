@@ -18,7 +18,7 @@ const root = ReactDOM.createRoot(document.getElementById("root")!);
 
 root.render(
   // disabled temporarily because of headless-ui transition not working
-  // yest with React 18
+  // yet with React 18 https://github.com/tailwindlabs/headlessui/issues/681
   // <React.StrictMode>
   <I18nProvider locale={getCurrentRegion()}>
     <UrqlProvider value={client}>
