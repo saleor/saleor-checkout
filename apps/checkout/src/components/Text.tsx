@@ -1,12 +1,12 @@
 import React from "react";
 import clsx from "clsx";
+import { Classes } from "@lib/globalTypes";
 
-export interface TextProps {
+export interface TextProps extends Classes {
   size?: "sm" | "md" | "lg" | "xl";
   color?: "secondary" | "tertiary" | "error";
   bold?: boolean;
   title?: boolean;
-  className?: string;
   ariaLabel?: string;
   labeledBy?: string;
   id?: string;
@@ -43,7 +43,7 @@ export const Text: React.FC<TextProps> = ({
   const textProps = {
     className: classes,
     "aria-label": ariaLabel,
-    "labeled-by": ariaLabel,
+    "labeled-by": labeledBy,
     id: id,
   };
 
