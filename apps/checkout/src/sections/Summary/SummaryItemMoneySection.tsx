@@ -13,6 +13,11 @@ import { useFormattedMessages } from "@hooks/useFormattedMessages";
 import { useFormattedMoney } from "@hooks/useFormattedMoney";
 import { Money } from "@components/Money";
 import clsx from "clsx";
+<<<<<<< HEAD
+=======
+import { getDataWithToken } from "@lib/utils";
+import compact from "lodash/compact";
+>>>>>>> c8ad98a... Fix types
 
 interface LineItemQuantitySelectorProps {
   line: CheckoutLine;
