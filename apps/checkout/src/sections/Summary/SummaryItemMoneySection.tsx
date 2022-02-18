@@ -14,6 +14,7 @@ import { useFormattedMoney } from "@hooks/useFormattedMoney";
 import { Money } from "@components/Money";
 import clsx from "clsx";
 import { getDataWithToken } from "@lib/utils";
+import compact from "lodash/compact";
 
 interface LineItemQuantitySelectorProps {
   line: CheckoutLine;
@@ -35,9 +36,9 @@ export const SummaryItemMoneySection: React.FC<
       return;
     }
 
-    const newQuantity = data?.checkoutLinesUpdate?.checkout?.lines?.find(
-      ({ id }) => id === line.id
-    )?.quantity;
+    const newQuantity = compact(
+      data?.checkoutLinesUpdate?.checkout?.lines
+    )?.find(({ id }) => id === line.id)?.quantity;
 
     if (!newQuantity) {
       setQuantity(previousQuantity.current);
