@@ -52,7 +52,7 @@ html {
   }
 
   .button-primary {
-    @apply bg-button-primary hover:bg-button-secondary;
+    @apply bg-button-primary hover:bg-button-secondary active:bg-button-tertiary disabled:border-none disabled:bg-background-tertiary;
   }
 
   .button-primary p {
@@ -60,12 +60,16 @@ html {
   }
 
   .button-primary:hover p,
-  .button-primary:active p,
-  .button-primary: p {
+  .button-primary:active p {
     @apply text-text-primary;
   }
 
+  .button:disabled p {
+    @apply text-text-secondary;
+  }
+
   .button-secondary {
+    @apply border-border-primary hover:border-border-active bg-transparent hover:bg-button-secondary active:bg-button-tertiary disabled:border-border-primary disabled:bg-transparent;
   }
 
   /* General Layout */
