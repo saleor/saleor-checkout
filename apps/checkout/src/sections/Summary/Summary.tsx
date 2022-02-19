@@ -3,7 +3,7 @@ import { Text } from "@components/Text";
 import { useFormattedMessages } from "@hooks/useFormattedMessages";
 import { SummaryItem } from "./SummaryItem";
 import { CheckoutLine } from "@graphql";
-import Divider from "@components/Divider";
+import { Divider } from "@components/Divider";
 import { Money } from "@components/Money";
 import { ChevronDownIcon } from "@icons";
 import { Transition } from "@headlessui/react";

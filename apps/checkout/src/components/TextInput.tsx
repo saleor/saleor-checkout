@@ -1,8 +1,9 @@
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { AriaTextFieldOptions, useTextField } from "@react-aria/textfield";
+import { Classes } from "@lib/globalTypes";
 
-interface TextInputProps extends AriaTextFieldOptions<"input"> {
+interface TextInputProps extends AriaTextFieldOptions<"input">, Classes {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
   label: string;
@@ -19,6 +20,7 @@ export const TextInput: React.FC<TextInputProps> = (props) => {
     errorMessage,
     value,
     onChange,
+    className,
     ...rest
   } = props;
 
@@ -38,7 +40,7 @@ export const TextInput: React.FC<TextInputProps> = (props) => {
     "text-input-error": error,
   });
 
-  const labelClasses = clsx("text-input-label", {
+  const labelClasses = clsx("text-input-label top-4", {
     "text-input-filled-label": labelFixed,
   });
 
@@ -48,7 +50,7 @@ export const TextInput: React.FC<TextInputProps> = (props) => {
   };
 
   return (
-    <div className="relative">
+    <div className={clsx("relative", className)}>
       <input
         ref={ref}
         {...inputProps}
