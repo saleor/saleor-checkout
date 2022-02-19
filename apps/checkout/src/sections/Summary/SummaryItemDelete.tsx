@@ -1,4 +1,4 @@
-import IconButton from "@components/IconButton";
+import { IconButton } from "@components/IconButton";
 import React from "react";
 import { CloseIcon as DeleteIcon } from "@icons";
 import { CheckoutLine, useCheckoutLineDeleteMutation } from "@graphql";

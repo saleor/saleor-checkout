@@ -1,4 +1,4 @@
-import IconButton from "@components/IconButton";
+import { IconButton } from "@components/IconButton";
 import { MinusIcon, PlusIcon } from "@icons";
 import { Text } from "@components/Text";
 
