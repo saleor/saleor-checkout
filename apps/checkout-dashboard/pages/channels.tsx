@@ -1,10 +1,10 @@
-import AppNavigation from "@components/AppNavigation";
+import ChannelList from "@templates/ChannelList";
 
 export default function Channels() {
-  return (
-    <>
-      <AppNavigation />
-      <div>Channels</div>
-    </>
-  );
+  const channels = [
+    { id: "1", name: "B2B Channel" },
+    { id: "2", name: "B2C Channel" },
+  ];
+
+  return <ChannelList channels={channels} />;
 }

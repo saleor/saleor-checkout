@@ -2,7 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["./components/*"]
+      "@elements/*": ["./components/elements/*"],
+      "@templates/*": ["./components/templates/*"]
     }
   },
   "extends": "tsconfig/nextjs.json",
