@@ -4,8 +4,8 @@ import clsx from "clsx";
 export interface TextProps {
   size?: "sm" | "md" | "lg" | "xl";
   color?: "secondary" | "tertiary" | "error";
+  variant?: "title";
   bold?: boolean;
-  title?: boolean;
   className?: string;
   ariaLabel?: string;
   labeledBy?: string;
@@ -17,7 +17,7 @@ export const Text: React.FC<TextProps> = ({
   size,
   color,
   bold,
-  title,
+  variant,
   className,
   ariaLabel,
   labeledBy,
@@ -34,8 +34,8 @@ export const Text: React.FC<TextProps> = ({
       "text-base": !size,
       "text-md": size === "md",
       "text-lg": size === "lg",
-      "text-xl": size === "xl" || title,
-      "font-bold": bold || title,
+      "text-xl": size === "xl" || variant === "title",
+      "font-bold": bold || variant === "title",
     },
     className
   );
@@ -43,7 +43,7 @@ export const Text: React.FC<TextProps> = ({
   const textProps = {
     className: classes,
     "aria-label": ariaLabel,
-    "labeled-by": ariaLabel,
+    "labeled-by": labeledBy,
     id: id,
   };
 

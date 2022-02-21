@@ -5,7 +5,3 @@ export const getToken = (): string | undefined | null => {
   return (queryString.parse(location.search) as { token?: string | null })
     ?.token;
 };
-export const getDataWithToken = <T extends {}>(data: T = {} as T) => ({
-  ...data,
-  token: getToken() as string,
-});

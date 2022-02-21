@@ -13,7 +13,6 @@ import { useFormattedMessages } from "@hooks/useFormattedMessages";
 import { useFormattedMoney } from "@hooks/useFormattedMoney";
 import { Money } from "@components/Money";
 import clsx from "clsx";
-import { getDataWithToken } from "@lib/utils";
 
 interface LineItemQuantitySelectorProps {
   line: CheckoutLine;
@@ -50,9 +49,8 @@ export const SummaryItemMoneySection: React.FC<
     if (quantity !== newQuantity) {
       setQuantity(newQuantity);
     }
-  }, [fetching]);
+  }, [data, fetching]);
 
-  getDataWithToken({});
   const getUpdateLineVars = (
     quantity: number
   ): CheckoutLinesUpdateMutationVariables => ({
@@ -70,7 +68,7 @@ export const SummaryItemMoneySection: React.FC<
   };
 
   const debouncedSubmit = useCallback(
-    debounce((quantity) => handleSubmit(quantity), 2000),
+    debounce((quantity) => handleSubmit(quantity), 250),
     []
   );
 
@@ -116,9 +114,9 @@ export const SummaryItemMoneySection: React.FC<
           <Money
             ariaLabel={formatMessage("undiscountedPriceLabel")}
             money={{
-              currency: pricing?.priceUndiscounted?.gross?.currency as string,
+              currency: pricing?.priceUndiscounted?.gross.currency as string,
               amount:
-                (pricing?.priceUndiscounted?.gross?.amount || 0) * quantity,
+                (pricing?.priceUndiscounted?.gross.amount || 0) * quantity,
             }}
             className="line-through mr-1"
           />
