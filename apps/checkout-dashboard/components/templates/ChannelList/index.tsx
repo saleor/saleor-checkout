@@ -1,29 +1,15 @@
 import AppNavigation from "@elements/AppNavigation";
 import {
-  makeStyles,
   OffsettedList,
   OffsettedListBody,
   OffsettedListHeader,
   OffsettedListItem,
   OffsettedListItemCell,
 } from "@saleor/macaw-ui";
-import Link from "next/link";
+import { Channel } from "api/saleor/types";
 import { useRouter } from "next/router";
+import { useStyles } from "./styles";
 
-const useStyles = makeStyles(
-  {
-    listItem: {
-      height: "70px",
-      cursor: "pointer",
-    },
-  },
-  { name: "ChannelList" }
-);
-
-interface Channel {
-  id: string;
-  name: string;
-}
 interface ChannelListProps {
   channels?: Channel[];
 }
@@ -31,6 +17,13 @@ interface ChannelListProps {
 const ChannelList: React.FC<ChannelListProps> = ({ channels }) => {
   const router = useRouter();
   const classes = useStyles();
+
+  const onChannelClick = (channel: Channel) => {
+    router.push({
+      pathname: "/channels/[channelId]",
+      query: { channelId: channel.id },
+    });
+  };
 
   return (
     <>
@@ -46,12 +39,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ channels }) => {
             <OffsettedListItem
               key={channel.id}
               className={classes.listItem}
-              onClick={() =>
-                router.push({
-                  pathname: "/channels/[channelId]",
-                  query: { channelId: channel.id },
-                })
-              }
+              onClick={() => onChannelClick(channel)}
             >
               <OffsettedListItemCell>{channel.name}</OffsettedListItemCell>
             </OffsettedListItem>

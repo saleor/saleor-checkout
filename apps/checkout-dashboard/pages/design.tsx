@@ -1,11 +1,8 @@
 import DesignDetails from "@templates/DesignDetails";
+import { useDesignOptionList } from "api/app/api";
 
 export default function Design() {
-  const options = [
-    { id: "1", name: "Branding" },
-    { id: "2", name: "Layout" },
-    { id: "3", name: "Sections" },
-  ];
+  const options = useDesignOptionList();
 
   return <DesignDetails options={options} />;
 }

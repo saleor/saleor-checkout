@@ -1,22 +1,5 @@
-import { IconButton, ArrowRightIcon, makeStyles } from "@saleor/macaw-ui";
-
-const useStyles = makeStyles(
-  () => ({
-    header: {
-      display: "flex",
-      gap: "1rem",
-    },
-    title: {
-      margin: 0,
-      width: "100%",
-    },
-    backArrow: {
-      fontSize: 30,
-      transform: "rotate(180deg)",
-    },
-  }),
-  { name: "Channel" }
-);
+import { IconButton, ArrowRightIcon } from "@saleor/macaw-ui";
+import { useStyles } from "./styles";
 
 interface AppHeaderProps {
   onBack?: () => void;
