@@ -12,22 +12,22 @@ export const Checkout = () => {
 
   return (
     <div className="app">
-      <ErrorBoundary FallbackComponent={PageNotFound}>
-        {token ? (
-          <div className="page">
-            <PageHeader />
-            <div className="page-content">
-              <CheckoutForm />
-              <div className="page-divider" />
-              <Suspense fallback={<SummaryPlaceholder />}>
-                <Summary />
-              </Suspense>
-            </div>
+      {/* <ErrorBoundary FallbackComponent={PageNotFound}> */}
+      {token ? (
+        <div className="page">
+          <PageHeader />
+          <div className="page-content">
+            <CheckoutForm />
+            <div className="page-divider" />
+            <Suspense fallback={<SummaryPlaceholder />}>
+              <Summary />
+            </Suspense>
           </div>
-        ) : (
-          <PageNotFound />
-        )}
-      </ErrorBoundary>
+        </div>
+      ) : (
+        <PageNotFound />
+      )}
+      {/* </ErrorBoundary> */}
     </div>
   );
 };

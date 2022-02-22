@@ -32,5 +32,11 @@
   "subtotalLabel": "subtotal",
   "taxCostLabel": "tax cost",
   "totalLabel": "total price",
-  "shippingCostLabel": "shipping cost"
+  "shippingCostLabel": "shipping cost",
+  "cityTextInputLabel": "City",
+  "streetAddress1TextInputLabel": "Street Address",
+  "companyNameTextInputLabel": "Company Name",
+  "postalCodeTextInputLabel": "Post Code",
+  "streetAddress2TextInputLabel": "Address details",
+  "nameTextInputLabel": "Name and Surname"
 }

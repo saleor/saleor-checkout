@@ -1,8 +1,9 @@
 import { Divider } from "@components/Divider";
 import { RadioGroup } from "@components/RadioGroup";
-import React from "react";
+import React, { Suspense } from "react";
 import { Contact } from "./Contact";
 import { useRadioGroupState } from "@react-stately/radio";
+import { AddressForm } from "./AddressForm";
 
 interface CheckoutFormProps {}
 
@@ -29,6 +30,9 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({}) => {
     <div className="checkout-form">
       <Contact />
       <Divider className="my-8" />
+      <Suspense fallback="Loading...">
+        <AddressForm />
+      </Suspense>
       <RadioGroup
         label="delivery methods"
         state={radioGroupState}

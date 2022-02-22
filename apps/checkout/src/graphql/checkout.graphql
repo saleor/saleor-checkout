@@ -103,3 +103,23 @@ mutation CheckoutLineDelete($token: UUID!, $lineId: ID) {
     }
   }
 }
+
+query addressValidationRules($countryCode: CountryCode!) {
+  addressValidationRules(countryCode: $countryCode) {
+    countryCode
+    cityType
+    countryName
+    cityChoices {
+      raw
+    }
+    cityAreaType
+    countryAreaType
+    postalCodePrefix
+    postalCodeType
+    postalCodeMatchers
+    postalCodeExamples
+    upperFields
+    requiredFields
+    allowedFields
+  }
+}

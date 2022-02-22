@@ -20,7 +20,7 @@ html {
 
 .input:focus + .text-input-label,
 .input:active + .text-input-label,
-.input.text-input-filled + .text-input-label {
+.text-input-filled-label {
   font-size: 11px;
   transition: all 0.2s ease-out;
   top: 0.4rem;
@@ -34,10 +34,17 @@ html {
 
 @layer components {
   /* Test Input */
+  .text-input-container {
+    @apply relative w-full;
+  }
+
+  .text-input-container.narrow {
+    @apply lg:w-1/2;
+  }
+
   .text-input {
     @apply input border border-border-primary appearance-none w-full focus:border-border-active focus:outline-none active:outline-none active:border-border-primary py-3 pt-5 pb-2;
   }
-
   .text-input-error {
     @apply border-border-error;
   }

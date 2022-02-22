@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { AriaTextFieldOptions, useTextField } from "@react-aria/textfield";
 import { Classes } from "@lib/globalTypes";
 
-interface TextInputProps extends AriaTextFieldOptions<"input">, Classes {
+export interface TextInputProps extends AriaTextFieldOptions<"input">, Classes {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
   label: string;
-  optional?: boolean;
+  required?: boolean;
   error?: boolean;
   errorMessage?: string;
 }
@@ -15,7 +15,7 @@ interface TextInputProps extends AriaTextFieldOptions<"input">, Classes {
 export const TextInput: React.FC<TextInputProps> = (props) => {
   const {
     label,
-    optional = false,
+    required = false,
     error,
     errorMessage,
     value,
@@ -50,7 +50,7 @@ export const TextInput: React.FC<TextInputProps> = (props) => {
   };
 
   return (
-    <div className={clsx("relative", className)}>
+    <div className={clsx("text-input-container", className)}>
       <input
         ref={ref}
         {...inputProps}
@@ -59,7 +59,7 @@ export const TextInput: React.FC<TextInputProps> = (props) => {
         onChange={handleChange}
       />
       <label {...labelProps} className={labelClasses}>
-        {optional ? label : `${label}*`}
+        {required ? `${label}*` : label}
       </label>
       {error && (
         <span className="text-xs text-text-error" {...errorMessageProps}>
