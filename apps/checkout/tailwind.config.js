@@ -72,7 +72,7 @@ const theme = {
   },
   extend: {
     minHeight: spacing,
-    maxWidth: spacing,
+    maxWidth: { ...spacing, "1/2": "50%" },
     top: spacing,
     borderWidth: spacing,
   },

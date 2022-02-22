@@ -6,12 +6,18 @@ import { TextInput, TextInputProps } from "@components/TextInput";
 import compact from "lodash/compact";
 import { Controller, useForm, UseFormRegisterReturn } from "react-hook-form";
 import { AddressField } from "./types";
-import { getSortedAddressFields, halfWidthAddressFields } from "./utils";
+import {
+  getAddressFieldsRows,
+  getSortedAddressFields,
+  shouldHaveHorizontalSpacing,
+} from "./utils";
 import clsx from "clsx";
 
-interface AddressFormProps {}
+interface AddressFormProps {
+  onSubmit: () => void;
+}
 
-type InputPropsData = Record<
+type AddressFieldsPropsData = Record<
   AddressField,
   Pick<TextInputProps, "label" | "required"> & UseFormRegisterReturn
 >;
@@ -19,7 +25,7 @@ type InputPropsData = Record<
 export const AddressForm: React.FC<AddressFormProps> = ({}) => {
   const formatMessage = useFormattedMessages();
 
-  const { register, handleSubmit, control } = useForm();
+  const { register, /* handleSubmit ,*/ control } = useForm();
 
   const [{ data }] = useAddressValidationRulesQuery({
     variables: { countryCode: "PL" },
@@ -31,24 +37,31 @@ export const AddressForm: React.FC<AddressFormProps> = ({}) => {
     compact(allowedFields as AddressField[])
   );
 
-  const inputPropsData = sortedAllowedFields.reduce(
+  const addressFieldsRows = getAddressFieldsRows(sortedAllowedFields);
+
+  const addressFieldsProps = sortedAllowedFields.reduce(
     (result, fieldId: AddressField) => {
       const required = requiredFields?.includes(fieldId);
 
+      const classes = clsx(
+        "mb-3",
+        shouldHaveHorizontalSpacing(addressFieldsRows, fieldId) &&
+          "narrow-address-field-left-col"
+      );
+
+      const newFieldData = {
+        label: formatMessage(`${fieldId}TextInputLabel`),
+        required,
+        ...register(fieldId, { required }),
+        className: classes,
+      };
+
       return {
         ...result,
-        [fieldId]: {
-          label: formatMessage(`${fieldId}TextInputLabel`),
-          required,
-          ...register(fieldId, { required }),
-          className: clsx(
-            "mb-3",
-            halfWidthAddressFields.includes(fieldId) && "narrow"
-          ),
-        },
+        [fieldId]: newFieldData,
       };
     },
-    {} as InputPropsData
+    {} as AddressFieldsPropsData
   );
 
   return (
@@ -56,18 +69,22 @@ export const AddressForm: React.FC<AddressFormProps> = ({}) => {
       <Text title className="mb-4">
         {formatMessage("shippingAddress")}
       </Text>
-      <div className="flex flex-row flex-wrap">
-        {sortedAllowedFields.map((fieldId) => (
-          <Controller
-            control={control}
-            name={fieldId}
-            render={({ field }) => (
-              <TextInput
-                {...inputPropsData[fieldId as AddressField]}
-                {...field}
+      <div className="flex flex-col">
+        {addressFieldsRows.map((rowAddressFields: AddressField[]) => (
+          <div className="address-form-row">
+            {rowAddressFields.map((fieldId: AddressField) => (
+              <Controller
+                control={control}
+                name={fieldId}
+                render={({ field }) => (
+                  <TextInput
+                    {...addressFieldsProps[fieldId as AddressField]}
+                    {...field}
+                  />
+                )}
               />
-            )}
-          />
+            ))}
+          </div>
         ))}
       </div>
     </div>
