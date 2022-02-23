@@ -35,7 +35,7 @@ export const SummaryItemMoneySection: React.FC<
     }
 
     const newQuantity = data?.checkoutLinesUpdate?.checkout?.lines?.find(
-      ({ id }) => id === line.id
+      (updatedLine) => updatedLine?.id === line.id
     )?.quantity;
 
     if (!newQuantity) {
@@ -43,7 +43,6 @@ export const SummaryItemMoneySection: React.FC<
       return;
     }
 
-    console.log({ newQuantity });
     previousQuantity.current = quantity;
 
     if (quantity !== newQuantity) {

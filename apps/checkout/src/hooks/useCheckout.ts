@@ -5,8 +5,7 @@ export const useCheckout = () => {
   const token = getToken();
 
   const [{ data, fetching: loading }] = useCheckoutQuery({
-    variables: { token: token as string },
-    pause: !token,
+    variables: { token: token },
   });
 
   return { checkout: data!.checkout!, loading };
