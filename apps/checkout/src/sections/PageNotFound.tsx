@@ -15,7 +15,7 @@ export const PageNotFound = () => {
         <img src={SaleorLogo} alt="logo" className="logo" />
       </div>
       <div className="h-full flex flex-col items-center justify-center mb-22">
-        <Text title className="mb-4 text-center">
+        <Text variant="title" className="mb-4 text-center">
           {formatMessage("problemTitle")}
         </Text>
         <Text className="mb-6 max-w-85 text-center">
