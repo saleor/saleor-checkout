@@ -1,13 +1,15 @@
 import AppHeader from "@elements/AppHeader";
 import { useRouter } from "next/router";
-import { Card, CardContent } from "@material-ui/core";
-import { PaymentProvider } from "types";
+import { Card, CardContent, Typography } from "@material-ui/core";
+import { PaymentProvider, PaymentProviderID } from "types";
 import { paymentProviders } from "consts";
 import { useStyles } from "./styles";
 import AppSidebar from "@elements/AppSidebar";
+import SettingList from "@elements/SettingList";
+import VerticalSpacer from "@elements/VerticalSpacer";
 
 interface PaymentProviderDetailsProps {
-  selectedPaymentProvider?: PaymentProvider;
+  selectedPaymentProvider?: PaymentProvider<PaymentProviderID>;
   channelId?: string;
 }
 
@@ -31,7 +33,9 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
     }
   };
 
-  const onPaymentProviderClick = (paymentProvider: PaymentProvider) => {
+  const onPaymentProviderClick = (
+    paymentProvider: PaymentProvider<PaymentProviderID>
+  ) => {
     if (channelId) {
       router.push({
         pathname: "/payment-providers/[paymentProviderId]",
@@ -61,7 +65,11 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
         />
         <div className={classes.providerSettings}>
           <Card>
-            <CardContent>Payment provider settings</CardContent>
+            <CardContent>
+              <Typography variant="body1">Payment provider settings</Typography>
+              <VerticalSpacer />
+              <SettingList settings={selectedPaymentProvider.settings} />
+            </CardContent>
           </Card>
         </div>
       </div>

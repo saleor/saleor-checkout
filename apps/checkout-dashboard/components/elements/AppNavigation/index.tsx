@@ -7,7 +7,7 @@ const AppNavigation: React.FC = () => {
   return (
     <PageTabs onChange={router.push} value={router.pathname}>
       <PageTab value="/channels" label="Channels" />
-      <PageTab value="/design" label="Design" />
+      <PageTab value="/customization" label="Customization" />
     </PageTabs>
   );
 };

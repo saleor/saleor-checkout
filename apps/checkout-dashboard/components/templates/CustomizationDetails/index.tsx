@@ -1,20 +1,25 @@
 import AppNavigation from "@elements/AppNavigation";
+import Setting from "@elements/Setting";
+import SettingList from "@elements/SettingList";
 import {
   Typography,
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  TextField,
 } from "@material-ui/core";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import { OffsettedList, OffsettedListBody } from "@saleor/macaw-ui";
-import { DesignOption } from "api/app/types";
+import { Customization, CustomizationID } from "types";
 import { useStyles } from "./styles";
 
-interface DesignDetailsProps {
-  options: DesignOption[];
+interface CustomizationDetailsProps {
+  options: Customization<CustomizationID>[];
 }
 
-const DesignDetails: React.FC<DesignDetailsProps> = ({ options }) => {
+const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
+  options,
+}) => {
   const classes = useStyles();
 
   return (
@@ -33,21 +38,23 @@ const DesignDetails: React.FC<DesignDetailsProps> = ({ options }) => {
                   expandIcon={<ExpandMoreIcon />}
                   className={classes.optionExpander}
                 >
-                  <Typography variant="body1">{option.name}</Typography>
+                  <Typography variant="body1">{option.label}</Typography>
                 </AccordionSummary>
                 <AccordionDetails className={classes.optionDetails}>
-                  <div className={classes.optionDetailsContent}></div>
+                  <div className={classes.optionDetailsContent}>
+                    <SettingList settings={option.settings} />
+                  </div>
                 </AccordionDetails>
               </Accordion>
             ))}
           </OffsettedListBody>
         </OffsettedList>
         <div className={classes.design}>
-          <Typography variant="subtitle1">Design preview</Typography>
-          <div className={classes.designPreview}>Design</div>
+          <Typography variant="subtitle1">Customization preview</Typography>
+          <div className={classes.designPreview}>Customization</div>
         </div>
       </div>
     </>
   );
 };
-export default DesignDetails;
+export default CustomizationDetails;

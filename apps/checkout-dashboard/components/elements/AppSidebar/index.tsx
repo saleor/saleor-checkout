@@ -9,7 +9,7 @@ import { useStyles } from "./styles";
 
 interface Item {
   id: string;
-  name: string;
+  label: string;
 }
 
 interface AppSidebarProps {
@@ -36,7 +36,7 @@ const AppSidebar: React.FC<AppSidebarProps> = ({
             })}
             onClick={() => onItemClick(item)}
           >
-            <OffsettedListItemCell>{item.name}</OffsettedListItemCell>
+            <OffsettedListItemCell>{item.label}</OffsettedListItemCell>
           </OffsettedListItem>
         ))}
       </OffsettedListBody>

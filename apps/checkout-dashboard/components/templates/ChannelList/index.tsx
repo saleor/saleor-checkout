@@ -41,7 +41,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ channels }) => {
               className={classes.listItem}
               onClick={() => onChannelClick(channel)}
             >
-              <OffsettedListItemCell>{channel.name}</OffsettedListItemCell>
+              <OffsettedListItemCell>{channel.label}</OffsettedListItemCell>
             </OffsettedListItem>
           ))}
         </OffsettedListBody>

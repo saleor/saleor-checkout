@@ -1,18 +1,31 @@
 import { Channel } from "api/saleor/types";
-import { PaymentMethod, PaymentProvider } from "types";
+import {
+  CustomizationID,
+  CustomizationSettingID,
+  PaymentMethod,
+  PaymentProvider,
+  PaymentProviderID,
+  PaymentProviderSettingID,
+} from "types";
 
 export interface PaymentOption {
   id: string;
   method: PaymentMethod;
-  availableProviders: PaymentProvider[];
-  activeProvider: PaymentProvider | null;
+  availableProviders: PaymentProvider<PaymentProviderID>[];
+  activeProvider: PaymentProvider<PaymentProviderID> | null;
 }
 export interface ChannelPaymentOptions {
   id: string;
   channel: Channel;
   paymentOptions: PaymentOption[];
 }
-export interface DesignOption {
-  id: string;
-  name: string;
-}
+export type PaymentProviderSettingsValues = {
+  [P in PaymentProviderID]: {
+    [K in PaymentProviderSettingID<P>]: string;
+  };
+};
+export type CustomizationSettingsValues = {
+  [P in CustomizationID]: {
+    [K in CustomizationSettingID<P>]: string;
+  };
+};

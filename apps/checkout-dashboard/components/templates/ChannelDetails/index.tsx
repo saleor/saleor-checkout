@@ -67,7 +67,7 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
           </IconButton>
         }
       >
-        {channelPaymentOptions?.channel.name}
+        {channelPaymentOptions?.channel.label}
       </AppHeader>
       <div className={classes.root}>
         <AppSidebar
@@ -101,7 +101,7 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
                         className={classes.paymentMethod}
                       >
                         <OffsettedListItemCell>
-                          {provider.name}
+                          {provider.label}
                         </OffsettedListItemCell>
                         <OffsettedListItemCell padding="action">
                           <Switch

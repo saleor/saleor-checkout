@@ -1,6 +1,18 @@
 import { channelList } from "api/saleor/api";
-import { paymentMethods, paymentProviders } from "consts";
-import { ChannelPaymentOptions, DesignOption } from "./types";
+import { customizations, paymentMethods, paymentProviders } from "consts";
+import {
+  Customization,
+  CustomizationID,
+  CustomizationSettings,
+  PaymentProvider,
+  PaymentProviderID,
+  PaymentProviderSettings,
+} from "types";
+import {
+  ChannelPaymentOptions,
+  CustomizationSettingsValues,
+  PaymentProviderSettingsValues,
+} from "./types";
 
 export const channelPaymentOptionsList: ChannelPaymentOptions[] = [
   {
@@ -57,9 +69,54 @@ export const useChannelPaymentOptions = (channelId: string) =>
     (channelPayments) => channelPayments.channel.id === channelId
   );
 
-export const designOptionList: DesignOption[] = [
-  { id: "1", name: "Branding" },
-  { id: "2", name: "Layout" },
-  { id: "3", name: "Sections" },
-];
-export const useDesignOptionList = () => designOptionList;
+export const paymentProviderSettingsValues: PaymentProviderSettingsValues = {
+  mollie: {
+    "partner-id": "",
+    "live-test-api-key": "",
+  },
+  example: {
+    "key-1": "",
+    "key-2": "",
+  },
+};
+export const usePaymentProviderSettings = () =>
+  paymentProviders.map(
+    (provider) =>
+      ({
+        ...provider,
+        settings: provider.settings.map(
+          (setting: PaymentProviderSettings<PaymentProviderID>) =>
+            ({
+              ...setting,
+              value: paymentProviderSettingsValues[provider.id][setting.id],
+            } as PaymentProviderSettings<PaymentProviderID>)
+        ),
+      } as PaymentProvider<PaymentProviderID>)
+  );
+
+export const customizationSettingsValues: CustomizationSettingsValues = {
+  branding: {
+    active: "#394052",
+    text: "#394052",
+    bg: "#FAFAFA",
+    error: "#B65757",
+    success: "#2C9B2A",
+  },
+  "product-settings": {
+    "low-stock-threshold": "",
+  },
+};
+export const useCustomizationSettings = () =>
+  customizations.map(
+    (customization) =>
+      ({
+        ...customization,
+        settings: customization.settings.map(
+          (setting: CustomizationSettings<CustomizationID>) =>
+            ({
+              ...setting,
+              value: customizationSettingsValues[customization.id][setting.id],
+            } as CustomizationSettings<CustomizationID>)
+        ),
+      } as Customization<CustomizationID>)
+  );
