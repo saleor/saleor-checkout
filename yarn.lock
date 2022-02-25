@@ -2332,9 +2332,10 @@
   dependencies:
     uuid "^8.3.2"
 
-"@saleor/macaw-ui@mirumee/macaw-ui#8bad114":
-  version "0.3.1-1"
-  resolved "https://codeload.github.com/mirumee/macaw-ui/tar.gz/8bad1144b7f095ee1e5d66e76a92b6ebea8c048e"
+"@saleor/macaw-ui@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@saleor/macaw-ui/-/macaw-ui-0.3.2.tgz#7a80c363b255a8f6508a698e15e86c308a374b7b"
+  integrity sha512-h8hyIkGRnWHzUVSVKjAZYMGojL2qmWRiKLe4taAa0SWr2Xps/SxWEFPgdWJGxTUWTKe0qnqXc6IcJmvwQU23+A==
   dependencies:
     clsx "^1.1.1"
     lodash "^4.17.21"

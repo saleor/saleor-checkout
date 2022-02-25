@@ -13,7 +13,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@saleor/app-bridge": "^0.1.5",
-    "@saleor/macaw-ui": "mirumee/macaw-ui#8bad114",
+    "@saleor/macaw-ui": "^0.3.2",
     "next": "12.0.7",
     "react": "17.0.2",
     "react-dom": "17.0.2"
