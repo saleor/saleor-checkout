@@ -12,11 +12,13 @@ export const useStyles = makeStyles(
     },
     input: {
       padding: theme.spacing(0.25, 0.5),
+      cursor: "pointer",
     },
     colorBox: {
       width: "60px",
       height: "30px",
       padding: 0,
+      cursor: "pointer",
     },
   }),
   { name: "ColorInput" }

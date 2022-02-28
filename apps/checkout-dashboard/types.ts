@@ -1,4 +1,4 @@
-export type SettingType = "string" | "color";
+export type SettingType = "string" | "color" | "image";
 
 /**
  * Payment types
@@ -43,7 +43,8 @@ export type BrandingCustomizationSettingID =
   | "text"
   | "bg"
   | "error"
-  | "success";
+  | "success"
+  | "logo";
 export type ProductCustomizationSettingID = "low-stock-threshold";
 export type CustomizationSettingID<P extends CustomizationID> =
   P extends "branding"

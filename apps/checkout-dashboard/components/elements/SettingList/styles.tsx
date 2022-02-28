@@ -8,9 +8,6 @@ export const useStyles = makeStyles(
       gap: "2rem",
       width: "100%",
     },
-    fullWidth: {
-      width: "100%",
-    },
   }),
   { name: "SettingList" }
 );

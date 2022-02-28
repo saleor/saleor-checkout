@@ -96,6 +96,7 @@ export const customizationSettingsValues: CustomizationSettingsValues = {
     bg: "#FAFAFA",
     error: "#B65757",
     success: "#2C9B2A",
+    logo: "",
   },
   "product-settings": {
     "low-stock-threshold": "",

@@ -19,18 +19,12 @@ const SettingList: React.FC<SettingListProps> = ({ settings }) => {
   return (
     <div className={classes.root}>
       {settings.map((setting) => (
-        <div
-          className={classNames({
-            [classes.fullWidth]: setting.type === "string",
-          })}
+        <Setting
           key={setting.id}
-        >
-          <Setting
-            type={setting.type}
-            label={setting.label}
-            value={setting.value}
-          />
-        </div>
+          type={setting.type}
+          label={setting.label}
+          value={setting.value}
+        />
       ))}
     </div>
   );

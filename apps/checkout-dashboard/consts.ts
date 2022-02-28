@@ -78,6 +78,11 @@ export const brandingCustomization: Customization<"branding"> = {
       label: "Success",
       type: "color",
     },
+    {
+      id: "logo",
+      label: "Logo",
+      type: "image",
+    },
   ],
 };
 export const sectionsCustomization: Customization<"product-settings"> = {
