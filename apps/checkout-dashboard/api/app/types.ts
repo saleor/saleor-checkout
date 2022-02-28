@@ -3,6 +3,7 @@ import {
   CustomizationID,
   CustomizationSettingID,
   PaymentMethod,
+  PaymentMethodID,
   PaymentProvider,
   PaymentProviderID,
   PaymentProviderSettingID,
@@ -19,6 +20,11 @@ export interface ChannelPaymentOptions {
   channel: Channel;
   paymentOptions: PaymentOption[];
 }
+export type ChannelActivePaymentProviders = {
+  [P in PaymentMethodID]: {
+    [K in string]: PaymentProviderID;
+  };
+};
 export type PaymentProviderSettingsValues = {
   [P in PaymentProviderID]: {
     [K in PaymentProviderSettingID<P>]: string;

@@ -3,8 +3,12 @@ export type SettingType = "string" | "color";
 /**
  * Payment types
  */
+export type PaymentMethodID =
+  | "payment-method-1"
+  | "payment-method-2"
+  | "payment-method-3";
 export interface PaymentMethod {
-  id: string;
+  id: PaymentMethodID;
   name: string;
 }
 

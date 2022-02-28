@@ -4,71 +4,65 @@ import {
   Customization,
   CustomizationID,
   CustomizationSettings,
+  PaymentMethod,
+  PaymentMethodID,
   PaymentProvider,
   PaymentProviderID,
   PaymentProviderSettings,
 } from "types";
 import {
+  ChannelActivePaymentProviders,
   ChannelPaymentOptions,
   CustomizationSettingsValues,
+  PaymentOption,
   PaymentProviderSettingsValues,
 } from "./types";
 
-export const channelPaymentOptionsList: ChannelPaymentOptions[] = [
-  {
-    id: "1",
-    channel: channelList[0],
-    paymentOptions: [
-      {
-        id: "1",
-        method: paymentMethods[0],
-        availableProviders: paymentProviders,
-        activeProvider: paymentProviders[0],
-      },
-      {
-        id: "2",
-        method: paymentMethods[1],
-        availableProviders: paymentProviders,
-        activeProvider: paymentProviders[0],
-      },
-      {
-        id: "3",
-        method: paymentMethods[2],
-        availableProviders: paymentProviders,
-        activeProvider: null,
-      },
-    ],
+// Should be fetched from app backend
+export const activePaymentProviders: ChannelActivePaymentProviders = {
+  "payment-method-1": {
+    [channelList[0].id]: "mollie",
+    [channelList[1].id]: "example",
   },
-  {
-    id: "2",
-    channel: channelList[1],
-    paymentOptions: [
-      {
-        id: "1",
-        method: paymentMethods[0],
-        availableProviders: paymentProviders,
-        activeProvider: paymentProviders[1],
-      },
-      {
-        id: "2",
-        method: paymentMethods[1],
-        availableProviders: paymentProviders,
-        activeProvider: paymentProviders[1],
-      },
-      {
-        id: "3",
-        method: paymentMethods[2],
-        availableProviders: paymentProviders,
-        activeProvider: null,
-      },
-    ],
+  "payment-method-2": {
+    [channelList[0].id]: "mollie",
+    [channelList[1].id]: "example",
   },
-];
+  "payment-method-3": {
+    [channelList[0].id]: "mollie",
+    [channelList[1].id]: "example",
+  },
+};
+
+const getPaymentProvider = (id: string): PaymentProvider<PaymentProviderID> =>
+  paymentProviders.find((provider) => provider.id === id);
+
+export const useChannelPaymentOptionsList = () =>
+  channelList.map(
+    (channel) =>
+      ({
+        id: channel.id,
+        channel: channel,
+        paymentOptions: paymentMethods.map(
+          (method) =>
+            ({
+              id: method.id,
+              method,
+              availableProviders: paymentProviders,
+              activeProvider: getPaymentProvider(
+                activePaymentProviders[method.id][channel.id]
+              ),
+            } as PaymentOption)
+        ),
+      } as ChannelPaymentOptions)
+  );
+
 export const useChannelPaymentOptions = (channelId: string) =>
-  channelPaymentOptionsList.find(
+  useChannelPaymentOptionsList().find(
     (channelPayments) => channelPayments.channel.id === channelId
   );
 
+// Should be fetched from app backend
 export const paymentProviderSettingsValues: PaymentProviderSettingsValues = {
   mollie: {
     "partner-id": "",
@@ -94,6 +88,7 @@ export const usePaymentProviderSettings = () =>
       } as PaymentProvider<PaymentProviderID>)
   );
 
+// Should be fetched from app backend
 export const customizationSettingsValues: CustomizationSettingsValues = {
   branding: {
     active: "#394052",

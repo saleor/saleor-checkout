@@ -2,15 +2,15 @@ import { Customization, PaymentMethod, PaymentProvider } from "types";
 
 export const paymentMethods: PaymentMethod[] = [
   {
-    id: "1",
+    id: "payment-method-1",
     name: "Payment Method 1",
   },
   {
-    id: "2",
+    id: "payment-method-2",
     name: "Payment Method 2",
   },
   {
-    id: "3",
+    id: "payment-method-3",
     name: "Payment Method 3",
   },
 ];
