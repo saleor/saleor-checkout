@@ -2,16 +2,16 @@ import { Customization, PaymentMethod, PaymentProvider } from "types";
 
 export const paymentMethods: PaymentMethod[] = [
   {
-    id: "payment-method-1",
-    name: "Payment Method 1",
+    id: "credit-card",
+    name: "Credit card",
   },
   {
-    id: "payment-method-2",
-    name: "Payment Method 2",
+    id: "apple-pay",
+    name: "Apple Pay",
   },
   {
-    id: "payment-method-3",
-    name: "Payment Method 3",
+    id: "paypal",
+    name: "PayPal",
   },
 ];
 
@@ -31,23 +31,28 @@ export const molliePaymentProvider: PaymentProvider<"mollie"> = {
     },
   ],
 };
-export const examplePaymentProvider: PaymentProvider<"example"> = {
-  id: "example",
-  label: "Example",
+export const adyenPaymentProvider: PaymentProvider<"adyen"> = {
+  id: "adyen",
+  label: "Adyen",
   settings: [
     {
-      id: "key-1",
-      label: "Key 1",
+      id: "merchant-account",
+      label: "Merchant Account",
       type: "string",
     },
     {
-      id: "key-2",
-      label: "Key 2",
+      id: "client-key",
+      label: "Client Key",
+      type: "string",
+    },
+    {
+      id: "supported-currencies",
+      label: "Supported Currencies",
       type: "string",
     },
   ],
 };
-export const paymentProviders = [molliePaymentProvider, examplePaymentProvider];
+export const paymentProviders = [molliePaymentProvider, adyenPaymentProvider];
 
 export const brandingCustomization: Customization<"branding"> = {
   id: "branding",

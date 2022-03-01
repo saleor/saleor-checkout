@@ -3,23 +3,23 @@ export type SettingType = "string" | "color" | "image";
 /**
  * Payment types
  */
-export type PaymentMethodID =
-  | "payment-method-1"
-  | "payment-method-2"
-  | "payment-method-3";
+export type PaymentMethodID = "credit-card" | "apple-pay" | "paypal";
 export interface PaymentMethod {
   id: PaymentMethodID;
   name: string;
 }
 
-export type PaymentProviderID = "mollie" | "example";
+export type PaymentProviderID = "mollie" | "adyen";
 export type MollieProviderSettingID = "partner-id" | "live-test-api-key";
-export type ExampleProviderSettingID = "key-1" | "key-2";
+export type AdyenProviderSettingID =
+  | "merchant-account"
+  | "client-key"
+  | "supported-currencies";
 export type PaymentProviderSettingID<P extends PaymentProviderID> =
   P extends "mollie"
     ? MollieProviderSettingID
-    : P extends "example"
-    ? ExampleProviderSettingID
+    : P extends "adyen"
+    ? AdyenProviderSettingID
     : never;
 
 export interface PaymentProviderSettings<P extends PaymentProviderID> {

@@ -4,8 +4,6 @@ import {
   Customization,
   CustomizationID,
   CustomizationSettings,
-  PaymentMethod,
-  PaymentMethodID,
   PaymentProvider,
   PaymentProviderID,
   PaymentProviderSettings,
@@ -20,17 +18,17 @@ import {
 
 // Should be fetched from app backend
 export const activePaymentProviders: ChannelActivePaymentProviders = {
-  "payment-method-1": {
+  "credit-card": {
     [channelList[0].id]: "mollie",
-    [channelList[1].id]: "example",
+    [channelList[1].id]: "adyen",
   },
-  "payment-method-2": {
+  "apple-pay": {
     [channelList[0].id]: "mollie",
-    [channelList[1].id]: "example",
+    [channelList[1].id]: "adyen",
   },
-  "payment-method-3": {
+  paypal: {
     [channelList[0].id]: "mollie",
-    [channelList[1].id]: "example",
+    [channelList[1].id]: "adyen",
   },
 };
 
@@ -68,9 +66,10 @@ export const paymentProviderSettingsValues: PaymentProviderSettingsValues = {
     "partner-id": "",
     "live-test-api-key": "",
   },
-  example: {
-    "key-1": "",
-    "key-2": "",
+  adyen: {
+    "merchant-account": "",
+    "client-key": "",
+    "supported-currencies": "",
   },
 };
 export const usePaymentProviderSettings = () =>
