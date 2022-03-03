@@ -1,12 +1,9 @@
 import { useFormattedMessages } from "@hooks/useFormattedMessages";
-import React from "react";
 import { Text } from "@components/Text";
 import { Button } from "@components/Button";
 import { TextInput } from "@components/TextInput";
 
-interface ContactProps {}
-
-export const Contact: React.FC<ContactProps> = ({}) => {
+export const Contact = () => {
   const formatMessage = useFormattedMessages();
 
   return (

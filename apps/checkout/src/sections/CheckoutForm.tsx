@@ -1,10 +1,7 @@
 import { Divider } from "@components/Divider";
-import React from "react";
 import { Contact } from "./Contact";
 
-interface CheckoutFormProps {}
-
-const CheckoutForm: React.FC<CheckoutFormProps> = ({}) => {
+export const CheckoutForm = () => {
   return (
     <div className="checkout-form">
       <Contact />
@@ -12,5 +9,3 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({}) => {
     </div>
   );
 };
-
-export default CheckoutForm;

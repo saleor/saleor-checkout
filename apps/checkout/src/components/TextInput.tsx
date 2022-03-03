@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { AriaTextFieldOptions, useTextField } from "@react-aria/textfield";
 import { Classes } from "@lib/globalTypes";
 
+// eslint-disable-next-line
 interface TextInputProps extends AriaTextFieldOptions<"input">, Classes {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
@@ -30,7 +31,7 @@ export const TextInput: React.FC<TextInputProps> = (props) => {
     if (!labelFixed && value) {
       setLabelFixed(true);
     }
-  }, [value]);
+  }, [value, labelFixed]);
 
   const ref = React.useRef<HTMLInputElement | null>(null);
 

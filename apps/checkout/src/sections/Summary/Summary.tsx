@@ -11,9 +11,7 @@ import clsx from "clsx";
 import { useCheckout } from "@hooks/useCheckout";
 import compact from "lodash/compact";
 
-interface SummaryProps {}
-
-export const Summary: React.FC<SummaryProps> = ({}) => {
+export const Summary = () => {
   const [isOpen, setOpen] = useState(true);
   const { checkout } = useCheckout();
 
