@@ -12,7 +12,7 @@ export const Contact: React.FC<ContactProps> = ({}) => {
   return (
     <div>
       <div className="flex flex-row justify-between items-baseline">
-        <Text title>{formatMessage("contact")}</Text>
+        <Text variant="title">{formatMessage("contact")}</Text>
         <div className="flex flex-row">
           <Text color="secondary" className="mr-2">
             {formatMessage("haveAccount")}
