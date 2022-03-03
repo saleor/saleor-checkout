@@ -17,6 +17,7 @@ export const Contact = () => {
           <Button variant="tertiary" title={formatMessage("signIn")} />
         </div>
       </div>
+      {/* @ts-ignore TMP */}
       <TextInput label="Email address" className="mt-4" />
     </div>
   );
