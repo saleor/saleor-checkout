@@ -1,9 +1,6 @@
 name: CheckoutTest
 
-on:
-  push:
-    paths:
-      - "./apps/checkout"
+on: push
 
 jobs:
   tsc-and-linters:
