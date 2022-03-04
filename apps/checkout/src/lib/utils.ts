@@ -8,7 +8,8 @@ export const extractTokenFromUrl = (): string => {
     process.env.REACT_APP_TEST_CHECKOUT_TOKEN;
 
   if (typeof token !== "string") {
-    throw new Error("Checkout token does not exist");
+    throw "error";
+    // throw new Error("Checkout token does not exist");
   }
 
   return token;

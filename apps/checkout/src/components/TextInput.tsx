@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { AriaTextFieldOptions, useTextField } from "@react-aria/textfield";
 import { Classes } from "@lib/globalTypes";
 
-// @ts-ignore TMP
 interface TextInputProps extends AriaTextFieldOptions<"input">, Classes {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
