@@ -35,7 +35,6 @@ export const Summary = () => {
           <Text size="lg" bold>
             {formatMessage("summary")}
           </Text>
-
           <img
             src={ChevronDownIcon}
             alt="chevron-down"
