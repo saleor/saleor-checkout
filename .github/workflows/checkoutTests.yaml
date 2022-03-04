@@ -3,7 +3,7 @@ name: CheckoutTest
 on:
   push:
     paths:
-      - "./apps/checkout/**/*.tsx"
+      - "/apps/checkout/**/*.tsx"
 
 jobs:
   tsc-and-linters:
