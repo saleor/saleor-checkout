@@ -1,4 +1,4 @@
-name: CheckoutTest
+name: CheckoutTests
 
 on:
   push:
