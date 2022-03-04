@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "./apps/checkout"
+      0
 
 jobs:
   tsc-and-linters:
