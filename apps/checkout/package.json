@@ -37,7 +37,7 @@
     "test": "craco test",
     "eject": "react-scripts eject",
     "generate": "graphql-codegen --config codegen.yml",
-    "lint": "eslint \"src/**/*.@(tsx|ts|jsx|js)\" --fix ; npx prettier --check \"src/**/*.@(tsx|ts|jsx|js)\" --write",
+    "lint": "npx prettier --check \"src/**/*.@(tsx|ts|jsx|js)\" --write && eslint --max-warnings=0 \"src/**/*.@(tsx|ts|jsx|js)\" --fix",
     "check-types": "tsc --noEmit --strict"
   },
   "eslintConfig": {
