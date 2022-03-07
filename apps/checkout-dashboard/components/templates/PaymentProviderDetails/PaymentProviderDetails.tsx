@@ -7,6 +7,7 @@ import { useStyles } from "./styles";
 import AppSidebar from "@elements/AppSidebar";
 import SettingList from "@elements/SettingList";
 import VerticalSpacer from "@elements/VerticalSpacer";
+import { channelListPath, channelPath, paymentProviderPath } from "routes";
 
 interface PaymentProviderDetailsProps {
   selectedPaymentProvider?: PaymentProvider<PaymentProviderID>;
@@ -23,13 +24,13 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   const onBackClick = () => {
     if (channelId) {
       router.push({
-        pathname: "/channels/[channelId]",
+        pathname: channelPath,
         query: {
           channelId: channelId,
         },
       });
     } else {
-      router.push("/channels");
+      router.push(channelListPath);
     }
   };
 
@@ -38,7 +39,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   ) => {
     if (channelId) {
       router.push({
-        pathname: "/payment-providers/[paymentProviderId]",
+        pathname: paymentProviderPath,
         query: {
           paymentProviderId: paymentProvider.id,
           channelId,
@@ -46,7 +47,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
       });
     } else {
       router.push({
-        pathname: "/payment-providers/[paymentProviderId]",
+        pathname: paymentProviderPath,
         query: {
           paymentProviderId: paymentProvider.id,
         },

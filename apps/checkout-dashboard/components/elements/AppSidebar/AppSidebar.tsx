@@ -4,7 +4,7 @@ import {
   OffsettedListItem,
   OffsettedListItemCell,
 } from "@saleor/macaw-ui";
-import classNames from "classnames";
+import clsx from "clsx";
 import { useStyles } from "./styles";
 
 interface Item {
@@ -31,7 +31,7 @@ const AppSidebar: React.FC<AppSidebarProps> = ({
         {items?.map((item) => (
           <OffsettedListItem
             key={item.id}
-            className={classNames(classes.itemListItem, {
+            className={clsx(classes.itemListItem, {
               [classes.itemListItemActive]: item.id === selectedItem?.id,
             })}
             onClick={() => onItemClick(item)}

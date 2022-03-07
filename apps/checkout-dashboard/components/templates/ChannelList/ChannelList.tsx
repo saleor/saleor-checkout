@@ -8,6 +8,7 @@ import {
 } from "@saleor/macaw-ui";
 import { Channel } from "api/saleor/types";
 import { useRouter } from "next/router";
+import { channelPath } from "routes";
 import { useStyles } from "./styles";
 
 interface ChannelListProps {
@@ -20,7 +21,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ channels }) => {
 
   const onChannelClick = (channel: Channel) => {
     router.push({
-      pathname: "/channels/[channelId]",
+      pathname: channelPath,
       query: { channelId: channel.id },
     });
   };

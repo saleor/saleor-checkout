@@ -1,5 +1,4 @@
 import Setting from "@elements/Setting";
-import classNames from "classnames";
 import { SettingType } from "types";
 import { useStyles } from "./styles";
 

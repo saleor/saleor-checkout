@@ -1,12 +1,10 @@
 import AppNavigation from "@elements/AppNavigation";
-import Setting from "@elements/Setting";
 import SettingList from "@elements/SettingList";
 import {
   Typography,
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  TextField,
 } from "@material-ui/core";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import { OffsettedList, OffsettedListBody } from "@saleor/macaw-ui";

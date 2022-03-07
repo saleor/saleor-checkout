@@ -8,6 +8,7 @@ import {
   PaymentProviderID,
   PaymentProviderSettings,
 } from "types";
+import { findById } from "utils";
 import {
   ChannelActivePaymentProviders,
   ChannelPaymentOptions,
@@ -32,9 +33,6 @@ export const activePaymentProviders: ChannelActivePaymentProviders = {
   },
 };
 
-const getPaymentProvider = (id: string): PaymentProvider<PaymentProviderID> =>
-  paymentProviders.find((provider) => provider.id === id);
-
 export const useChannelPaymentOptionsList = () =>
   channelList.map(
     (channel) =>
@@ -47,7 +45,8 @@ export const useChannelPaymentOptionsList = () =>
               id: method.id,
               method,
               availableProviders: paymentProviders,
-              activeProvider: getPaymentProvider(
+              activeProvider: findById(
+                paymentProviders,
                 activePaymentProviders[method.id][channel.id]
               ),
             } as PaymentOption)

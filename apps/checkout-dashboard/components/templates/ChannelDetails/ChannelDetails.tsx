@@ -22,6 +22,7 @@ import { Channel } from "api/saleor/types";
 import { paymentProviders } from "consts";
 import { useStyles } from "./styles";
 import AppSidebar from "@elements/AppSidebar";
+import { channelListPath, channelPath, paymentProviderPath } from "routes";
 
 interface ChannelDetailsProps {
   channelPaymentOptions?: ChannelPaymentOptions;
@@ -37,12 +38,12 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
   const { actions } = useOffsettedListWidths();
 
   const onBackClick = () => {
-    router.push("/channels");
+    router.push(channelListPath);
   };
 
   const onSettingsClick = () => {
     router.push({
-      pathname: "/payment-providers/[paymentProviderId]",
+      pathname: paymentProviderPath,
       query: {
         paymentProviderId: paymentProviders[0].id,
         channelId: channelPaymentOptions?.channel.id,
@@ -52,7 +53,7 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
 
   const onChannelClick = (channel: Channel) => {
     router.push({
-      pathname: "/channels/[channelId]",
+      pathname: channelPath,
       query: { channelId: channel.id },
     });
   };

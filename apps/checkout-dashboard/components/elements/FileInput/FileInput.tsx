@@ -1,10 +1,9 @@
 import { Typography } from "@material-ui/core";
 import { Button, DeleteIcon, IconButton, PlusIcon } from "@saleor/macaw-ui";
-import classNames from "classnames";
 import Image from "next/image";
 import React, { useRef } from "react";
 import { useStyles } from "./styles";
-import image from "./logo-app-flat-large.png";
+import clsx from "clsx";
 
 interface FileInputProps {
   label: string;
@@ -58,10 +57,7 @@ const FileInput: React.FC<FileInputProps> = ({
             </Typography>
             <Typography
               variant="caption"
-              className={classNames(
-                classes.uploadLabel,
-                classes.uploadSizeLabel
-              )}
+              className={clsx(classes.uploadLabel, classes.uploadSizeLabel)}
             >
               Max size 1GB
             </Typography>

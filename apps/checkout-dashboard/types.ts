@@ -64,3 +64,10 @@ export interface Customization<P extends CustomizationID> {
   label: string;
   settings: CustomizationSettings<P>[];
 }
+
+/**
+ * Common types
+ */
+export interface Node {
+  id: string;
+}
