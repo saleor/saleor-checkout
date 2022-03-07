@@ -9,6 +9,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { messages } from "./messages";
 import { sectionMessages } from "@misc/commonMessages";
 import AppLayout from "@elements/AppLayout";
+import AppSavebar from "@elements/AppSavebar";
 
 interface PaymentProviderDetailsProps {
   selectedPaymentProvider?: PaymentProvider<PaymentProviderID>;
@@ -56,24 +57,36 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
     }
   };
 
+  const handleCancel = () => {};
+
+  const handleSubmit = () => {};
+
   return (
-    <AppLayout
-      title={intl.formatMessage(sectionMessages.settings)}
-      onBackClick={onBackClick}
-      items={paymentProviders}
-      selectedItem={selectedPaymentProvider}
-      onItemClick={onPaymentProviderClick}
-    >
-      <Card>
-        <CardContent>
-          <Typography variant="body1">
-            <FormattedMessage {...messages.paymentProviderSettings} />
-          </Typography>
-          <VerticalSpacer />
-          <SettingList settings={selectedPaymentProvider.settings} />
-        </CardContent>
-      </Card>
-    </AppLayout>
+    <>
+      <AppLayout
+        title={intl.formatMessage(sectionMessages.settings)}
+        onBackClick={onBackClick}
+        items={paymentProviders}
+        selectedItem={selectedPaymentProvider}
+        onItemClick={onPaymentProviderClick}
+      >
+        <Card>
+          <CardContent>
+            <Typography variant="body1">
+              <FormattedMessage {...messages.paymentProviderSettings} />
+            </Typography>
+            <VerticalSpacer />
+            <SettingList settings={selectedPaymentProvider?.settings} />
+          </CardContent>
+        </Card>
+      </AppLayout>
+      <AppSavebar
+        disabled={undefined}
+        state={"default"}
+        onCancel={handleCancel}
+        onSubmit={handleSubmit}
+      />
+    </>
   );
 };
 export default PaymentProviderDetails;

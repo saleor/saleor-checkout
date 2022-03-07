@@ -9,7 +9,7 @@ interface Setting {
   value?: string;
 }
 interface SettingListProps {
-  settings: Setting[];
+  settings?: Setting[];
 }
 
 const SettingList: React.FC<SettingListProps> = ({ settings }) => {
@@ -17,7 +17,7 @@ const SettingList: React.FC<SettingListProps> = ({ settings }) => {
 
   return (
     <div className={classes.root}>
-      {settings.map((setting) => (
+      {settings?.map((setting) => (
         <Setting
           key={setting.id}
           type={setting.type}

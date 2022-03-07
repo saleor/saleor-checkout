@@ -1,4 +1,5 @@
 import AppNavigation from "@elements/AppNavigation";
+import AppSavebar from "@elements/AppSavebar";
 import SettingList from "@elements/SettingList";
 import {
   Typography,
@@ -21,6 +22,10 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
   options,
 }) => {
   const classes = useStyles();
+
+  const handleCancel = () => {};
+
+  const handleSubmit = () => {};
 
   return (
     <>
@@ -56,6 +61,12 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
           <div className={classes.designPreview}>Customization</div>
         </div>
       </div>
+      <AppSavebar
+        disabled={undefined}
+        state={"default"}
+        onCancel={handleCancel}
+        onSubmit={handleSubmit}
+      />
     </>
   );
 };
