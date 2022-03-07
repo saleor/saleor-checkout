@@ -33,6 +33,35 @@ html {
 }
 
 @layer components {
+  /* Checkbox */
+  .checkbox {
+    @apply flex flex-row;
+  }
+
+  .checkbox [type="checkbox"] {
+    @apply opacity-0 absolute z-10;
+  }
+
+  .checkbox [type="checkbox"]:checked + .checkbox-input {
+    @apply border-border-active;
+  }
+
+  .checkbox .checkbox-input:hover {
+    @apply border-border-active;
+  }
+
+  .checkbox [type="checkbox"]:checked + .checkbox-input img {
+    @apply opacity-100;
+  }
+
+  .checkbox .checkbox-input {
+    @apply w-5 h-5 border border-border-primary absolute top-0 left-0 z-50;
+  }
+
+  .checkbox .checkbox-input img {
+    @apply opacity-0;
+  }
+
   /* Test Input */
   .text-input {
     @apply input border border-border-primary appearance-none w-full focus:border-border-active focus:outline-none active:outline-none active:border-border-primary py-3 pt-5 pb-2;
