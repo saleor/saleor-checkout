@@ -1,6 +1,5 @@
 import AppNavigation from "@elements/AppNavigation";
 import AppSavebar from "@elements/AppSavebar";
-import SettingList from "@elements/SettingList";
 import {
   Typography,
   Accordion,
@@ -12,28 +11,45 @@ import { OffsettedList, OffsettedListBody } from "@saleor/macaw-ui";
 import { Customization, CustomizationID } from "types";
 import { useStyles } from "./styles";
 import { FormattedMessage } from "react-intl";
+import { useForm, Controller } from "react-hook-form";
 import { messages } from "./messages";
+import Setting from "@elements/Setting";
+import { flattenSettingId, unflattenSettings } from "utils";
+import { UnknownSettingsValues } from "api/app/types";
 
 interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
+  onCanel: () => void;
+  onSubmit: (data: UnknownSettingsValues) => void;
 }
 
 const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
   options,
+  onCanel,
+  onSubmit,
 }) => {
   const classes = useStyles();
+  const {
+    control,
+    handleSubmit: handleSubmitForm,
+    formState: { errors },
+  } = useForm();
 
-  const handleCancel = () => {};
+  const handleCancel = () => {
+    onCanel();
+  };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (flattedSettings: Record<string, string>) => {
+    onSubmit(unflattenSettings(flattedSettings, options));
+  };
 
   return (
-    <>
+    <form>
       <AppNavigation />
       <div className={classes.root}>
         <OffsettedList gridTemplate={["1fr"]} className={classes.optionList}>
           <OffsettedListBody>
-            {options.map((option) => (
+            {options.map((option, optionIdx) => (
               <Accordion
                 key={option.id}
                 className={classes.option}
@@ -47,7 +63,25 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
                 </AccordionSummary>
                 <AccordionDetails className={classes.optionDetails}>
                   <div className={classes.optionDetailsContent}>
-                    <SettingList settings={option.settings} />
+                    {option.settings?.map(({ id, type, label, value }) => (
+                      <Controller
+                        key={id}
+                        name={flattenSettingId(optionIdx, id)}
+                        control={control}
+                        defaultValue={value}
+                        render={({ field }) => (
+                          <Setting
+                            {...field}
+                            name={field.name}
+                            type={type}
+                            label={label}
+                            value={field.value}
+                            onChange={field.onChange}
+                            onBlur={field.onBlur}
+                          />
+                        )}
+                      />
+                    ))}
                   </div>
                 </AccordionDetails>
               </Accordion>
@@ -65,9 +99,9 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
         disabled={undefined}
         state={"default"}
         onCancel={handleCancel}
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmitForm(handleSubmit)}
       />
-    </>
+    </form>
   );
 };
 export default CustomizationDetails;

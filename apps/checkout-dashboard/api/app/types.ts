@@ -35,3 +35,8 @@ export type CustomizationSettingsValues = {
     [K in CustomizationSettingID<P>]: string;
   };
 };
+export type UnknownSettingsValues = {
+  [P in string]: {
+    [K in string]: string;
+  };
+};

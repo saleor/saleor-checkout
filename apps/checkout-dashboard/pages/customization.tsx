@@ -1,8 +1,25 @@
+import { useRouter } from "next/router";
 import CustomizationDetails from "@templates/CustomizationDetails";
 import { useCustomizationSettings } from "api/app/api";
+import { UnknownSettingsValues } from "api/app/types";
 
 export default function Customization() {
+  const router = useRouter();
   const options = useCustomizationSettings();
 
-  return <CustomizationDetails options={options} />;
+  const handleCancel = () => {
+    router.back();
+  };
+
+  const handleSubmit = (data: UnknownSettingsValues) => {
+    console.log(data);
+  };
+
+  return (
+    <CustomizationDetails
+      options={options}
+      onCanel={handleCancel}
+      onSubmit={handleSubmit}
+    />
+  );
 }

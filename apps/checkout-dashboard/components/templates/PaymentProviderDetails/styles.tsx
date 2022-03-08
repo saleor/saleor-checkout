@@ -1,13 +1,13 @@
 import { makeStyles } from "@saleor/macaw-ui";
 
 export const useStyles = makeStyles(
-  () => ({
-    root: {
+  (theme) => ({
+    settings: {
+      width: "100%",
       display: "flex",
       flexWrap: "wrap",
-      gap: "2rem",
-      width: "100%",
+      gap: theme.spacing(2),
     },
   }),
-  { name: "SettingList" }
+  { name: "PaymentProviderDetails" }
 );

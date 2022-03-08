@@ -8,6 +8,7 @@ import { FormattedMessage } from "react-intl";
 import { messages } from "./messages";
 
 interface FileInputProps {
+  name: string;
   label: string;
   fileUrl?: string;
   onFileUpload: (file: File) => void;
@@ -15,6 +16,7 @@ interface FileInputProps {
 }
 
 const FileInput: React.FC<FileInputProps> = ({
+  name,
   label,
   fileUrl,
   onFileUpload,
@@ -93,8 +95,8 @@ const FileInput: React.FC<FileInputProps> = ({
         </div>
       )}
       <input
+        name={name}
         className={classes.input}
-        id="fileUpload"
         onChange={handleFileChange}
         type="file"
         ref={anchor}

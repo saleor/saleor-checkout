@@ -16,11 +16,12 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@saleor/app-bridge": "^0.1.5",
+    "@saleor/macaw-ui": "mirumee/macaw-ui#6351406d4d0b7ab78fff3c54e02da09cbcf5e69c",
     "clsx": "^1.1.1",
-    "@saleor/macaw-ui": "mirumee/macaw-ui#28a37b8",
     "next": "12.0.7",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-hook-form": "^7.27.1",
     "react-intl": "^5.24.6"
   },
   "devDependencies": {
