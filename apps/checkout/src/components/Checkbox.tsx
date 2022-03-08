@@ -1,10 +1,11 @@
 // import {useCheckbox} from '@react-aria/checkbox' -> won't work now because of React 18, add after official release
 
-import { ChangeEvent } from "react";
 import { Text } from "@components/Text";
 import { CheckIcon } from "@icons";
+import { Classes } from "@lib/globalTypes";
+import clsx from "clsx";
 
-interface CheckboxProps {
+interface CheckboxProps extends Classes {
   label: string;
   value: string;
   checked: boolean;
@@ -16,9 +17,10 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   checked,
   value,
   onChange,
+  className,
 }) => {
   return (
-    <div className="checkbox">
+    <div className={clsx("checkbox", className)}>
       <div className="relative h-5 w-5 mr-2">
         <input type="checkbox" value={value} checked={checked} />
         <div className="checkbox-input" onClick={() => onChange(!checked)}>

@@ -1,31 +1,45 @@
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
-import { AriaTextFieldOptions, useTextField } from "@react-aria/textfield";
+import { useTextField } from "@react-aria/textfield";
 import { Classes } from "@lib/globalTypes";
+import { Control, useWatch } from "react-hook-form";
+import { InputHTMLAttributes } from "react";
 
-// @ts-ignore TMP
-interface TextInputProps extends AriaTextFieldOptions<"input">, Classes {
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string;
+interface TextInputProps
+  extends Omit<InputHTMLAttributes<Element>, "value" | "defaultValue">,
+    Classes {
+  onChange: (event: React.ChangeEvent<Element>) => void;
+  name: string;
   label: string;
   optional?: boolean;
   error?: boolean;
   errorMessage?: string;
+  control: Control;
 }
 
-export const TextInput: React.FC<TextInputProps> = (props) => {
+export const TextInput: React.FC<TextInputProps> = React.forwardRef<
+  HTMLInputElement,
+  TextInputProps
+>((props, ref) => {
   const {
     label,
     optional = false,
     error,
     errorMessage,
-    value,
-    onChange,
     className,
+    onChange,
+    onBlur,
+    name,
+    control,
     ...rest
   } = props;
 
   const [labelFixed, setLabelFixed] = useState(false);
+
+  const value = useWatch({
+    control,
+    name,
+  });
 
   useEffect(() => {
     if (!labelFixed && value) {
@@ -33,15 +47,13 @@ export const TextInput: React.FC<TextInputProps> = (props) => {
     }
   }, [value, labelFixed]);
 
-  const ref = React.useRef<HTMLInputElement | null>(null);
-
   const { labelProps, inputProps, errorMessageProps } = useTextField(rest, ref);
 
   const inputClasses = clsx("text-input", {
     "text-input-error": error,
   });
 
-  const labelClasses = clsx("text-input-label top-4", {
+  const labelClasses = clsx("text-input-label", {
     "text-input-filled-label": labelFixed,
   });
 
@@ -53,13 +65,14 @@ export const TextInput: React.FC<TextInputProps> = (props) => {
   return (
     <div className={clsx("relative", className)}>
       <input
-        ref={ref}
         {...inputProps}
+        name={name}
+        ref={ref}
         className={inputClasses}
-        value={value}
+        onBlur={onBlur}
         onChange={handleChange}
       />
-      <label {...labelProps} className={labelClasses}>
+      <label {...labelProps} htmlFor={inputProps.id} className={labelClasses}>
         {optional ? label : `${label}*`}
       </label>
       {error && (
@@ -69,4 +82,4 @@ export const TextInput: React.FC<TextInputProps> = (props) => {
       )}
     </div>
   );
-};
+});

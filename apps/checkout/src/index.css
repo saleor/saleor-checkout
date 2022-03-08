@@ -10,28 +10,6 @@ html {
   font-size: 62.5%;
 }
 
-/* TextInput */
-
-.input {
-  transition: border 0.2s ease-in-out;
-  height: 56px;
-  padding-left: 11px;
-}
-
-.input:focus + .text-input-label,
-.input:active + .text-input-label,
-.input.text-input-filled + .text-input-label {
-  font-size: 11px;
-  transition: all 0.2s ease-out;
-  top: 0.4rem;
-}
-
-.label {
-  transition: all 0.2s ease-out;
-  top: 1.2rem;
-  left: 0;
-}
-
 @layer components {
   /* Checkbox */
   .checkbox {
@@ -63,6 +41,13 @@ html {
   }
 
   /* Test Input */
+
+  .input {
+    transition: border 0.2s ease-in-out;
+    height: 56px;
+    padding-left: 11px;
+  }
+
   .text-input {
     @apply input border border-border-primary appearance-none w-full focus:border-border-active focus:outline-none active:outline-none active:border-border-primary py-3 pt-5 pb-2;
   }
@@ -72,7 +57,19 @@ html {
   }
 
   .text-input-label {
-    @apply label absolute text-text-secondary text-base ml-3;
+    transition: all 0.2s ease-out;
+    @apply absolute top-4 left-0 text-text-secondary text-base ml-3;
+  }
+
+  .text-input-filled-label {
+    transition: all 0.2s ease-out;
+    top: 0.6rem;
+    @apply text-xs;
+  }
+
+  .input:focus + .text-input-label,
+  .input:active + .text-input-label {
+    @apply text-input-filled-label;
   }
 
   /* Button */
