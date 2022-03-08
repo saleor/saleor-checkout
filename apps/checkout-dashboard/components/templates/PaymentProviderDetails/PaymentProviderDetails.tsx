@@ -8,6 +8,9 @@ import AppSidebar from "@elements/AppSidebar";
 import SettingList from "@elements/SettingList";
 import VerticalSpacer from "@elements/VerticalSpacer";
 import { channelListPath, channelPath, paymentProviderPath } from "routes";
+import { FormattedMessage } from "react-intl";
+import { messages } from "./messages";
+import { sectionMessages } from "@misc/commonMessages";
 
 interface PaymentProviderDetailsProps {
   selectedPaymentProvider?: PaymentProvider<PaymentProviderID>;
@@ -57,7 +60,9 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
 
   return (
     <>
-      <AppHeader onBack={onBackClick}>Settings</AppHeader>
+      <AppHeader onBack={onBackClick}>
+        <FormattedMessage {...sectionMessages.settings} />
+      </AppHeader>
       <div className={classes.root}>
         <AppSidebar
           items={paymentProviders}
@@ -67,7 +72,9 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
         <div className={classes.providerSettings}>
           <Card>
             <CardContent>
-              <Typography variant="body1">Payment provider settings</Typography>
+              <Typography variant="body1">
+                <FormattedMessage {...messages.paymentProviderSettings} />
+              </Typography>
               <VerticalSpacer />
               <SettingList settings={selectedPaymentProvider.settings} />
             </CardContent>

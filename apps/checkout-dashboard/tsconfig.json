@@ -3,7 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "@elements/*": ["./components/elements/*"],
-      "@templates/*": ["./components/templates/*"]
+      "@templates/*": ["./components/templates/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@misc/*": ["./misc/*"]
     }
   },
   "extends": "tsconfig/nextjs.json",

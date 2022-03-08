@@ -10,6 +10,7 @@ import {
 } from "@saleor/macaw-ui";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import { useRouter } from "next/router";
+import { FormattedMessage } from "react-intl";
 import {
   Accordion,
   AccordionDetails,
@@ -23,6 +24,7 @@ import { paymentProviders } from "consts";
 import { useStyles } from "./styles";
 import AppSidebar from "@elements/AppSidebar";
 import { channelListPath, channelPath, paymentProviderPath } from "routes";
+import { messages } from "./messages";
 
 interface ChannelDetailsProps {
   channelPaymentOptions?: ChannelPaymentOptions;
@@ -77,7 +79,9 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
           onItemClick={onChannelClick}
         />
         <div className={classes.paymentOptionList}>
-          <Typography variant="subtitle1">Select payment methods</Typography>
+          <Typography variant="subtitle1">
+            <FormattedMessage {...messages.selectPaymentMethods} />
+          </Typography>
           {channelPaymentOptions?.paymentOptions.map((paymentOption) => (
             <Accordion
               key={paymentOption.method.id}

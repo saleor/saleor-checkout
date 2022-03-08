@@ -10,6 +10,8 @@ import { Channel } from "api/saleor/types";
 import { useRouter } from "next/router";
 import { channelPath } from "routes";
 import { useStyles } from "./styles";
+import { FormattedMessage } from "react-intl";
+import { messages } from "./messages";
 
 interface ChannelListProps {
   channels?: Channel[];
@@ -32,7 +34,9 @@ const ChannelList: React.FC<ChannelListProps> = ({ channels }) => {
       <OffsettedList gridTemplate={["1fr"]}>
         <OffsettedListHeader>
           <OffsettedListItem>
-            <OffsettedListItemCell>Channel name</OffsettedListItemCell>
+            <OffsettedListItemCell>
+              <FormattedMessage {...messages.channelName} />
+            </OffsettedListItemCell>
           </OffsettedListItem>
         </OffsettedListHeader>
         <OffsettedListBody>

@@ -4,6 +4,8 @@ import Image from "next/image";
 import React, { useRef } from "react";
 import { useStyles } from "./styles";
 import clsx from "clsx";
+import { FormattedMessage } from "react-intl";
+import { messages } from "./messages";
 
 interface FileInputProps {
   label: string;
@@ -53,13 +55,13 @@ const FileInput: React.FC<FileInputProps> = ({
         <div className={classes.uploadField}>
           <>
             <Typography variant="body2" className={classes.uploadLabel}>
-              Drag an image here
+              <FormattedMessage {...messages.dragImage} />
             </Typography>
             <Typography
               variant="caption"
               className={clsx(classes.uploadLabel, classes.uploadSizeLabel)}
             >
-              Max size 1GB
+              <FormattedMessage {...messages.maxFileSize} />
             </Typography>
             <Button
               variant="tertiary"
@@ -67,7 +69,7 @@ const FileInput: React.FC<FileInputProps> = ({
               endIcon={<PlusIcon />}
               onClick={handleFileUploadButtonClick}
             >
-              Upload file
+              <FormattedMessage {...messages.uploadFile} />
             </Button>
           </>
         </div>

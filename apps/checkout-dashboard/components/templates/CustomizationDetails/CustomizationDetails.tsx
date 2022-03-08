@@ -10,6 +10,8 @@ import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import { OffsettedList, OffsettedListBody } from "@saleor/macaw-ui";
 import { Customization, CustomizationID } from "types";
 import { useStyles } from "./styles";
+import { FormattedMessage } from "react-intl";
+import { messages } from "./messages";
 
 interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
@@ -48,7 +50,9 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
           </OffsettedListBody>
         </OffsettedList>
         <div className={classes.design}>
-          <Typography variant="subtitle1">Customization preview</Typography>
+          <Typography variant="subtitle1">
+            <FormattedMessage {...messages.customizationPreview} />
+          </Typography>
           <div className={classes.designPreview}>Customization</div>
         </div>
       </div>
