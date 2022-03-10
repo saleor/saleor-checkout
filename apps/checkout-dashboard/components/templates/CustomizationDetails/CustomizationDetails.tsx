@@ -7,7 +7,11 @@ import {
   AccordionSummary,
 } from "@material-ui/core";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
-import { OffsettedList, OffsettedListBody } from "@saleor/macaw-ui";
+import {
+  OffsettedList,
+  OffsettedListBody,
+  ConfirmButtonTransitionState,
+} from "@saleor/macaw-ui";
 import { Customization, CustomizationID } from "types";
 import { useStyles } from "./styles";
 import { FormattedMessage } from "react-intl";
@@ -19,21 +23,21 @@ import { UnknownSettingsValues } from "api/app/types";
 
 interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
+  disabled: boolean;
+  saveButtonBarState: ConfirmButtonTransitionState;
   onCanel: () => void;
   onSubmit: (data: UnknownSettingsValues) => void;
 }
 
 const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
   options,
+  disabled,
+  saveButtonBarState,
   onCanel,
   onSubmit,
 }) => {
   const classes = useStyles();
-  const {
-    control,
-    handleSubmit: handleSubmitForm,
-    formState: { errors },
-  } = useForm();
+  const { control, handleSubmit: handleSubmitForm, formState } = useForm();
 
   const handleCancel = () => {
     onCanel();
@@ -71,7 +75,6 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
                         defaultValue={value}
                         render={({ field }) => (
                           <Setting
-                            {...field}
                             name={field.name}
                             type={type}
                             label={label}
@@ -96,8 +99,8 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
         </div>
       </div>
       <AppSavebar
-        disabled={undefined}
-        state={"default"}
+        disabled={disabled || !formState.isDirty}
+        state={saveButtonBarState}
         onCancel={handleCancel}
         onSubmit={handleSubmitForm(handleSubmit)}
       />

@@ -18,6 +18,8 @@ export default function Customization() {
   return (
     <CustomizationDetails
       options={options}
+      disabled={false}
+      saveButtonBarState="default"
       onCanel={handleCancel}
       onSubmit={handleSubmit}
     />

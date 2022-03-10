@@ -24,6 +24,8 @@ export default function PaymentProvider() {
     <PaymentProviderDetails
       selectedPaymentProvider={paymentProvider}
       channelId={channelId?.toString()}
+      disabled={false}
+      saveButtonBarState="default"
       onCanel={handleCancel}
       onSubmit={handleSubmit}
     />

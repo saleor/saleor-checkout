@@ -13,10 +13,13 @@ import AppLayout from "@elements/AppLayout";
 import AppSavebar from "@elements/AppSavebar";
 import Setting from "@elements/Setting";
 import { UnknownSettingsValues } from "api/app/types";
+import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 
 interface PaymentProviderDetailsProps {
   selectedPaymentProvider?: PaymentProvider<PaymentProviderID>;
   channelId?: string;
+  disabled: boolean;
+  saveButtonBarState: ConfirmButtonTransitionState;
   onCanel: () => void;
   onSubmit: (data: UnknownSettingsValues) => void;
 }
@@ -24,6 +27,8 @@ interface PaymentProviderDetailsProps {
 const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   selectedPaymentProvider,
   channelId,
+  disabled,
+  saveButtonBarState,
   onCanel,
   onSubmit,
 }) => {
@@ -33,7 +38,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   const {
     control,
     handleSubmit: handleSubmitForm,
-    formState: { errors },
+    formState,
   } = useForm({
     shouldUnregister: true,
   });
@@ -107,7 +112,6 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
                     defaultValue={value}
                     render={({ field }) => (
                       <Setting
-                        {...field}
                         name={field.name}
                         type={type}
                         label={label}
@@ -124,8 +128,8 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
         </Card>
       </AppLayout>
       <AppSavebar
-        disabled={undefined}
-        state={"default"}
+        disabled={disabled || !formState.isDirty}
+        state={saveButtonBarState}
         onCancel={handleCancel}
         onSubmit={handleSubmitForm(handleSubmit)}
       />

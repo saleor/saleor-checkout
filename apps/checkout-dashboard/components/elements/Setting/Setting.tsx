@@ -49,8 +49,7 @@ const Setting: React.FC<SettingProps> = ({
         name={name}
         label={label}
         fileUrl={value}
-        onFileUpload={() => undefined}
-        onFileDelete={() => undefined}
+        onChange={onChange}
       />
     );
   }

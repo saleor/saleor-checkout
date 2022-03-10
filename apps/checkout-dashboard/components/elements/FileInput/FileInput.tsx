@@ -11,19 +11,20 @@ interface FileInputProps {
   name: string;
   label: string;
   fileUrl?: string;
-  onFileUpload: (file: File) => void;
-  onFileDelete: () => void;
+  onChange: (
+    event: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement>
+  ) => void;
 }
 
 const FileInput: React.FC<FileInputProps> = ({
   name,
   label,
   fileUrl,
-  onFileUpload,
-  onFileDelete,
+  onChange,
 }) => {
   const classes = useStyles();
   const anchor = useRef<HTMLInputElement>();
+  const [src, setSrc] = React.useState<string | undefined>(fileUrl);
 
   const handleFileUploadButtonClick = () => anchor.current.click();
 
@@ -33,13 +34,27 @@ const FileInput: React.FC<FileInputProps> = ({
 
   const handleFileDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
+    onChange(event);
     const files = event.dataTransfer.files;
-    onFileUpload(files[0]);
+    setSrc(URL.createObjectURL(files[0]));
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    onChange(event);
     const files = event.target.files;
-    onFileUpload(files[0]);
+    setSrc(URL.createObjectURL(files[0]));
+  };
+
+  const handleFileDelete = () => {
+    anchor.current.value = "";
+    onChange({
+      target: {
+        name,
+        value: "",
+      },
+    } as React.ChangeEvent<HTMLInputElement>);
+    setSrc(undefined);
   };
 
   return (
@@ -53,7 +68,7 @@ const FileInput: React.FC<FileInputProps> = ({
       <Typography variant="body2" className={classes.label}>
         {label}
       </Typography>
-      {!fileUrl && (
+      {!src && (
         <div className={classes.uploadField}>
           <>
             <Typography variant="body2" className={classes.uploadLabel}>
@@ -76,20 +91,24 @@ const FileInput: React.FC<FileInputProps> = ({
           </>
         </div>
       )}
-      {fileUrl && (
+      {src && (
         <div className={classes.mediaContainer}>
-          <Image className={classes.media} src={fileUrl} alt="file preview" />
+          <Image
+            className={classes.media}
+            src={src}
+            alt="file preview"
+            layout="fill"
+            loader={({ src }) => src}
+          />
           <div className={classes.mediaOverlay}>
             <div className={classes.mediaToolbar}>
-              {onFileDelete && (
-                <IconButton
-                  color="primary"
-                  className={classes.mediaToolbarIcon}
-                  onClick={onFileDelete}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              )}
+              <IconButton
+                color="primary"
+                className={classes.mediaToolbarIcon}
+                onClick={handleFileDelete}
+              >
+                <DeleteIcon />
+              </IconButton>
             </div>
           </div>
         </div>
