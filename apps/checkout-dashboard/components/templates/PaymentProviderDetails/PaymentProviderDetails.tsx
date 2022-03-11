@@ -1,16 +1,14 @@
-import AppHeader from "@elements/AppHeader";
 import { useRouter } from "next/router";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import { PaymentProvider, PaymentProviderID } from "types";
 import { paymentProviders } from "consts";
-import { useStyles } from "./styles";
-import AppSidebar from "@elements/AppSidebar";
 import SettingList from "@elements/SettingList";
 import VerticalSpacer from "@elements/VerticalSpacer";
 import { channelListPath, channelPath, paymentProviderPath } from "routes";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { messages } from "./messages";
 import { sectionMessages } from "@misc/commonMessages";
+import AppLayout from "@elements/AppLayout";
 
 interface PaymentProviderDetailsProps {
   selectedPaymentProvider?: PaymentProvider<PaymentProviderID>;
@@ -22,7 +20,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   channelId,
 }) => {
   const router = useRouter();
-  const classes = useStyles();
+  const intl = useIntl();
 
   const onBackClick = () => {
     if (channelId) {
@@ -59,29 +57,23 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   };
 
   return (
-    <>
-      <AppHeader onBack={onBackClick}>
-        <FormattedMessage {...sectionMessages.settings} />
-      </AppHeader>
-      <div className={classes.root}>
-        <AppSidebar
-          items={paymentProviders}
-          selectedItem={selectedPaymentProvider}
-          onItemClick={onPaymentProviderClick}
-        />
-        <div className={classes.providerSettings}>
-          <Card>
-            <CardContent>
-              <Typography variant="body1">
-                <FormattedMessage {...messages.paymentProviderSettings} />
-              </Typography>
-              <VerticalSpacer />
-              <SettingList settings={selectedPaymentProvider.settings} />
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </>
+    <AppLayout
+      title={intl.formatMessage(sectionMessages.settings)}
+      onBackClick={onBackClick}
+      items={paymentProviders}
+      selectedItem={selectedPaymentProvider}
+      onItemClick={onPaymentProviderClick}
+    >
+      <Card>
+        <CardContent>
+          <Typography variant="body1">
+            <FormattedMessage {...messages.paymentProviderSettings} />
+          </Typography>
+          <VerticalSpacer />
+          <SettingList settings={selectedPaymentProvider.settings} />
+        </CardContent>
+      </Card>
+    </AppLayout>
   );
 };
 export default PaymentProviderDetails;

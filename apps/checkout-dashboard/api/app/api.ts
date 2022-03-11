@@ -33,26 +33,20 @@ export const activePaymentProviders: ChannelActivePaymentProviders = {
   },
 };
 
-export const useChannelPaymentOptionsList = () =>
-  channelList.map(
-    (channel) =>
-      ({
-        id: channel.id,
-        channel: channel,
-        paymentOptions: paymentMethods.map(
-          (method) =>
-            ({
-              id: method.id,
-              method,
-              availableProviders: paymentProviders,
-              activeProvider: findById(
-                paymentProviders,
-                activePaymentProviders[method.id][channel.id]
-              ),
-            } as PaymentOption)
-        ),
-      } as ChannelPaymentOptions)
-  );
+export const useChannelPaymentOptionsList = (): ChannelPaymentOptions[] =>
+  channelList.map((channel) => ({
+    id: channel.id,
+    channel: channel,
+    paymentOptions: paymentMethods.map((method) => ({
+      id: method.id,
+      method,
+      availableProviders: paymentProviders,
+      activeProvider: findById(
+        paymentProviders,
+        activePaymentProviders[method.id][channel.id]
+      ),
+    })),
+  }));
 
 export const useChannelPaymentOptions = (channelId: string) =>
   useChannelPaymentOptionsList().find(
@@ -71,20 +65,17 @@ export const paymentProviderSettingsValues: PaymentProviderSettingsValues = {
     "supported-currencies": "",
   },
 };
-export const usePaymentProviderSettings = () =>
-  paymentProviders.map(
-    (provider) =>
-      ({
-        ...provider,
-        settings: provider.settings.map(
-          (setting: PaymentProviderSettings<PaymentProviderID>) =>
-            ({
-              ...setting,
-              value: paymentProviderSettingsValues[provider.id][setting.id],
-            } as PaymentProviderSettings<PaymentProviderID>)
-        ),
-      } as PaymentProvider<PaymentProviderID>)
-  );
+export const usePaymentProviderSettings =
+  (): PaymentProvider<PaymentProviderID>[] =>
+    paymentProviders.map((provider) => ({
+      ...provider,
+      settings: provider.settings.map(
+        (setting: PaymentProviderSettings<PaymentProviderID>) => ({
+          ...setting,
+          value: paymentProviderSettingsValues[provider.id][setting.id],
+        })
+      ),
+    }));
 
 // Should be fetched from app backend
 export const customizationSettingsValues: CustomizationSettingsValues = {
@@ -100,17 +91,13 @@ export const customizationSettingsValues: CustomizationSettingsValues = {
     "low-stock-threshold": "",
   },
 };
-export const useCustomizationSettings = () =>
-  customizations.map(
-    (customization) =>
-      ({
-        ...customization,
-        settings: customization.settings.map(
-          (setting: CustomizationSettings<CustomizationID>) =>
-            ({
-              ...setting,
-              value: customizationSettingsValues[customization.id][setting.id],
-            } as CustomizationSettings<CustomizationID>)
-        ),
-      } as Customization<CustomizationID>)
-  );
+export const useCustomizationSettings = (): Customization<CustomizationID>[] =>
+  customizations.map((customization) => ({
+    ...customization,
+    settings: customization.settings.map(
+      (setting: CustomizationSettings<CustomizationID>) => ({
+        ...setting,
+        value: customizationSettingsValues[customization.id][setting.id],
+      })
+    ),
+  }));

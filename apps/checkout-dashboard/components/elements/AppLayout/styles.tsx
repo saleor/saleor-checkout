@@ -6,9 +6,9 @@ export const useStyles = makeStyles(
       display: "flex",
       gap: "2rem",
     },
-    providerSettings: {
+    content: {
       flex: "2",
     },
   }),
-  { name: "PaymentProviderDetails" }
+  { name: "AppLayout" }
 );

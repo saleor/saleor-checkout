@@ -7,7 +7,7 @@ import {
 import clsx from "clsx";
 import { useStyles } from "./styles";
 
-interface Item {
+export interface Item {
   id: string;
   label: string;
 }

@@ -2,13 +2,6 @@ import { makeStyles } from "@saleor/macaw-ui";
 
 export const useStyles = makeStyles(
   (theme) => ({
-    root: {
-      display: "flex",
-      gap: "2rem",
-    },
-    paymentOptionList: {
-      flex: "2",
-    },
     paymentOption: {
       "& .MuiAccordionDetails-root": {
         padding: 0,
