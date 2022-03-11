@@ -16,7 +16,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@saleor/app-bridge": "^0.1.5",
-    "@saleor/macaw-ui": "mirumee/macaw-ui#6351406d4d0b7ab78fff3c54e02da09cbcf5e69c",
+    "@saleor/macaw-ui": "mirumee/macaw-ui#SALEOR-6119-dockable-action-bar",
     "clsx": "^1.1.1",
     "next": "12.0.7",
     "react": "17.0.2",
