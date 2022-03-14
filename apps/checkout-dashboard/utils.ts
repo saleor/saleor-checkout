@@ -1,4 +1,4 @@
-import { UnknownSettingsValues } from "api/app/types";
+import { UnknownSettingsValues } from "types/api";
 import { Node } from "types";
 
 export const getById = (idToCompare: string) => (obj: Node) =>

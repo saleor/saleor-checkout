@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import CustomizationDetails from "@templates/CustomizationDetails";
-import { useCustomizationSettings } from "api/app/api";
-import { UnknownSettingsValues } from "api/app/types";
+import { useCustomizationSettings } from "api/app";
+import { UnknownSettingsValues } from "types/api";
 
 export default function Customization() {
   const router = useRouter();

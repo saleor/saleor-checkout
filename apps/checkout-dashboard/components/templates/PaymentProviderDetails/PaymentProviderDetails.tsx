@@ -12,7 +12,7 @@ import { sectionMessages } from "@misc/commonMessages";
 import AppLayout from "@elements/AppLayout";
 import AppSavebar from "@elements/AppSavebar";
 import Setting from "@elements/Setting";
-import { UnknownSettingsValues } from "api/app/types";
+import { UnknownSettingsValues } from "types/api";
 import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 
 interface PaymentProviderDetailsProps {
@@ -77,10 +77,6 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
     }
   };
 
-  const handleCancel = () => {
-    onCanel();
-  };
-
   const handleSubmit = (flattedOptions: Record<string, string>) => {
     onSubmit({
       [selectedPaymentProvider.id]: flattedOptions,
@@ -130,7 +126,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
       <AppSavebar
         disabled={disabled || !formState.isDirty}
         state={saveButtonBarState}
-        onCancel={handleCancel}
+        onCancel={onCanel}
         onSubmit={handleSubmitForm(handleSubmit)}
       />
     </form>

@@ -1,4 +1,4 @@
-import { Channel } from "api/saleor/types";
+import { Channel } from "types/saleor";
 import {
   CustomizationID,
   CustomizationSettingID,

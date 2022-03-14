@@ -20,38 +20,22 @@ const Setting: React.FC<SettingProps> = ({
   onChange,
   onBlur,
 }) => {
+  const commonProps = {
+    name,
+    label,
+    value,
+    onChange,
+    onBlur,
+  };
+
   if (type === "string") {
-    return (
-      <TextField
-        name={name}
-        label={label}
-        value={value}
-        fullWidth={true}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
-    );
+    return <TextField {...commonProps} fullWidth />;
   }
   if (type === "color") {
-    return (
-      <ColorInput
-        name={name}
-        label={label}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
-    );
+    return <ColorInput {...commonProps} />;
   }
   if (type === "image") {
-    return (
-      <FileInput
-        name={name}
-        label={label}
-        fileUrl={value}
-        onChange={onChange}
-      />
-    );
+    return <FileInput {...commonProps} alt={label} />;
   }
   return null;
 };

@@ -1,4 +1,4 @@
-import { channelList } from "api/saleor/api";
+import { channelList } from "api/saleor";
 import { customizations, paymentMethods, paymentProviders } from "consts";
 import {
   Customization,
@@ -13,9 +13,8 @@ import {
   ChannelActivePaymentProviders,
   ChannelPaymentOptions,
   CustomizationSettingsValues,
-  PaymentOption,
   PaymentProviderSettingsValues,
-} from "./types";
+} from "types/api";
 
 // Should be fetched from app backend
 export const activePaymentProviders: ChannelActivePaymentProviders = {

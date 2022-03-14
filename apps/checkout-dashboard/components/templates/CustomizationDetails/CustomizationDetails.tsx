@@ -19,7 +19,7 @@ import { useForm, Controller } from "react-hook-form";
 import { messages } from "./messages";
 import Setting from "@elements/Setting";
 import { flattenSettingId, unflattenSettings } from "utils";
-import { UnknownSettingsValues } from "api/app/types";
+import { UnknownSettingsValues } from "types/api";
 
 interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
@@ -38,10 +38,6 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
 }) => {
   const classes = useStyles();
   const { control, handleSubmit: handleSubmitForm, formState } = useForm();
-
-  const handleCancel = () => {
-    onCanel();
-  };
 
   const handleSubmit = (flattedSettings: Record<string, string>) => {
     onSubmit(unflattenSettings(flattedSettings, options));
@@ -101,7 +97,7 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
       <AppSavebar
         disabled={disabled || !formState.isDirty}
         state={saveButtonBarState}
-        onCancel={handleCancel}
+        onCancel={onCanel}
         onSubmit={handleSubmitForm(handleSubmit)}
       />
     </form>

@@ -10,21 +10,25 @@ import { messages } from "./messages";
 interface FileInputProps {
   name: string;
   label: string;
-  fileUrl?: string;
+  alt: string;
+  value?: string;
   onChange: (
     event: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement>
   ) => void;
+  onBlur: React.FocusEventHandler<HTMLDivElement>;
 }
 
 const FileInput: React.FC<FileInputProps> = ({
   name,
   label,
-  fileUrl,
+  alt,
+  value,
   onChange,
+  onBlur,
 }) => {
   const classes = useStyles();
   const anchor = useRef<HTMLInputElement>();
-  const [src, setSrc] = React.useState<string | undefined>(fileUrl);
+  const [src, setSrc] = React.useState<string | undefined>(value);
 
   const handleFileUploadButtonClick = () => anchor.current.click();
 
@@ -64,6 +68,7 @@ const FileInput: React.FC<FileInputProps> = ({
       onDragEnter={handleDragEvent}
       onDragLeave={handleDragEvent}
       onDrop={handleFileDrop}
+      onBlur={onBlur}
     >
       <Typography variant="body2" className={classes.label}>
         {label}
@@ -96,7 +101,7 @@ const FileInput: React.FC<FileInputProps> = ({
           <Image
             className={classes.media}
             src={src}
-            alt="file preview"
+            alt={alt}
             layout="fill"
             loader={({ src }) => src}
           />

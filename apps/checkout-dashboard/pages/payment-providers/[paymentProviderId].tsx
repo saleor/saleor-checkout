@@ -1,6 +1,6 @@
 import PaymentProviderDetails from "@templates/PaymentProviderDetails";
-import { usePaymentProviderSettings } from "api/app/api";
-import { UnknownSettingsValues } from "api/app/types";
+import { usePaymentProviderSettings } from "api/app";
+import { UnknownSettingsValues } from "types/api";
 import { useRouter } from "next/router";
 
 export default function PaymentProvider() {

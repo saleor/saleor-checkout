@@ -1,6 +1,6 @@
 import ChannelDetails from "@templates/ChannelDetails";
-import { useChannelPaymentOptions } from "api/app/api";
-import { useChannelList } from "api/saleor/api";
+import { useChannelPaymentOptions } from "api/app";
+import { useChannelList } from "api/saleor";
 import { useRouter } from "next/router";
 
 export default function Channel() {
