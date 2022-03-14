@@ -12362,6 +12362,7 @@ export type CheckoutFragment = {
   __typename?: "Checkout";
   id: string;
   email: string;
+  user?: { __typename?: "User"; email: string } | null;
   totalPrice?: {
     __typename?: "TaxedMoney";
     gross: { __typename?: "Money"; amount: number; currency: string };
@@ -12420,6 +12421,7 @@ export type CheckoutQuery = {
     __typename?: "Checkout";
     id: string;
     email: string;
+    user?: { __typename?: "User"; email: string } | null;
     totalPrice?: {
       __typename?: "TaxedMoney";
       gross: { __typename?: "Money"; amount: number; currency: string };
@@ -12579,6 +12581,212 @@ export type CheckoutLineDeleteMutation = {
   } | null;
 };
 
+export type CheckoutEmailUpdateMutationVariables = Exact<{
+  email: Scalars["String"];
+  token: Scalars["UUID"];
+}>;
+
+export type CheckoutEmailUpdateMutation = {
+  __typename?: "Mutation";
+  checkoutEmailUpdate?: {
+    __typename?: "CheckoutEmailUpdate";
+    errors: Array<{
+      __typename?: "CheckoutError";
+      field?: string | null;
+      message?: string | null;
+    }>;
+    checkout?: {
+      __typename?: "Checkout";
+      id: string;
+      email: string;
+      user?: { __typename?: "User"; email: string } | null;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
+      shippingPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+      } | null;
+      subtotalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+      } | null;
+      lines?: Array<{
+        __typename?: "CheckoutLine";
+        id: string;
+        quantity: number;
+        totalPrice?: {
+          __typename?: "TaxedMoney";
+          gross: { __typename?: "Money"; currency: string; amount: number };
+        } | null;
+        variant: {
+          __typename?: "ProductVariant";
+          id: string;
+          name: string;
+          pricing?: {
+            __typename?: "VariantPricingInfo";
+            onSale?: boolean | null;
+            price?: {
+              __typename?: "TaxedMoney";
+              gross: { __typename?: "Money"; currency: string; amount: number };
+            } | null;
+            priceUndiscounted?: {
+              __typename?: "TaxedMoney";
+              gross: { __typename?: "Money"; currency: string; amount: number };
+            } | null;
+          } | null;
+          product: { __typename?: "Product"; name: string };
+          media?: Array<{
+            __typename?: "ProductMedia";
+            alt: string;
+            type: ProductMediaType;
+            url: string;
+          }> | null;
+        };
+      } | null> | null;
+    } | null;
+  } | null;
+};
+
+export type CheckoutCustomerAttachMutationVariables = Exact<{
+  customerId: Scalars["ID"];
+  token: Scalars["UUID"];
+}>;
+
+export type CheckoutCustomerAttachMutation = {
+  __typename?: "Mutation";
+  checkoutCustomerAttach?: {
+    __typename?: "CheckoutCustomerAttach";
+    errors: Array<{
+      __typename?: "CheckoutError";
+      field?: string | null;
+      message?: string | null;
+    }>;
+    checkout?: {
+      __typename?: "Checkout";
+      id: string;
+      email: string;
+      user?: { __typename?: "User"; email: string } | null;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
+      shippingPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+      } | null;
+      subtotalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+      } | null;
+      lines?: Array<{
+        __typename?: "CheckoutLine";
+        id: string;
+        quantity: number;
+        totalPrice?: {
+          __typename?: "TaxedMoney";
+          gross: { __typename?: "Money"; currency: string; amount: number };
+        } | null;
+        variant: {
+          __typename?: "ProductVariant";
+          id: string;
+          name: string;
+          pricing?: {
+            __typename?: "VariantPricingInfo";
+            onSale?: boolean | null;
+            price?: {
+              __typename?: "TaxedMoney";
+              gross: { __typename?: "Money"; currency: string; amount: number };
+            } | null;
+            priceUndiscounted?: {
+              __typename?: "TaxedMoney";
+              gross: { __typename?: "Money"; currency: string; amount: number };
+            } | null;
+          } | null;
+          product: { __typename?: "Product"; name: string };
+          media?: Array<{
+            __typename?: "ProductMedia";
+            alt: string;
+            type: ProductMediaType;
+            url: string;
+          }> | null;
+        };
+      } | null> | null;
+    } | null;
+  } | null;
+};
+
+export type CheckoutCustomerDetachMutationVariables = Exact<{
+  token: Scalars["UUID"];
+}>;
+
+export type CheckoutCustomerDetachMutation = {
+  __typename?: "Mutation";
+  checkoutCustomerDetach?: {
+    __typename?: "CheckoutCustomerDetach";
+    errors: Array<{
+      __typename?: "CheckoutError";
+      field?: string | null;
+      message?: string | null;
+    }>;
+    checkout?: {
+      __typename?: "Checkout";
+      id: string;
+      email: string;
+      user?: { __typename?: "User"; email: string } | null;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
+      shippingPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+      } | null;
+      subtotalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+      } | null;
+      lines?: Array<{
+        __typename?: "CheckoutLine";
+        id: string;
+        quantity: number;
+        totalPrice?: {
+          __typename?: "TaxedMoney";
+          gross: { __typename?: "Money"; currency: string; amount: number };
+        } | null;
+        variant: {
+          __typename?: "ProductVariant";
+          id: string;
+          name: string;
+          pricing?: {
+            __typename?: "VariantPricingInfo";
+            onSale?: boolean | null;
+            price?: {
+              __typename?: "TaxedMoney";
+              gross: { __typename?: "Money"; currency: string; amount: number };
+            } | null;
+            priceUndiscounted?: {
+              __typename?: "TaxedMoney";
+              gross: { __typename?: "Money"; currency: string; amount: number };
+            } | null;
+          } | null;
+          product: { __typename?: "Product"; name: string };
+          media?: Array<{
+            __typename?: "ProductMedia";
+            alt: string;
+            type: ProductMediaType;
+            url: string;
+          }> | null;
+        };
+      } | null> | null;
+    } | null;
+  } | null;
+};
+
 export const CheckoutLineFragmentDoc = gql`
   fragment CheckoutLineFragment on CheckoutLine {
     id
@@ -12622,6 +12830,9 @@ export const CheckoutFragmentDoc = gql`
   fragment CheckoutFragment on Checkout {
     id
     email
+    user {
+      email
+    }
     totalPrice {
       gross {
         amount
@@ -12713,4 +12924,67 @@ export function useCheckoutLineDeleteMutation() {
     CheckoutLineDeleteMutation,
     CheckoutLineDeleteMutationVariables
   >(CheckoutLineDeleteDocument);
+}
+export const CheckoutEmailUpdateDocument = gql`
+  mutation checkoutEmailUpdate($email: String!, $token: UUID!) {
+    checkoutEmailUpdate(email: $email, token: $token) {
+      errors {
+        field
+        message
+      }
+      checkout {
+        ...CheckoutFragment
+      }
+    }
+  }
+  ${CheckoutFragmentDoc}
+`;
+
+export function useCheckoutEmailUpdateMutation() {
+  return Urql.useMutation<
+    CheckoutEmailUpdateMutation,
+    CheckoutEmailUpdateMutationVariables
+  >(CheckoutEmailUpdateDocument);
+}
+export const CheckoutCustomerAttachDocument = gql`
+  mutation checkoutCustomerAttach($customerId: ID!, $token: UUID!) {
+    checkoutCustomerAttach(customerId: $customerId, token: $token) {
+      errors {
+        field
+        message
+      }
+      checkout {
+        ...CheckoutFragment
+      }
+    }
+  }
+  ${CheckoutFragmentDoc}
+`;
+
+export function useCheckoutCustomerAttachMutation() {
+  return Urql.useMutation<
+    CheckoutCustomerAttachMutation,
+    CheckoutCustomerAttachMutationVariables
+  >(CheckoutCustomerAttachDocument);
+}
+export const CheckoutCustomerDetachDocument = gql`
+  mutation checkoutCustomerDetach($token: UUID!) {
+    checkoutCustomerDetach(token: $token) {
+      errors {
+        field
+        message
+      }
+      checkout {
+        ...CheckoutFragment
+      }
+    }
+  }
+  ${CheckoutFragmentDoc}
+`;
+
+export function useCheckoutCustomerDetachMutation() {
+  return Urql.useMutation<
+    CheckoutCustomerDetachMutation,
+    CheckoutCustomerDetachMutationVariables
+  >(CheckoutCustomerDetachDocument);
 }

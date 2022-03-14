@@ -39,6 +39,9 @@ fragment CheckoutLineFragment on CheckoutLine {
 fragment CheckoutFragment on Checkout {
   id
   email
+  user {
+    email
+  }
   totalPrice {
     gross {
       amount
@@ -100,6 +103,42 @@ mutation CheckoutLineDelete($token: UUID!, $lineId: ID) {
       lines {
         ...CheckoutLineFragment
       }
+    }
+  }
+}
+
+mutation checkoutEmailUpdate($email: String!, $token: UUID!) {
+  checkoutEmailUpdate(email: $email, token: $token) {
+    errors {
+      field
+      message
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}
+
+mutation checkoutCustomerAttach($customerId: ID!, $token: UUID!) {
+  checkoutCustomerAttach(customerId: $customerId, token: $token) {
+    errors {
+      field
+      message
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}
+
+mutation checkoutCustomerDetach($token: UUID!) {
+  checkoutCustomerDetach(token: $token) {
+    errors {
+      field
+      message
+    }
+    checkout {
+      ...CheckoutFragment
     }
   }
 }

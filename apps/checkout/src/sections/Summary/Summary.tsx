@@ -32,7 +32,7 @@ export const Summary = () => {
     <div className="summary">
       <div className={clsx("summary-title", isOpen && "open")}>
         <div className="flex flex-row items-center">
-          <Text size="lg" bold>
+          <Text size="lg" weight="bold">
             {formatMessage("summary")}
           </Text>
 
@@ -42,7 +42,7 @@ export const Summary = () => {
             onClick={() => setOpen(!isOpen)}
           />
         </div>
-        <Money bold money={totalPrice} />
+        <Money weight="bold" money={totalPrice} />
       </div>
       <Transition
         show={isOpen}
@@ -62,12 +62,12 @@ export const Summary = () => {
         </ul>
         <div className="summary-recap">
           <div className="summary-row">
-            <Text id={formatMessage("subtotalLabel")} bold>
+            <Text id={formatMessage("subtotalLabel")} weight="bold">
               {formatMessage("subtotal")}
             </Text>
             <Money
               labeledBy={formatMessage("subtotalLabel")}
-              bold
+              weight="bold"
               money={checkout?.subtotalPrice?.gross}
             />
           </div>
@@ -96,11 +96,11 @@ export const Summary = () => {
           </div>
           <Divider className="my-4" />
           <div className="summary-row">
-            <Text id={formatMessage("totalLabel")} size="md" bold>
+            <Text id={formatMessage("totalLabel")} size="md" weight="bold">
               {formatMessage("total")}
             </Text>
             <Money
-              bold
+              weight="bold"
               money={totalPrice}
               labeledBy={formatMessage("totalLabel")}
             />

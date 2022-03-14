@@ -1,59 +1,80 @@
-import { useFormattedMessages } from "@hooks/useFormattedMessages";
-import { Text } from "@components/Text";
-import { Button } from "@components/Button";
-import { TextInput } from "@components/TextInput";
-import { Checkbox } from "@components/Checkbox";
-import { useToggleState } from "@react-stately/toggle";
-import { useForm } from "react-hook-form";
+import { useCheckout } from "@hooks/useCheckout";
+import { getDataWithToken, getQueryVariables } from "@lib/utils";
+import { useEffect } from "react";
+import { useState } from "react";
+import { AnonymousCustomerForm } from "./AnonymousCustomerForm";
+import { SignInForm } from "./SignInForm";
+import { SignedInUser } from "./SignedInUser";
+import { useAuthState } from "@saleor/sdk";
+import {
+  useCheckoutCustomerAttachMutation,
+  useCheckoutCustomerDetachMutation,
+} from "@graphql";
+import { ResetPassword } from "./ResetPassword";
+
+type Section = "signedInUser" | "anonymousUser" | "signIn" | "resetPassword";
 
 export const Contact = () => {
-  const formatMessage = useFormattedMessages();
-  const { register, handleSubmit, watch, control } = useForm({});
+  const [currentSection, setCurrentSection] =
+    useState<Section>("anonymousUser");
 
-  const {
-    isSelected: createAccountSelected,
-    setSelected: setCreateAccountSelected,
-  } = useToggleState();
+  const changeSection = (section: Section) => () => setCurrentSection(section);
 
-  const onSubmit = (data) => console.log({ ...data });
+  const isCurrentSection = (section: Section) => currentSection === section;
 
-  console.log("WATCHEN", watch("email"));
+  const [, customerAttatch] = useCheckoutCustomerAttachMutation();
+  const [, customerDetach] = useCheckoutCustomerDetachMutation();
+
+  const { authenticated, user } = useAuthState();
+  const { checkout, loading } = useCheckout();
+
+  const passwordResetToken = getQueryVariables().passwordResetToken;
+
+  useEffect(() => {
+    if (loading) {
+      return;
+    }
+
+    if (passwordResetToken) {
+      setCurrentSection("resetPassword");
+      return;
+    }
+
+    if (authenticated || checkout.user) {
+      setCurrentSection("signedInUser");
+
+      if (authenticated) {
+        customerAttatch(
+          getDataWithToken({
+            customerId: user?.id as string,
+          })
+        );
+      }
+
+      return;
+    }
+
+    setCurrentSection("anonymousUser");
+    customerDetach(getDataWithToken());
+  }, [loading, checkout, authenticated, passwordResetToken]);
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-row justify-between items-baseline">
-          <Text variant="title">{formatMessage("contact")}</Text>
-          <div className="flex flex-row">
-            <Text color="secondary" className="mr-2">
-              {formatMessage("haveAccount")}
-            </Text>
-            <Button variant="tertiary" title={formatMessage("signIn")} />
-          </div>
-        </div>
-        <TextInput
-          label="Email address"
-          className="my-4"
-          control={control}
-          {...register("email")}
-        />
-        <Checkbox
-          value="createAccount"
-          label="I want to create an account"
-          checked={createAccountSelected}
-          onChange={setCreateAccountSelected}
-        />
-        {createAccountSelected && (
-          <TextInput
-            label="Password"
-            className="my-4"
-            control={control}
-            type="password"
-            {...register("password")}
-          />
-        )}
-        {/* <button type="submit">CLICK ME MAN, PLZ CLICK</button> */}
-      </form>
+      {isCurrentSection("anonymousUser") && (
+        <AnonymousCustomerForm onSectionChange={changeSection("signIn")} />
+      )}
+
+      {isCurrentSection("signIn") && (
+        <SignInForm onSectionChange={changeSection("anonymousUser")} />
+      )}
+
+      {isCurrentSection("signedInUser") && (
+        <SignedInUser onSectionChange={changeSection("anonymousUser")} />
+      )}
+
+      {isCurrentSection("resetPassword") && (
+        <ResetPassword onSectionChange={changeSection("signIn")} />
+      )}
     </div>
   );
 };

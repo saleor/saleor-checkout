@@ -57,7 +57,9 @@ const theme = {
   },
   fontWeight: {
     normal: 400,
-    bold: 600,
+    regular: 500,
+    semibold: 600,
+    bold: 700,
   },
   fontSize: {
     xs: ["1.1rem", "1.6rem"],

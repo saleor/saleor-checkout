@@ -2,6 +2,7 @@ import { IconButton } from "@components/IconButton";
 import React from "react";
 import { CloseIcon as DeleteIcon } from "@icons";
 import { CheckoutLine, useCheckoutLineDeleteMutation } from "@graphql";
+import { extractTokenFromUrl, getDataWithToken } from "@lib/utils";
 
 interface LineItemDeleteProps {
   line: CheckoutLine;
@@ -13,10 +14,11 @@ export const SummaryItemDelete: React.FC<LineItemDeleteProps> = ({
   const [, deleteLine] = useCheckoutLineDeleteMutation();
 
   const handleLineDelete = () =>
-    deleteLine({
-      token: "f683e21b-7171-460d-96bf-50557b2fb5de",
-      lineId,
-    });
+    deleteLine(
+      getDataWithToken({
+        lineId,
+      })
+    );
 
   return (
     <div className="delete-row-button">

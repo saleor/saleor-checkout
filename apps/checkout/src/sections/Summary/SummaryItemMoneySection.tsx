@@ -13,6 +13,7 @@ import { useFormattedMessages } from "@hooks/useFormattedMessages";
 import { useFormattedMoney } from "@hooks/useFormattedMoney";
 import { Money } from "@components/Money";
 import clsx from "clsx";
+import { extractTokenFromUrl, getDataWithToken } from "@lib/utils";
 
 interface LineItemQuantitySelectorProps {
   line: CheckoutLine;
@@ -52,15 +53,15 @@ export const SummaryItemMoneySection: React.FC<
 
   const getUpdateLineVars = (
     quantity: number
-  ): CheckoutLinesUpdateMutationVariables => ({
-    token: "f683e21b-7171-460d-96bf-50557b2fb5de",
-    lines: [
-      {
-        quantity,
-        variantId,
-      },
-    ],
-  });
+  ): CheckoutLinesUpdateMutationVariables =>
+    getDataWithToken({
+      lines: [
+        {
+          quantity,
+          variantId,
+        },
+      ],
+    });
 
   const handleSubmit = (quantity: number) => {
     updateLines(getUpdateLineVars(quantity));
@@ -97,7 +98,7 @@ export const SummaryItemMoneySection: React.FC<
         >
           <img src={MinusIcon} alt="remove" />
         </IconButton>
-        <Text bold className="mx-3">
+        <Text weight="bold" className="mx-3">
           {quantity}
         </Text>
         <IconButton
@@ -127,7 +128,7 @@ export const SummaryItemMoneySection: React.FC<
             currency: piecePrice?.currency as string,
             amount: (piecePrice?.amount || 0) * quantity,
           }}
-          bold
+          weight="bold"
           className={clsx({
             "text-text-error": pricing?.onSale,
           })}

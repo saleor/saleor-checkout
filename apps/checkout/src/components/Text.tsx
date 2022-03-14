@@ -6,7 +6,7 @@ export interface TextProps extends Classes {
   size?: "sm" | "md" | "lg" | "xl";
   color?: "secondary" | "tertiary" | "error";
   variant?: "title";
-  bold?: boolean;
+  weight?: "normal" | "regular" | "semibold" | "bold";
   className?: string;
   ariaLabel?: string;
   labeledBy?: string;
@@ -17,7 +17,7 @@ export const Text: React.FC<TextProps> = ({
   children,
   size,
   color,
-  bold,
+  weight,
   variant,
   className,
   ariaLabel,
@@ -36,7 +36,9 @@ export const Text: React.FC<TextProps> = ({
       "text-md": size === "md",
       "text-lg": size === "lg",
       "text-xl": size === "xl" || variant === "title",
-      "font-bold": bold || variant === "title",
+      "font-bold": weight === "bold" || variant === "title",
+      "font-semibold": weight === "semibold",
+      "font-regular": weight === "regular",
     },
     className
   );

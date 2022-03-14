@@ -1,17 +1,16 @@
-import React, { ElementType } from "react";
+import React from "react";
 import { useButton } from "@react-aria/button";
 import { useRef } from "react";
 import { Text } from "@components/Text";
-import { AriaButtonProps } from "@react-types/button";
 import clsx from "clsx";
 import { Classes } from "@lib/globalTypes";
+import { ButtonHTMLAttributes } from "react";
 
-interface ButtonProps
-  extends AriaButtonProps<ElementType<HTMLButtonElement>>,
-    Classes {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, Classes {
   disabled?: boolean;
   variant?: "primary" | "secondary" | "tertiary";
   title: string;
+  onPress: (event: React.SyntheticEvent<HTMLButtonElement, Event>) => any;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -36,7 +35,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button {...buttonProps} disabled={disabled} className={classes} ref={ref}>
-      <Text>{title}</Text>
+      <Text weight="semibold">{title}</Text>
     </button>
   );
 };

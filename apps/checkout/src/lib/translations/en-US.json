@@ -32,5 +32,16 @@
   "subtotalLabel": "subtotal",
   "taxCostLabel": "tax cost",
   "totalLabel": "total price",
-  "shippingCostLabel": "shipping cost"
+  "shippingCostLabel": "shipping cost",
+  "emailLabel": "Email address",
+  "passwordLabel": "Password",
+  "passwordConfirmLabel": "Password Confirmation",
+  "wantToCreateAccountLabel": "I want to create account",
+  "newCustomer": "New Customer?",
+  "guestCheckout": "GuestCheckout",
+  "forgotPassword": "Forgot password?",
+  "shouldResendLink": "A magic link has been sent to jeremy@example.com.",
+  "resend": "Resend?",
+  "resetPassword": "Reset Password",
+  "rememberedYourPassword": "Remember your password?"
 }
