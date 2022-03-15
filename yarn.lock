@@ -2486,18 +2486,10 @@
   dependencies:
     uuid "^8.3.2"
 
-"@saleor/macaw-ui@mirumee/macaw-ui#6351406d4d0b7ab78fff3c54e02da09cbcf5e69c":
-  version "0.3.2"
-  resolved "https://codeload.github.com/mirumee/macaw-ui/tar.gz/6351406d4d0b7ab78fff3c54e02da09cbcf5e69c"
-  dependencies:
-    clsx "^1.1.1"
-    lodash "^4.17.21"
-    lodash-es "^4.17.21"
-    react-inlinesvg "^2.3.0"
-
-"@saleor/macaw-ui@mirumee/macaw-ui#SALEOR-6119-dockable-action-bar":
-  version "0.3.2"
-  resolved "https://codeload.github.com/mirumee/macaw-ui/tar.gz/f517f649ab94dc4dbf5cc00d9cc345ce35764f40"
+"@saleor/macaw-ui@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@saleor/macaw-ui/-/macaw-ui-0.3.3.tgz#91a3ac34f049b6e16e588a43dfc5ddee02aa1262"
+  integrity sha512-b2dLlOAXDe2OSmYeZSFKwiRMrJc+YkGhvvQCHQXHHP89TZbGZlWP0F13ycCI3OJSfYbCWZlQGM+alMiE31HOuA==
   dependencies:
     clsx "^1.1.1"
     lodash "^4.17.21"
