@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import CustomizationDetails from "@templates/CustomizationDetails";
-import { useCustomizationSettings } from "api/app";
+import { getCustomizationSettings } from "api/app";
 import { UnknownSettingsValues } from "types/api";
 
 export default function Customization() {
   const router = useRouter();
-  const options = useCustomizationSettings();
+  const options = getCustomizationSettings();
 
   const handleCancel = () => {
     router.back();
