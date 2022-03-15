@@ -1,7 +1,6 @@
 import { Divider } from "@components/Divider";
-import { useForm } from "@hooks/useCheckoutForm";
 import { Suspense } from "react";
-import { FormProvider } from "../providers/FormProvider";
+import { FormProvider, useForm } from "react-hook-form";
 import { Contact } from "./Contact";
 
 export const CheckoutForm = () => {

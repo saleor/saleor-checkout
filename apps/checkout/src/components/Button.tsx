@@ -5,12 +5,12 @@ import { Text } from "@components/Text";
 import clsx from "clsx";
 import { Classes } from "@lib/globalTypes";
 import { ButtonHTMLAttributes } from "react";
+import { AriaButtonProps } from "@react-types/button";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, Classes {
+interface ButtonProps extends AriaButtonProps<"button">, Classes {
   disabled?: boolean;
   variant?: "primary" | "secondary" | "tertiary";
   title: string;
-  onPress: (event: React.SyntheticEvent<HTMLButtonElement, Event>) => any;
 }
 
 export const Button: React.FC<ButtonProps> = ({

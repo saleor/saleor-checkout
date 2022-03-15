@@ -11,8 +11,8 @@ import {
   SignInFormContainerProps,
 } from "./SignInFormContainer";
 import { string } from "yup";
-import { useForm } from "@hooks/useCheckoutForm";
-import { useFormProvider } from "../../providers/FormProvider";
+import { useForm, useFormContext } from "react-hook-form";
+import { useGetInputProps } from "@hooks/useGetInputProps";
 
 type AnonymousCustomerFormProps = Pick<
   SignInFormContainerProps,
@@ -28,8 +28,10 @@ export const AnonymousCustomerForm: React.FC<AnonymousCustomerFormProps> = ({
 }) => {
   const formatMessage = useFormattedMessages();
 
-  const contextFormProps = useFormProvider();
-  const { handleSubmit, getInputProps, formState } = useForm<FormData>();
+  const contextFormProps = useFormContext();
+  const { handleSubmit, ...rest } = useForm<FormData>();
+  const getInputProps = useGetInputProps(rest);
+  const getContextInputProps = useGetInputProps(contextFormProps);
 
   const {
     isSelected: createAccountSelected,
@@ -41,7 +43,6 @@ export const AnonymousCustomerForm: React.FC<AnonymousCustomerFormProps> = ({
   const onSubmit = ({ email }: FormData) =>
     updateEmail(getDataWithToken({ email }));
 
-  console.log(123, formState.errors);
   return (
     <SignInFormContainer
       title={formatMessage("contact")}
@@ -57,6 +58,14 @@ export const AnonymousCustomerForm: React.FC<AnonymousCustomerFormProps> = ({
           validate: (value) => string().email().isValid(value),
         })}
       />
+      <TextInput
+        label={formatMessage("emailLabel")}
+        errorMessage={"Invalid value"}
+        {...getInputProps("lol", {
+          onBlur: () => handleSubmit(onSubmit),
+          validate: (value) => string().email().isValid(value),
+        })}
+      />
       <Checkbox
         value="createAccount"
         label={formatMessage("wantToCreateAccountLabel")}
@@ -66,7 +75,7 @@ export const AnonymousCustomerForm: React.FC<AnonymousCustomerFormProps> = ({
       {createAccountSelected && (
         <PasswordInput
           label={formatMessage("passwordLabel")}
-          {...contextFormProps.getInputProps("password")}
+          {...getContextInputProps("password")}
         />
       )}
     </SignInFormContainer>
