@@ -50,7 +50,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   });
 
   const resolver = useValidationResolver(schema);
-  const { handleSubmit, getValues, watch, setError, ...rest } =
+  const { handleSubmit, getValues, watch, setError, clearErrors, ...rest } =
     useForm<FormData>({
       resolver,
       mode: "onBlur",
@@ -62,6 +62,8 @@ export const SignInForm: React.FC<SignInFormProps> = ({
 
   const onPasswordReset = async () => {
     const { email } = getValues();
+
+    clearErrors("password");
 
     try {
       await schema.validateAt("email", { email });
