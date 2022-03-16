@@ -14,7 +14,12 @@ import { ResetPassword } from "./ResetPassword";
 
 type Section = "signedInUser" | "anonymousUser" | "signIn" | "resetPassword";
 
-export const Contact = () => {
+interface ContactProps {
+  onEmailChange: (value: string) => void;
+  email: string;
+}
+
+export const Contact = ({ onEmailChange, email }: ContactProps) => {
   const [currentSection, setCurrentSection] =
     useState<Section>("anonymousUser");
 
@@ -63,11 +68,19 @@ export const Contact = () => {
   return (
     <div>
       {isCurrentSection("anonymousUser") && (
-        <AnonymousCustomerForm onSectionChange={changeSection("signIn")} />
+        <AnonymousCustomerForm
+          defaultValues={{ email }}
+          onEmailChange={onEmailChange}
+          onSectionChange={changeSection("signIn")}
+        />
       )}
 
       {isCurrentSection("signIn") && (
-        <SignInForm onSectionChange={changeSection("anonymousUser")} />
+        <SignInForm
+          onSectionChange={changeSection("anonymousUser")}
+          onEmailChange={onEmailChange}
+          defaultValues={{ email }}
+        />
       )}
 
       {isCurrentSection("signedInUser") && (

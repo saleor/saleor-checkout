@@ -2,7 +2,7 @@ import { useCheckoutEmailUpdateMutation } from "@graphql";
 import { useFormattedMessages } from "@hooks/useFormattedMessages";
 import { getDataWithToken, useValidationResolver } from "@lib/utils";
 import { useToggleState } from "@react-stately/toggle";
-import React from "react";
+import React, { useEffect } from "react";
 import { Checkbox } from "@components/Checkbox";
 import { TextInput } from "@components/TextInput";
 import { PasswordInput } from "@components/PasswordInput";
@@ -15,10 +15,11 @@ import { useForm, useFormContext } from "react-hook-form";
 import { useGetInputProps } from "@hooks/useGetInputProps";
 import { useErrorMessages } from "@hooks/useErrorMessages";
 
-type AnonymousCustomerFormProps = Pick<
-  SignInFormContainerProps,
-  "onSectionChange"
->;
+interface AnonymousCustomerFormProps
+  extends Pick<SignInFormContainerProps, "onSectionChange"> {
+  onEmailChange: (value: string) => void;
+  defaultValues: Partial<FormData>;
+}
 
 interface FormData {
   email: string;
@@ -26,6 +27,8 @@ interface FormData {
 
 export const AnonymousCustomerForm: React.FC<AnonymousCustomerFormProps> = ({
   onSectionChange,
+  onEmailChange,
+  defaultValues,
 }) => {
   const formatMessage = useFormattedMessages();
   const errorMessages = useErrorMessages();
@@ -42,7 +45,11 @@ export const AnonymousCustomerForm: React.FC<AnonymousCustomerFormProps> = ({
 
   const resolver = useValidationResolver(schema);
   const contextFormProps = useFormContext();
-  const { handleSubmit, ...rest } = useForm<FormData>({ resolver });
+  const { handleSubmit, watch, getValues, ...rest } = useForm<FormData>({
+    resolver,
+    mode: "onBlur",
+    defaultValues,
+  });
   const getInputProps = useGetInputProps(rest);
   const getContextInputProps = useGetInputProps(contextFormProps);
 
@@ -50,6 +57,10 @@ export const AnonymousCustomerForm: React.FC<AnonymousCustomerFormProps> = ({
 
   const onSubmit = ({ email }: FormData) =>
     updateEmail(getDataWithToken({ email }));
+
+  const emailValue = watch("email");
+
+  useEffect(() => onEmailChange(emailValue), [emailValue]);
 
   return (
     <SignInFormContainer
@@ -61,7 +72,9 @@ export const AnonymousCustomerForm: React.FC<AnonymousCustomerFormProps> = ({
       <TextInput
         label={formatMessage("emailLabel")}
         {...getInputProps("email", {
-          onBlur: handleSubmit(onSubmit),
+          // for some reason using handleSubmit here
+          // disallows password input to focus
+          onBlur: () => onSubmit(getValues()),
         })}
       />
       <Checkbox

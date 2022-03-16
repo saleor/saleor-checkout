@@ -19,15 +19,24 @@ import { useForm } from "react-hook-form";
 import { useGetInputProps } from "@hooks/useGetInputProps";
 import { object, string, ValidationError } from "yup";
 import { useErrorMessages } from "@hooks/useErrorMessages";
+import { useEffect } from "react";
 
-type SignInFormProps = Pick<SignInFormContainerProps, "onSectionChange">;
+interface SignInFormProps
+  extends Pick<SignInFormContainerProps, "onSectionChange"> {
+  onEmailChange: (value: string) => void;
+  defaultValues: Partial<FormData>;
+}
 
 interface FormData {
   email: string;
   password: string;
 }
 
-export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
+export const SignInForm: React.FC<SignInFormProps> = ({
+  onSectionChange,
+  onEmailChange,
+  defaultValues,
+}) => {
   const formatMessage = useFormattedMessages();
   const errorMessages = useErrorMessages();
   const [passwordResetSent, setPasswordResetSent] = useState(false);
@@ -41,9 +50,12 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
   });
 
   const resolver = useValidationResolver(schema);
-  const { handleSubmit, getValues, setError, ...rest } = useForm<FormData>({
-    resolver,
-  });
+  const { handleSubmit, getValues, watch, setError, ...rest } =
+    useForm<FormData>({
+      resolver,
+      mode: "onBlur",
+      defaultValues,
+    });
   const getInputProps = useGetInputProps(rest);
 
   const onSubmit = async (formData: FormData) => login(formData);
@@ -70,6 +82,10 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
       setError(path, { type, message });
     }
   };
+
+  const emailValue = watch("email");
+
+  useEffect(() => onEmailChange(emailValue), [emailValue]);
 
   return (
     <SignInFormContainer
