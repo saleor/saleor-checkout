@@ -40,7 +40,7 @@
   "newCustomer": "New Customer?",
   "guestCheckout": "GuestCheckout",
   "forgotPassword": "Forgot password?",
-  "shouldResendLink": "A magic link has been sent to jeremy@example.com.",
+  "linkSent": "A magic link has been sent to {email}",
   "resend": "Resend?",
   "resetPassword": "Reset Password",
   "rememberedYourPassword": "Remember your password?",

@@ -1,12 +1,13 @@
 import { Button } from "@components/Button";
 import { PasswordInput } from "@components/PasswordInput";
-import { useCheckoutEmailUpdateMutation } from "@graphql";
+import { useErrorMessages } from "@hooks/useErrorMessages";
 import { useFormattedMessages } from "@hooks/useFormattedMessages";
 import { useGetInputProps } from "@hooks/useGetInputProps";
-import { getQueryVariables } from "@lib/utils";
+import { getQueryVariables, useValidationResolver } from "@lib/utils";
 import { useAuth } from "@saleor/sdk";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { object, string } from "yup";
 import {
   SignInFormContainer,
   SignInFormContainerProps,
@@ -22,8 +23,15 @@ export const ResetPassword: React.FC<ResetPasswordProps> = ({
   onSectionChange,
 }) => {
   const formatMessage = useFormattedMessages();
+  const errorMessages = useErrorMessages();
   const { setPassword } = useAuth();
-  const { handleSubmit, ...rest } = useForm<FormData>({});
+
+  const schema = object({
+    password: string().required(errorMessages.requiredField),
+  });
+
+  const resolver = useValidationResolver(schema);
+  const { handleSubmit, ...rest } = useForm<FormData>({ resolver });
   const getInputProps = useGetInputProps(rest);
 
   const onSubmit = ({ password }: FormData) => {
@@ -51,7 +59,7 @@ export const ResetPassword: React.FC<ResetPasswordProps> = ({
       />
       <div className="actions">
         <Button
-          onClick={() => handleSubmit(onSubmit)}
+          onClick={handleSubmit(onSubmit)}
           title={formatMessage("resetPassword")}
         />
       </div>

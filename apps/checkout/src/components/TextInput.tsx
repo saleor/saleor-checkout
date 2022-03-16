@@ -7,10 +7,11 @@ import React, {
   useState,
 } from "react";
 import { AriaTextFieldOptions, useTextField } from "@react-aria/textfield";
-import { Classes, ValidationError } from "@lib/globalTypes";
+import { Classes } from "@lib/globalTypes";
 import {
   Control,
   FieldPath,
+  FormState,
   UseFormRegisterReturn,
   useWatch,
 } from "react-hook-form";
@@ -23,10 +24,10 @@ export interface TextInputProps<
       AriaTextFieldOptions<"input">,
       "onBlur" | "onChange" | "name" | "ref"
     >,
+    Pick<FormState<TFormData>, "errors">,
     Omit<UseFormRegisterReturn, "ref">,
     Classes {
   control: TControl;
-  errors: ValidationError<TFormData>[];
   name: FieldPath<TFormData>;
   label: string;
   optional?: boolean;
@@ -55,9 +56,7 @@ const TextInputComponent = <
 
   const [labelFixed, setLabelFixed] = useState(false);
 
-  const error = errors[
-    name as keyof typeof errors
-  ] as ValidationError<TFormData>;
+  const error = errors[name as keyof typeof errors];
 
   const value = useWatch({
     control,
@@ -103,7 +102,8 @@ const TextInputComponent = <
       </label>
       {error && (
         <span className="text-xs text-text-error" {...errorMessageProps}>
-          {error.message}
+          {/* react-hook-form has this typed badly */}
+          {(error as any).message}
         </span>
       )}
       {icon && <div className="icon">{icon}</div>}

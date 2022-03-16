@@ -15,7 +15,7 @@ import {
   useValidationResolver,
 } from "@lib/utils";
 import { useState } from "react";
-import { FieldError, FieldErrors, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useGetInputProps } from "@hooks/useGetInputProps";
 import { object, string, ValidationError } from "yup";
 import { useErrorMessages } from "@hooks/useErrorMessages";
@@ -44,7 +44,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
   const { handleSubmit, getValues, setError, ...rest } = useForm<FormData>({
     resolver,
   });
-  const getInputProps = useGetInputProps(rest, schema);
+  const getInputProps = useGetInputProps(rest);
 
   const onSubmit = async (formData: FormData) => login(formData);
 
@@ -87,7 +87,9 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
         {...getInputProps("password")}
       />
       <div className="actions">
-        {passwordResetSent && <Text>{formatMessage("shouldResendLink")}</Text>}
+        {passwordResetSent && (
+          <Text>{formatMessage("linkSent", { email: getValues().email })}</Text>
+        )}
         <Button
           variant="tertiary"
           title={formatMessage(passwordResetSent ? "resend" : "forgotPassword")}

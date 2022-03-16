@@ -22,6 +22,7 @@ export const Contact = () => {
 
   const isCurrentSection = (section: Section) => currentSection === section;
 
+  const [passwordResetShown, setPasswordResetShown] = useState(false);
   const [, customerAttatch] = useCheckoutCustomerAttachMutation();
   const [, customerDetach] = useCheckoutCustomerDetachMutation();
 
@@ -32,11 +33,6 @@ export const Contact = () => {
 
   useEffect(() => {
     if (loading) {
-      return;
-    }
-
-    if (passwordResetToken) {
-      setCurrentSection("resetPassword");
       return;
     }
 
@@ -51,6 +47,12 @@ export const Contact = () => {
         );
       }
 
+      return;
+    }
+
+    if (passwordResetToken && !passwordResetShown) {
+      setCurrentSection("resetPassword");
+      setPasswordResetShown(true);
       return;
     }
 

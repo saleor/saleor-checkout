@@ -1,6 +1,6 @@
 import { useCheckoutEmailUpdateMutation } from "@graphql";
 import { useFormattedMessages } from "@hooks/useFormattedMessages";
-import { getDataWithToken } from "@lib/utils";
+import { getDataWithToken, useValidationResolver } from "@lib/utils";
 import { useToggleState } from "@react-stately/toggle";
 import React from "react";
 import { Checkbox } from "@components/Checkbox";
@@ -10,9 +10,10 @@ import {
   SignInFormContainer,
   SignInFormContainerProps,
 } from "./SignInFormContainer";
-import { string } from "yup";
+import { object, string } from "yup";
 import { useForm, useFormContext } from "react-hook-form";
 import { useGetInputProps } from "@hooks/useGetInputProps";
+import { useErrorMessages } from "@hooks/useErrorMessages";
 
 type AnonymousCustomerFormProps = Pick<
   SignInFormContainerProps,
@@ -27,16 +28,23 @@ export const AnonymousCustomerForm: React.FC<AnonymousCustomerFormProps> = ({
   onSectionChange,
 }) => {
   const formatMessage = useFormattedMessages();
-
-  const contextFormProps = useFormContext();
-  const { handleSubmit, ...rest } = useForm<FormData>();
-  const getInputProps = useGetInputProps(rest);
-  const getContextInputProps = useGetInputProps(contextFormProps);
-
+  const errorMessages = useErrorMessages();
   const {
     isSelected: createAccountSelected,
     setSelected: setCreateAccountSelected,
   } = useToggleState();
+
+  const schema = object({
+    email: string()
+      .email(errorMessages.invalidValue)
+      .required(errorMessages.requiredField),
+  });
+
+  const resolver = useValidationResolver(schema);
+  const contextFormProps = useFormContext();
+  const { handleSubmit, ...rest } = useForm<FormData>({ resolver });
+  const getInputProps = useGetInputProps(rest);
+  const getContextInputProps = useGetInputProps(contextFormProps);
 
   const [, updateEmail] = useCheckoutEmailUpdateMutation();
 
@@ -52,18 +60,8 @@ export const AnonymousCustomerForm: React.FC<AnonymousCustomerFormProps> = ({
     >
       <TextInput
         label={formatMessage("emailLabel")}
-        errorMessage={"Invalid value"}
         {...getInputProps("email", {
-          onBlur: () => handleSubmit(onSubmit),
-          validate: (value) => string().email().isValid(value),
-        })}
-      />
-      <TextInput
-        label={formatMessage("emailLabel")}
-        errorMessage={"Invalid value"}
-        {...getInputProps("lol", {
-          onBlur: () => handleSubmit(onSubmit),
-          validate: (value) => string().email().isValid(value),
+          onBlur: handleSubmit(onSubmit),
         })}
       />
       <Checkbox

@@ -6,7 +6,6 @@ import {
   UseFormRegisterReturn,
   FieldErrors,
 } from "react-hook-form";
-import { ObjectShape, OptionalObjectSchema } from "yup/lib/object";
 
 export type ControlFormData<FormControl> = FormControl extends Control<
   infer FormData
@@ -41,38 +40,21 @@ type UseGetInputProps<
 
 export const useGetInputProps = <
   TControl extends Control<any, any>,
-  TData extends ControlFormData<TControl>,
-  TShape extends Record<keyof TData, any>
->(
-  {
-    register,
-    control,
-    formState: { errors },
-  }: UseGetInputProps<TControl, TData>,
-  schema: OptionalObjectSchema<TShape>
-): GetInputProps => {
+  TData extends ControlFormData<TControl>
+>({
+  register,
+  control,
+  formState: { errors },
+}: UseGetInputProps<TControl, TData>) => {
   const getInputProps = <TName extends FieldPath<TData> = FieldPath<TData>>(
     name: TName,
     options?: RegisterOptions<TData, TName>
-  ) => {
-    const optionsWithValidation = {
-      ...options,
-      validate: async (value: keyof TData) => {
-        try {
-          schema.fields[name].validate(value);
-        } catch (error) {
-          return;
-        }
-      },
-    };
-
-    return {
-      ...register(name, optionsWithValidation),
-      name,
-      errors,
-      control,
-    };
-  };
+  ) => ({
+    ...register(name, options),
+    name,
+    errors,
+    control,
+  });
 
   return getInputProps;
 };

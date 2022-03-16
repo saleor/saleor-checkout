@@ -18,7 +18,7 @@ export const getQueryVariables = (): Partial<QueryVariables> => {
   return { ...vars, passwordResetToken: vars.token as string | undefined };
 };
 
-export const getCurrentHref = () => location.origin;
+export const getCurrentHref = () => location.href;
 
 export const extractTokenFromUrl = (): string => {
   const { checkoutToken } = getQueryVariables();

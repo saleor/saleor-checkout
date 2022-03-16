@@ -57,6 +57,10 @@ html {
     @apply border-border-error mb-2;
   }
 
+  .input:focus.text-input-error {
+    @apply border-border-error mb-2;
+  }
+
   .text-input-label {
     transition: all 0.2s ease-out;
     @apply absolute top-4 left-0 text-text-secondary text-base ml-3;
