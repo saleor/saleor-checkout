@@ -1,5 +1,6 @@
+import { NoSsr } from "@material-ui/core";
 import { Savebar, SavebarLabels, SavebarProps } from "@saleor/macaw-ui";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useStyles } from "./styles";
 
 interface AppSavebarProps extends Omit<SavebarProps, "labels"> {
@@ -19,19 +20,10 @@ const AppSavebar: React.FC<AppSavebarProps> = ({ labels = {}, ...rest }) => {
   };
   const classes = useStyles();
 
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-
-    return () => setMounted(false);
-  }, []);
-
-  if (mounted) {
-    return (
+  return (
+    <NoSsr>
       <Savebar labels={componentLabels} className={classes.savebar} {...rest} />
-    );
-  }
-  return null;
+    </NoSsr>
+  );
 };
 export default AppSavebar;
