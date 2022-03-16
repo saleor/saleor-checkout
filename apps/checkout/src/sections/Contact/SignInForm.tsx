@@ -11,8 +11,8 @@ import {
 } from "./SignInFormContainer";
 import { getCurrentHref } from "@lib/utils";
 import { useState } from "react";
-import { useForm } from "@hooks/useCheckoutForm";
-import { getIn } from "yup/lib/util/reach";
+import { useForm } from "react-hook-form";
+import { useGetInputProps } from "@hooks/useGetInputProps";
 
 type SignInFormProps = Pick<SignInFormContainerProps, "onSectionChange">;
 
@@ -24,7 +24,8 @@ interface FormData {
 export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
   const formatMessage = useFormattedMessages();
   const [passwordResetSent, setPasswordResetSent] = useState(false);
-  const { getInputProps, handleSubmit, getValues } = useForm<FormData>();
+  const { handleSubmit, getValues, ...rest } = useForm<FormData>();
+  const getInputProps = useGetInputProps(rest);
   const { login, requestPasswordReset } = useAuth();
 
   const onSubmit = ({ email, password }: FormData) =>
@@ -68,7 +69,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
           onPress={onPasswordReset}
         />
         <Button
-          onPress={handleSubmit(onSubmit)}
+          onPress={() => handleSubmit(onSubmit)}
           title={formatMessage("signIn")}
         />
       </div>

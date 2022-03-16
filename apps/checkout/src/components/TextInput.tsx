@@ -1,16 +1,21 @@
 import clsx from "clsx";
-import React, { ForwardedRef, RefObject, useEffect, useState } from "react";
+import React, {
+  ForwardedRef,
+  forwardRef,
+  RefObject,
+  useEffect,
+  useState,
+} from "react";
 import { AriaTextFieldOptions, useTextField } from "@react-aria/textfield";
 import { Classes } from "@lib/globalTypes";
 import {
   Control,
   FieldErrors,
   FieldPath,
-  FieldValues,
   UseFormRegisterReturn,
   useWatch,
 } from "react-hook-form";
-import { ControlFormData } from "@hooks/useCheckoutForm";
+import { ControlFormData } from "@hooks/useGetInputProps";
 
 export interface TextInputProps<
   TControl extends Control<any, any>,
@@ -106,7 +111,7 @@ const TextInputComponent = <
   );
 };
 
-export const TextInput = React.forwardRef(TextInputComponent) as <
+export const TextInput = forwardRef(TextInputComponent) as <
   TControl extends Control<any, any>,
   TFormData extends ControlFormData<TControl>
 >(
