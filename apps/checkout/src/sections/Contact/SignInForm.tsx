@@ -9,10 +9,16 @@ import {
   SignInFormContainer,
   SignInFormContainerProps,
 } from "./SignInFormContainer";
-import { getCurrentHref } from "@lib/utils";
+import {
+  extractValidationError,
+  getCurrentHref,
+  useValidationResolver,
+} from "@lib/utils";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { FieldError, FieldErrors, useForm } from "react-hook-form";
 import { useGetInputProps } from "@hooks/useGetInputProps";
+import { object, string, ValidationError } from "yup";
+import { useErrorMessages } from "@hooks/useErrorMessages";
 
 type SignInFormProps = Pick<SignInFormContainerProps, "onSectionChange">;
 
@@ -23,26 +29,46 @@ interface FormData {
 
 export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
   const formatMessage = useFormattedMessages();
+  const errorMessages = useErrorMessages();
   const [passwordResetSent, setPasswordResetSent] = useState(false);
-  const { handleSubmit, getValues, ...rest } = useForm<FormData>();
-  const getInputProps = useGetInputProps(rest);
   const { login, requestPasswordReset } = useAuth();
 
-  const onSubmit = ({ email, password }: FormData) =>
-    login({
-      email,
-      password,
-    });
+  const schema = object({
+    password: string().required(errorMessages.requiredField),
+    email: string()
+      .email(errorMessages.invalidValue)
+      .required(errorMessages.requiredField),
+  });
 
-  const onPasswordReset = () => {
-    if (!passwordResetSent) {
-      setPasswordResetSent(true);
+  const resolver = useValidationResolver(schema);
+  const { handleSubmit, getValues, setError, ...rest } = useForm<FormData>({
+    resolver,
+  });
+  const getInputProps = useGetInputProps(rest, schema);
+
+  const onSubmit = async (formData: FormData) => login(formData);
+
+  const onPasswordReset = async () => {
+    const { email } = getValues();
+
+    try {
+      await schema.validateAt("email", { email });
+
+      if (!passwordResetSent) {
+        setPasswordResetSent(true);
+      }
+
+      requestPasswordReset({
+        email,
+        redirectUrl: getCurrentHref(),
+      });
+    } catch (error) {
+      const { path, type, message } = extractValidationError(
+        error as ValidationError
+      );
+
+      setError(path, { type, message });
     }
-
-    requestPasswordReset({
-      email: getValues().email,
-      redirectUrl: getCurrentHref(),
-    });
   };
 
   return (
@@ -66,10 +92,10 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
           variant="tertiary"
           title={formatMessage(passwordResetSent ? "resend" : "forgotPassword")}
           className="ml-1 mr-4"
-          onPress={onPasswordReset}
+          onClick={onPasswordReset}
         />
         <Button
-          onPress={() => handleSubmit(onSubmit)}
+          onClick={handleSubmit(onSubmit)}
           title={formatMessage("signIn")}
         />
       </div>

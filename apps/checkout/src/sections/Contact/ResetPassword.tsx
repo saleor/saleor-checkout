@@ -1,5 +1,6 @@
 import { Button } from "@components/Button";
 import { PasswordInput } from "@components/PasswordInput";
+import { useCheckoutEmailUpdateMutation } from "@graphql";
 import { useFormattedMessages } from "@hooks/useFormattedMessages";
 import { useGetInputProps } from "@hooks/useGetInputProps";
 import { getQueryVariables } from "@lib/utils";
@@ -25,12 +26,15 @@ export const ResetPassword: React.FC<ResetPasswordProps> = ({
   const { handleSubmit, ...rest } = useForm<FormData>({});
   const getInputProps = useGetInputProps(rest);
 
-  const onSubmit = ({ password }: FormData) =>
+  const onSubmit = ({ password }: FormData) => {
+    const { email, passwordResetToken } = getQueryVariables();
+
     setPassword({
       password,
-      email: getQueryVariables().email as string,
-      token: getQueryVariables().passwordResetToken as string,
+      email: email as string,
+      token: passwordResetToken as string,
     });
+  };
 
   return (
     <SignInFormContainer
@@ -38,6 +42,7 @@ export const ResetPassword: React.FC<ResetPasswordProps> = ({
       redirectSubtitle={formatMessage("rememberedYourPassword")}
       redirectButtonLabel={formatMessage("signIn")}
       onSectionChange={onSectionChange}
+      subtitle={formatMessage("providePassword")}
     >
       <PasswordInput
         label={formatMessage("passwordLabel")}
@@ -46,7 +51,7 @@ export const ResetPassword: React.FC<ResetPasswordProps> = ({
       />
       <div className="actions">
         <Button
-          onPress={() => handleSubmit(onSubmit)}
+          onClick={() => handleSubmit(onSubmit)}
           title={formatMessage("resetPassword")}
         />
       </div>

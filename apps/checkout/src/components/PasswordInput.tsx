@@ -21,7 +21,7 @@ export const PasswordInputComponent = <
       type={passwordVisible ? "text" : "password"}
       ref={ref}
       icon={
-        <IconButton onPress={() => setPasswordVisible(!passwordVisible)}>
+        <IconButton onClick={() => setPasswordVisible(!passwordVisible)}>
           <img src={passwordVisible ? EyeIcon : EyeHiddenIcon} alt="" />
         </IconButton>
       }

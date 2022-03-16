@@ -43,5 +43,8 @@
   "shouldResendLink": "A magic link has been sent to jeremy@example.com.",
   "resend": "Resend?",
   "resetPassword": "Reset Password",
-  "rememberedYourPassword": "Remember your password?"
+  "rememberedYourPassword": "Remember your password?",
+  "providePassword": "Provide a new password for your account",
+  "required": "Required field",
+  "invalid": "Invalid value"
 }

@@ -7,10 +7,9 @@ import React, {
   useState,
 } from "react";
 import { AriaTextFieldOptions, useTextField } from "@react-aria/textfield";
-import { Classes } from "@lib/globalTypes";
+import { Classes, ValidationError } from "@lib/globalTypes";
 import {
   Control,
-  FieldErrors,
   FieldPath,
   UseFormRegisterReturn,
   useWatch,
@@ -20,16 +19,17 @@ import { ControlFormData } from "@hooks/useGetInputProps";
 export interface TextInputProps<
   TControl extends Control<any, any>,
   TFormData extends ControlFormData<TControl>
-> extends Omit<AriaTextFieldOptions<"input">, "onBlur" | "onChange" | "name">,
-    UseFormRegisterReturn,
+> extends Omit<
+      AriaTextFieldOptions<"input">,
+      "onBlur" | "onChange" | "name" | "ref"
+    >,
+    Omit<UseFormRegisterReturn, "ref">,
     Classes {
   control: TControl;
-  errors: FieldErrors<TFormData>;
+  errors: ValidationError<TFormData>[];
   name: FieldPath<TFormData>;
   label: string;
   optional?: boolean;
-  error?: boolean;
-  errorMessage?: string;
   icon?: React.ReactNode;
 }
 
@@ -44,7 +44,6 @@ const TextInputComponent = <
     label,
     optional = false,
     errors,
-    errorMessage,
     className,
     onChange,
     onBlur,
@@ -56,7 +55,9 @@ const TextInputComponent = <
 
   const [labelFixed, setLabelFixed] = useState(false);
 
-  const error = !!errors[name as keyof typeof errors];
+  const error = errors[
+    name as keyof typeof errors
+  ] as ValidationError<TFormData>;
 
   const value = useWatch({
     control,
@@ -74,9 +75,8 @@ const TextInputComponent = <
     ref as RefObject<HTMLInputElement>
   );
 
-  console.log({ error, errorMessage });
   const inputClasses = clsx("text-input", {
-    "text-input-error": error,
+    "text-input-error": !!error,
   });
 
   const labelClasses = clsx("text-input-label", {
@@ -103,7 +103,7 @@ const TextInputComponent = <
       </label>
       {error && (
         <span className="text-xs text-text-error" {...errorMessageProps}>
-          {errorMessage}
+          {error.message}
         </span>
       )}
       {icon && <div className="icon">{icon}</div>}
@@ -116,6 +116,6 @@ export const TextInput = forwardRef(TextInputComponent) as <
   TFormData extends ControlFormData<TControl>
 >(
   props: TextInputProps<TControl, TFormData> & {
-    ref?: React.ForwardedRef<HTMLInputElement>;
+    ref?: ForwardedRef<HTMLInputElement>;
   }
 ) => ReturnType<typeof TextInputComponent>;

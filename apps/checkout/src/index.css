@@ -54,7 +54,7 @@ html {
   }
 
   .text-input-error {
-    @apply border-border-error;
+    @apply border-border-error mb-2;
   }
 
   .text-input-label {
@@ -74,7 +74,7 @@ html {
   }
 
   .text-input-container .icon {
-    @apply absolute right-0 top-0 right-4 h-full flex items-center;
+    @apply absolute right-0 top-4 right-4 h-full;
   }
 
   /* Button */

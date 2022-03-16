@@ -1,11 +1,8 @@
-import { ElementType } from "react";
 import { useButton } from "@react-aria/button";
 import { useRef } from "react";
-import { AriaButtonProps } from "@react-types/button";
+import { ButtonProps } from "./Button";
 
-export const IconButton = (
-  props: AriaButtonProps<ElementType<HTMLButtonElement>>
-) => {
+export const IconButton = (props: Omit<ButtonProps, "title">) => {
   const { children } = props;
   const ref = useRef<HTMLButtonElement | null>(null);
   const { buttonProps } = useButton(props, ref);

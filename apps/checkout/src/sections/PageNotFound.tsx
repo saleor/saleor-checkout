@@ -22,7 +22,7 @@ export const PageNotFound = () => {
           {formatMessage("problemDescription")}
         </Text>
         <Button
-          onPress={goBack}
+          onClick={goBack}
           variant="secondary"
           title={formatMessage("goBackToStore")}
         />
