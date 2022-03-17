@@ -1,4 +1,4 @@
-import { Channel } from "types/saleor";
+import { Channel } from "./saleor";
 import {
   CustomizationID,
   CustomizationSettingID,
@@ -7,7 +7,7 @@ import {
   PaymentProvider,
   PaymentProviderID,
   PaymentProviderSettingID,
-} from "types";
+} from "./common";
 
 export interface PaymentOption {
   id: string;

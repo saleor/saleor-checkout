@@ -1,8 +1,14 @@
 import ChannelList from "@templates/ChannelList";
-import { useChannelList } from "api/saleor";
+import { useChannelList } from "@api/saleor";
+import { withUrqlClient } from "next-urql";
+// import { useChannelsQuery } from "@graphql";
 
-export default function Channels() {
+const Channels = () => {
+  // const [channelsQuery] = useChannelsQuery();
   const channels = useChannelList();
 
   return <ChannelList channels={channels} />;
-}
+};
+export default withUrqlClient(() => ({
+  url: process.env.API_URL,
+}))(Channels);

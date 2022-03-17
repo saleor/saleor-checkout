@@ -2,10 +2,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@elements/*": ["./components/elements/*"],
-      "@templates/*": ["./components/templates/*"],
-      "@hooks/*": ["./hooks/*"],
-      "@misc/*": ["./misc/*"]
+      "@elements/*": ["components/elements/*"],
+      "@templates/*": ["components/templates/*"],
+      "@hooks/*": ["hooks/*"],
+      "@misc/*": ["misc/*"],
+      "@api/*": ["api/*"],
+      "@graphql": ["graphql"],
+      "@utils": ["utils"]
     }
   },
   "extends": "tsconfig/nextjs.json",

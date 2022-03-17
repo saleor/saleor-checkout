@@ -1,5 +1,5 @@
-import { channelList } from "api/saleor";
-import { customizations, paymentMethods, paymentProviders } from "consts";
+import { channelList } from "@api/saleor";
+import { customizations, paymentMethods, paymentProviders } from "../consts";
 import {
   Customization,
   CustomizationID,
@@ -7,8 +7,8 @@ import {
   PaymentProvider,
   PaymentProviderID,
   PaymentProviderSettings,
-} from "types";
-import { findById } from "utils";
+} from "types/common";
+import { findById } from "../utils";
 import {
   ChannelActivePaymentProviders,
   ChannelActivePaymentProvidersByChannel,

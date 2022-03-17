@@ -1,7 +1,7 @@
 import ColorInput from "@elements/ColorInput";
 import FileInput from "@elements/FileInput";
 import { TextField } from "@material-ui/core";
-import { SettingType } from "types";
+import { SettingType } from "types/common";
 
 interface SettingProps {
   name: string;

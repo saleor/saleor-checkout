@@ -1,11 +1,14 @@
 import { useRouter } from "next/router";
 import CustomizationDetails from "@templates/CustomizationDetails";
-import { getCustomizationSettings } from "api/app";
+import { getCustomizationSettings } from "@api/app";
 import { UnknownSettingsValues } from "types/api";
+import { withUrqlClient } from "next-urql";
+// import { useCustomizationSettings } from "@hooks/useCustomizationSettings";
 
-export default function Customization() {
+const Customization = () => {
   const router = useRouter();
   const options = getCustomizationSettings();
+  // const options = useCustomizationSettings();
 
   const handleCancel = () => {
     router.back();
@@ -24,4 +27,7 @@ export default function Customization() {
       onSubmit={handleSubmit}
     />
   );
-}
+};
+export default withUrqlClient(() => ({
+  url: process.env.API_URL,
+}))(Customization);

@@ -12,14 +12,14 @@ import {
   OffsettedListBody,
   ConfirmButtonTransitionState,
 } from "@saleor/macaw-ui";
-import { Customization, CustomizationID } from "types";
+import { Customization, CustomizationID } from "types/common";
+import { UnknownSettingsValues } from "types/api";
 import { useStyles } from "./styles";
 import { FormattedMessage } from "react-intl";
 import { useForm, Controller } from "react-hook-form";
 import { messages } from "./messages";
 import Setting from "@elements/Setting";
-import { flattenSettingId, unflattenSettings } from "utils";
-import { UnknownSettingsValues } from "types/api";
+import { flattenSettingId, unflattenSettings } from "@utils";
 
 interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];

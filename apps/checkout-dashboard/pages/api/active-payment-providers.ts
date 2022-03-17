@@ -1,4 +1,4 @@
-import { activePaymentProviders } from "api/app";
+import { activePaymentProviders } from "@api/app";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {

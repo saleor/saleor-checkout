@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { Card, CardContent, Typography } from "@material-ui/core";
-import { PaymentProvider, PaymentProviderID } from "types";
+import { PaymentProvider, PaymentProviderID } from "types/common";
 import { paymentProviders } from "consts";
 import VerticalSpacer from "@elements/VerticalSpacer";
 import { channelListPath, channelPath, paymentProviderPath } from "routes";

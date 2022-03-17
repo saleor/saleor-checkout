@@ -1,4 +1,4 @@
-import { Customization, PaymentMethod, PaymentProvider } from "types";
+import { Customization, PaymentMethod, PaymentProvider } from "types/common";
 
 export const paymentMethods: PaymentMethod[] = [
   {
