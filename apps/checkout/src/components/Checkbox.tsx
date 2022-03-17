@@ -24,7 +24,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       <div className="relative h-5 w-5 mr-2">
         <input type="checkbox" value={value} checked={checked} />
         <div className="checkbox-input" onClick={() => onChange(!checked)}>
-          <img src={CheckIcon} />
+          <img alt="check icon" src={CheckIcon} />
         </div>
       </div>
       <Text className="checkbox-label">{label}</Text>

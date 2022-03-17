@@ -24,14 +24,13 @@ export const CheckoutForm = () => {
   const methods = useForm<FormData>({ resolver, mode: "onBlur" });
   const { setValue, watch } = methods;
 
+  const handleEmailChange = (value: string) => setValue("email", value);
+
   return (
     <Suspense fallback="loaden">
       <FormProvider {...methods}>
         <div className="checkout-form">
-          <Contact
-            onEmailChange={(value: string) => setValue("email", value)}
-            email={watch("email")}
-          />
+          <Contact onEmailChange={handleEmailChange} email={watch("email")} />
           <Divider className="mt-4" />
         </div>
       </FormProvider>

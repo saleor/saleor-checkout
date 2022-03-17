@@ -63,6 +63,7 @@ export const Contact = ({ onEmailChange, email }: ContactProps) => {
 
     setCurrentSection("anonymousUser");
     customerDetach(getDataWithToken());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, checkout, authenticated, passwordResetToken]);
 
   return (

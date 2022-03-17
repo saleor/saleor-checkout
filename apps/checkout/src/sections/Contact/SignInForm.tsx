@@ -87,6 +87,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
 
   const emailValue = watch("email");
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => onEmailChange(emailValue), [emailValue]);
 
   return (

@@ -13,7 +13,7 @@ import { useFormattedMessages } from "@hooks/useFormattedMessages";
 import { useFormattedMoney } from "@hooks/useFormattedMoney";
 import { Money } from "@components/Money";
 import clsx from "clsx";
-import { extractTokenFromUrl, getDataWithToken } from "@lib/utils";
+import { getDataWithToken } from "@lib/utils";
 
 interface LineItemQuantitySelectorProps {
   line: CheckoutLine;
