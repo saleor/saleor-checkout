@@ -43,8 +43,9 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "generate": "graphql-codegen --config codegen.yml",
-    "lint": "npx prettier --check \"src/**/*.@(tsx|ts|jsx|js)\" --write && eslint --max-warnings=0 \"src/**/*.@(tsx|ts|jsx|js)\" --fix",
+    "prittify": "npx prettier --check \"src/**/*.@(tsx|ts|jsx|js)\" --write",
+    "generate": "graphql-codegen --config codegen.yml && prettier --check \"src/graphql/index.ts\" --write",
+    "lint": "yarn prittify && eslint --max-warnings=0 \"src/**/*.@(tsx|ts|jsx|js)\" --fix",
     "check-types": "tsc --noEmit --strict"
   },
   "eslintConfig": {
