@@ -23,7 +23,13 @@ export const Contact = ({ onEmailChange, email }: ContactProps) => {
   const [currentSection, setCurrentSection] =
     useState<Section>("anonymousUser");
 
-  const changeSection = (section: Section) => () => setCurrentSection(section);
+  const changeSection = (section: Section) => () => {
+    if (isCurrentSection(section)) {
+      return;
+    }
+
+    setCurrentSection(section);
+  };
 
   const isCurrentSection = (section: Section) => currentSection === section;
 
@@ -44,7 +50,7 @@ export const Contact = ({ onEmailChange, email }: ContactProps) => {
     if (authenticated || checkout.user) {
       setCurrentSection("signedInUser");
 
-      if (authenticated) {
+      if (authenticated && checkout.user?.id !== user?.id) {
         customerAttatch(
           getDataWithToken({
             customerId: user?.id as string,
@@ -62,7 +68,9 @@ export const Contact = ({ onEmailChange, email }: ContactProps) => {
     }
 
     setCurrentSection("anonymousUser");
-    customerDetach(getDataWithToken());
+    if (checkout.user) {
+      customerDetach(getDataWithToken());
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, checkout, authenticated, passwordResetToken]);
 
