@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "strict": true,
+    "noEmit": true,
     "paths": {
       "@frontend/*": ["frontend/*"],
       "@backend/*": ["backend/*"],
