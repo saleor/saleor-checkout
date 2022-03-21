@@ -3,8 +3,9 @@ import Head from "next/head";
 import { AppProps } from "next/app";
 import { ThemeProvider } from "@saleor/macaw-ui";
 import { IntlProvider } from "react-intl";
-import { useFormattedMessages } from "frontend/hooks/useFormattedMessages";
-import AppContainer from "frontend/components/elements/AppContainer";
+import { useFormattedMessages } from "@frontend/hooks/useFormattedMessages";
+import AppContainer from "@frontend/components/elements/AppContainer";
+import AppProvider from "@frontend/components/elements/AppProvider";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -19,17 +20,19 @@ export default function App(props: AppProps) {
           content="width=device-width, initial-scale=1, user-scalable=no"
         />
       </Head>
-      <IntlProvider
-        locale={locale}
-        messages={messages}
-        onError={() => null} // Hide missing translation warnings
-      >
-        <ThemeProvider ssr={true}>
-          <AppContainer>
-            <Component {...pageProps} />
-          </AppContainer>
-        </ThemeProvider>
-      </IntlProvider>
+      <AppProvider>
+        <IntlProvider
+          locale={locale}
+          messages={messages}
+          onError={() => null} // Hide missing translation warnings
+        >
+          <ThemeProvider ssr={true}>
+            <AppContainer>
+              <Component {...pageProps} />
+            </AppContainer>
+          </ThemeProvider>
+        </IntlProvider>
+      </AppProvider>
     </>
   );
 }
