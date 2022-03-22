@@ -96,6 +96,7 @@ const TextInputComponent = <
         className={inputClasses}
         onBlur={onBlur}
         onChange={handleChange}
+        aria-label={name}
       />
       <label {...labelProps} htmlFor={inputProps.id} className={labelClasses}>
         {optional ? label : `${label}*`}

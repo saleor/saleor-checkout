@@ -79,6 +79,7 @@ export const AnonymousCustomerForm: React.FC<AnonymousCustomerFormProps> = ({
         })}
       />
       <Checkbox
+        id="want to create account"
         value="createAccount"
         label={formatMessage("wantToCreateAccountLabel")}
         checked={createAccountSelected}

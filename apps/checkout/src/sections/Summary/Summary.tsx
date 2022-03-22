@@ -62,48 +62,28 @@ export const Summary = () => {
         </ul>
         <div className="summary-recap">
           <div className="summary-row">
-            <Text id={formatMessage("subtotalLabel")} weight="bold">
-              {formatMessage("subtotal")}
-            </Text>
-            <Money
-              labeledBy={formatMessage("subtotalLabel")}
-              weight="bold"
-              money={checkout?.subtotalPrice?.gross}
-            />
+            <Text weight="bold">{formatMessage("subtotal")}</Text>
+            <Money weight="bold" money={checkout?.subtotalPrice?.gross} />
           </div>
           <Divider className="my-4" />
           <div className="summary-row mb-2">
-            <Text id={formatMessage("shippingCostLabel")} color="secondary">
-              {formatMessage("shippingCost")}
-            </Text>
-            <Money
-              labeledBy={formatMessage("shippingCostLabel")}
-              color="secondary"
-              money={checkout?.shippingPrice?.gross}
-            />
+            <Text color="secondary">{formatMessage("shippingCost")}</Text>
+            <Money color="secondary" money={checkout?.shippingPrice?.gross} />
           </div>
           <div className="summary-row">
-            <Text id={formatMessage("taxCostLabel")} color="secondary">
+            <Text color="secondary">
               {formatMessage("taxCost", {
                 taxPercentage: getTaxPercentage(),
               })}
             </Text>
-            <Money
-              labeledBy={formatMessage("taxCostLabel")}
-              color="secondary"
-              money={taxCost}
-            />
+            <Money color="secondary" money={taxCost} />
           </div>
           <Divider className="my-4" />
           <div className="summary-row">
-            <Text id={formatMessage("totalLabel")} size="md" weight="bold">
+            <Text size="md" weight="bold">
               {formatMessage("total")}
             </Text>
-            <Money
-              weight="bold"
-              money={totalPrice}
-              labeledBy={formatMessage("totalLabel")}
-            />
+            <Money weight="bold" money={totalPrice} />
           </div>
         </div>
       </Transition>

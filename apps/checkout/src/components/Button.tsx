@@ -11,6 +11,7 @@ export interface ButtonProps extends AriaButtonProps<"button">, Classes {
   variant?: "primary" | "secondary" | "tertiary";
   title: string;
   onClick: (event: BaseSyntheticEvent<HTMLButtonElement>) => any;
+  ariaLabel: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -19,6 +20,7 @@ export const Button: React.FC<ButtonProps> = ({
   variant = "primary",
   disabled = false,
   onClick,
+  ariaLabel,
   ...rest
 }) => {
   const ref = useRef<HTMLButtonElement | null>(null);
@@ -41,6 +43,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       className={classes}
       ref={ref}
+      aria-label={ariaLabel}
     >
       <Text weight="semibold">{title}</Text>
     </button>

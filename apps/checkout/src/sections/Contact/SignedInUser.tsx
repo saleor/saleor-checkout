@@ -25,6 +25,7 @@ export const SignedInUser: React.FC<SignedInUserProps> = ({
       <div className="flex flex-row justify-between">
         <Text weight="bold">{user?.email}</Text>
         <Button
+          ariaLabel="sign out"
           variant="tertiary"
           onClick={() => logout()}
           title={formatMessage("signOut")}

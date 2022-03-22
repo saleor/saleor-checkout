@@ -4,7 +4,7 @@ import queryString from "query-string";
 export const getDataWithToken = <TData extends {} = {}>(
   data: TData = {} as TData
 ) => ({
-  token: extractTokenFromUrl(),
+  token: extractCheckoutTokenFromUrl(),
   ...data,
 });
 
@@ -20,7 +20,7 @@ export const getQueryVariables = (): Partial<QueryVariables> => {
 
 export const getCurrentHref = () => location.href;
 
-export const extractTokenFromUrl = (): string => {
+const extractCheckoutTokenFromUrl = (): string => {
   const { checkoutToken } = getQueryVariables();
 
   // for development & preview purposes

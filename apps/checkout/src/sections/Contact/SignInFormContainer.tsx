@@ -1,6 +1,7 @@
 import React from "react";
 import { Text } from "@components/Text";
 import { Button } from "@components/Button";
+import { Title } from "@components/Title";
 
 export interface SignInFormContainerProps {
   title: string;
@@ -21,7 +22,7 @@ export const SignInFormContainer: React.FC<SignInFormContainerProps> = ({
   <div>
     <div className="flex flex-col mb-4">
       <div className="flex flex-row justify-between items-baseline">
-        <Text variant="title">{title}</Text>
+        <Title>{title}</Title>
         <div className="flex flex-row">
           {redirectSubtitle && (
             <Text color="secondary" className="mr-2">
@@ -30,6 +31,7 @@ export const SignInFormContainer: React.FC<SignInFormContainerProps> = ({
           )}
           {redirectButtonLabel && (
             <Button
+              ariaLabel="section change button"
               onClick={onSectionChange}
               variant="tertiary"
               title={redirectButtonLabel}

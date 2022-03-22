@@ -110,12 +110,14 @@ export const SignInForm: React.FC<SignInFormProps> = ({
           <Text>{formatMessage("linkSent", { email: getValues().email })}</Text>
         )}
         <Button
+          ariaLabel="send password"
           variant="tertiary"
           title={formatMessage(passwordResetSent ? "resend" : "forgotPassword")}
           className="ml-1 mr-4"
           onClick={onPasswordReset}
         />
         <Button
+          ariaLabel="sign in"
           onClick={handleSubmit(onSubmit)}
           title={formatMessage("signIn")}
         />
