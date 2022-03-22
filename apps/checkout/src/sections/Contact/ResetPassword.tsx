@@ -59,7 +59,7 @@ export const ResetPassword: React.FC<ResetPasswordProps> = ({
       />
       <div className="actions">
         <Button
-          ariaLabel="reset password"
+          ariaLabel={formatMessage("resetPasswordLabel")}
           onClick={handleSubmit(onSubmit)}
           title={formatMessage("resetPassword")}
         />

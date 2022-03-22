@@ -46,5 +46,14 @@
   "rememberedYourPassword": "Remember your password?",
   "providePassword": "Provide a new password for your account",
   "required": "Required field",
-  "invalid": "Invalid value"
+  "invalid": "Invalid value",
+  "passwordVisibilityLabel": "change password visibility",
+  "goBackToStoreLabel": "go back to store",
+  "resetPasswordLabel": "reset password",
+  "signOutLabel": "sign out",
+  "sendPasswordLabel": "send password",
+  "signInLabel": "sign in",
+  "sectionChangeButtonLabel": "contact section change button",
+  "addItemQuantityLabel": "add item quantity",
+  "subtractItemQuantityLabel": "subtract item quantity"
 }

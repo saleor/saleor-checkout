@@ -1,3 +1,4 @@
+import { useFormattedMessages } from "@hooks/useFormattedMessages";
 import { ControlFormData } from "@hooks/useGetInputProps";
 import { EyeHiddenIcon, EyeIcon } from "@icons";
 import { ForwardedRef, useState } from "react";
@@ -13,6 +14,7 @@ export const PasswordInputComponent = <
   props: TextInputProps<TControl, TFormData>,
   ref: ForwardedRef<HTMLInputElement>
 ) => {
+  const formatMessage = useFormattedMessages();
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
@@ -22,7 +24,7 @@ export const PasswordInputComponent = <
       ref={ref}
       icon={
         <IconButton
-          ariaLabel="change password visibility"
+          ariaLabel={formatMessage("passwordVisibilityLabel")}
           onClick={() => setPasswordVisible(!passwordVisible)}
         >
           <img src={passwordVisible ? EyeIcon : EyeHiddenIcon} alt="" />

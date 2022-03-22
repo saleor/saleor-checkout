@@ -23,7 +23,7 @@ export const PageNotFound = () => {
           {formatMessage("problemDescription")}
         </Text>
         <Button
-          ariaLabel="go back to store"
+          ariaLabel={formatMessage("goBackToStoreLabel")}
           onClick={goBack}
           variant="secondary"
           title={formatMessage("goBackToStore")}

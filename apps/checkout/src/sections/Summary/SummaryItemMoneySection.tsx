@@ -91,7 +91,7 @@ export const SummaryItemMoneySection: React.FC<
     <div className="flex flex-col items-end">
       <div className="flex flex-row mb-3">
         <IconButton
-          ariaLabel="add item quantity"
+          ariaLabel={formatMessage("addItemQuantityLabel")}
           onClick={() => {
             setQuantity(quantity - 1);
           }}
@@ -102,7 +102,7 @@ export const SummaryItemMoneySection: React.FC<
           {quantity}
         </Text>
         <IconButton
-          ariaLabel="subtract item quantity"
+          ariaLabel={formatMessage("subtractItemQuantityLabel")}
           onClick={() => {
             setQuantity(quantity + 1);
           }}
