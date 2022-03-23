@@ -30,7 +30,7 @@ export const Contact = ({ onEmailChange, email }: ContactProps) => {
   const isCurrentSection = (section: Section) => currentSection === section;
 
   const [passwordResetShown, setPasswordResetShown] = useState(false);
-  const [, customerAttatch] = useCheckoutCustomerAttachMutation();
+  const [, customerAttach] = useCheckoutCustomerAttachMutation();
 
   const { authenticated, user } = useAuthState();
   const { checkout, loading } = useCheckout();
@@ -46,7 +46,7 @@ export const Contact = ({ onEmailChange, email }: ContactProps) => {
       setCurrentSection("signedInUser");
 
       if (checkout?.user?.id !== user?.id) {
-        customerAttatch(
+        customerAttach(
           getDataWithToken({
             customerId: user?.id as string,
           })
