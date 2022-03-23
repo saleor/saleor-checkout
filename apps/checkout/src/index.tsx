@@ -2,6 +2,7 @@ import ReactDOM from "react-dom";
 import { createClient, Provider as UrqlProvider } from "urql";
 
 import "./index.css";
+import { createRoot } from "react-dom/client";
 import { Checkout } from "./Checkout";
 import reportWebVitals from "./reportWebVitals";
 import { getCurrentRegion } from "./lib/regions";
@@ -24,7 +25,7 @@ const saleorClient = createSaleorClient({
   channel: "default-channel",
 });
 
-const root = ReactDOM.createRoot(document.getElementById("root")!);
+const root = createRoot(document.getElementById("root")!);
 
 root.render(
   // disabled temporarily because of headless-ui transition not working
