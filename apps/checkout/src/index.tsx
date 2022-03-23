@@ -8,11 +8,13 @@ import { getCurrentRegion } from "./lib/regions";
 import { I18nProvider } from "@react-aria/i18n";
 import { createFetch, createSaleorClient, SaleorProvider } from "@saleor/sdk";
 
+const authorizedFetch = createFetch();
+
 const client = createClient({
   url: "https://latest.staging.saleor.cloud/graphql/",
   suspense: true,
   requestPolicy: "cache-first",
-  fetch: createFetch(),
+  fetch: authorizedFetch,
 });
 
 // temporarily need to use @apollo/client because saleor sdk
