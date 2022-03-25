@@ -1,0 +1,43 @@
+{
+  "name": "@saleor/ui-kit",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "license": "BSD-3-Clause",
+  "sideEffects": [
+    "./src/index.css"
+  ],
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "dev": "PORT=3000 tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-interactions": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/react": "^6.4.19",
+    "@storybook/testing-library": "^0.0.9",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "babel-loader": "^8.2.4",
+    "config": "*",
+    "postcss": "^8.4.12",
+    "react": "^17.0.2",
+    "tailwindcss": "3.0.18",
+    "tsconfig": "*",
+    "tsup": "^5.11.11",
+    "typescript": "^4.5.3"
+  },
+  "dependencies": {}
+}
