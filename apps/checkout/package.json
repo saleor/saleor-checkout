@@ -46,7 +46,8 @@
     "format-code": "npx prettier --check \"src/**/*.@(tsx|ts|jsx|js)\" --write",
     "generate": "graphql-codegen --config codegen.yml && prettier --check \"src/graphql/index.ts\" --write",
     "lint": "yarn format-code && eslint --max-warnings=0 \"src/**/*.@(tsx|ts|jsx|js)\" --fix",
-    "check-types": "tsc --noEmit --strict"
+    "check-types": "tsc --noEmit --strict",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "eslintConfig": {
     "extends": [
