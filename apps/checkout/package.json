@@ -48,12 +48,6 @@
     "lint": "yarn format-code && eslint --max-warnings=0 \"src/**/*.@(tsx|ts|jsx|js)\" --fix",
     "check-types": "tsc --noEmit --strict"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
