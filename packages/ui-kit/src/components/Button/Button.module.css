@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.button {
+  @apply py-3 px-4 whitespace-nowrap border focus:outline-none active:outline-none;
+}
+
+.button-primary {
+  @apply bg-button-primary hover:bg-button-secondary active:bg-button-tertiary disabled:border-none disabled:bg-background-tertiary;
+}
+
+.button-primary p {
+  @apply text-text-tertiary;
+}
+
+.button-primary:hover p,
+.button-primary:active p {
+  @apply text-text-primary;
+}
+
+.button:disabled p {
+  @apply text-text-secondary;
+}
+
+.button-secondary {
+  @apply border-border-primary hover:border-border-active bg-transparent hover:bg-button-secondary active:bg-button-tertiary disabled:border-border-primary disabled:bg-transparent;
+}
+
+.button-tertiary {
+  @apply border-none bg-transparent px-0 py-0;
+}
+
+.button-tertiary p {
+  @apply active:text-text-secondary;
+}
