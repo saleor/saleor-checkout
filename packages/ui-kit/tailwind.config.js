@@ -69,11 +69,6 @@ const theme = {
     lg: ["2.4rem", "3.2rem"],
     xl: ["3.2rem", "4.6rem"],
   },
-  extend: {
-    minHeight: spacing,
-    maxWidth: spacing,
-    top: spacing,
-  },
 };
 
 module.exports = {
