@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "apps/checkout/**/*"
+      - ".github/workflows/checkoutTests.yaml"
 
 jobs:
   tsc-and-linters:
