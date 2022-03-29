@@ -22,13 +22,13 @@ jobs:
 
       - name: Install deps
         run: |
-          npm install -g yarn
-          yarn
+          npm install -g pnpm
+          pnpm
 
       - name: Run tsc
         run: |
-          yarn run check-types --scope="checkout"
+          pnpm run check-types --scope="checkout"
 
       - name: Run lint
         run: |
-          yarn turbo run lint --scope="checkout"
+          pnpm turbo run lint --scope="checkout"
