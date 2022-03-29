@@ -1,8 +1,7 @@
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { createClient, Provider as UrqlProvider } from "urql";
 
 import "./index.css";
-import { createRoot } from "react-dom/client";
 import { Checkout } from "./Checkout";
 import reportWebVitals from "./reportWebVitals";
 import { getCurrentRegion } from "./lib/regions";
