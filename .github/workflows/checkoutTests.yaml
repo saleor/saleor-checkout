@@ -23,7 +23,7 @@ jobs:
       - name: Install deps
         run: |
           npm install -g pnpm
-          pnpm
+          pnpm i
 
       - name: Run tsc
         run: |
