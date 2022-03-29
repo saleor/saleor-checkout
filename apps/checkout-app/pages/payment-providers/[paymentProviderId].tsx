@@ -1,16 +1,39 @@
 import PaymentProviderDetails from "frontend/components/templates/PaymentProviderDetails";
-import { getPaymentProviderSettings } from "mocks/app";
 import { UnknownSettingsValues } from "types/api";
 import { useRouter } from "next/router";
 import { withUrqlClient } from "next-urql";
-// import { usePaymentProviderSettings } from "@hooks/usePaymentProviderSettings";
+import { API_URL } from "@constants";
+import { useAuthContext } from "@frontend/hooks/useAuthContext";
+import { useAuthData } from "@frontend/hooks/useAuthData";
+import {
+  usePrivateMetadataQuery,
+  useUpdatePrivateMetadataMutation,
+} from "@graphql";
+import { mapMetadataToSettings, mapSettingsToMetadata } from "@frontend/utils";
+import { getPaymentProviderSettings } from "@frontend/data";
 
 const PaymentProvider = () => {
   const router = useRouter();
   const { paymentProviderId, channelId } = router.query;
 
-  const paymentProviders = getPaymentProviderSettings();
-  // const [paymentProviderQuery] = usePaymentProviderSettings();
+  const authContext = useAuthContext();
+  const { app } = useAuthData();
+  const [metadataQuery] = usePrivateMetadataQuery({
+    variables: {
+      id: app,
+    },
+    context: authContext,
+  });
+  console.log(metadataQuery);
+  const [metadataMutation, setPrivateMetadata] =
+    useUpdatePrivateMetadataMutation();
+
+  const settingsValues = mapMetadataToSettings(
+    metadataQuery.data?.app?.privateMetadata || []
+  );
+  const paymentProviders = getPaymentProviderSettings(settingsValues);
+  console.log(paymentProviders);
+
   const paymentProvider = paymentProviders.find(
     (paymentMethod) => paymentMethod.id === paymentProviderId
   );
@@ -21,6 +44,15 @@ const PaymentProvider = () => {
 
   const handleSubmit = (data: UnknownSettingsValues) => {
     console.log(data);
+    const metadata = mapSettingsToMetadata(data);
+
+    setPrivateMetadata(
+      {
+        id: app,
+        input: metadata,
+      },
+      authContext
+    );
   };
 
   return (
@@ -29,11 +61,12 @@ const PaymentProvider = () => {
       channelId={channelId?.toString()}
       disabled={false}
       saveButtonBarState="default"
+      loading={metadataQuery.fetching || metadataMutation.fetching}
       onCanel={handleCancel}
       onSubmit={handleSubmit}
     />
   );
 };
 export default withUrqlClient(() => ({
-  url: process.env.NEXT_PUBLIC_API_URL,
+  url: API_URL,
 }))(PaymentProvider);

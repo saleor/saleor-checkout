@@ -20,9 +20,11 @@ import { useForm, Controller } from "react-hook-form";
 import { messages } from "./messages";
 import Setting from "@frontend/components/elements/Setting";
 import { flattenSettingId, unflattenSettings } from "@frontend/utils";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
+  loading: boolean;
   disabled: boolean;
   saveButtonBarState: ConfirmButtonTransitionState;
   onCanel: () => void;
@@ -31,6 +33,7 @@ interface CustomizationDetailsProps {
 
 const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
   options,
+  loading,
   disabled,
   saveButtonBarState,
   onCanel,
@@ -63,24 +66,28 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
                 </AccordionSummary>
                 <AccordionDetails className={classes.optionDetails}>
                   <div className={classes.optionDetailsContent}>
-                    {option.settings?.map(({ id, type, label, value }) => (
-                      <Controller
-                        key={id}
-                        name={flattenSettingId(optionIdx, id)}
-                        control={control}
-                        defaultValue={value}
-                        render={({ field }) => (
-                          <Setting
-                            name={field.name}
-                            type={type}
-                            label={label}
-                            value={field.value}
-                            onChange={field.onChange}
-                            onBlur={field.onBlur}
-                          />
-                        )}
-                      />
-                    ))}
+                    {option.settings?.map(({ id, type, label, value }) =>
+                      loading ? (
+                        <Skeleton />
+                      ) : (
+                        <Controller
+                          key={id}
+                          name={flattenSettingId(optionIdx, id)}
+                          control={control}
+                          defaultValue={value}
+                          render={({ field }) => (
+                            <Setting
+                              name={field.name}
+                              type={type}
+                              label={label}
+                              value={field.value}
+                              onChange={field.onChange}
+                              onBlur={field.onBlur}
+                            />
+                          )}
+                        />
+                      )
+                    )}
                   </div>
                 </AccordionDetails>
               </Accordion>
@@ -95,7 +102,7 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
         </div>
       </div>
       <AppSavebar
-        disabled={disabled || !formState.isDirty}
+        disabled={disabled || loading || !formState.isDirty}
         state={saveButtonBarState}
         onCancel={onCanel}
         onSubmit={handleSubmitForm(handleSubmit)}

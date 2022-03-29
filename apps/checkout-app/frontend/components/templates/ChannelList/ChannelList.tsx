@@ -12,16 +12,21 @@ import { channelPath } from "routes";
 import { useStyles } from "./styles";
 import { FormattedMessage } from "react-intl";
 import { messages } from "./messages";
+import { ChannelsQuery } from "@graphql";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 interface ChannelListProps {
-  channels?: Channel[];
+  channels?: ChannelsQuery["channels"];
+  loading: boolean;
 }
 
-const ChannelList: React.FC<ChannelListProps> = ({ channels }) => {
+const ChannelList: React.FC<ChannelListProps> = ({ channels, loading }) => {
   const router = useRouter();
   const classes = useStyles();
 
-  const onChannelClick = (channel: Channel) => {
+  const onChannelClick = (
+    channel: Exclude<ChannelsQuery["channels"], null | undefined>[number]
+  ) => {
     router.push({
       pathname: channelPath,
       query: { channelId: channel.id },
@@ -40,15 +45,19 @@ const ChannelList: React.FC<ChannelListProps> = ({ channels }) => {
           </OffsettedListItem>
         </OffsettedListHeader>
         <OffsettedListBody>
-          {channels?.map((channel) => (
-            <OffsettedListItem
-              key={channel.id}
-              className={classes.listItem}
-              onClick={() => onChannelClick(channel)}
-            >
-              <OffsettedListItemCell>{channel.label}</OffsettedListItemCell>
-            </OffsettedListItem>
-          ))}
+          {loading ? (
+            <Skeleton />
+          ) : (
+            channels?.map((channel) => (
+              <OffsettedListItem
+                key={channel.id}
+                className={classes.listItem}
+                onClick={() => onChannelClick(channel)}
+              >
+                <OffsettedListItemCell>{channel.name}</OffsettedListItemCell>
+              </OffsettedListItem>
+            ))
+          )}
         </OffsettedListBody>
       </OffsettedList>
     </>

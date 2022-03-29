@@ -1,18 +1,36 @@
 import { useRouter } from "next/router";
 import CustomizationDetails from "@frontend/components/templates/CustomizationDetails";
-import { getCustomizationSettings } from "mocks/app";
 import { UnknownSettingsValues } from "types/api";
 import { withUrqlClient } from "next-urql";
-import { useApp } from "@frontend/hooks/useApp";
-import { useCustomizationSettings } from "@frontend/hooks/useCustomizationSettings";
+import { useAuthContext } from "@frontend/hooks/useAuthContext";
+import {
+  usePrivateMetadataQuery,
+  useUpdatePrivateMetadataMutation,
+} from "@graphql";
+import { mapMetadataToSettings, mapSettingsToMetadata } from "@frontend/utils";
+import { getCustomizationSettings } from "@frontend/data";
+import { API_URL } from "@constants";
+import { useAuthData } from "@frontend/hooks/useAuthData";
 
 const Customization = () => {
   const router = useRouter();
-  const options = getCustomizationSettings();
-  const options2 = useCustomizationSettings();
-  const app = useApp();
-  console.log(app);
-  console.log(app?.getState());
+  const authContext = useAuthContext();
+  const { app } = useAuthData();
+  const [metadataQuery] = usePrivateMetadataQuery({
+    variables: {
+      id: app,
+    },
+    context: authContext,
+  });
+  console.log(metadataQuery);
+  const [metadataMutation, setPrivateMetadata] =
+    useUpdatePrivateMetadataMutation();
+
+  const settingsValues = mapMetadataToSettings(
+    metadataQuery.data?.app?.privateMetadata || []
+  );
+  const customizationSettings = getCustomizationSettings(settingsValues);
+  console.log(customizationSettings);
 
   const handleCancel = () => {
     router.back();
@@ -20,11 +38,21 @@ const Customization = () => {
 
   const handleSubmit = (data: UnknownSettingsValues) => {
     console.log(data);
+    const metadata = mapSettingsToMetadata(data);
+
+    setPrivateMetadata(
+      {
+        id: app,
+        input: metadata,
+      },
+      authContext
+    );
   };
 
   return (
     <CustomizationDetails
-      options={options}
+      options={customizationSettings}
+      loading={metadataQuery.fetching || metadataMutation.fetching}
       disabled={false}
       saveButtonBarState="default"
       onCanel={handleCancel}
@@ -33,13 +61,13 @@ const Customization = () => {
   );
 };
 export default withUrqlClient(() => ({
-  url: process.env.NEXT_PUBLIC_API_URL,
-  fetchOptions: {
-    headers: {
-      Authorization:
-        typeof window !== "undefined"
-          ? `Bearer ${window.localStorage.getItem("auth_token")}`
-          : "",
-    },
-  },
+  url: API_URL,
+  // fetchOptions: {
+  //   headers: {
+  //     Authorization:
+  //       typeof window !== "undefined"
+  //         ? `Bearer ${window.localStorage.getItem("auth_token")}`
+  //         : "",
+  //   },
+  // },
 }))(Customization);

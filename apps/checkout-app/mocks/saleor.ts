@@ -4,11 +4,13 @@ import { Channel } from "types/saleor";
 export const channelList: Channel[] = [
   {
     id: "channel-1",
-    label: "B2B Channel",
+    slug: "channel-1",
+    name: "B2B Channel",
   },
   {
     id: "channel-2",
-    label: "B2C Channel",
+    slug: "channel-2",
+    name: "B2C Channel",
   },
 ];
 export const useChannelList = () => channelList;

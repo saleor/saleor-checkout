@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { Card, CardContent, Typography } from "@material-ui/core";
-import { PaymentProvider, PaymentProviderID } from "types/common";
+import { Item, PaymentProvider, PaymentProviderID } from "types/common";
 import { paymentProviders } from "consts";
 import VerticalSpacer from "@frontend/components/elements/VerticalSpacer";
 import { channelListPath, channelPath, paymentProviderPath } from "routes";
@@ -14,12 +14,14 @@ import AppSavebar from "@frontend/components/elements/AppSavebar";
 import Setting from "@frontend/components/elements/Setting";
 import { UnknownSettingsValues } from "types/api";
 import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 interface PaymentProviderDetailsProps {
   selectedPaymentProvider?: PaymentProvider<PaymentProviderID>;
   channelId?: string;
   disabled: boolean;
   saveButtonBarState: ConfirmButtonTransitionState;
+  loading: boolean;
   onCanel: () => void;
   onSubmit: (data: UnknownSettingsValues) => void;
 }
@@ -29,6 +31,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   channelId,
   disabled,
   saveButtonBarState,
+  loading,
   onCanel,
   onSubmit,
 }) => {
@@ -56,9 +59,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
     }
   };
 
-  const onPaymentProviderClick = (
-    paymentProvider: PaymentProvider<PaymentProviderID>
-  ) => {
+  const onPaymentProviderClick = (paymentProvider: Item) => {
     if (channelId) {
       router.push({
         pathname: paymentProviderPath,
@@ -78,9 +79,13 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   };
 
   const handleSubmit = (flattedOptions: Record<string, string>) => {
-    onSubmit({
-      [selectedPaymentProvider.id]: flattedOptions,
-    });
+    onSubmit(
+      selectedPaymentProvider?.id
+        ? {
+            [selectedPaymentProvider.id]: flattedOptions,
+          }
+        : {}
+    );
   };
 
   return (
@@ -90,6 +95,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
         onBackClick={onBackClick}
         items={paymentProviders}
         selectedItem={selectedPaymentProvider}
+        loading={loading}
         onItemClick={onPaymentProviderClick}
       >
         <Card>
@@ -100,24 +106,27 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
             <VerticalSpacer />
             <div className={classes.settings}>
               {selectedPaymentProvider?.settings?.map(
-                ({ id, type, label, value }) => (
-                  <Controller
-                    key={id}
-                    name={id}
-                    control={control}
-                    defaultValue={value}
-                    render={({ field }) => (
-                      <Setting
-                        name={field.name}
-                        type={type}
-                        label={label}
-                        value={field.value}
-                        onChange={field.onChange}
-                        onBlur={field.onBlur}
-                      />
-                    )}
-                  />
-                )
+                ({ id, type, label, value }) =>
+                  loading ? (
+                    <Skeleton />
+                  ) : (
+                    <Controller
+                      key={id}
+                      name={id}
+                      control={control}
+                      defaultValue={value}
+                      render={({ field }) => (
+                        <Setting
+                          name={field.name}
+                          type={type}
+                          label={label}
+                          value={field.value}
+                          onChange={field.onChange}
+                          onBlur={field.onBlur}
+                        />
+                      )}
+                    />
+                  )
               )}
             </div>
           </CardContent>

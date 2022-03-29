@@ -71,3 +71,10 @@ export interface Customization<P extends CustomizationID> {
 export interface Node {
   id: string;
 }
+export interface NamedNode extends Node {
+  name: string;
+}
+export interface Item {
+  id: string;
+  label: string;
+}

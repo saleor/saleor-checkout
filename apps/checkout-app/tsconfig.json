@@ -6,8 +6,11 @@
       "@backend/*": ["backend/*"],
       "@graphql": ["graphql"],
       "@graphql/*": ["graphql/*"],
-      "@utils": ["utils.ts"]
-    }
+      "@utils": ["utils.ts"],
+      "@constants": ["constants.ts"]
+    },
+    "strict": true,
+    "experimentalDecorators": true
   },
   "extends": "tsconfig/nextjs.json",
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
