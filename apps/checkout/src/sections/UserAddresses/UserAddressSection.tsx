@@ -1,12 +1,15 @@
+import { Button } from "@components/Button";
 import {
   AddressFragment,
   AddressInput,
   CountryCode,
+  useUserAddressCreateMutation,
   useUserAddressUpdateMutation,
 } from "@graphql";
-import { getById } from "@lib/utils";
+import { extractMutationErrors, getById } from "@lib/utils";
 import { useAuthState } from "@saleor/sdk";
 import { AddressTypeEnum } from "@saleor/sdk/dist/apollo/types";
+import { reduce } from "lodash";
 import React, { Suspense, useEffect, useState } from "react";
 import { UserAddressForm } from "./UserAddressForm";
 import { UserAddressList } from "./UserAddressList";
@@ -26,14 +29,17 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
   addresses = [],
   onAddressSelect,
   title,
+  type,
 }) => {
   const { user } = useAuthState();
+
+  const [addAddressOpened, setAddAddressOpened] = useState(false);
 
   const [editedAddressId, setEditedAddressId] = useState<string | null>();
 
   const [selectedCountryCode, setSelectedCountryCode] =
     useState<CountryCode>("PL");
-  console.log({ selectedCountryCode });
+
   const [selectedAddressId, setSelectedAddressId] = useState(
     defaultAddress?.id
   );
@@ -48,28 +54,67 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
     }
   }, [selectedAddressId]);
 
-  const isEditing = !!editedAddressId;
+  const editAddressOpened = !!editedAddressId;
 
   const [, userAddressUpdate] = useUserAddressUpdateMutation();
+  const [, userAddressAdd] = useUserAddressCreateMutation();
 
-  const handleAddressUpdate = (address: AddressInput) =>
-    userAddressUpdate({
+  const handleAddressUpdate = async (address: AddressFragment) => {
+    const result = await userAddressUpdate({
       address: getAddressInputData({
         ...address,
-        country: selectedCountryCode,
+        country: { code: selectedCountryCode },
       }),
       id: user?.id,
     });
+
+    const [hasErrors] = extractMutationErrors(result);
+
+    if (!hasErrors) {
+      setEditedAddressId(null);
+    }
+  };
+
+  const handleAddressAdd = async (address: AddressFragment) => {
+    const result = await userAddressAdd({
+      address: getAddressInputData({
+        ...address,
+        country: { code: selectedCountryCode },
+      }),
+      type,
+      id: user?.id,
+    });
+
+    const [hasErrors] = extractMutationErrors(result);
+
+    if (!hasErrors) {
+      setAddAddressOpened(false);
+    }
+  };
 
   return (
     <Suspense fallback="loaden...">
       <UserAddressSectionContainer
         title={title}
-        displayCountrySelect={isEditing}
+        displayCountrySelect={editAddressOpened || addAddressOpened}
         selectedCountryCode={selectedCountryCode}
         onCountrySelect={setSelectedCountryCode}
       >
-        {isEditing ? (
+        {addAddressOpened ? (
+          <UserAddressForm
+            onSave={handleAddressAdd}
+            countryCode={selectedCountryCode}
+            onCancel={() => setAddAddressOpened(false)}
+          />
+        ) : (
+          <Button
+            onClick={() => setAddAddressOpened(true)}
+            title="Add new address"
+            className="mb-4"
+          />
+        )}
+
+        {editAddressOpened ? (
           <UserAddressForm
             onSave={handleAddressUpdate}
             countryCode={selectedCountryCode}

@@ -1,4 +1,5 @@
 /* eslint-disable no-restricted-globals */
+import { reduce } from "lodash";
 import queryString from "query-string";
 
 export const getById =
@@ -36,4 +37,20 @@ const extractCheckoutTokenFromUrl = (): string => {
   }
 
   return token;
+};
+
+export const extractMutationErrors = (result): [boolean, any[]] => {
+  const urqlErrors = result.error ? [result.error] : [];
+
+  const graphqlErrors = reduce(
+    result.data,
+    (result, { errors }) => {
+      return [...result, ...errors];
+    },
+    []
+  );
+
+  const errors = [...urqlErrors, ...graphqlErrors];
+
+  return [errors.length > 0, errors];
 };

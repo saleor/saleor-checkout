@@ -1,15 +1,19 @@
 import { Button } from "@components/Button";
 import { TextInput } from "@components/TextInput";
-import { CountryCode, useAddressValidationRulesQuery } from "@graphql";
+import {
+  AddressFragment,
+  CountryCode,
+  useAddressValidationRulesQuery,
+} from "@graphql";
 import { useGetInputProps } from "@hooks/useGetInputProps";
 import React from "react";
 import { useForm } from "react-hook-form";
 
 interface UserAddressFormProps {
   countryCode: CountryCode;
-  defaultValues: any;
+  defaultValues?: any;
   onCancel: () => void;
-  onSave: (formData) => void;
+  onSave: (formData: AddressFragment) => void;
 }
 
 export const UserAddressForm: React.FC<UserAddressFormProps> = ({

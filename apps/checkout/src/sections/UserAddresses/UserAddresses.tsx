@@ -6,18 +6,16 @@ import {
   useUserQuery,
 } from "@graphql";
 import { getDataWithToken } from "@lib/utils";
-import { useToggleState } from "@react-stately/toggle";
 import { useAuthState } from "@saleor/sdk";
+import React, { useState } from "react";
 import { UserAddressSection } from "./UserAddressSection";
 
 interface UserAddressesProps {}
 
 export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
   const { user: authUser } = useAuthState();
-  const {
-    isSelected: useShippingAsBillingAddress,
-    setSelected: setUseShippingAsBillingAddressSelected,
-  } = useToggleState({ defaultSelected: true });
+  const [useShippingAsBillingAddress, setUseShippingAsBillingAddressSelected] =
+    useState(true);
 
   const [{ data }] = useUserQuery({
     pause: !authUser?.id,
