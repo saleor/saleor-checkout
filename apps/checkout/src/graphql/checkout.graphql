@@ -70,13 +70,43 @@ fragment CheckoutLineFragment on CheckoutLine {
   }
 }
 
-query Checkout($token: UUID!) {
+fragment AddressFragment on Address {
+  id
+  city
+  phone
+  postalCode
+  streetAddress1
+  streetAddress2
+  country {
+    country
+    code
+  }
+  firstName
+  lastName
+}
+
+query checkout($token: UUID!) {
   checkout(token: $token) {
     ...CheckoutFragment
   }
 }
 
-mutation CheckoutLinesUpdate($token: UUID!, $lines: [CheckoutLineInput]!) {
+query user($id: ID!) {
+  user(id: $id) {
+    id
+    addresses {
+      ...AddressFragment
+    }
+    defaultBillingAddress {
+      id
+    }
+    defaultShippingAddress {
+      id
+    }
+  }
+}
+
+mutation checkoutLinesUpdate($token: UUID!, $lines: [CheckoutLineInput]!) {
   checkoutLinesUpdate(token: $token, lines: $lines) {
     errors {
       message
@@ -92,7 +122,7 @@ mutation CheckoutLinesUpdate($token: UUID!, $lines: [CheckoutLineInput]!) {
   }
 }
 
-mutation CheckoutLineDelete($token: UUID!, $lineId: ID) {
+mutation checkoutLineDelete($token: UUID!, $lineId: ID) {
   checkoutLineDelete(token: $token, lineId: $lineId) {
     errors {
       message
@@ -134,6 +164,74 @@ mutation checkoutCustomerAttach($customerId: ID!, $token: UUID!) {
 
 mutation checkoutCustomerDetach($token: UUID!) {
   checkoutCustomerDetach(token: $token) {
+    errors {
+      field
+      message
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}
+
+mutation userAddressDelete($id: ID!) {
+  accountAddressDelete(id: $id) {
+    errors {
+      field
+      message
+    }
+    address {
+      ...AddressFragment
+    }
+  }
+}
+mutation userAddressUpdate($id: ID!, $input: AddressInput!) {
+  accountAddressUpdate(id: $id, input: $input) {
+    errors {
+      field
+      message
+    }
+    address {
+      ...AddressFragment
+    }
+  }
+}
+
+mutation userAddressCreate($input: AddressInput!, $type: AddressTypeEnum) {
+  accountAddressCreate(type: $type, input: $input) {
+    errors {
+      field
+      message
+    }
+    address {
+      ...AddressFragment
+    }
+  }
+}
+
+mutation checkoutShippingAddressUpdate(
+  $token: UUID!
+  $shippingAddress: AddressInput!
+) {
+  checkoutShippingAddressUpdate(
+    token: $token
+    shippingAddress: $shippingAddress
+  ) {
+    errors {
+      field
+      message
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}
+
+mutation checkoutBillingAddressUpdate(
+  $token: UUID!
+  $billingAddress: AddressInput!
+) {
+  checkoutBillingAddressUpdate(token: $token, billingAddress: $billingAddress) {
     errors {
       field
       message

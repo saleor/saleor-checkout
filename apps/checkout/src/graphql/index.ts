@@ -13517,6 +13517,19 @@ export type CheckoutLineFragment = {
   };
 };
 
+export type AddressFragment = {
+  __typename?: "Address";
+  id: string;
+  city: string;
+  phone?: string | null;
+  postalCode: string;
+  streetAddress1: string;
+  streetAddress2: string;
+  firstName: string;
+  lastName: string;
+  country: { __typename?: "CountryDisplay"; country: string; code: string };
+};
+
 export type CheckoutQueryVariables = Exact<{
   token: Scalars["UUID"];
 }>;
@@ -13574,6 +13587,32 @@ export type CheckoutQuery = {
         }> | null;
       };
     } | null> | null;
+  } | null;
+};
+
+export type UserQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type UserQuery = {
+  __typename?: "Query";
+  user?: {
+    __typename?: "User";
+    id: string;
+    addresses?: Array<{
+      __typename?: "Address";
+      id: string;
+      city: string;
+      phone?: string | null;
+      postalCode: string;
+      streetAddress1: string;
+      streetAddress2: string;
+      firstName: string;
+      lastName: string;
+      country: { __typename?: "CountryDisplay"; country: string; code: string };
+    } | null> | null;
+    defaultBillingAddress?: { __typename?: "Address"; id: string } | null;
+    defaultShippingAddress?: { __typename?: "Address"; id: string } | null;
   } | null;
 };
 
@@ -13893,6 +13932,230 @@ export type CheckoutCustomerDetachMutation = {
   } | null;
 };
 
+export type UserAddressDeleteMutationVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type UserAddressDeleteMutation = {
+  __typename?: "Mutation";
+  accountAddressDelete?: {
+    __typename?: "AccountAddressDelete";
+    errors: Array<{
+      __typename?: "AccountError";
+      field?: string | null;
+      message?: string | null;
+    }>;
+    address?: {
+      __typename?: "Address";
+      id: string;
+      city: string;
+      phone?: string | null;
+      postalCode: string;
+      streetAddress1: string;
+      streetAddress2: string;
+      firstName: string;
+      lastName: string;
+      country: { __typename?: "CountryDisplay"; country: string; code: string };
+    } | null;
+  } | null;
+};
+
+export type UserAddressUpdateMutationVariables = Exact<{
+  id: Scalars["ID"];
+  input: AddressInput;
+}>;
+
+export type UserAddressUpdateMutation = {
+  __typename?: "Mutation";
+  accountAddressUpdate?: {
+    __typename?: "AccountAddressUpdate";
+    errors: Array<{
+      __typename?: "AccountError";
+      field?: string | null;
+      message?: string | null;
+    }>;
+    address?: {
+      __typename?: "Address";
+      id: string;
+      city: string;
+      phone?: string | null;
+      postalCode: string;
+      streetAddress1: string;
+      streetAddress2: string;
+      firstName: string;
+      lastName: string;
+      country: { __typename?: "CountryDisplay"; country: string; code: string };
+    } | null;
+  } | null;
+};
+
+export type UserAddressCreateMutationVariables = Exact<{
+  input: AddressInput;
+  type?: InputMaybe<AddressTypeEnum>;
+}>;
+
+export type UserAddressCreateMutation = {
+  __typename?: "Mutation";
+  accountAddressCreate?: {
+    __typename?: "AccountAddressCreate";
+    errors: Array<{
+      __typename?: "AccountError";
+      field?: string | null;
+      message?: string | null;
+    }>;
+    address?: {
+      __typename?: "Address";
+      id: string;
+      city: string;
+      phone?: string | null;
+      postalCode: string;
+      streetAddress1: string;
+      streetAddress2: string;
+      firstName: string;
+      lastName: string;
+      country: { __typename?: "CountryDisplay"; country: string; code: string };
+    } | null;
+  } | null;
+};
+
+export type CheckoutShippingAddressUpdateMutationVariables = Exact<{
+  token: Scalars["UUID"];
+  shippingAddress: AddressInput;
+}>;
+
+export type CheckoutShippingAddressUpdateMutation = {
+  __typename?: "Mutation";
+  checkoutShippingAddressUpdate?: {
+    __typename?: "CheckoutShippingAddressUpdate";
+    errors: Array<{
+      __typename?: "CheckoutError";
+      field?: string | null;
+      message?: string | null;
+    }>;
+    checkout?: {
+      __typename?: "Checkout";
+      id: string;
+      email?: string | null;
+      user?: { __typename?: "User"; id: string; email: string } | null;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
+      shippingPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+      } | null;
+      subtotalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+      } | null;
+      lines?: Array<{
+        __typename?: "CheckoutLine";
+        id: string;
+        quantity: number;
+        totalPrice?: {
+          __typename?: "TaxedMoney";
+          gross: { __typename?: "Money"; currency: string; amount: number };
+        } | null;
+        variant: {
+          __typename?: "ProductVariant";
+          id: string;
+          name: string;
+          pricing?: {
+            __typename?: "VariantPricingInfo";
+            onSale?: boolean | null;
+            price?: {
+              __typename?: "TaxedMoney";
+              gross: { __typename?: "Money"; currency: string; amount: number };
+            } | null;
+            priceUndiscounted?: {
+              __typename?: "TaxedMoney";
+              gross: { __typename?: "Money"; currency: string; amount: number };
+            } | null;
+          } | null;
+          product: { __typename?: "Product"; name: string };
+          media?: Array<{
+            __typename?: "ProductMedia";
+            alt: string;
+            type: ProductMediaType;
+            url: string;
+          }> | null;
+        };
+      } | null> | null;
+    } | null;
+  } | null;
+};
+
+export type CheckoutBillingAddressUpdateMutationVariables = Exact<{
+  token: Scalars["UUID"];
+  billingAddress: AddressInput;
+}>;
+
+export type CheckoutBillingAddressUpdateMutation = {
+  __typename?: "Mutation";
+  checkoutBillingAddressUpdate?: {
+    __typename?: "CheckoutBillingAddressUpdate";
+    errors: Array<{
+      __typename?: "CheckoutError";
+      field?: string | null;
+      message?: string | null;
+    }>;
+    checkout?: {
+      __typename?: "Checkout";
+      id: string;
+      email?: string | null;
+      user?: { __typename?: "User"; id: string; email: string } | null;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
+      shippingPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+      } | null;
+      subtotalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+      } | null;
+      lines?: Array<{
+        __typename?: "CheckoutLine";
+        id: string;
+        quantity: number;
+        totalPrice?: {
+          __typename?: "TaxedMoney";
+          gross: { __typename?: "Money"; currency: string; amount: number };
+        } | null;
+        variant: {
+          __typename?: "ProductVariant";
+          id: string;
+          name: string;
+          pricing?: {
+            __typename?: "VariantPricingInfo";
+            onSale?: boolean | null;
+            price?: {
+              __typename?: "TaxedMoney";
+              gross: { __typename?: "Money"; currency: string; amount: number };
+            } | null;
+            priceUndiscounted?: {
+              __typename?: "TaxedMoney";
+              gross: { __typename?: "Money"; currency: string; amount: number };
+            } | null;
+          } | null;
+          product: { __typename?: "Product"; name: string };
+          media?: Array<{
+            __typename?: "ProductMedia";
+            alt: string;
+            type: ProductMediaType;
+            url: string;
+          }> | null;
+        };
+      } | null> | null;
+    } | null;
+  } | null;
+};
+
 export const CheckoutLineFragmentDoc = gql`
   fragment CheckoutLineFragment on CheckoutLine {
     id
@@ -13968,8 +14231,24 @@ export const CheckoutFragmentDoc = gql`
   }
   ${CheckoutLineFragmentDoc}
 `;
+export const AddressFragmentDoc = gql`
+  fragment AddressFragment on Address {
+    id
+    city
+    phone
+    postalCode
+    streetAddress1
+    streetAddress2
+    country {
+      country
+      code
+    }
+    firstName
+    lastName
+  }
+`;
 export const CheckoutDocument = gql`
-  query Checkout($token: UUID!) {
+  query checkout($token: UUID!) {
     checkout(token: $token) {
       ...CheckoutFragment
     }
@@ -13982,8 +14261,31 @@ export function useCheckoutQuery(
 ) {
   return Urql.useQuery<CheckoutQuery>({ query: CheckoutDocument, ...options });
 }
+export const UserDocument = gql`
+  query user($id: ID!) {
+    user(id: $id) {
+      id
+      addresses {
+        ...AddressFragment
+      }
+      defaultBillingAddress {
+        id
+      }
+      defaultShippingAddress {
+        id
+      }
+    }
+  }
+  ${AddressFragmentDoc}
+`;
+
+export function useUserQuery(
+  options: Omit<Urql.UseQueryArgs<UserQueryVariables>, "query">
+) {
+  return Urql.useQuery<UserQuery>({ query: UserDocument, ...options });
+}
 export const CheckoutLinesUpdateDocument = gql`
-  mutation CheckoutLinesUpdate($token: UUID!, $lines: [CheckoutLineInput]!) {
+  mutation checkoutLinesUpdate($token: UUID!, $lines: [CheckoutLineInput]!) {
     checkoutLinesUpdate(token: $token, lines: $lines) {
       errors {
         message
@@ -14008,7 +14310,7 @@ export function useCheckoutLinesUpdateMutation() {
   >(CheckoutLinesUpdateDocument);
 }
 export const CheckoutLineDeleteDocument = gql`
-  mutation CheckoutLineDelete($token: UUID!, $lineId: ID) {
+  mutation checkoutLineDelete($token: UUID!, $lineId: ID) {
     checkoutLineDelete(token: $token, lineId: $lineId) {
       errors {
         message
@@ -14094,4 +14396,121 @@ export function useCheckoutCustomerDetachMutation() {
     CheckoutCustomerDetachMutation,
     CheckoutCustomerDetachMutationVariables
   >(CheckoutCustomerDetachDocument);
+}
+export const UserAddressDeleteDocument = gql`
+  mutation userAddressDelete($id: ID!) {
+    accountAddressDelete(id: $id) {
+      errors {
+        field
+        message
+      }
+      address {
+        ...AddressFragment
+      }
+    }
+  }
+  ${AddressFragmentDoc}
+`;
+
+export function useUserAddressDeleteMutation() {
+  return Urql.useMutation<
+    UserAddressDeleteMutation,
+    UserAddressDeleteMutationVariables
+  >(UserAddressDeleteDocument);
+}
+export const UserAddressUpdateDocument = gql`
+  mutation userAddressUpdate($id: ID!, $input: AddressInput!) {
+    accountAddressUpdate(id: $id, input: $input) {
+      errors {
+        field
+        message
+      }
+      address {
+        ...AddressFragment
+      }
+    }
+  }
+  ${AddressFragmentDoc}
+`;
+
+export function useUserAddressUpdateMutation() {
+  return Urql.useMutation<
+    UserAddressUpdateMutation,
+    UserAddressUpdateMutationVariables
+  >(UserAddressUpdateDocument);
+}
+export const UserAddressCreateDocument = gql`
+  mutation userAddressCreate($input: AddressInput!, $type: AddressTypeEnum) {
+    accountAddressCreate(type: $type, input: $input) {
+      errors {
+        field
+        message
+      }
+      address {
+        ...AddressFragment
+      }
+    }
+  }
+  ${AddressFragmentDoc}
+`;
+
+export function useUserAddressCreateMutation() {
+  return Urql.useMutation<
+    UserAddressCreateMutation,
+    UserAddressCreateMutationVariables
+  >(UserAddressCreateDocument);
+}
+export const CheckoutShippingAddressUpdateDocument = gql`
+  mutation checkoutShippingAddressUpdate(
+    $token: UUID!
+    $shippingAddress: AddressInput!
+  ) {
+    checkoutShippingAddressUpdate(
+      token: $token
+      shippingAddress: $shippingAddress
+    ) {
+      errors {
+        field
+        message
+      }
+      checkout {
+        ...CheckoutFragment
+      }
+    }
+  }
+  ${CheckoutFragmentDoc}
+`;
+
+export function useCheckoutShippingAddressUpdateMutation() {
+  return Urql.useMutation<
+    CheckoutShippingAddressUpdateMutation,
+    CheckoutShippingAddressUpdateMutationVariables
+  >(CheckoutShippingAddressUpdateDocument);
+}
+export const CheckoutBillingAddressUpdateDocument = gql`
+  mutation checkoutBillingAddressUpdate(
+    $token: UUID!
+    $billingAddress: AddressInput!
+  ) {
+    checkoutBillingAddressUpdate(
+      token: $token
+      billingAddress: $billingAddress
+    ) {
+      errors {
+        field
+        message
+      }
+      checkout {
+        ...CheckoutFragment
+      }
+    }
+  }
+  ${CheckoutFragmentDoc}
+`;
+
+export function useCheckoutBillingAddressUpdateMutation() {
+  return Urql.useMutation<
+    CheckoutBillingAddressUpdateMutation,
+    CheckoutBillingAddressUpdateMutationVariables
+  >(CheckoutBillingAddressUpdateDocument);
 }

@@ -1,10 +1,11 @@
 import { Divider } from "@components/Divider";
 import { useErrorMessages } from "@hooks/useErrorMessages";
 import { useValidationResolver } from "@lib/utils";
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { Contact } from "./Contact";
+import { UserAddresses } from "./UserAddresses";
 
 interface FormData {
   email: string;
@@ -32,6 +33,7 @@ export const CheckoutForm = () => {
         <div className="checkout-form">
           <Contact onEmailChange={handleEmailChange} email={watch("email")} />
           <Divider className="mt-4" />
+          <UserAddresses />
         </div>
       </FormProvider>
     </Suspense>

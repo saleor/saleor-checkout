@@ -1,6 +1,11 @@
 /* eslint-disable no-restricted-globals */
 import queryString from "query-string";
 
+export const getById =
+  <T extends { id: string }>(idToCompare: string) =>
+  (obj: T) =>
+    obj.id === idToCompare;
+
 export const getDataWithToken = <TData extends {} = {}>(
   data: TData = {} as TData
 ) => ({
