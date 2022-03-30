@@ -5,6 +5,10 @@ fragment CheckoutFragment on Checkout {
     id
     email
   }
+  availablePaymentGateways {
+    id
+    name
+  }
   deliveryMethod {
     ... on ShippingMethod {
       id

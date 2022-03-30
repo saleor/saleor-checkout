@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { createClient, Provider as UrqlProvider } from "urql";
+import { cacheExchange } from "@urql/exchange-graphcache";
 
 import "./index.css";
 import { Checkout } from "./Checkout";
@@ -22,6 +23,18 @@ const client = createClient({
   suspense: true,
   requestPolicy: "cache-first",
   fetch: authorizedFetch,
+  // exchanges: [
+  // cacheExchange({
+  //   updates: {
+  //     Mutation: {
+  //       userAddressCreate(_result, args, cache, _info) {
+  //         console.log(666, "HELOOOOOOOOOOOOOOOOO");
+  //         cache.invalidate({ __typename: "Address", first: 100 });
+  //       },
+  //     },
+  //   },
+  // }),
+  // ],
 });
 
 const root = createRoot(document.getElementById("root")!);

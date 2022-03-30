@@ -8,6 +8,7 @@ import {
 import { getDataWithToken } from "@lib/utils";
 import { useAuthState } from "@saleor/sdk";
 import React, { useState } from "react";
+import { GuestAddressSection } from "./GuestAddressSection";
 import { UserAddressSection } from "./UserAddressSection";
 
 interface UserAddressesProps {}
@@ -38,28 +39,38 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
 
   return (
     <div>
-      <UserAddressSection
-        title="shipping"
-        type="SHIPPING"
-        onAddressSelect={handleShippingUpdate}
-        addresses={addresses}
-        defaultAddress={user?.defaultShippingAddress}
-      />
+      {authUser ? (
+        <UserAddressSection
+          title="shipping"
+          type="SHIPPING"
+          onAddressSelect={handleShippingUpdate}
+          addresses={addresses}
+          defaultAddress={user?.defaultShippingAddress}
+        />
+      ) : (
+        <GuestAddressSection title="shipping" onSubmit={handleShippingUpdate} />
+      )}
       <Checkbox
         value="useShippingAsBilling"
         checked={useShippingAsBillingAddress}
         onChange={setUseShippingAsBillingAddressSelected}
         label="use shipping address as billing address"
       />
-      {!useShippingAsBillingAddress && (
-        <UserAddressSection
-          title="Billing"
-          type="BILLING"
-          onAddressSelect={handleBillingUpdate}
-          addresses={addresses}
-          defaultAddress={user?.defaultBillingAddress}
-        />
-      )}
+      {!useShippingAsBillingAddress &&
+        (authUser ? (
+          <UserAddressSection
+            title="Billing"
+            type="BILLING"
+            onAddressSelect={handleBillingUpdate}
+            addresses={addresses}
+            defaultAddress={user?.defaultBillingAddress}
+          />
+        ) : (
+          <GuestAddressSection
+            title="shipping"
+            onSubmit={handleShippingUpdate}
+          />
+        ))}
     </div>
   );
 };

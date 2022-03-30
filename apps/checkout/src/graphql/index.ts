@@ -13435,6 +13435,11 @@ export type CheckoutFragment = {
   id: string;
   email?: string | null;
   user?: { __typename?: "User"; id: string; email: string } | null;
+  availablePaymentGateways: Array<{
+    __typename?: "PaymentGateway";
+    id: string;
+    name: string;
+  }>;
   deliveryMethod?:
     | { __typename?: "ShippingMethod"; id: string }
     | { __typename?: "Warehouse"; id: string }
@@ -13552,6 +13557,11 @@ export type CheckoutQuery = {
     id: string;
     email?: string | null;
     user?: { __typename?: "User"; id: string; email: string } | null;
+    availablePaymentGateways: Array<{
+      __typename?: "PaymentGateway";
+      id: string;
+      name: string;
+    }>;
     deliveryMethod?:
       | { __typename?: "ShippingMethod"; id: string }
       | { __typename?: "Warehouse"; id: string }
@@ -13767,6 +13777,11 @@ export type CheckoutEmailUpdateMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      availablePaymentGateways: Array<{
+        __typename?: "PaymentGateway";
+        id: string;
+        name: string;
+      }>;
       deliveryMethod?:
         | { __typename?: "ShippingMethod"; id: string }
         | { __typename?: "Warehouse"; id: string }
@@ -13846,6 +13861,11 @@ export type CheckoutCustomerAttachMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      availablePaymentGateways: Array<{
+        __typename?: "PaymentGateway";
+        id: string;
+        name: string;
+      }>;
       deliveryMethod?:
         | { __typename?: "ShippingMethod"; id: string }
         | { __typename?: "Warehouse"; id: string }
@@ -13924,6 +13944,11 @@ export type CheckoutCustomerDetachMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      availablePaymentGateways: Array<{
+        __typename?: "PaymentGateway";
+        id: string;
+        name: string;
+      }>;
       deliveryMethod?:
         | { __typename?: "ShippingMethod"; id: string }
         | { __typename?: "Warehouse"; id: string }
@@ -14092,6 +14117,11 @@ export type CheckoutShippingAddressUpdateMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      availablePaymentGateways: Array<{
+        __typename?: "PaymentGateway";
+        id: string;
+        name: string;
+      }>;
       deliveryMethod?:
         | { __typename?: "ShippingMethod"; id: string }
         | { __typename?: "Warehouse"; id: string }
@@ -14171,6 +14201,11 @@ export type CheckoutBillingAddressUpdateMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      availablePaymentGateways: Array<{
+        __typename?: "PaymentGateway";
+        id: string;
+        name: string;
+      }>;
       deliveryMethod?:
         | { __typename?: "ShippingMethod"; id: string }
         | { __typename?: "Warehouse"; id: string }
@@ -14250,6 +14285,11 @@ export type CheckoutDeliveryMethodUpdateMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      availablePaymentGateways: Array<{
+        __typename?: "PaymentGateway";
+        id: string;
+        name: string;
+      }>;
       deliveryMethod?:
         | { __typename?: "ShippingMethod"; id: string }
         | { __typename?: "Warehouse"; id: string }
@@ -14369,6 +14409,10 @@ export const CheckoutFragmentDoc = gql`
     user {
       id
       email
+    }
+    availablePaymentGateways {
+      id
+      name
     }
     deliveryMethod {
       ... on ShippingMethod {

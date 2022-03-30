@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 interface UserAddressFormProps {
   countryCode: CountryCode;
   defaultValues?: any;
-  onCancel: () => void;
+  onCancel?: () => void;
   onSave: (formData: AddressFragment) => void;
 }
 
@@ -41,7 +41,9 @@ export const UserAddressForm: React.FC<UserAddressFormProps> = ({
         <TextInput label={field} {...getInputProps(field)} />
       ))}
       <div className="boo">
-        <Button variant="secondary" onClick={onCancel} title="cancel" />
+        {onCancel && (
+          <Button variant="secondary" onClick={onCancel} title="cancel" />
+        )}
         <Button onClick={handleSubmit(onSave)} title="Save" />
       </div>
     </div>
