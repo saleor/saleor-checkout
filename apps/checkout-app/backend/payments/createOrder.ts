@@ -6,7 +6,7 @@ import {
 } from "@graphql";
 
 export const createOrder = async (checkoutId: string, totalAmount: number) => {
-  const { data, error } = await client
+  const { data } = await client
     .mutation<OrderCreateMutation, OrderCreateMutationVariables>(
       OrderCreateDocument,
       { id: checkoutId },
@@ -20,15 +20,15 @@ export const createOrder = async (checkoutId: string, totalAmount: number) => {
     )
     .toPromise();
 
-  console.log(data?.orderFromCheckoutCreate?.errors);
+  console.log("Order id: ", data?.orderCreateFromCheckout?.order?.id);
 
-  if (!data?.orderFromCheckoutCreate?.order) {
+  if (!data?.orderCreateFromCheckout?.order) {
     throw Error("Checkout does not exist");
   }
 
-  if (data.orderFromCheckoutCreate.order.total.gross.amount !== totalAmount) {
+  if (data.orderCreateFromCheckout.order.total.gross.amount !== totalAmount) {
     throw Error("Total amount mismatch");
   }
 
-  return data.orderFromCheckoutCreate.order;
+  return data.orderCreateFromCheckout.order;
 };
