@@ -1,11 +1,9 @@
 import {
   AddressFragment,
-  CountryCode,
   useCheckoutShippingAddressUpdateMutation,
 } from "@graphql";
+import { useCheckout } from "@hooks/useCheckout";
 import { getById, getDataWithToken } from "@lib/utils";
-import { AddressInput } from "@saleor/sdk/dist/apollo/types";
-import { omit } from "lodash";
 import React, { useEffect, useState } from "react";
 import { UserAddressSection } from "./UserAddressSection";
 import { getAddressInputData } from "./utils";
@@ -23,9 +21,7 @@ export const UserShippingAddress: React.FC<UserAddressSectionProps> = ({
     defaultAddress?.id
   );
 
-  const selectedAddress = addresses.find(
-    getById(selectedAddressId)
-  ) as AddressFragment;
+  const selectedAddress = addresses.find(getById(selectedAddressId));
 
   const [, checkoutShippingAddressUpdate] =
     useCheckoutShippingAddressUpdateMutation();
@@ -33,7 +29,7 @@ export const UserShippingAddress: React.FC<UserAddressSectionProps> = ({
   const onSelectAddress = (id: string) => setSelectedAddressId(id);
 
   useEffect(() => {
-    if (!!selectedAddressId) {
+    if (!!selectedAddress) {
       checkoutShippingAddressUpdate(
         getDataWithToken({
           shippingAddress: getAddressInputData(selectedAddress),

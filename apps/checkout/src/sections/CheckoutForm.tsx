@@ -5,6 +5,7 @@ import React, { Suspense } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { Contact } from "./Contact";
+import { ShippingMethods } from "./ShippingMethods";
 import { UserAddresses } from "./UserAddresses";
 
 interface FormData {
@@ -34,6 +35,7 @@ export const CheckoutForm = () => {
           <Contact onEmailChange={handleEmailChange} email={watch("email")} />
           <Divider className="mt-4" />
           <UserAddresses />
+          <ShippingMethods />
         </div>
       </FormProvider>
     </Suspense>

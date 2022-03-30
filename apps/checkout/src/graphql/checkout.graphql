@@ -5,6 +5,22 @@ fragment CheckoutFragment on Checkout {
     id
     email
   }
+  deliveryMethod {
+    ... on ShippingMethod {
+      id
+    }
+    ... on Warehouse {
+      id
+    }
+  }
+  shippingMethods {
+    id
+    name
+    price {
+      amount
+      currency
+    }
+  }
   totalPrice {
     gross {
       amount
@@ -77,6 +93,7 @@ fragment AddressFragment on Address {
   postalCode
   streetAddress1
   streetAddress2
+  countryArea
   country {
     country
     code
@@ -232,6 +249,21 @@ mutation checkoutBillingAddressUpdate(
   $billingAddress: AddressInput!
 ) {
   checkoutBillingAddressUpdate(token: $token, billingAddress: $billingAddress) {
+    errors {
+      field
+      message
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}
+
+mutation checkoutDeliveryMethodUpdate($token: UUID!, $deliveryMethodId: ID!) {
+  checkoutDeliveryMethodUpdate(
+    token: $token
+    deliveryMethodId: $deliveryMethodId
+  ) {
     errors {
       field
       message

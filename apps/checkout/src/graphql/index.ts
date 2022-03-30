@@ -13435,6 +13435,16 @@ export type CheckoutFragment = {
   id: string;
   email?: string | null;
   user?: { __typename?: "User"; id: string; email: string } | null;
+  deliveryMethod?:
+    | { __typename?: "ShippingMethod"; id: string }
+    | { __typename?: "Warehouse"; id: string }
+    | null;
+  shippingMethods: Array<{
+    __typename?: "ShippingMethod";
+    id: string;
+    name: string;
+    price: { __typename?: "Money"; amount: number; currency: string };
+  } | null>;
   totalPrice?: {
     __typename?: "TaxedMoney";
     gross: { __typename?: "Money"; amount: number; currency: string };
@@ -13525,6 +13535,7 @@ export type AddressFragment = {
   postalCode: string;
   streetAddress1: string;
   streetAddress2: string;
+  countryArea: string;
   firstName: string;
   lastName: string;
   country: { __typename?: "CountryDisplay"; country: string; code: string };
@@ -13541,6 +13552,16 @@ export type CheckoutQuery = {
     id: string;
     email?: string | null;
     user?: { __typename?: "User"; id: string; email: string } | null;
+    deliveryMethod?:
+      | { __typename?: "ShippingMethod"; id: string }
+      | { __typename?: "Warehouse"; id: string }
+      | null;
+    shippingMethods: Array<{
+      __typename?: "ShippingMethod";
+      id: string;
+      name: string;
+      price: { __typename?: "Money"; amount: number; currency: string };
+    } | null>;
     totalPrice?: {
       __typename?: "TaxedMoney";
       gross: { __typename?: "Money"; amount: number; currency: string };
@@ -13607,6 +13628,7 @@ export type UserQuery = {
       postalCode: string;
       streetAddress1: string;
       streetAddress2: string;
+      countryArea: string;
       firstName: string;
       lastName: string;
       country: { __typename?: "CountryDisplay"; country: string; code: string };
@@ -13745,6 +13767,16 @@ export type CheckoutEmailUpdateMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      deliveryMethod?:
+        | { __typename?: "ShippingMethod"; id: string }
+        | { __typename?: "Warehouse"; id: string }
+        | null;
+      shippingMethods: Array<{
+        __typename?: "ShippingMethod";
+        id: string;
+        name: string;
+        price: { __typename?: "Money"; amount: number; currency: string };
+      } | null>;
       totalPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -13814,6 +13846,16 @@ export type CheckoutCustomerAttachMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      deliveryMethod?:
+        | { __typename?: "ShippingMethod"; id: string }
+        | { __typename?: "Warehouse"; id: string }
+        | null;
+      shippingMethods: Array<{
+        __typename?: "ShippingMethod";
+        id: string;
+        name: string;
+        price: { __typename?: "Money"; amount: number; currency: string };
+      } | null>;
       totalPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -13882,6 +13924,16 @@ export type CheckoutCustomerDetachMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      deliveryMethod?:
+        | { __typename?: "ShippingMethod"; id: string }
+        | { __typename?: "Warehouse"; id: string }
+        | null;
+      shippingMethods: Array<{
+        __typename?: "ShippingMethod";
+        id: string;
+        name: string;
+        price: { __typename?: "Money"; amount: number; currency: string };
+      } | null>;
       totalPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -13953,6 +14005,7 @@ export type UserAddressDeleteMutation = {
       postalCode: string;
       streetAddress1: string;
       streetAddress2: string;
+      countryArea: string;
       firstName: string;
       lastName: string;
       country: { __typename?: "CountryDisplay"; country: string; code: string };
@@ -13982,6 +14035,7 @@ export type UserAddressUpdateMutation = {
       postalCode: string;
       streetAddress1: string;
       streetAddress2: string;
+      countryArea: string;
       firstName: string;
       lastName: string;
       country: { __typename?: "CountryDisplay"; country: string; code: string };
@@ -14011,6 +14065,7 @@ export type UserAddressCreateMutation = {
       postalCode: string;
       streetAddress1: string;
       streetAddress2: string;
+      countryArea: string;
       firstName: string;
       lastName: string;
       country: { __typename?: "CountryDisplay"; country: string; code: string };
@@ -14037,6 +14092,16 @@ export type CheckoutShippingAddressUpdateMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      deliveryMethod?:
+        | { __typename?: "ShippingMethod"; id: string }
+        | { __typename?: "Warehouse"; id: string }
+        | null;
+      shippingMethods: Array<{
+        __typename?: "ShippingMethod";
+        id: string;
+        name: string;
+        price: { __typename?: "Money"; amount: number; currency: string };
+      } | null>;
       totalPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -14106,6 +14171,95 @@ export type CheckoutBillingAddressUpdateMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      deliveryMethod?:
+        | { __typename?: "ShippingMethod"; id: string }
+        | { __typename?: "Warehouse"; id: string }
+        | null;
+      shippingMethods: Array<{
+        __typename?: "ShippingMethod";
+        id: string;
+        name: string;
+        price: { __typename?: "Money"; amount: number; currency: string };
+      } | null>;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
+      shippingPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+      } | null;
+      subtotalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+      } | null;
+      lines?: Array<{
+        __typename?: "CheckoutLine";
+        id: string;
+        quantity: number;
+        totalPrice?: {
+          __typename?: "TaxedMoney";
+          gross: { __typename?: "Money"; currency: string; amount: number };
+        } | null;
+        variant: {
+          __typename?: "ProductVariant";
+          id: string;
+          name: string;
+          pricing?: {
+            __typename?: "VariantPricingInfo";
+            onSale?: boolean | null;
+            price?: {
+              __typename?: "TaxedMoney";
+              gross: { __typename?: "Money"; currency: string; amount: number };
+            } | null;
+            priceUndiscounted?: {
+              __typename?: "TaxedMoney";
+              gross: { __typename?: "Money"; currency: string; amount: number };
+            } | null;
+          } | null;
+          product: { __typename?: "Product"; name: string };
+          media?: Array<{
+            __typename?: "ProductMedia";
+            alt: string;
+            type: ProductMediaType;
+            url: string;
+          }> | null;
+        };
+      } | null> | null;
+    } | null;
+  } | null;
+};
+
+export type CheckoutDeliveryMethodUpdateMutationVariables = Exact<{
+  token: Scalars["UUID"];
+  deliveryMethodId: Scalars["ID"];
+}>;
+
+export type CheckoutDeliveryMethodUpdateMutation = {
+  __typename?: "Mutation";
+  checkoutDeliveryMethodUpdate?: {
+    __typename?: "CheckoutDeliveryMethodUpdate";
+    errors: Array<{
+      __typename?: "CheckoutError";
+      field?: string | null;
+      message?: string | null;
+    }>;
+    checkout?: {
+      __typename?: "Checkout";
+      id: string;
+      email?: string | null;
+      user?: { __typename?: "User"; id: string; email: string } | null;
+      deliveryMethod?:
+        | { __typename?: "ShippingMethod"; id: string }
+        | { __typename?: "Warehouse"; id: string }
+        | null;
+      shippingMethods: Array<{
+        __typename?: "ShippingMethod";
+        id: string;
+        name: string;
+        price: { __typename?: "Money"; amount: number; currency: string };
+      } | null>;
       totalPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -14203,6 +14357,22 @@ export const CheckoutFragmentDoc = gql`
       id
       email
     }
+    deliveryMethod {
+      ... on ShippingMethod {
+        id
+      }
+      ... on Warehouse {
+        id
+      }
+    }
+    shippingMethods {
+      id
+      name
+      price {
+        amount
+        currency
+      }
+    }
     totalPrice {
       gross {
         amount
@@ -14239,6 +14409,7 @@ export const AddressFragmentDoc = gql`
     postalCode
     streetAddress1
     streetAddress2
+    countryArea
     country {
       country
       code
@@ -14513,4 +14684,28 @@ export function useCheckoutBillingAddressUpdateMutation() {
     CheckoutBillingAddressUpdateMutation,
     CheckoutBillingAddressUpdateMutationVariables
   >(CheckoutBillingAddressUpdateDocument);
+}
+export const CheckoutDeliveryMethodUpdateDocument = gql`
+  mutation checkoutDeliveryMethodUpdate($token: UUID!, $deliveryMethodId: ID!) {
+    checkoutDeliveryMethodUpdate(
+      token: $token
+      deliveryMethodId: $deliveryMethodId
+    ) {
+      errors {
+        field
+        message
+      }
+      checkout {
+        ...CheckoutFragment
+      }
+    }
+  }
+  ${CheckoutFragmentDoc}
+`;
+
+export function useCheckoutDeliveryMethodUpdateMutation() {
+  return Urql.useMutation<
+    CheckoutDeliveryMethodUpdateMutation,
+    CheckoutDeliveryMethodUpdateMutationVariables
+  >(CheckoutDeliveryMethodUpdateDocument);
 }

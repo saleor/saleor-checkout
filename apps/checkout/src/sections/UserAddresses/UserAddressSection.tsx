@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text } from "@components/Text";
 import { Button } from "@components/Button";
 import { useToggleState } from "@react-stately/toggle";
@@ -37,6 +37,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
           streetAddress1,
           streetAddress2,
           postalCode,
+          countryArea,
           city,
         }: AddressFragment) => (
           <div className="mb-4 flex flex-row justify-between">
@@ -53,6 +54,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
                 <p>{streetAddress2}</p>
                 <p>{postalCode + " " + city}</p>
                 <p>{country.country}</p>
+                <p>{countryArea}</p>
                 <p>{phone}</p>
               </div>
             </div>

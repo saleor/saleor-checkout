@@ -2,6 +2,7 @@ import {
   AddressFragment,
   useCheckoutBillingAddressUpdateMutation,
 } from "@graphql";
+import { useCheckout } from "@hooks/useCheckout";
 import { getById, getDataWithToken } from "@lib/utils";
 import React, { useEffect, useState } from "react";
 import { UserAddressSection } from "./UserAddressSection";
@@ -15,6 +16,7 @@ export const UserBillingAddress: React.FC<UserAddressSectionProps> = ({
   const [selectedAddressId, setSelectedAddressId] = useState(
     defaultAddress?.id
   );
+  console.log({ defaultAddress });
 
   const selectedAddress = addresses.find(
     getById(selectedAddressId)
