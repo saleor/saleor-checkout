@@ -202,8 +202,8 @@ mutation userAddressDelete($id: ID!) {
     }
   }
 }
-mutation userAddressUpdate($id: ID!, $input: AddressInput!) {
-  accountAddressUpdate(id: $id, input: $input) {
+mutation userAddressUpdate($id: ID!, $address: AddressInput!) {
+  accountAddressUpdate(id: $id, input: $address) {
     errors {
       field
       message
@@ -214,8 +214,8 @@ mutation userAddressUpdate($id: ID!, $input: AddressInput!) {
   }
 }
 
-mutation userAddressCreate($input: AddressInput!, $type: AddressTypeEnum) {
-  accountAddressCreate(type: $type, input: $input) {
+mutation userAddressCreate($address: AddressInput!, $type: AddressTypeEnum) {
+  accountAddressCreate(type: $type, input: $address) {
     errors {
       field
       message
@@ -271,5 +271,12 @@ mutation checkoutDeliveryMethodUpdate($token: UUID!, $deliveryMethodId: ID!) {
     checkout {
       ...CheckoutFragment
     }
+  }
+}
+
+query addressValidationRules($countryCode: CountryCode!) {
+  addressValidationRules(countryCode: $countryCode) {
+    addressFormat
+    allowedFields
   }
 }

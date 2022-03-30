@@ -12,7 +12,6 @@ export const ShippingMethods: React.FC<ShippingMethodsProps> = ({}) => {
   const [selectedMethodId, setSelectedMethodId] = useState(
     checkout?.deliveryMethod?.id
   );
-  console.log({ selectedMethodId });
   const [, updateDeliveryMethod] = useCheckoutDeliveryMethodUpdateMutation();
 
   useEffect(() => {

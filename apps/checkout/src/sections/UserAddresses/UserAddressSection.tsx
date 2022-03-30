@@ -1,74 +1,90 @@
-import React, { useEffect } from "react";
-import { Text } from "@components/Text";
-import { Button } from "@components/Button";
-import { useToggleState } from "@react-stately/toggle";
-import { AddressFragment, useUserAddressDeleteMutation } from "@graphql";
-import { Title } from "@components/Title";
+import {
+  AddressFragment,
+  AddressInput,
+  CountryCode,
+  useUserAddressUpdateMutation,
+} from "@graphql";
+import { getById } from "@lib/utils";
+import { useAuthState } from "@saleor/sdk";
+import { AddressTypeEnum } from "@saleor/sdk/dist/apollo/types";
+import React, { Suspense, useEffect, useState } from "react";
+import { UserAddressForm } from "./UserAddressForm";
+import { UserAddressList } from "./UserAddressList";
+import { UserAddressSectionContainer } from "./UserAddressSectionContainer";
+import { getAddressInputData } from "./utils";
 
-interface UserAddressSectionProps {
-  title: string;
-  onAddressSelect: (id: string) => void;
+export interface UserAddressSectionProps {
+  defaultAddress?: AddressFragment;
+  onAddressSelect: (address: AddressInput) => void;
   addresses: AddressFragment[];
-  selectedAddressId: string;
+  title: string;
+  type: AddressTypeEnum;
 }
 
 export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
-  title,
-  onAddressSelect,
-  selectedAddressId,
+  defaultAddress,
   addresses = [],
+  onAddressSelect,
+  title,
 }) => {
-  const [, deleteAddress] = useUserAddressDeleteMutation();
+  const { user } = useAuthState();
 
-  const { isSelected: isEditing, setSelected: setIsEditing } = useToggleState({
-    defaultSelected: false,
-  });
+  const [editedAddressId, setEditedAddressId] = useState<string | null>();
+
+  const [selectedCountryCode, setSelectedCountryCode] =
+    useState<CountryCode>("PL");
+  console.log({ selectedCountryCode });
+  const [selectedAddressId, setSelectedAddressId] = useState(
+    defaultAddress?.id
+  );
+
+  const selectedAddress = addresses.find(getById(selectedAddressId));
+
+  const onSelectAddress = (id: string) => setSelectedAddressId(id);
+
+  useEffect(() => {
+    if (!!selectedAddress) {
+      onAddressSelect(getAddressInputData(selectedAddress));
+    }
+  }, [selectedAddressId]);
+
+  const isEditing = !!editedAddressId;
+
+  const [, userAddressUpdate] = useUserAddressUpdateMutation();
+
+  const handleAddressUpdate = (address: AddressInput) =>
+    userAddressUpdate({
+      address: getAddressInputData({
+        ...address,
+        country: selectedCountryCode,
+      }),
+      id: user?.id,
+    });
 
   return (
-    <div className="my-6">
-      <Title className="mb-4">{title}</Title>
-      {addresses.map(
-        ({
-          id,
-          firstName,
-          lastName,
-          country,
-          phone,
-          streetAddress1,
-          streetAddress2,
-          postalCode,
-          countryArea,
-          city,
-        }: AddressFragment) => (
-          <div className="mb-4 flex flex-row justify-between">
-            <div className="flex flex-row">
-              <input
-                type="radio"
-                className="mr-2 mt-1"
-                checked={selectedAddressId === id}
-                onChange={() => onAddressSelect(id)}
-              />
-              <div>
-                <Text weight="bold">{firstName + " " + lastName}</Text>
-                <p>{streetAddress1}</p>
-                <p>{streetAddress2}</p>
-                <p>{postalCode + " " + city}</p>
-                <p>{country.country}</p>
-                <p>{countryArea}</p>
-                <p>{phone}</p>
-              </div>
-            </div>
-            <div>
-              <Button title="edit" onClick={() => setIsEditing(!isEditing)} />
-              <Button
-                variant="secondary"
-                title="delete"
-                onClick={() => deleteAddress({ id })}
-              />
-            </div>
-          </div>
-        )
-      )}
-    </div>
+    <Suspense fallback="loaden...">
+      <UserAddressSectionContainer
+        title={title}
+        displayCountrySelect={isEditing}
+        selectedCountryCode={selectedCountryCode}
+        onCountrySelect={setSelectedCountryCode}
+      >
+        {isEditing ? (
+          <UserAddressForm
+            onSave={handleAddressUpdate}
+            countryCode={selectedCountryCode}
+            defaultValues={addresses.find(getById(editedAddressId as string))}
+            onCancel={() => setEditedAddressId(null)}
+          />
+        ) : (
+          <UserAddressList
+            addresses={addresses}
+            onAddressSelect={onSelectAddress}
+            selectedAddressId={selectedAddressId}
+            onEditChange={(id: string) => setEditedAddressId(id)}
+          />
+        )}
+      </UserAddressSectionContainer>
+    </Suspense>
   );
 };

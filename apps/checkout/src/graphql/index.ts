@@ -14015,7 +14015,7 @@ export type UserAddressDeleteMutation = {
 
 export type UserAddressUpdateMutationVariables = Exact<{
   id: Scalars["ID"];
-  input: AddressInput;
+  address: AddressInput;
 }>;
 
 export type UserAddressUpdateMutation = {
@@ -14044,7 +14044,7 @@ export type UserAddressUpdateMutation = {
 };
 
 export type UserAddressCreateMutationVariables = Exact<{
-  input: AddressInput;
+  address: AddressInput;
   type?: InputMaybe<AddressTypeEnum>;
 }>;
 
@@ -14307,6 +14307,19 @@ export type CheckoutDeliveryMethodUpdateMutation = {
         };
       } | null> | null;
     } | null;
+  } | null;
+};
+
+export type AddressValidationRulesQueryVariables = Exact<{
+  countryCode: CountryCode;
+}>;
+
+export type AddressValidationRulesQuery = {
+  __typename?: "Query";
+  addressValidationRules?: {
+    __typename?: "AddressValidationData";
+    addressFormat?: string | null;
+    allowedFields?: Array<string | null> | null;
   } | null;
 };
 
@@ -14590,8 +14603,8 @@ export function useUserAddressDeleteMutation() {
   >(UserAddressDeleteDocument);
 }
 export const UserAddressUpdateDocument = gql`
-  mutation userAddressUpdate($id: ID!, $input: AddressInput!) {
-    accountAddressUpdate(id: $id, input: $input) {
+  mutation userAddressUpdate($id: ID!, $address: AddressInput!) {
+    accountAddressUpdate(id: $id, input: $address) {
       errors {
         field
         message
@@ -14611,8 +14624,8 @@ export function useUserAddressUpdateMutation() {
   >(UserAddressUpdateDocument);
 }
 export const UserAddressCreateDocument = gql`
-  mutation userAddressCreate($input: AddressInput!, $type: AddressTypeEnum) {
-    accountAddressCreate(type: $type, input: $input) {
+  mutation userAddressCreate($address: AddressInput!, $type: AddressTypeEnum) {
+    accountAddressCreate(type: $type, input: $address) {
       errors {
         field
         message
@@ -14708,4 +14721,24 @@ export function useCheckoutDeliveryMethodUpdateMutation() {
     CheckoutDeliveryMethodUpdateMutation,
     CheckoutDeliveryMethodUpdateMutationVariables
   >(CheckoutDeliveryMethodUpdateDocument);
+}
+export const AddressValidationRulesDocument = gql`
+  query addressValidationRules($countryCode: CountryCode!) {
+    addressValidationRules(countryCode: $countryCode) {
+      addressFormat
+      allowedFields
+    }
+  }
+`;
+
+export function useAddressValidationRulesQuery(
+  options: Omit<
+    Urql.UseQueryArgs<AddressValidationRulesQueryVariables>,
+    "query"
+  >
+) {
+  return Urql.useQuery<AddressValidationRulesQuery>({
+    query: AddressValidationRulesDocument,
+    ...options,
+  });
 }

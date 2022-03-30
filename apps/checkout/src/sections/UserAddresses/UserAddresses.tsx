@@ -1,9 +1,14 @@
 import { Checkbox } from "@components/Checkbox";
-import { useUserQuery } from "@graphql";
+import {
+  AddressInput,
+  useCheckoutBillingAddressUpdateMutation,
+  useCheckoutShippingAddressUpdateMutation,
+  useUserQuery,
+} from "@graphql";
+import { getDataWithToken } from "@lib/utils";
 import { useToggleState } from "@react-stately/toggle";
 import { useAuthState } from "@saleor/sdk";
-import { UserShippingAddress } from "./UserShippingAddress";
-import { UserBillingAddress } from "./UserBillingAddress";
+import { UserAddressSection } from "./UserAddressSection";
 
 interface UserAddressesProps {}
 
@@ -21,9 +26,24 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
   const user = data?.user;
   const addresses = user?.addresses;
 
+  const [, checkoutShippingAddressUpdate] =
+    useCheckoutShippingAddressUpdateMutation();
+
+  const handleShippingUpdate = (shippingAddress: AddressInput) =>
+    checkoutShippingAddressUpdate(getDataWithToken({ shippingAddress }));
+
+  const [, checkoutBillingAddressUpdate] =
+    useCheckoutBillingAddressUpdateMutation();
+
+  const handleBillingUpdate = (billingAddress: AddressInput) =>
+    checkoutBillingAddressUpdate(getDataWithToken({ billingAddress }));
+
   return (
     <div>
-      <UserShippingAddress
+      <UserAddressSection
+        title="shipping"
+        type="SHIPPING"
+        onAddressSelect={handleShippingUpdate}
         addresses={addresses}
         defaultAddress={user?.defaultShippingAddress}
       />
@@ -34,7 +54,10 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
         label="use shipping address as billing address"
       />
       {!useShippingAsBillingAddress && (
-        <UserBillingAddress
+        <UserAddressSection
+          title="Billing"
+          type="BILLING"
+          onAddressSelect={handleBillingUpdate}
           addresses={addresses}
           defaultAddress={user?.defaultBillingAddress}
         />
