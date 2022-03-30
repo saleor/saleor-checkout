@@ -12,39 +12,31 @@ import { sectionMessages } from "@frontend/misc/commonMessages";
 import AppLayout from "@frontend/components/elements/AppLayout";
 import AppSavebar from "@frontend/components/elements/AppSavebar";
 import Setting from "@frontend/components/elements/Setting";
-import { UnknownSettingsValues } from "types/api";
+import { PaymentProviderSettingsValues } from "types/api";
 import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import Skeleton from "@material-ui/lab/Skeleton";
 
 interface PaymentProviderDetailsProps {
   selectedPaymentProvider?: PaymentProvider<PaymentProviderID>;
   channelId?: string;
-  disabled: boolean;
   saveButtonBarState: ConfirmButtonTransitionState;
   loading: boolean;
-  onCanel: () => void;
-  onSubmit: (data: UnknownSettingsValues) => void;
+  onCancel: () => void;
+  onSubmit: (data: PaymentProviderSettingsValues) => void;
 }
 
 const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   selectedPaymentProvider,
   channelId,
-  disabled,
   saveButtonBarState,
   loading,
-  onCanel,
+  onCancel,
   onSubmit,
 }) => {
   const router = useRouter();
   const intl = useIntl();
   const classes = useStyles();
-  const {
-    control,
-    handleSubmit: handleSubmitForm,
-    formState,
-  } = useForm({
-    shouldUnregister: true,
-  });
+  const { control, handleSubmit: handleSubmitForm, formState } = useForm();
 
   const onBackClick = () => {
     if (channelId) {
@@ -79,12 +71,29 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   };
 
   const handleSubmit = (flattedOptions: Record<string, string>) => {
+    const paymentProviderOptions = selectedPaymentProvider?.settings.map(
+      (setting) => setting.id as string
+    );
+    // Legacy fields from different subpage using the same form might be still present, this should filter them out
+    const filteredFlattedOptions = Object.keys(flattedOptions).reduce(
+      (options, optionKey) => {
+        if (!paymentProviderOptions?.includes(optionKey)) {
+          return options;
+        }
+        return {
+          ...options,
+          [optionKey]: flattedOptions[optionKey],
+        };
+      },
+      {}
+    );
+
     onSubmit(
-      selectedPaymentProvider?.id
+      (selectedPaymentProvider?.id
         ? {
-            [selectedPaymentProvider.id]: flattedOptions,
+            [selectedPaymentProvider.id]: filteredFlattedOptions,
           }
-        : {}
+        : {}) as PaymentProviderSettingsValues
     );
   };
 
@@ -133,9 +142,9 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
         </Card>
       </AppLayout>
       <AppSavebar
-        disabled={disabled || !formState.isDirty}
+        disabled={loading || !formState.isDirty}
         state={saveButtonBarState}
-        onCancel={onCanel}
+        onCancel={onCancel}
         onSubmit={handleSubmitForm(handleSubmit)}
       />
     </form>

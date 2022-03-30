@@ -1,5 +1,6 @@
 import { Channel } from "./saleor";
 import {
+  allSettingID,
   CustomizationID,
   CustomizationSettingID,
   PaymentMethod,
@@ -7,6 +8,7 @@ import {
   PaymentProvider,
   PaymentProviderID,
   PaymentProviderSettingID,
+  SettingID,
 } from "./common";
 
 export interface PaymentOption {
@@ -20,9 +22,14 @@ export interface ChannelPaymentOptions {
   channel: Channel;
   paymentOptions: PaymentOption[];
 }
+// export type ChannelActivePaymentProviders = {
+//   [P in PaymentMethodID]: {
+//     [K in string]: PaymentProviderID;
+//   };
+// };
 export type ChannelActivePaymentProviders = {
-  [P in PaymentMethodID]: {
-    [K in string]: PaymentProviderID;
+  [P in string]: {
+    [K in PaymentMethodID]: PaymentProviderID;
   };
 };
 export type ChannelActivePaymentProvidersByChannel = {
@@ -38,8 +45,18 @@ export type CustomizationSettingsValues = {
     [K in CustomizationSettingID<P>]: string;
   };
 };
-export type UnknownSettingsValues = {
+export type UnknownSettingsValues<T = string> = {
   [P in string]: {
-    [K in string]: string;
+    [K in string]: T;
   };
+};
+
+export type SettingsValues = {
+  [P in SettingID[number]]: P extends "customizations"
+    ? CustomizationSettingsValues
+    : P extends "paymentProviders"
+    ? PaymentProviderSettingsValues
+    : P extends "channelActivePaymentProviders"
+    ? ChannelActivePaymentProviders
+    : UnknownSettingsValues;
 };

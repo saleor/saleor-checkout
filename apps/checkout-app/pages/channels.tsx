@@ -1,17 +1,19 @@
 import { API_URL } from "@constants";
 import ChannelList from "frontend/components/templates/ChannelList";
-import { useChannelList } from "mocks/saleor";
 import { withUrqlClient } from "next-urql";
 import { useChannelsQuery } from "@graphql";
 import { useAuthContext } from "@frontend/hooks/useAuthContext";
+import { mockedChannels } from "mocks/saleor";
 
 const Channels = () => {
   const authContext = useAuthContext();
   const [channelsQuery] = useChannelsQuery({
     context: authContext,
   });
-  const mockedChannels = useChannelList();
-  const channels = [...mockedChannels, ...(channelsQuery.data?.channels || [])];
+  const channels = [
+    ...(mockedChannels || []),
+    ...(channelsQuery.data?.channels || []),
+  ];
 
   return <ChannelList channels={channels} loading={channelsQuery.fetching} />;
 };

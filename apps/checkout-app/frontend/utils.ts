@@ -1,5 +1,5 @@
-import { CustomizationSettingsValues, UnknownSettingsValues } from "types/api";
-import { Item, NamedNode, Node } from "types/common";
+import { SettingsValues, UnknownSettingsValues } from "types/api";
+import { allSettingID, Item, NamedNode, Node, SettingID } from "types/common";
 
 export function parseJwt(token: string) {
   var base64Url = token.split(".")[1];
@@ -20,11 +20,11 @@ export function parseJwt(token: string) {
 export const flattenSettingId = (optionIdx: number, settingId: string) =>
   `${optionIdx}-${settingId}`;
 
-export const unflattenSettings = <T extends Node>(
-  flattedSettings: Record<string, string>,
-  options: T[]
+export const unflattenSettings = <T, S extends Node>(
+  flattedSettings: Record<string, T>,
+  options: S[]
 ) => {
-  const unflattedSettings: UnknownSettingsValues = {};
+  const unflattedSettings: UnknownSettingsValues<T> = {};
 
   Object.keys(flattedSettings).forEach((flattedKey) => {
     const keys = flattedKey.split(/-(.+)/);
@@ -43,66 +43,56 @@ export const unflattenSettings = <T extends Node>(
   return unflattedSettings;
 };
 
-export const flattenMetadataKey = (optionId: string, settingId: string) =>
-  `${optionId}-${settingId}`;
-
-export const mapMetadataItemToSettingsItem = ({
-  key,
-  value,
-}: {
-  key: string;
-  value: string;
-}) => {
-  const nameKey = key.split(/-(.+)/);
-
-  return {
-    id: nameKey[0],
-    settingId: nameKey[1],
-    value,
-  };
-};
 export const mapMetadataToSettings = (
   metadata: Array<{
     __typename?: "MetadataItem";
     key: string;
     value: string;
   } | null>
-): UnknownSettingsValues => {
-  const settings = metadata.reduce((settings, item) => {
-    if (!item) {
+): Partial<SettingsValues> => {
+  const settings = metadata.reduce((settings, metadataItem) => {
+    const settingsKey = metadataItem?.key;
+
+    if (
+      !settingsKey ||
+      !allSettingID.includes(settingsKey as SettingID[number])
+    ) {
       return settings;
     }
-    const settingItem = mapMetadataItemToSettingsItem(item);
-    return {
-      ...settings,
-      [settingItem.id]: {
-        ...settings[settingItem.id],
-        [settingItem.settingId]: settingItem.value,
-      },
-    };
-  }, {} as UnknownSettingsValues);
+
+    try {
+      const settingsValue = JSON.parse(metadataItem?.value);
+      return {
+        ...settings,
+        [settingsKey]: settingsValue,
+      };
+    } catch (e) {
+      return {
+        ...settings,
+        [settingsKey]: {},
+      };
+    }
+  }, {} as SettingsValues);
 
   return settings;
 };
 
 export const mapSettingsToMetadata = (
-  settingsValues: UnknownSettingsValues
-): Array<{
-  key: string;
-  value: string;
-}> => {
+  settingsValues: Partial<SettingsValues>
+) => {
   return Object.keys(settingsValues).reduce(
-    (metadata, settingsValuesItemKey) => {
-      const nextMetadata = Object.keys(
-        settingsValues[settingsValuesItemKey]
-      ).map((settingsItemKey) => {
-        const key = flattenMetadataKey(settingsValuesItemKey, settingsItemKey);
-        const value =
-          settingsValues[settingsValuesItemKey][settingsItemKey] || "";
+    (metadata, settingsValuesKey) => {
+      const settingsValuesObject =
+        settingsValues[settingsValuesKey as keyof SettingsValues];
+      const settingsValuesValue = JSON.stringify(settingsValuesObject);
 
-        return { key, value };
-      });
-      return [...metadata, ...nextMetadata];
+      return [
+        ...metadata,
+        {
+          key: settingsValuesKey,
+          value: settingsValuesValue,
+        },
+      ];
     },
     [] as Array<{
       key: string;

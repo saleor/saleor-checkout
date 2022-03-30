@@ -13,7 +13,7 @@ import {
   ConfirmButtonTransitionState,
 } from "@saleor/macaw-ui";
 import { Customization, CustomizationID } from "types/common";
-import { UnknownSettingsValues } from "types/api";
+import { CustomizationSettingsValues } from "types/api";
 import { useStyles } from "./styles";
 import { FormattedMessage } from "react-intl";
 import { useForm, Controller } from "react-hook-form";
@@ -25,25 +25,25 @@ import Skeleton from "@material-ui/lab/Skeleton";
 interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
   loading: boolean;
-  disabled: boolean;
   saveButtonBarState: ConfirmButtonTransitionState;
-  onCanel: () => void;
-  onSubmit: (data: UnknownSettingsValues) => void;
+  onCancel: () => void;
+  onSubmit: (data: CustomizationSettingsValues) => void;
 }
 
 const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
   options,
   loading,
-  disabled,
   saveButtonBarState,
-  onCanel,
+  onCancel,
   onSubmit,
 }) => {
   const classes = useStyles();
   const { control, handleSubmit: handleSubmitForm, formState } = useForm();
 
   const handleSubmit = (flattedSettings: Record<string, string>) => {
-    onSubmit(unflattenSettings(flattedSettings, options));
+    onSubmit(
+      unflattenSettings(flattedSettings, options) as CustomizationSettingsValues
+    );
   };
 
   return (
@@ -102,9 +102,9 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
         </div>
       </div>
       <AppSavebar
-        disabled={disabled || loading || !formState.isDirty}
+        disabled={loading || !formState.isDirty}
         state={saveButtonBarState}
-        onCancel={onCanel}
+        onCancel={onCancel}
         onSubmit={handleSubmitForm(handleSubmit)}
       />
     </form>

@@ -1,5 +1,5 @@
 import PaymentProviderDetails from "frontend/components/templates/PaymentProviderDetails";
-import { UnknownSettingsValues } from "types/api";
+import { PaymentProviderSettingsValues } from "types/api";
 import { useRouter } from "next/router";
 import { withUrqlClient } from "next-urql";
 import { API_URL } from "@constants";
@@ -31,8 +31,10 @@ const PaymentProvider = () => {
   const settingsValues = mapMetadataToSettings(
     metadataQuery.data?.app?.privateMetadata || []
   );
-  const paymentProviders = getPaymentProviderSettings(settingsValues);
-  console.log(paymentProviders);
+  const paymentProviders = getPaymentProviderSettings(
+    settingsValues.paymentProviders
+  );
+  console.log(settingsValues);
 
   const paymentProvider = paymentProviders.find(
     (paymentMethod) => paymentMethod.id === paymentProviderId
@@ -42,9 +44,14 @@ const PaymentProvider = () => {
     router.back();
   };
 
-  const handleSubmit = (data: UnknownSettingsValues) => {
+  const handleSubmit = (data: PaymentProviderSettingsValues) => {
     console.log(data);
-    const metadata = mapSettingsToMetadata(data);
+    const metadata = mapSettingsToMetadata({
+      paymentProviders: {
+        ...settingsValues.paymentProviders,
+        ...data,
+      },
+    });
 
     setPrivateMetadata(
       {
@@ -59,10 +66,9 @@ const PaymentProvider = () => {
     <PaymentProviderDetails
       selectedPaymentProvider={paymentProvider}
       channelId={channelId?.toString()}
-      disabled={false}
       saveButtonBarState="default"
       loading={metadataQuery.fetching || metadataMutation.fetching}
-      onCanel={handleCancel}
+      onCancel={handleCancel}
       onSubmit={handleSubmit}
     />
   );

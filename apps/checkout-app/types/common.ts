@@ -1,3 +1,9 @@
+export const allSettingID = [
+  "customizations",
+  "paymentProviders",
+  "channelActivePaymentProviders",
+] as const;
+export type SettingID = typeof allSettingID;
 export type SettingType = "string" | "color" | "image";
 
 /**

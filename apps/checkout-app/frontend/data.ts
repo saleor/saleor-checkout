@@ -1,16 +1,24 @@
-import { customizations, paymentProviders } from "consts";
-import { UnknownSettingsValues } from "types/api";
+import { ChannelsQuery } from "@graphql";
+import { findById } from "@utils";
+import { customizations, paymentMethods, paymentProviders } from "consts";
+import {
+  ChannelActivePaymentProviders,
+  ChannelActivePaymentProvidersByChannel,
+  ChannelPaymentOptions,
+  UnknownSettingsValues,
+} from "types/api";
 import {
   Customization,
   CustomizationID,
   CustomizationSettings,
+  PaymentMethodID,
   PaymentProvider,
   PaymentProviderID,
   PaymentProviderSettings,
 } from "types/common";
 
 export const getCustomizationSettings = (
-  settingsValues: UnknownSettingsValues
+  settingsValues?: UnknownSettingsValues
 ): Customization<CustomizationID>[] =>
   customizations.map((customization) => ({
     ...customization,
@@ -18,6 +26,7 @@ export const getCustomizationSettings = (
       (setting: CustomizationSettings<CustomizationID>) => ({
         ...setting,
         value:
+          settingsValues &&
           settingsValues[customization.id] &&
           settingsValues[customization.id][setting.id]
             ? settingsValues[customization.id][setting.id]
@@ -27,7 +36,7 @@ export const getCustomizationSettings = (
   }));
 
 export const getPaymentProviderSettings = (
-  settingsValues: UnknownSettingsValues
+  settingsValues?: UnknownSettingsValues
 ): PaymentProvider<PaymentProviderID>[] =>
   paymentProviders.map((provider) => ({
     ...provider,
@@ -35,9 +44,57 @@ export const getPaymentProviderSettings = (
       (setting: PaymentProviderSettings<PaymentProviderID>) => ({
         ...setting,
         value:
-          settingsValues[provider.id] && settingsValues[provider.id][setting.id]
+          settingsValues &&
+          settingsValues[provider.id] &&
+          settingsValues[provider.id][setting.id]
             ? settingsValues[provider.id][setting.id]
             : setting.value,
       })
     ),
   }));
+
+export const getActivePaymentProvidersByChannel = (
+  activePaymentProviders: ChannelActivePaymentProviders,
+  channelId: string
+): ChannelActivePaymentProvidersByChannel =>
+  Object.keys(activePaymentProviders).reduce(
+    (providers, paymentProvider) => ({
+      ...providers,
+      [paymentProvider]:
+        activePaymentProviders[channelId][paymentProvider as PaymentMethodID],
+    }),
+    {} as ChannelActivePaymentProvidersByChannel
+  );
+
+export const getChannelPaymentOptionsList = (
+  channels: Exclude<ChannelsQuery["channels"], null | undefined>,
+  activePaymentProviders?: ChannelActivePaymentProviders
+): ChannelPaymentOptions[] =>
+  channels.map((channel) => ({
+    id: channel.id,
+    channel: channel,
+    paymentOptions: paymentMethods.map((method) => ({
+      id: method.id,
+      method,
+      availableProviders: paymentProviders,
+      activeProvider:
+        activePaymentProviders &&
+        activePaymentProviders[channel.id] &&
+        activePaymentProviders[channel.id][method.id]
+          ? findById(
+              paymentProviders,
+              activePaymentProviders[channel.id][method.id]
+            ) || null
+          : null,
+    })),
+  }));
+export const getChannelPaymentOptions = (
+  channels: Exclude<ChannelsQuery["channels"], null | undefined>,
+  activePaymentProviders?: ChannelActivePaymentProviders,
+  channelId?: string
+) =>
+  channelId
+    ? getChannelPaymentOptionsList(channels, activePaymentProviders).find(
+        (channelPayments) => channelPayments.channel.id === channelId
+      )
+    : undefined;

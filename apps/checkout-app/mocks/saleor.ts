@@ -1,7 +1,10 @@
-import { Channel } from "types/saleor";
+import { ChannelsQuery } from "@graphql";
 
 // Should be fetched from saleor backend
-export const channelList: Channel[] = [
+export const mockedChannels: Exclude<
+  ChannelsQuery["channels"],
+  null | undefined
+> = [
   {
     id: "channel-1",
     slug: "channel-1",
@@ -13,4 +16,3 @@ export const channelList: Channel[] = [
     name: "B2C Channel",
   },
 ];
-export const useChannelList = () => channelList;

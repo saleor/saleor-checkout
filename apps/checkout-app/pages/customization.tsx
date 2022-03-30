@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import CustomizationDetails from "@frontend/components/templates/CustomizationDetails";
-import { UnknownSettingsValues } from "types/api";
+import { CustomizationSettingsValues } from "types/api";
 import { withUrqlClient } from "next-urql";
 import { useAuthContext } from "@frontend/hooks/useAuthContext";
 import {
@@ -29,16 +29,20 @@ const Customization = () => {
   const settingsValues = mapMetadataToSettings(
     metadataQuery.data?.app?.privateMetadata || []
   );
-  const customizationSettings = getCustomizationSettings(settingsValues);
-  console.log(customizationSettings);
+  const customizationSettings = getCustomizationSettings(
+    settingsValues.customizations
+  );
+  console.log(settingsValues);
 
   const handleCancel = () => {
     router.back();
   };
 
-  const handleSubmit = (data: UnknownSettingsValues) => {
+  const handleSubmit = (data: CustomizationSettingsValues) => {
     console.log(data);
-    const metadata = mapSettingsToMetadata(data);
+    const metadata = mapSettingsToMetadata({
+      customizations: data,
+    });
 
     setPrivateMetadata(
       {
@@ -53,21 +57,12 @@ const Customization = () => {
     <CustomizationDetails
       options={customizationSettings}
       loading={metadataQuery.fetching || metadataMutation.fetching}
-      disabled={false}
       saveButtonBarState="default"
-      onCanel={handleCancel}
+      onCancel={handleCancel}
       onSubmit={handleSubmit}
     />
   );
 };
 export default withUrqlClient(() => ({
   url: API_URL,
-  // fetchOptions: {
-  //   headers: {
-  //     Authorization:
-  //       typeof window !== "undefined"
-  //         ? `Bearer ${window.localStorage.getItem("auth_token")}`
-  //         : "",
-  //   },
-  // },
 }))(Customization);
