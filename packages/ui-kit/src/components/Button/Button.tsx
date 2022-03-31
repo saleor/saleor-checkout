@@ -13,7 +13,6 @@ export const Button: FC<ButtonProps> = ({
   className,
   variant = "primary",
   disabled = false,
-  onClick,
   ...rest
 }) => {
   const classes = clsx(
@@ -27,8 +26,10 @@ export const Button: FC<ButtonProps> = ({
   );
 
   return (
-    <button onClick={onClick} disabled={disabled} className={classes} {...rest}>
-      <Text weight='semibold'>{title}</Text>
+    <button disabled={disabled} className={classes} {...rest}>
+      <Text as='span' weight='semibold'>
+        {title}
+      </Text>
     </button>
   );
 };

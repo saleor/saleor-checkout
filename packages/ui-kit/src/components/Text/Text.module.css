@@ -1,0 +1,43 @@
+.txt-primary {
+  @apply text-text-primary;
+}
+
+.txt-secondary {
+  @apply text-text-secondary;
+}
+
+.txt-tertiary {
+  @apply text-text-tertiary;
+}
+
+.txt-error {
+  @apply text-text-error;
+}
+
+.txt-sm {
+  @apply text-sm;
+}
+
+.txt-base {
+  @apply text-base;
+}
+
+.txt-md {
+  @apply text-md;
+}
+
+.txt-lg {
+  @apply text-lg;
+}
+
+.txt-bold {
+  @apply font-bold;
+}
+
+.txt-semibold {
+  @apply font-semibold;
+}
+
+.txt-regular {
+  @apply font-regular;
+}

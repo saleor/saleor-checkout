@@ -1,1 +1,4 @@
-module.exports = require("config/eslint-preset");
+module.exports = {
+  parser: "@typescript-eslint/parser",
+  extends: ["../../packages/config/eslint-preset"],
+};

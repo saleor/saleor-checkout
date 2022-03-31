@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "PORT=3000 tsup",
-    "lint": "TIMING=1 eslint src --fix",
+    "lint": "eslint --max-warnings=0 \"src/**/*.@(tsx|ts|jsx|js)\" --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"

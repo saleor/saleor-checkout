@@ -1,7 +1,10 @@
-import { FC, ParamHTMLAttributes } from "react";
+import { FC, HTMLAttributes } from "react";
 import clsx from "clsx";
 
-export interface TextProps extends ParamHTMLAttributes<{}> {
+import styles from "./Text.module.css";
+
+export interface TextProps extends HTMLAttributes<{}> {
+  as?: keyof JSX.IntrinsicElements;
   size?: "sm" | "md" | "lg";
   color?: "secondary" | "tertiary" | "error";
   weight?: "normal" | "regular" | "semibold" | "bold";
@@ -9,28 +12,35 @@ export interface TextProps extends ParamHTMLAttributes<{}> {
 
 export const Text: FC<TextProps> = ({
   children,
+  as = "p",
   size,
   color,
   weight,
   className,
+  ...rest
 }) => {
   const classes = clsx(
-    "text",
     {
-      "text-text-primary": !color,
-      "text-text-secondary": color === "secondary",
-      "text-text-tertiary": color === "tertiary",
-      "text-error": color === "error",
-      "text-sm": size === "sm",
-      "text-base": !size,
-      "text-md": size === "md",
-      "text-lg": size === "lg",
-      "font-bold": weight === "bold",
-      "font-semibold": weight === "semibold",
-      "font-regular": weight === "regular",
+      [styles["txt-primary"]]: !color,
+      [styles["txt-secondary"]]: color === "secondary",
+      [styles["txt-tertiary"]]: color === "tertiary",
+      [styles["txt-error"]]: color === "error",
+      [styles["txt-sm"]]: size === "sm",
+      [styles["txt-base"]]: !size,
+      [styles["txt-md"]]: size === "md",
+      [styles["txt-lg"]]: size === "lg",
+      [styles["txt-bold"]]: weight === "bold",
+      [styles["txt-semibold"]]: weight === "semibold",
+      [styles["txt-regular"]]: weight === "regular",
     },
     className
   );
 
-  return <p className={classes}>{children}</p>;
+  const CustomTag = as;
+
+  return (
+    <CustomTag className={classes} {...rest}>
+      {children}
+    </CustomTag>
+  );
 };

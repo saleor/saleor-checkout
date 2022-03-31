@@ -6,16 +6,16 @@
   @apply bg-button-primary hover:bg-button-secondary active:bg-button-tertiary disabled:border-none disabled:bg-background-tertiary;
 }
 
-.button-primary p {
+.button-primary > span {
   @apply text-text-tertiary;
 }
 
-.button-primary:hover p,
-.button-primary:active p {
+.button-primary:hover > span,
+.button-primary:active > span {
   @apply text-text-primary;
 }
 
-.button:disabled p {
+.button:disabled > span {
   @apply text-text-secondary;
 }
 
@@ -27,6 +27,6 @@
   @apply border-none bg-transparent px-0 py-0;
 }
 
-.button-tertiary p {
+.button-tertiary > span {
   @apply active:text-text-secondary;
 }
