@@ -150,7 +150,7 @@ html {
   }
 
   .radio-input-icon {
-    @apply absolute top-0 left-0 h-5 w-5 bg-background-secondary rounded-full border-border-primary z-10;
+    @apply absolute top-0 left-0 h-5 w-5 bg-background-secondary rounded-full border-border-primary z-50;
     border-width: 2px;
   }
 
@@ -158,7 +158,7 @@ html {
     @apply border-border-active;
   }
 
-  .radio-input-container input:checked ~ .radio-input-icon {
+  div.radio-option.selected .radio-input-container .radio-input-icon {
     @apply border-border-active;
     border-width: 6px;
   }
