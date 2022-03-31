@@ -1,6 +1,5 @@
 import { Channel } from "./saleor";
 import {
-  allSettingID,
   CustomizationID,
   CustomizationSettingID,
   PaymentMethod,
@@ -22,11 +21,7 @@ export interface ChannelPaymentOptions {
   channel: Channel;
   paymentOptions: PaymentOption[];
 }
-// export type ChannelActivePaymentProviders = {
-//   [P in PaymentMethodID]: {
-//     [K in string]: PaymentProviderID;
-//   };
-// };
+
 export type ChannelActivePaymentProviders = {
   [P in string]: {
     [K in PaymentMethodID]: PaymentProviderID;
