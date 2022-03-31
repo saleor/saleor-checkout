@@ -24,7 +24,6 @@ const PaymentProvider = () => {
     },
     context: authContext,
   });
-  console.log(metadataQuery);
   const [metadataMutation, setPrivateMetadata] =
     useUpdatePrivateMetadataMutation();
 
@@ -34,7 +33,6 @@ const PaymentProvider = () => {
   const paymentProviders = getPaymentProviderSettings(
     settingsValues.paymentProviders
   );
-  console.log(settingsValues);
 
   const paymentProvider = paymentProviders.find(
     (paymentMethod) => paymentMethod.id === paymentProviderId
@@ -45,7 +43,6 @@ const PaymentProvider = () => {
   };
 
   const handleSubmit = (data: PaymentProviderSettingsValues) => {
-    console.log(data);
     const metadata = mapSettingsToMetadata({
       paymentProviders: {
         ...settingsValues.paymentProviders,

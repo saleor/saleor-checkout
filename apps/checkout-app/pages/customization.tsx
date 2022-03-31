@@ -22,7 +22,6 @@ const Customization = () => {
     },
     context: authContext,
   });
-  console.log(metadataQuery);
   const [metadataMutation, setPrivateMetadata] =
     useUpdatePrivateMetadataMutation();
 
@@ -32,14 +31,12 @@ const Customization = () => {
   const customizationSettings = getCustomizationSettings(
     settingsValues.customizations
   );
-  console.log(settingsValues);
 
   const handleCancel = () => {
     router.back();
   };
 
   const handleSubmit = (data: CustomizationSettingsValues) => {
-    console.log(data);
     const metadata = mapSettingsToMetadata({
       customizations: data,
     });

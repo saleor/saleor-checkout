@@ -9,7 +9,6 @@ import {
   useUpdatePrivateMetadataMutation,
 } from "@graphql";
 import ChannelDetails from "frontend/components/templates/ChannelDetails";
-import { mockedChannels } from "mocks/saleor";
 import { withUrqlClient } from "next-urql";
 import { useRouter } from "next/router";
 import { ChannelActivePaymentProviders } from "types/api";
@@ -26,7 +25,6 @@ const Channel = () => {
     },
     context: authContext,
   });
-  console.log(metadataQuery);
   const [metadataMutation, setPrivateMetadata] =
     useUpdatePrivateMetadataMutation();
 
@@ -37,24 +35,19 @@ const Channel = () => {
   const [channelsQuery] = useChannelsQuery({
     context: authContext,
   });
-  const channels = [
-    ...(mockedChannels || []),
-    ...(channelsQuery.data?.channels || []),
-  ];
+  const channels = channelsQuery.data?.channels || [];
 
   const channelPaymentOptions = getChannelPaymentOptions(
     channels,
     settingsValues.channelActivePaymentProviders,
     channelId?.toString()
   );
-  console.log(settingsValues);
 
   const handleCancel = () => {
     router.back();
   };
 
   const handleSubmit = (data: ChannelActivePaymentProviders) => {
-    console.log(data);
     const metadata = mapSettingsToMetadata({
       channelActivePaymentProviders: {
         ...settingsValues.channelActivePaymentProviders,
@@ -76,7 +69,11 @@ const Channel = () => {
       channelPaymentOptions={channelPaymentOptions}
       channels={channels}
       saveButtonBarState="default"
-      loading={channelsQuery.fetching || metadataMutation.fetching}
+      loading={
+        channelsQuery.fetching ||
+        metadataQuery.fetching ||
+        metadataMutation.fetching
+      }
       onCancel={handleCancel}
       onSubmit={handleSubmit}
     />

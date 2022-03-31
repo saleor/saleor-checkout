@@ -15,6 +15,8 @@ import Setting from "@frontend/components/elements/Setting";
 import { PaymentProviderSettingsValues } from "types/api";
 import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { getFormDefaultValues } from "./data";
+import { useEffect } from "react";
 
 interface PaymentProviderDetailsProps {
   selectedPaymentProvider?: PaymentProvider<PaymentProviderID>;
@@ -36,7 +38,17 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   const router = useRouter();
   const intl = useIntl();
   const classes = useStyles();
-  const { control, handleSubmit: handleSubmitForm, formState } = useForm();
+  const {
+    control,
+    handleSubmit: handleSubmitForm,
+    formState,
+    reset: resetForm,
+  } = useForm({
+    shouldUnregister: true, // Legacy fields from different subpage using the same form might be still present, this should unregister them
+  });
+  useEffect(() => {
+    resetForm(getFormDefaultValues(selectedPaymentProvider)); // Update values on subpage change as the same form is used
+  }, [selectedPaymentProvider, resetForm]);
 
   const onBackClick = () => {
     if (channelId) {
@@ -71,27 +83,10 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   };
 
   const handleSubmit = (flattedOptions: Record<string, string>) => {
-    const paymentProviderOptions = selectedPaymentProvider?.settings.map(
-      (setting) => setting.id as string
-    );
-    // Legacy fields from different subpage using the same form might be still present, this should filter them out
-    const filteredFlattedOptions = Object.keys(flattedOptions).reduce(
-      (options, optionKey) => {
-        if (!paymentProviderOptions?.includes(optionKey)) {
-          return options;
-        }
-        return {
-          ...options,
-          [optionKey]: flattedOptions[optionKey],
-        };
-      },
-      {}
-    );
-
     onSubmit(
       (selectedPaymentProvider?.id
         ? {
-            [selectedPaymentProvider.id]: filteredFlattedOptions,
+            [selectedPaymentProvider.id]: flattedOptions,
           }
         : {}) as PaymentProviderSettingsValues
     );

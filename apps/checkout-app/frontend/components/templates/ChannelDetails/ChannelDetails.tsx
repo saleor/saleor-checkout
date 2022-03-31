@@ -30,12 +30,13 @@ import {
   flattenSettingId,
   mapNodesToItems,
   mapNodeToItem,
-  unflattenSettings,
 } from "@frontend/utils";
-import { Item, Node, PaymentProviderID } from "types/common";
+import { Item } from "types/common";
 import Skeleton from "@material-ui/lab/Skeleton";
 import AppSavebar from "@frontend/components/elements/AppSavebar";
 import { Controller, useForm } from "react-hook-form";
+import { getActivePaymentProvider, getFormDefaultValues } from "./data";
+import { useEffect } from "react";
 
 interface ChannelDetailsProps {
   channelPaymentOptions?: ChannelPaymentOptions;
@@ -56,8 +57,18 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
 }) => {
   const router = useRouter();
   const classes = useStyles();
-  const { control, handleSubmit: handleSubmitForm, formState } = useForm();
   const { actions } = useOffsettedListWidths();
+  const {
+    control,
+    handleSubmit: handleSubmitForm,
+    formState,
+    reset: resetForm,
+  } = useForm({
+    shouldUnregister: true, // Legacy fields from different subpage using the same form might be still present, this should unregister them
+  });
+  useEffect(() => {
+    resetForm(getFormDefaultValues(channelPaymentOptions)); // Update values on subpage change as the same form is used
+  }, [channelPaymentOptions, resetForm]);
 
   const onBackClick = () => {
     router.push(channelListPath);
@@ -80,38 +91,14 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
     });
   };
 
-  const handleSubmit = (flattedSettings: Record<string, boolean>) => {
-    const selectedPaymentProviders = unflattenSettings<boolean, Node>(
-      flattedSettings,
-      channelPaymentOptions?.paymentOptions || []
-    );
-    console.log(selectedPaymentProviders);
-    const activePaymentProviders = Object.keys(selectedPaymentProviders).reduce(
-      (activePaymentProviders, paymentProviderId) => {
-        const paymentProvider = selectedPaymentProviders[paymentProviderId];
-        if (paymentProvider) {
-          const selectedPaymentProvider = Object.keys(paymentProvider).find(
-            (settingId) => paymentProvider[settingId] === true
-          );
-          return {
-            ...activePaymentProviders,
-            [paymentProviderId]: selectedPaymentProvider,
-          };
-        }
-        return activePaymentProviders;
-      },
-      {} as ChannelActivePaymentProviders[string]
-    );
-    console.log(activePaymentProviders);
-
-    const channelActivePaymentProviders: ChannelActivePaymentProviders =
-      channelPaymentOptions?.channel.id
+  const handleSubmit = (flattedSettings: Record<string, string>) => {
+    onSubmit(
+      (channelPaymentOptions?.channel.id
         ? {
-            [channelPaymentOptions.channel.id]: activePaymentProviders,
+            [channelPaymentOptions.channel.id]: flattedSettings,
           }
-        : {};
-
-    onSubmit(channelActivePaymentProviders);
+        : {}) as ChannelActivePaymentProviders
+    );
   };
 
   return (
@@ -152,39 +139,47 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
                 </AccordionSummary>
                 <AccordionDetails className={classes.paymentOptionDetails}>
                   <OffsettedList gridTemplate={["1fr", actions(1)]}>
-                    <OffsettedListBody>
-                      {paymentOption.availableProviders.map((provider) => (
-                        <OffsettedListItem
-                          key={provider.id}
-                          className={classes.paymentMethod}
-                        >
-                          <OffsettedListItemCell>
-                            {provider.label}
-                          </OffsettedListItemCell>
-                          <OffsettedListItemCell padding="action">
-                            <Controller
+                    <Controller
+                      key={paymentOption.id}
+                      name={paymentOption.id}
+                      control={control}
+                      defaultValue={getActivePaymentProvider(paymentOption)}
+                      render={({ field }) => (
+                        <OffsettedListBody>
+                          {paymentOption.availableProviders.map((provider) => (
+                            <OffsettedListItem
                               key={provider.id}
-                              name={flattenSettingId(
-                                paymentOptionIdx,
-                                provider.id
-                              )}
-                              control={control}
-                              defaultValue={
-                                provider.id === paymentOption.activeProvider?.id
-                              }
-                              render={({ field }) => (
+                              className={classes.paymentMethod}
+                            >
+                              <OffsettedListItemCell>
+                                {provider.label}
+                              </OffsettedListItemCell>
+                              <OffsettedListItemCell padding="action">
                                 <Switch
-                                  name={field.name}
-                                  checked={field.value}
-                                  onChange={field.onChange}
+                                  name={flattenSettingId(
+                                    paymentOptionIdx,
+                                    provider.id
+                                  )}
+                                  checked={field.value === provider.id}
+                                  onChange={() =>
+                                    field.onChange({
+                                      target: {
+                                        name: paymentOption.id,
+                                        value:
+                                          field.value === provider.id
+                                            ? null
+                                            : provider.id,
+                                      },
+                                    })
+                                  }
                                   onBlur={field.onBlur}
                                 />
-                              )}
-                            />
-                          </OffsettedListItemCell>
-                        </OffsettedListItem>
-                      ))}
-                    </OffsettedListBody>
+                              </OffsettedListItemCell>
+                            </OffsettedListItem>
+                          ))}
+                        </OffsettedListBody>
+                      )}
+                    />
                   </OffsettedList>
                 </AccordionDetails>
               </Accordion>
