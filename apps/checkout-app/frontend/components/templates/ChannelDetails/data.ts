@@ -1,4 +1,3 @@
-import { flattenSettingId } from "@frontend/utils";
 import { ChannelPaymentOptions, PaymentOption } from "types/api";
 
 export const getActivePaymentProvider = (paymentOption: PaymentOption) =>
@@ -10,7 +9,7 @@ export const getFormDefaultValues = (
   channelPaymentOptions: ChannelPaymentOptions | undefined
 ) =>
   channelPaymentOptions?.paymentOptions.reduce(
-    (values, paymentOption, paymentOptionIdx) => ({
+    (values, paymentOption) => ({
       ...values,
       [paymentOption.id]: getActivePaymentProvider(paymentOption),
     }),

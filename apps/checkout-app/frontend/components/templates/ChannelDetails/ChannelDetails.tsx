@@ -20,7 +20,6 @@ import {
   ChannelActivePaymentProviders,
   ChannelPaymentOptions,
 } from "types/api";
-import { Channel } from "types/saleor";
 import { paymentProviders } from "consts";
 import { useStyles } from "./styles";
 import { channelListPath, channelPath, paymentProviderPath } from "routes";
@@ -37,10 +36,11 @@ import AppSavebar from "@frontend/components/elements/AppSavebar";
 import { Controller, useForm } from "react-hook-form";
 import { getActivePaymentProvider, getFormDefaultValues } from "./data";
 import { useEffect } from "react";
+import { ChannelsQuery } from "@graphql";
 
 interface ChannelDetailsProps {
   channelPaymentOptions?: ChannelPaymentOptions;
-  channels?: Channel[];
+  channels?: Exclude<ChannelsQuery["channels"], null>;
   saveButtonBarState: ConfirmButtonTransitionState;
   loading: boolean;
   onCancel: () => void;

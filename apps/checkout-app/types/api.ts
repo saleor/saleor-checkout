@@ -1,4 +1,4 @@
-import { Channel } from "./saleor";
+import { ChannelsQuery } from "@graphql";
 import {
   CustomizationID,
   CustomizationSettingID,
@@ -18,7 +18,7 @@ export interface PaymentOption {
 }
 export interface ChannelPaymentOptions {
   id: string;
-  channel: Channel;
+  channel: Exclude<ChannelsQuery["channels"], null | undefined>[number];
   paymentOptions: PaymentOption[];
 }
 
