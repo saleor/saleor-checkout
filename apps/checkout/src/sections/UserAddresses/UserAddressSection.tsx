@@ -65,7 +65,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
         ...address,
         country: { code: selectedCountryCode },
       }),
-      id: user?.id,
+      id: address.id,
     });
 
     const [hasErrors] = extractMutationErrors(result);
