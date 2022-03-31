@@ -1,6 +1,6 @@
 import { SvgContainer, SvgProps } from "./SvgContainer";
 
-export const Photo = (props: SvgProps) => (
+export const PhotoIcon = (props: SvgProps) => (
   <SvgContainer size={24} fill='none' {...props}>
     <path
       fillRule='evenodd'

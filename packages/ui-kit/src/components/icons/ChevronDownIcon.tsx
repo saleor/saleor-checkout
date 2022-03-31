@@ -1,7 +1,7 @@
 import { SvgContainer, SvgProps } from "./SvgContainer";
 
-export const Minus = (props: SvgProps) => (
+export const ChevronDownIcon = (props: SvgProps) => (
   <SvgContainer size={24} fill='none' {...props}>
-    <path d='M17 12L7 12' stroke='currentColor' strokeLinecap='round' />
+    <path d='M8.5 10L12 14L15.5 10' stroke='currentColor' />
   </SvgContainer>
 );

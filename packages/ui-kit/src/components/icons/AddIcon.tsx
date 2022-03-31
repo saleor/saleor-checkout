@@ -1,7 +1,8 @@
 import { SvgContainer, SvgProps } from "./SvgContainer";
 
-export const Plus = (props: SvgProps) => (
+export const AddIcon = (props: SvgProps) => (
   <SvgContainer size={24} fill='none' {...props}>
+    <circle cx='12' cy='12' r='9.5' stroke='currentColor' />
     <path
       fillRule='evenodd'
       clipRule='evenodd'

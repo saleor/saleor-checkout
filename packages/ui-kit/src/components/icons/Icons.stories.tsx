@@ -2,7 +2,7 @@ import { FC } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Text } from "../Text";
-import { Discount } from "./Discount";
+import { DiscountIcon } from "./DiscountIcon";
 import * as exportedIcons from ".";
 
 export default {
@@ -20,8 +20,8 @@ const IconWrapper: FC = (props) => (
   />
 );
 
-const Template: ComponentStory<typeof Discount> = (args) => (
-  <Discount {...args} />
+const Template: ComponentStory<typeof DiscountIcon> = (args) => (
+  <DiscountIcon {...args} />
 );
 
 export const Basic = Template.bind({});

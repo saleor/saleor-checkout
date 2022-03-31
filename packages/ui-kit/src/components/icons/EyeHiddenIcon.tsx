@@ -1,6 +1,6 @@
 import { SvgContainer, SvgProps } from "./SvgContainer";
 
-export const EyeHidden = (props: SvgProps) => (
+export const EyeHiddenIcon = (props: SvgProps) => (
   <SvgContainer size={24} fill='none' {...props}>
     <path
       d='M12 6C5.33333 6 2 12 2 12C2 12 5.33333 18 12 18C18.6667 18 22 12 22 12C22 12 18.6667 6 12 6Z'

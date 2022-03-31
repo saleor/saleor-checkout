@@ -1,6 +1,6 @@
 import { SvgContainer, SvgProps } from "./SvgContainer";
 
-export const Discount = (props: SvgProps) => (
+export const DiscountIcon = (props: SvgProps) => (
   <SvgContainer size={24} fill='none' {...props}>
     <path
       d='M5.5 7.5C5.5 8.32843 6.17157 9 7 9C7.82843 9 8.5 8.32843 8.5 7.5C8.5 6.67157 7.82843 6 7 6C6.17157 6 5.5 6.67157 5.5 7.5Z'
