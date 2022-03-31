@@ -4,11 +4,14 @@ import createMollieClient, {
   OrderCreateParams,
 } from "@mollie/api-client";
 
-import { OrderFragment, OrderLineFragment } from "@graphql";
+import {
+  OrderFragment,
+  OrderLineFragment,
+  PaymentCreateMutationVariables,
+} from "@graphql";
 import { appUrl } from "@consts";
 
 import { parseAmountToString } from "../utils";
-import { createPayment } from "../createPayment";
 
 export const mollieClient = createMollieClient({
   apiKey: process.env.MOLLIE_API_KEY!,
@@ -21,16 +24,12 @@ const getProductType = (line: OrderLineFragment): OrderLineType | undefined => {
 
   const { isDigital, kind } = line.variant.product.productType;
 
-  if (isDigital) {
+  if (isDigital || kind === "GIFT_CARD") {
     return OrderLineType.digital;
   }
 
   if (kind === "NORMAL") {
     return OrderLineType.physical;
-  }
-
-  if (kind === "GIFT_CARD") {
-    return OrderLineType.store_credit;
   }
 };
 
@@ -138,12 +137,14 @@ export const createMolliePayment = async (data: OrderFragment) => {
   return mollieData._links.checkout;
 };
 
-export const verifyPayment = async (id: string) => {
+export const verifyPayment = async (
+  id: string
+): Promise<PaymentCreateMutationVariables | undefined> => {
   const { status, amountCaptured, metadata, method, amount } =
     await mollieClient.orders.get(id);
 
   if (status === OrderStatus.authorized) {
-    await createPayment({
+    return {
       id: metadata.orderId,
       payment: {
         status,
@@ -153,13 +154,11 @@ export const verifyPayment = async (id: string) => {
           currency: amount.currency,
         },
       },
-    });
-
-    return true;
+    };
   }
 
   if (status === OrderStatus.paid) {
-    await createPayment({
+    return {
       id: metadata.orderId,
       payment: {
         status,
@@ -169,12 +168,6 @@ export const verifyPayment = async (id: string) => {
           currency: amountCaptured.currency,
         },
       },
-    });
-
-    return true;
-  }
-
-  if ([OrderStatus.expired, OrderStatus.canceled].includes(status)) {
-    return false;
+    };
   }
 };

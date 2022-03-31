@@ -3,6 +3,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import { verifyPayment } from "@backend/payments/providers/mollie";
+import { createPayment } from "@backend/payments/createPayment";
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,15 +11,13 @@ export default async function handler(
 ) {
   console.log("WEBHOOK CALLED", req.body);
   if ("id" in req.body) {
-    const paid = await verifyPayment(req.body.id);
+    const paymentData = await verifyPayment(req.body.id);
 
-    res.status(200).json(paid);
+    if (paymentData) {
+      await createPayment(paymentData);
 
-    if (paid) {
-      // create payment
+      return res.status(200).json(true);
     }
-
-    return;
   }
 
   res.status(400).json({ error: "invalid request body" });

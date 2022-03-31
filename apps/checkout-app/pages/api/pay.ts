@@ -12,6 +12,18 @@ type Body = {
   captureAmount?: number; // support for partial payments
 };
 
+type MollieResponse = {
+  provider: "mollie";
+  data: {
+    checkoutUrl: string;
+  };
+};
+
+type Response = {
+  provider: PaymentProviders;
+  ok: boolean;
+} & MollieResponse;
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -20,6 +32,24 @@ export default async function handler(
     req.body.checkoutId,
     req.body.totalAmount
   );
-  const redirectUrl = await createMolliePayment(orderData);
-  res.status(200).json(redirectUrl);
+
+  let data: Response;
+
+  if (req.body.provider === "mollie") {
+    const url = await createMolliePayment(orderData);
+
+    if (url) {
+      data = {
+        ok: true,
+        provider: "mollie",
+        data: {
+          checkoutUrl: url.href,
+        },
+      };
+
+      return res.status(200).json(data);
+    }
+  }
+
+  res.status(400).json({ ok: false });
 }
