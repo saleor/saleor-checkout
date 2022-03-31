@@ -1,31 +1,35 @@
 :local(.checkbox) {
-  @apply flex flex-row mb-4;
+  @apply relative flex flex-row mb-4;
 }
 
-:local [type="checkbox"] {
+:local(.box) {
+  @apply absolute h-5 w-5 pointer-events-none;
+}
+
+:local([type="checkbox"]) {
   @apply opacity-0 absolute z-10;
 }
 
-:local :global(.box) {
-  @apply relative h-5 w-5 mr-2;
-}
-
-:local [type="checkbox"]:checked + :global(.checkbox-input) {
+:local .checkbox:hover .checkbox-input {
   @apply border-border-active;
 }
 
-:local .checkbox-input:hover {
+:local([type="checkbox"]:checked + .checkbox-input) {
   @apply border-border-active;
 }
 
-:global([type="checkbox"]:checked + .checkbox-input svg) {
+:local([type="checkbox"]:checked + .checkbox-input svg) {
   @apply opacity-100;
 }
 
-:global(.checkbox-input) {
+:local(.checkbox-input) {
   @apply w-5 h-5 border border-border-primary absolute top-0 left-0 z-50;
 }
 
-:global(.checkbox-input svg) {
+:local(.checkbox-input svg) {
   @apply opacity-0 absolute -top-px -left-px;
+}
+
+.checkbox-label {
+  @apply pl-7;
 }

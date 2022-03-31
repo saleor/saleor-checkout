@@ -19,7 +19,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   ...rest
 }) => (
   <div className={clsx(styles.checkbox, className)}>
-    <div className='box'>
+    <div className={styles["box"]}>
       <input
         type='checkbox'
         value={value}
@@ -27,11 +27,11 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         id={id}
         {...rest}
       />
-      <div className='checkbox-input'>
-        <CheckIcon className='tick' />
+      <div className={styles["checkbox-input"]}>
+        <CheckIcon />
       </div>
     </div>
-    <Label className='checkbox-label' htmlFor={id}>
+    <Label className={styles["checkbox-label"]} htmlFor={id}>
       {label}
     </Label>
   </div>
