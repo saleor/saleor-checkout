@@ -1,18 +1,31 @@
-import { FC, ButtonHTMLAttributes } from "react";
+import { VFC, ReactNode, ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
 
 import styles from "./Button.module.css";
 import { Text } from "../Text";
 
+interface ButtonLabelProps {
+  content: string;
+  className?: string;
+}
+
 export interface ButtonProps extends ButtonHTMLAttributes<{}> {
+  label: string | ReactNode;
   variant?: "primary" | "secondary" | "tertiary";
 }
 
-export const Button: FC<ButtonProps> = ({
-  title,
+export const ButtonLabel: VFC<ButtonLabelProps> = ({ content, ...rest }) => (
+  <Text as='span' weight='semibold' {...rest}>
+    {content}
+  </Text>
+);
+
+export const Button: VFC<ButtonProps> = ({
+  label,
   className,
   variant = "primary",
   disabled = false,
+  children,
   ...rest
 }) => {
   const classes = clsx(
@@ -27,9 +40,7 @@ export const Button: FC<ButtonProps> = ({
 
   return (
     <button disabled={disabled} className={classes} {...rest}>
-      <Text as='span' weight='semibold'>
-        {title}
-      </Text>
+      {typeof label === "string" ? <ButtonLabel content={label} /> : label}
     </button>
   );
 };

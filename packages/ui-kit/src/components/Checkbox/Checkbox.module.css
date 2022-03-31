@@ -31,5 +31,5 @@
 }
 
 .checkbox-label {
-  @apply pl-7;
+  @apply pl-6.5;
 }
