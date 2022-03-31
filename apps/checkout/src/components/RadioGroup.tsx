@@ -1,8 +1,7 @@
 import React from "react";
 import { Radio, RadioOption, RadioProps } from "./Radio";
 
-interface RadioGroupProps
-  extends Pick<RadioProps, "onSelect" | "selectedValue"> {
+interface RadioGroupProps extends RadioProps {
   options: RadioOption[];
   label: string;
 }

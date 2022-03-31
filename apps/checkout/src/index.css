@@ -11,6 +11,20 @@ html {
 }
 
 @layer components {
+  /* Icon class to keep icon sizes unified */
+  .icon {
+    @apply h-5 w-5;
+  }
+
+  /* Icon Button */
+  .icon-button {
+    @apply icon outline-none focus:outline-none active:outline-none;
+  }
+
+  .icon-button:hover path {
+    fill: "red";
+  }
+
   /* Checkbox */
   .checkbox {
     @apply flex flex-row mb-4;
@@ -33,7 +47,7 @@ html {
   }
 
   .checkbox .checkbox-input {
-    @apply w-5 h-5 border border-border-primary absolute top-0 left-0 z-50;
+    @apply icon border border-border-primary absolute top-0 left-0 z-50;
   }
 
   .checkbox .checkbox-input img {
@@ -139,18 +153,18 @@ html {
   }
 
   .radio-input-container {
-    @apply block relative cursor-pointer h-5 w-5 mr-4 select-none;
+    @apply block relative cursor-pointer icon mr-4 select-none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
   }
 
   .radio-input-container input {
-    @apply w-5 h-5 z-20 absolute opacity-0 cursor-pointer;
+    @apply icon z-20 absolute opacity-0 cursor-pointer;
   }
 
   .radio-input-icon {
-    @apply absolute top-0 left-0 h-5 w-5 bg-background-secondary rounded-full border-border-primary z-50;
+    @apply absolute top-0 left-0 icon bg-background-secondary rounded-full border-border-primary z-50;
     border-width: 2px;
   }
 
