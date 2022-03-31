@@ -5,6 +5,7 @@ import createMollieClient, {
 } from "@mollie/api-client";
 
 import { OrderFragment, OrderLineFragment } from "@graphql";
+import { appUrl } from "@consts";
 
 import { parseAmountToString } from "../utils";
 import { createPayment } from "../createPayment";
@@ -78,9 +79,9 @@ export const createMolliePayment = async (data: OrderFragment) => {
 
   const mollieData = await mollieClient.orders.create({
     orderNumber: data.number!,
-    webhookUrl: `${process.env.VERCEL_URL}/api/webhooks/mollie`,
+    webhookUrl: `${appUrl}/api/webhooks/mollie`,
     locale: "en_US",
-    redirectUrl: `${process.env.VERCEL_URL}/order?id=${data.id}`,
+    redirectUrl: `${appUrl}/order?id=${data.id}`,
     metadata: {
       orderId: data.id,
     },
