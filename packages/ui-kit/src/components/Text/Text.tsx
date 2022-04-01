@@ -38,9 +38,5 @@ export const Text: FC<TextProps> = ({
 
   const CustomTag = as;
 
-  return (
-    <CustomTag className={classes} {...rest}>
-      {children}
-    </CustomTag>
-  );
+  return <CustomTag className={classes} {...rest} />;
 };

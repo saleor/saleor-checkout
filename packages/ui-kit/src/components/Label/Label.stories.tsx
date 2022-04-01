@@ -12,5 +12,5 @@ const Template: ComponentStory<typeof Label> = (args) => <Label {...args} />;
 export const Basic = Template.bind({});
 
 Basic.args = {
-  children: "Example of small text paragraph",
+  children: "Label*",
 };

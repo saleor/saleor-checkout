@@ -4,3 +4,4 @@ export * from "./IconButton";
 export * from "./icons";
 export * from "./Label";
 export * from "./Text";
+export * from "./TextInput";

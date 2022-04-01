@@ -11,8 +11,6 @@ export default {
 
 const icons = Object.entries(exportedIcons);
 
-console.log(icons);
-
 const IconWrapper: FC = (props) => (
   <div
     className='flex items-center	justify-center flex-col p-8 bg-[#ffffff]'

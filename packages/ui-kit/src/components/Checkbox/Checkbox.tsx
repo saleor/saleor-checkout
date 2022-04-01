@@ -6,7 +6,7 @@ import styles from "./Checkbox.module.css";
 import { CheckIcon } from "../icons";
 import { Label } from "../Label";
 
-export interface CheckboxProps extends InputHTMLAttributes<{}> {
+export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 
