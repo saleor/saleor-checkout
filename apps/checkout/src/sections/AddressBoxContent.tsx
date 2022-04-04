@@ -2,12 +2,14 @@ import { getSortedAddressFieldsFromAddress } from "@lib/utils/address";
 import { Text } from "@components/Text";
 import React from "react";
 import { without } from "lodash";
-import { RadioOptionContentProps } from "@components/Radio";
+import { RadioOption, RadioOptionContentProps } from "@components/Radio";
 import { IconButton } from "@components/IconButton";
 import { PenIcon, TrashIcon } from "@icons";
 import { AddressField } from "@lib/globalTypes";
 
-interface addressBoxContentProps extends RadioOptionContentProps {
+interface addressBoxContentProps
+  extends RadioOptionContentProps,
+    Pick<RadioOption, "disabled"> {
   address: Record<AddressField, any>;
   onEdit: () => void;
   onDelete: () => void;

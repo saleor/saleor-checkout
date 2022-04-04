@@ -7,6 +7,7 @@ export type RadioOption = {
   title?: string;
   subtitle?: string;
   content?: ReactNode;
+  disabled?: boolean;
 };
 
 export interface RadioProps extends RadioOption {
@@ -27,18 +28,28 @@ export const Radio: React.FC<RadioProps> = ({
   selectedValue,
   onSelect,
   alignment = "center",
+  disabled,
 }) => (
   <>
     <div
       className={clsx(
         "radio-option",
+        disabled && "disabled",
         subtitle && "with-subtitle",
-        selectedValue === id && "selected",
+        { selected: selectedValue === id && !disabled },
         alignment === "top" && "items-start"
       )}
     >
-      <div className="radio-input-container" onClick={() => onSelect(id)}>
+      <div
+        className="radio-input-container"
+        onClick={() => {
+          if (!disabled) {
+            onSelect(id);
+          }
+        }}
+      >
         <input
+          disabled={disabled}
           name={title}
           className="radio-input"
           id={id}
@@ -48,7 +59,9 @@ export const Radio: React.FC<RadioProps> = ({
       </div>
       {title ? (
         <label htmlFor={id} className="radio-label">
-          <Text>{title}</Text>
+          <Text className={clsx(disabled && "text-text-secondary")}>
+            {title}
+          </Text>
           {subtitle && <Text>{subtitle}</Text>}
         </label>
       ) : (

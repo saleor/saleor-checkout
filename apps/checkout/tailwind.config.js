@@ -40,6 +40,7 @@ const theme = {
     },
     border: {
       primary: "#B9C1CF",
+      secondary: "#DEE4EF",
       active: "#394052",
       error: "#B65757",
     },

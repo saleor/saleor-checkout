@@ -168,8 +168,21 @@ html {
     border-width: 2px;
   }
 
+  .radio-option.disabled > * .radio-input-icon {
+    @apply border-border-secondary;
+  }
+
+  .radio-option.disabled {
+    @apply border-x-border-secondary;
+  }
+
   .radio-input-container:hover input ~ .radio-input-icon {
     @apply border-border-active;
+  }
+
+  .radio-option.disabled .radio-input-container:hover input ~ .radio-input-icon,
+  .radio-option.disabled .radio-input-container:hover input {
+    @apply border-border-secondary cursor-auto;
   }
 
   div.radio-option.selected .radio-input-container .radio-input-icon {
