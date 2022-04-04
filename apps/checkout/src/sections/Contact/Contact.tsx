@@ -46,7 +46,6 @@ export const Contact = ({ onEmailChange, email }: ContactProps) => {
       setCurrentSection("signedInUser");
 
       if (checkout?.user?.id !== user?.id) {
-        // TMP disabled for development
         customerAttach(
           getDataWithToken({
             customerId: user?.id as string,

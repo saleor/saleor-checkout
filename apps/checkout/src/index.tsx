@@ -22,18 +22,6 @@ const client = createClient({
   suspense: true,
   requestPolicy: "cache-first",
   fetch: authorizedFetch,
-  // exchanges: [
-  // cacheExchange({
-  //   updates: {
-  //     Mutation: {
-  //       userAddressCreate(_result, args, cache, _info) {
-  //         console.log(666, "HELOOOOOOOOOOOOOOOOO");
-  //         cache.invalidate({ __typename: "Address", first: 100 });
-  //       },
-  //     },
-  //   },
-  // }),
-  // ],
 });
 
 const root = createRoot(document.getElementById("root")!);

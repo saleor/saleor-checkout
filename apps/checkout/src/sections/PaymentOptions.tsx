@@ -1,14 +1,14 @@
 import { Button } from "@components/Button";
-import { Title } from "@components/Title";
+// import { Title } from "@components/Title";
 import { useCheckout } from "@hooks/useCheckout";
-import React, { useState } from "react";
+import React from "react";
 
 interface PaymentOptionsProps {}
 
 export const PaymentOptions: React.FC<PaymentOptionsProps> = ({}) => {
   const { checkout } = useCheckout();
 
-  const [selectedOptionId, setSelectedOptionId] = useState();
+  // const [selectedOptionId, setSelectedOptionId] = useState();
 
   const finalizeCheckout = async () => {
     const result = await fetch(

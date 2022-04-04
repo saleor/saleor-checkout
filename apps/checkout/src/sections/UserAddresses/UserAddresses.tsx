@@ -33,7 +33,6 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
     useCheckoutShippingAddressUpdateMutation();
 
   const handleShippingUpdate = (address: AddressFormData) => {
-    console.log({ address });
     checkoutShippingAddressUpdate(
       getDataWithToken({ shippingAddress: getAddressInputData(address) })
     );
