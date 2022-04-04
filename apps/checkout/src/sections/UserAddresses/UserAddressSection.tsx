@@ -9,7 +9,6 @@ import {
 import { extractMutationErrors, getById } from "@lib/utils";
 import { useAuthState } from "@saleor/sdk";
 import { AddressTypeEnum } from "@saleor/sdk/dist/apollo/types";
-import { reduce } from "lodash";
 import React, { Suspense, useEffect, useState } from "react";
 import { UserAddressForm } from "./UserAddressForm";
 import { UserAddressList } from "./UserAddressList";
@@ -50,7 +49,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
 
   useEffect(() => {
     if (!!selectedAddress) {
-      onAddressSelect(getAddressInputData(selectedAddress));
+      onAddressSelect(selectedAddress);
     }
   }, [selectedAddressId]);
 

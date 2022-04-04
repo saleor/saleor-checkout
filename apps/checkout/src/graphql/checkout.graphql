@@ -5,6 +5,11 @@ fragment CheckoutFragment on Checkout {
     id
     email
   }
+  totalPrice {
+    gross {
+      amount
+    }
+  }
   availablePaymentGateways {
     id
     name
@@ -282,5 +287,6 @@ query addressValidationRules($countryCode: CountryCode!) {
   addressValidationRules(countryCode: $countryCode) {
     addressFormat
     allowedFields
+    requiredFields
   }
 }

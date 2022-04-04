@@ -47,11 +47,11 @@ export const Contact = ({ onEmailChange, email }: ContactProps) => {
 
       if (checkout?.user?.id !== user?.id) {
         // TMP disabled for development
-        // customerAttach(
-        //   getDataWithToken({
-        //     customerId: user?.id as string,
-        //   })
-        // );
+        customerAttach(
+          getDataWithToken({
+            customerId: user?.id as string,
+          })
+        );
       }
 
       return;

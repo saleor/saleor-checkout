@@ -3,12 +3,13 @@ import { omit } from "lodash";
 
 export const getAddressInputData = ({
   country,
+  name,
+  firstName,
+  lastName,
   ...rest
 }: AddressFragment): AddressInput => ({
-  ...omit(rest, [
-    "id",
-    "__typename",
-    /* TMP because api breaks when receiving this in mutations ->*/ "name",
-  ]),
+  ...omit(rest, ["id", "__typename"]),
+  firstName: firstName || name?.split(" ")[0] || "",
+  lastName: lastName || name?.split(" ")[1] || "",
   country: country.code as CountryCode,
 });

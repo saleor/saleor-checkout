@@ -5437,6 +5437,7 @@ export type MetadataErrorCode =
   | "GRAPHQL_ERROR"
   | "INVALID"
   | "NOT_FOUND"
+  | "NOT_UPDATED"
   | "REQUIRED";
 
 export type MetadataFilter = {
@@ -13435,6 +13436,11 @@ export type CheckoutFragment = {
   id: string;
   email?: string | null;
   user?: { __typename?: "User"; id: string; email: string } | null;
+  totalPrice?: {
+    __typename?: "TaxedMoney";
+    gross: { __typename?: "Money"; amount: number; currency: string };
+    tax: { __typename?: "Money"; currency: string; amount: number };
+  } | null;
   availablePaymentGateways: Array<{
     __typename?: "PaymentGateway";
     id: string;
@@ -13450,11 +13456,6 @@ export type CheckoutFragment = {
     name: string;
     price: { __typename?: "Money"; amount: number; currency: string };
   } | null>;
-  totalPrice?: {
-    __typename?: "TaxedMoney";
-    gross: { __typename?: "Money"; amount: number; currency: string };
-    tax: { __typename?: "Money"; currency: string; amount: number };
-  } | null;
   shippingPrice?: {
     __typename?: "TaxedMoney";
     gross: { __typename?: "Money"; amount: number; currency: string };
@@ -13557,6 +13558,11 @@ export type CheckoutQuery = {
     id: string;
     email?: string | null;
     user?: { __typename?: "User"; id: string; email: string } | null;
+    totalPrice?: {
+      __typename?: "TaxedMoney";
+      gross: { __typename?: "Money"; amount: number; currency: string };
+      tax: { __typename?: "Money"; currency: string; amount: number };
+    } | null;
     availablePaymentGateways: Array<{
       __typename?: "PaymentGateway";
       id: string;
@@ -13572,11 +13578,6 @@ export type CheckoutQuery = {
       name: string;
       price: { __typename?: "Money"; amount: number; currency: string };
     } | null>;
-    totalPrice?: {
-      __typename?: "TaxedMoney";
-      gross: { __typename?: "Money"; amount: number; currency: string };
-      tax: { __typename?: "Money"; currency: string; amount: number };
-    } | null;
     shippingPrice?: {
       __typename?: "TaxedMoney";
       gross: { __typename?: "Money"; amount: number; currency: string };
@@ -13777,6 +13778,11 @@ export type CheckoutEmailUpdateMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
       availablePaymentGateways: Array<{
         __typename?: "PaymentGateway";
         id: string;
@@ -13792,11 +13798,6 @@ export type CheckoutEmailUpdateMutation = {
         name: string;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
-      totalPrice?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
-        tax: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
       shippingPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -13861,6 +13862,11 @@ export type CheckoutCustomerAttachMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
       availablePaymentGateways: Array<{
         __typename?: "PaymentGateway";
         id: string;
@@ -13876,11 +13882,6 @@ export type CheckoutCustomerAttachMutation = {
         name: string;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
-      totalPrice?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
-        tax: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
       shippingPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -13944,6 +13945,11 @@ export type CheckoutCustomerDetachMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
       availablePaymentGateways: Array<{
         __typename?: "PaymentGateway";
         id: string;
@@ -13959,11 +13965,6 @@ export type CheckoutCustomerDetachMutation = {
         name: string;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
-      totalPrice?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
-        tax: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
       shippingPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -14117,6 +14118,11 @@ export type CheckoutShippingAddressUpdateMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
       availablePaymentGateways: Array<{
         __typename?: "PaymentGateway";
         id: string;
@@ -14132,11 +14138,6 @@ export type CheckoutShippingAddressUpdateMutation = {
         name: string;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
-      totalPrice?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
-        tax: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
       shippingPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -14201,6 +14202,11 @@ export type CheckoutBillingAddressUpdateMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
       availablePaymentGateways: Array<{
         __typename?: "PaymentGateway";
         id: string;
@@ -14216,11 +14222,6 @@ export type CheckoutBillingAddressUpdateMutation = {
         name: string;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
-      totalPrice?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
-        tax: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
       shippingPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -14285,6 +14286,11 @@ export type CheckoutDeliveryMethodUpdateMutation = {
       id: string;
       email?: string | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
       availablePaymentGateways: Array<{
         __typename?: "PaymentGateway";
         id: string;
@@ -14300,11 +14306,6 @@ export type CheckoutDeliveryMethodUpdateMutation = {
         name: string;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
-      totalPrice?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
-        tax: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
       shippingPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -14360,6 +14361,7 @@ export type AddressValidationRulesQuery = {
     __typename?: "AddressValidationData";
     addressFormat?: string | null;
     allowedFields?: Array<string | null> | null;
+    requiredFields?: Array<string | null> | null;
   } | null;
 };
 
@@ -14409,6 +14411,11 @@ export const CheckoutFragmentDoc = gql`
     user {
       id
       email
+    }
+    totalPrice {
+      gross {
+        amount
+      }
     }
     availablePaymentGateways {
       id
@@ -14771,6 +14778,7 @@ export const AddressValidationRulesDocument = gql`
     addressValidationRules(countryCode: $countryCode) {
       addressFormat
       allowedFields
+      requiredFields
     }
   }
 `;

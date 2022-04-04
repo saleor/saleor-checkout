@@ -1,5 +1,6 @@
 import { Checkbox } from "@components/Checkbox";
 import {
+  AddressFragment,
   AddressInput,
   useCheckoutBillingAddressUpdateMutation,
   useCheckoutShippingAddressUpdateMutation,
@@ -10,6 +11,7 @@ import { useAuthState } from "@saleor/sdk";
 import React, { useState } from "react";
 import { GuestAddressSection } from "./GuestAddressSection";
 import { UserAddressSection } from "./UserAddressSection";
+import { getAddressInputData } from "./utils";
 
 interface UserAddressesProps {}
 
@@ -28,14 +30,20 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
   const [, checkoutShippingAddressUpdate] =
     useCheckoutShippingAddressUpdateMutation();
 
-  const handleShippingUpdate = (shippingAddress: AddressInput) =>
-    checkoutShippingAddressUpdate(getDataWithToken({ shippingAddress }));
+  const handleShippingUpdate = (address: AddressFragment) => {
+    console.log({ address });
+    checkoutShippingAddressUpdate(
+      getDataWithToken({ shippingAddress: getAddressInputData(address) })
+    );
+  };
 
   const [, checkoutBillingAddressUpdate] =
     useCheckoutBillingAddressUpdateMutation();
 
-  const handleBillingUpdate = (billingAddress: AddressInput) =>
-    checkoutBillingAddressUpdate(getDataWithToken({ billingAddress }));
+  const handleBillingUpdate = (address: AddressFragment) =>
+    checkoutBillingAddressUpdate(
+      getDataWithToken({ billingAddress: getAddressInputData(address) })
+    );
 
   return (
     <div>

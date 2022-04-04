@@ -38,7 +38,11 @@ export const UserAddressForm: React.FC<UserAddressFormProps> = ({
   return (
     <div className="lol">
       {validationRules?.allowedFields?.map((field) => (
-        <TextInput label={field} {...getInputProps(field)} />
+        <TextInput
+          label={field}
+          {...getInputProps(field)}
+          optional={!validationRules.requiredFields?.includes(field)}
+        />
       ))}
       <div className="boo">
         {onCancel && (
