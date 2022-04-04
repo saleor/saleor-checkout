@@ -9,7 +9,7 @@ interface ButtonLabelProps {
   className?: string;
 }
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<{}> {
   label: string | ReactNode;
   variant?: "primary" | "secondary" | "tertiary";
 }

@@ -11,7 +11,7 @@
 }
 
 .icon-button-label-reverse {
-  @apply mr-1;
+  @apply mr-1.5;
 }
 
 .icon-button-nolabel {

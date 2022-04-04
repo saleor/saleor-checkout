@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { VFC, ReactNode } from "react";
 import clsx from "clsx";
 
 import styles from "./IconButton.module.css";
@@ -9,13 +9,13 @@ export interface IconButtonProps extends Omit<ButtonProps, "variant"> {
   reverse?: boolean;
 }
 
-export const IconButton = ({
+export const IconButton: VFC<IconButtonProps> = ({
   label,
   icon,
   className,
   reverse,
   ...rest
-}: IconButtonProps) => {
+}) => {
   const content = (
     <>
       {icon}

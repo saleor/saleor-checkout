@@ -1,0 +1,11 @@
+.chip {
+  @apply h-10 pl-3 pr-2 px-3 inline-flex items-center border border-border-tertiary bg-transparent;
+}
+
+.chip-label-margin {
+  @apply ml-1.5;
+}
+
+.chip-button {
+  @apply ml-1.5;
+}

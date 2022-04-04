@@ -11,7 +11,6 @@ export interface TextProps extends HTMLAttributes<{}> {
 }
 
 export const Text: FC<TextProps> = ({
-  children,
   as = "p",
   size,
   color,
