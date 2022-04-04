@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import { createMolliePayment } from "@backend/payments/providers/mollie";
 import { createOrder } from "@backend/payments/createOrder";
+import { allowCors } from "@backend/utils";
 
 type PaymentProviders = "mollie";
 
@@ -24,10 +25,7 @@ type Response = {
   ok: boolean;
 } & MollieResponse;
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   const orderData = await createOrder(
     req.body.checkoutId,
     req.body.totalAmount
@@ -53,3 +51,5 @@ export default async function handler(
 
   res.status(400).json({ ok: false });
 }
+
+export default allowCors(handler);
