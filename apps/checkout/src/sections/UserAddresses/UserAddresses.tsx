@@ -10,6 +10,8 @@ import { getDataWithToken } from "@lib/utils";
 import { useAuthState } from "@saleor/sdk";
 import React, { useState } from "react";
 import { GuestAddressSection } from "./GuestAddressSection";
+import { AddressFormData } from "./types";
+import { UserAddressFormData } from "./UserAddressForm";
 import { UserAddressSection } from "./UserAddressSection";
 import { getAddressInputData } from "./utils";
 
@@ -30,7 +32,7 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
   const [, checkoutShippingAddressUpdate] =
     useCheckoutShippingAddressUpdateMutation();
 
-  const handleShippingUpdate = (address: AddressFragment) => {
+  const handleShippingUpdate = (address: AddressFormData) => {
     console.log({ address });
     checkoutShippingAddressUpdate(
       getDataWithToken({ shippingAddress: getAddressInputData(address) })
@@ -40,7 +42,7 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
   const [, checkoutBillingAddressUpdate] =
     useCheckoutBillingAddressUpdateMutation();
 
-  const handleBillingUpdate = (address: AddressFragment) =>
+  const handleBillingUpdate = (address: AddressFormData) =>
     checkoutBillingAddressUpdate(
       getDataWithToken({ billingAddress: getAddressInputData(address) })
     );
@@ -52,7 +54,8 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
           title="shipping"
           type="SHIPPING"
           onAddressSelect={handleShippingUpdate}
-          addresses={addresses}
+          // @ts-ignore TMP
+          addresses={addresses as UserAddressFormData[]}
           defaultAddress={user?.defaultShippingAddress}
         />
       ) : (
@@ -70,7 +73,8 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
             title="Billing"
             type="BILLING"
             onAddressSelect={handleBillingUpdate}
-            addresses={addresses}
+            // @ts-ignore TMP
+            addresses={addresses as AddressFragment[]}
             defaultAddress={user?.defaultBillingAddress}
           />
         ) : (

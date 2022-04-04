@@ -1,9 +1,10 @@
 /* eslint-disable no-restricted-globals */
 import { reduce } from "lodash";
 import queryString from "query-string";
+import { OperationResult } from "urql";
 
 export const getById =
-  <T extends { id: string }>(idToCompare: string) =>
+  <T extends { id: string }>(idToCompare: string | undefined) =>
   (obj: T) =>
     obj.id === idToCompare;
 
@@ -39,11 +40,13 @@ const extractCheckoutTokenFromUrl = (): string => {
   return token;
 };
 
-export const extractMutationErrors = (result): [boolean, any[]] => {
+export const extractMutationErrors = <TData extends Object, TVars = any>(
+  result: OperationResult<TData, TVars>
+): [boolean, any[]] => {
   const urqlErrors = result.error ? [result.error] : [];
 
   const graphqlErrors = reduce(
-    result.data,
+    result.data as object,
     (result, { errors }) => {
       return [...result, ...errors];
     },

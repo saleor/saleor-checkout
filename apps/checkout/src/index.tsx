@@ -1,6 +1,5 @@
 import { createRoot } from "react-dom/client";
 import { createClient, Provider as UrqlProvider } from "urql";
-import { cacheExchange } from "@urql/exchange-graphcache";
 
 import "./index.css";
 import { Checkout } from "./Checkout";

@@ -26,7 +26,7 @@ export const UserAddressSectionContainer: React.FC<
         {displayCountrySelect && (
           <select
             onChange={(event) => {
-              onCountrySelect(event.target.value);
+              onCountrySelect(event.target.value as CountryCode);
             }}
           >
             {countries.map(({ name, code }) => (

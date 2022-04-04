@@ -1,19 +1,21 @@
 import { Button } from "@components/Button";
 import { TextInput } from "@components/TextInput";
-import {
-  AddressFragment,
-  CountryCode,
-  useAddressValidationRulesQuery,
-} from "@graphql";
+import { CountryCode, useAddressValidationRulesQuery } from "@graphql";
 import { useGetInputProps } from "@hooks/useGetInputProps";
+import { AddressField } from "@lib/globalTypes";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { AddressFormData } from "./types";
+
+export interface UserAddressFormData extends AddressFormData {
+  id: string;
+}
 
 interface UserAddressFormProps {
   countryCode: CountryCode;
-  defaultValues?: any;
+  defaultValues?: UserAddressFormData;
   onCancel?: () => void;
-  onSave: (formData: AddressFragment) => void;
+  onSave: (formData: UserAddressFormData) => void;
 }
 
 export const UserAddressForm: React.FC<UserAddressFormProps> = ({
@@ -22,10 +24,11 @@ export const UserAddressForm: React.FC<UserAddressFormProps> = ({
   onCancel,
   onSave,
 }) => {
-  const { handleSubmit, watch, getValues, ...rest } = useForm<FormData>({
-    mode: "onBlur",
-    defaultValues,
-  });
+  const { handleSubmit, watch, getValues, ...rest } =
+    useForm<UserAddressFormData>({
+      mode: "onBlur",
+      defaultValues,
+    });
 
   const getInputProps = useGetInputProps(rest);
 
@@ -36,19 +39,28 @@ export const UserAddressForm: React.FC<UserAddressFormProps> = ({
   const validationRules = data?.addressValidationRules;
 
   return (
-    <div className="lol">
-      {validationRules?.allowedFields?.map((field) => (
-        <TextInput
-          label={field}
-          {...getInputProps(field)}
-          optional={!validationRules.requiredFields?.includes(field)}
-        />
-      ))}
+    <div>
+      {/* TMP */}
+      {(validationRules?.allowedFields as Partial<AddressField>[])?.map(
+        (field: AddressField) => (
+          <TextInput
+            label={field}
+            // @ts-ignore TMP
+            {...getInputProps(field)}
+            optional={!validationRules?.requiredFields?.includes(field)}
+          />
+        )
+      )}
       <div className="boo">
         {onCancel && (
-          <Button variant="secondary" onClick={onCancel} title="cancel" />
+          <Button
+            ariaLabel="cancel"
+            variant="secondary"
+            onClick={onCancel}
+            title="cancel"
+          />
         )}
-        <Button onClick={handleSubmit(onSave)} title="Save" />
+        <Button ariaLabel="save" onClick={handleSubmit(onSave)} title="Save" />
       </div>
     </div>
   );

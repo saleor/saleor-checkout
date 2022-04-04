@@ -1,23 +1,23 @@
 import { Button } from "@components/Button";
 import {
   AddressFragment,
-  AddressInput,
   CountryCode,
   useUserAddressCreateMutation,
   useUserAddressUpdateMutation,
 } from "@graphql";
 import { extractMutationErrors, getById } from "@lib/utils";
-import { useAuthState } from "@saleor/sdk";
 import { AddressTypeEnum } from "@saleor/sdk/dist/apollo/types";
 import React, { Suspense, useEffect, useState } from "react";
-import { UserAddressForm } from "./UserAddressForm";
+import { AddressFormData } from "./types";
+import { UserAddressForm, UserAddressFormData } from "./UserAddressForm";
 import { UserAddressList } from "./UserAddressList";
 import { UserAddressSectionContainer } from "./UserAddressSectionContainer";
 import { getAddressInputData } from "./utils";
 
 export interface UserAddressSectionProps {
-  defaultAddress?: AddressFragment;
-  onAddressSelect: (address: AddressInput) => void;
+  // TMP
+  defaultAddress?: Pick<AddressFragment, "id"> | null;
+  onAddressSelect: (address: UserAddressFormData) => void;
   addresses: AddressFragment[];
   title: string;
   type: AddressTypeEnum;
@@ -30,8 +30,6 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
   title,
   type,
 }) => {
-  const { user } = useAuthState();
-
   const [addAddressOpened, setAddAddressOpened] = useState(false);
 
   const [editedAddressId, setEditedAddressId] = useState<string | null>();
@@ -49,7 +47,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
 
   useEffect(() => {
     if (!!selectedAddress) {
-      onAddressSelect(selectedAddress);
+      onAddressSelect(selectedAddress as unknown as UserAddressFormData);
     }
   }, [selectedAddressId]);
 
@@ -58,11 +56,11 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
   const [, userAddressUpdate] = useUserAddressUpdateMutation();
   const [, userAddressAdd] = useUserAddressCreateMutation();
 
-  const handleAddressUpdate = async (address: AddressFragment) => {
+  const handleAddressUpdate = async (address: UserAddressFormData) => {
     const result = await userAddressUpdate({
       address: getAddressInputData({
         ...address,
-        country: { code: selectedCountryCode },
+        countryCode: selectedCountryCode,
       }),
       id: address.id,
     });
@@ -74,14 +72,13 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
     }
   };
 
-  const handleAddressAdd = async (address: AddressFragment) => {
+  const handleAddressAdd = async (address: AddressFormData) => {
     const result = await userAddressAdd({
       address: getAddressInputData({
         ...address,
-        country: { code: selectedCountryCode },
+        countryCode: selectedCountryCode,
       }),
       type,
-      id: user?.id,
     });
 
     const [hasErrors] = extractMutationErrors(result);
@@ -107,6 +104,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
           />
         ) : (
           <Button
+            ariaLabel="add new address"
             onClick={() => setAddAddressOpened(true)}
             title="Add new address"
             className="mb-4"
@@ -117,12 +115,17 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
           <UserAddressForm
             onSave={handleAddressUpdate}
             countryCode={selectedCountryCode}
-            defaultValues={addresses.find(getById(editedAddressId as string))}
+            defaultValues={
+              addresses.find(
+                getById(editedAddressId as string)
+                // TMP
+              ) as unknown as UserAddressFormData
+            }
             onCancel={() => setEditedAddressId(null)}
           />
         ) : (
           <UserAddressList
-            addresses={addresses}
+            addresses={addresses as AddressFragment[]}
             onAddressSelect={onSelectAddress}
             selectedAddressId={selectedAddressId}
             onEditChange={(id: string) => setEditedAddressId(id)}

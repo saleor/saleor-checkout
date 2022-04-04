@@ -6,7 +6,7 @@ import { AddressFragment, useUserAddressDeleteMutation } from "@graphql";
 interface UserAddressListProps {
   onAddressSelect: (id: string) => void;
   addresses: AddressFragment[];
-  selectedAddressId: string;
+  selectedAddressId?: string;
   onEditChange: (id: string) => void;
 }
 
@@ -52,8 +52,13 @@ export const UserAddressList: React.FC<UserAddressListProps> = ({
               </div>
             </div>
             <div>
-              <Button title="edit" onClick={() => onEditChange(id)} />
               <Button
+                ariaLabel="edit address"
+                title="edit"
+                onClick={() => onEditChange(id)}
+              />
+              <Button
+                ariaLabel="delete address"
                 variant="secondary"
                 title="delete"
                 onClick={() => deleteAddress({ id })}

@@ -31,8 +31,8 @@ export const PaymentOptions: React.FC<PaymentOptionsProps> = ({}) => {
   };
 
   return (
-    <div>
-      <Title className="mb-4">Payment options</Title>
+    <div className="mb-10">
+      {/* <Title className="mb-4">Payment options</Title>
       {checkout?.availablePaymentGateways?.map(({ id, name }) => (
         <div>
           <input
@@ -43,8 +43,13 @@ export const PaymentOptions: React.FC<PaymentOptionsProps> = ({}) => {
           />
           <label>{name}</label>
         </div>
-      ))}
-      <Button title="Pay" onClick={finalizeCheckout} />
+      ))} */}
+      <Button
+        ariaLabel="finaliza checkout"
+        title="Pay"
+        onClick={finalizeCheckout}
+        className="min-w-28"
+      />
     </div>
   );
 };

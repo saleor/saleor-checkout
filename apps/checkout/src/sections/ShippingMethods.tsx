@@ -1,6 +1,9 @@
 import { Title } from "@components/Title";
 import { Text } from "@components/Text";
-import { useCheckoutDeliveryMethodUpdateMutation } from "@graphql";
+import {
+  ShippingMethod,
+  useCheckoutDeliveryMethodUpdateMutation,
+} from "@graphql";
 import { useCheckout } from "@hooks/useCheckout";
 import { getDataWithToken } from "@lib/utils";
 import React, { useEffect, useState } from "react";
@@ -27,17 +30,19 @@ export const ShippingMethods: React.FC<ShippingMethodsProps> = ({}) => {
       <Title>Shipping methods</Title>
       <Text className="mb-2">(scrollable)</Text>
       <div style={{ maxHeight: 300, overflowY: "scroll" }}>
-        {checkout?.shippingMethods?.map(({ id, name, price }) => (
-          <div>
-            <input
-              type="radio"
-              className="mr-2 mt-1"
-              checked={selectedMethodId === id}
-              onChange={() => setSelectedMethodId(id)}
-            />
-            <label>{`${name} - ${price.amount} ${price.currency}`}</label>
-          </div>
-        ))}
+        {(checkout?.shippingMethods as ShippingMethod[])?.map(
+          ({ id, name, price }) => (
+            <div>
+              <input
+                type="radio"
+                className="mr-2 mt-1"
+                checked={selectedMethodId === id}
+                onChange={() => setSelectedMethodId(id)}
+              />
+              <label>{`${name} - ${price.amount} ${price.currency}`}</label>
+            </div>
+          )
+        )}
       </div>
     </div>
   );

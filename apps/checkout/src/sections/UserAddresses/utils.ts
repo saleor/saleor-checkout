@@ -1,15 +1,23 @@
-import { AddressFragment, AddressInput, CountryCode } from "@graphql";
+import { AddressInput, CountryCode, CountryDisplay } from "@graphql";
 import { omit } from "lodash";
+import { AddressFormData } from "./types";
 
 export const getAddressInputData = ({
-  country,
   name,
   firstName,
   lastName,
+  countryCode,
+  country,
   ...rest
-}: AddressFragment): AddressInput => ({
+}: Partial<
+  AddressFormData & {
+    name?: string;
+    countryCode?: CountryCode;
+    country: CountryDisplay;
+  }
+>): AddressInput => ({
   ...omit(rest, ["id", "__typename"]),
   firstName: firstName || name?.split(" ")[0] || "",
   lastName: lastName || name?.split(" ")[1] || "",
-  country: country.code as CountryCode,
+  country: countryCode || (country?.code as CountryCode),
 });
