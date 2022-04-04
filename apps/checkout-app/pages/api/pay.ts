@@ -26,14 +26,19 @@ type Response = {
 } & MollieResponse;
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const orderData = await createOrder(
-    req.body.checkoutId,
-    req.body.totalAmount
-  );
+  if (req.method !== "POST") {
+    res.status(405).send({ message: "Only POST requests allowed" });
+    return;
+  }
+
+  let body: Body =
+    typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+
+  const orderData = await createOrder(body.checkoutId, body.totalAmount);
 
   let data: Response;
 
-  if (req.body.provider === "mollie") {
+  if (body.provider === "mollie") {
     const url = await createMolliePayment(orderData);
 
     if (url) {
