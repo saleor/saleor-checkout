@@ -22,7 +22,12 @@ export const PaymentOptions: React.FC<PaymentOptionsProps> = ({}) => {
         }),
       }
     );
-    console.log(666, result.json());
+
+    const { data } = await result.json();
+
+    if (data?.checkoutUrl) {
+      window.location.replace(data.checkoutUrl);
+    }
   };
 
   return (
