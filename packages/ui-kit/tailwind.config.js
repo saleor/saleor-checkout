@@ -31,6 +31,7 @@ const theme = {
       secondary: "#8A919F",
       tertiary: "#EEF1F7",
       error: "#B65757",
+      inverted: "#FFFFFF",
     },
     button: {
       primary: "#394052",
@@ -72,6 +73,9 @@ const theme = {
     md: ["1.6rem", "2.3rem"],
     lg: ["2.4rem", "3.2rem"],
     xl: ["3.2rem", "4.6rem"],
+  },
+  borderRadius: {
+    DEFAULT: "4px",
   },
 };
 

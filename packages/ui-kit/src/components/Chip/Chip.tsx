@@ -1,4 +1,4 @@
-import { FC, ReactNode, MouseEvent } from "react";
+import { VFC, ReactNode, MouseEvent } from "react";
 import clsx from "clsx";
 
 import styles from "./Chip.module.css";
@@ -12,7 +12,7 @@ export interface ChipProps {
   onCloseClick: (e?: MouseEvent) => void;
 }
 
-export const Chip: FC<ChipProps> = ({
+export const Chip: VFC<ChipProps> = ({
   label,
   icon,
   className,

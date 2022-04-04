@@ -3,6 +3,7 @@ export * from "./Checkbox";
 export * from "./Chip";
 export * from "./IconButton";
 export * from "./icons";
+export * from "./InfoTip";
 export * from "./Label";
 export * from "./Text";
 export * from "./TextInput";
