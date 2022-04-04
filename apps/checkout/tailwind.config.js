@@ -19,7 +19,6 @@ const spacing = getSpacing(
 
 const theme = {
   colors: {
-    pink: "pink",
     transparent: "transparent",
     skeleton: "#DEE4EF",
     background: {
