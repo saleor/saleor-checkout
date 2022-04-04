@@ -1,5 +1,7 @@
+import ErrorDetails from "@frontend/components/templates/ErrorDetails";
 import { getChannelPaymentOptions } from "@frontend/data";
 import { useAuthData } from "@frontend/hooks/useAuthData";
+import { notFoundMessages } from "@frontend/misc/errorMessages";
 import { mapMetadataToSettings, mapSettingsToMetadata } from "@frontend/utils";
 import {
   useChannelsQuery,
@@ -8,11 +10,13 @@ import {
 } from "@graphql";
 import ChannelDetails from "frontend/components/templates/ChannelDetails";
 import { useRouter } from "next/router";
+import { useIntl } from "react-intl";
 import { ChannelActivePaymentProviders } from "types/api";
 
 const Channel = () => {
   const router = useRouter();
   const { channelId } = router.query;
+  const intl = useIntl();
 
   const { app } = useAuthData();
   const [metadataQuery] = usePrivateMetadataQuery({
@@ -53,6 +57,16 @@ const Channel = () => {
       input: metadata,
     });
   };
+
+  if (!channelPaymentOptions) {
+    return (
+      <ErrorDetails
+        error={intl.formatMessage(
+          notFoundMessages.channelPaymentOptionsNotFound
+        )}
+      />
+    );
+  }
 
   return (
     <ChannelDetails

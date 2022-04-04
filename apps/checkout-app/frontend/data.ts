@@ -81,8 +81,6 @@ export const getChannelPaymentOptions = (
   activePaymentProviders?: ChannelActivePaymentProviders,
   channelId?: string
 ) =>
-  channelId
-    ? getChannelPaymentOptionsList(channels, activePaymentProviders).find(
-        (channelPayments) => channelPayments.channel.id === channelId
-      )
-    : undefined;
+  getChannelPaymentOptionsList(channels, activePaymentProviders).find(
+    (channelPayments) => channelPayments.channel.id === channelId
+  );

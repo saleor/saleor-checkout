@@ -19,7 +19,7 @@ import { getFormDefaultValues } from "./data";
 import { useEffect } from "react";
 
 interface PaymentProviderDetailsProps {
-  selectedPaymentProvider?: PaymentProvider<PaymentProviderID>;
+  selectedPaymentProvider: PaymentProvider<PaymentProviderID>;
   channelId?: string;
   saveButtonBarState: ConfirmButtonTransitionState;
   loading: boolean;
@@ -84,13 +84,9 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   };
 
   const handleSubmit = (flattedOptions: Record<string, string>) => {
-    onSubmit(
-      (selectedPaymentProvider?.id
-        ? {
-            [selectedPaymentProvider.id]: flattedOptions,
-          }
-        : {}) as PaymentProviderSettingsValues
-    );
+    onSubmit({
+      [selectedPaymentProvider.id]: flattedOptions,
+    } as PaymentProviderSettingsValues);
   };
 
   return (
@@ -110,7 +106,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
             </Typography>
             <VerticalSpacer />
             <div className={classes.settings}>
-              {selectedPaymentProvider?.settings?.map(
+              {selectedPaymentProvider.settings.map(
                 ({ id, type, label, value }) =>
                   loading ? (
                     <Skeleton key={id} />

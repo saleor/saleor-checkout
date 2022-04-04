@@ -8,10 +8,14 @@ import {
 } from "@graphql";
 import { mapMetadataToSettings, mapSettingsToMetadata } from "@frontend/utils";
 import { getPaymentProviderSettings } from "@frontend/data";
+import ErrorDetails from "@frontend/components/templates/ErrorDetails";
+import { useIntl } from "react-intl";
+import { notFoundMessages } from "@frontend/misc/errorMessages";
 
 const PaymentProvider = () => {
   const router = useRouter();
   const { paymentProviderId, channelId } = router.query;
+  const intl = useIntl();
 
   const { app } = useAuthData();
   const [metadataQuery] = usePrivateMetadataQuery({
@@ -50,6 +54,14 @@ const PaymentProvider = () => {
       input: metadata,
     });
   };
+
+  if (!paymentProvider) {
+    return (
+      <ErrorDetails
+        error={intl.formatMessage(notFoundMessages.paymentProviderNotFound)}
+      />
+    );
+  }
 
   return (
     <PaymentProviderDetails

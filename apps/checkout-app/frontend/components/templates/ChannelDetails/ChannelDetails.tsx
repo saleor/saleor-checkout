@@ -39,7 +39,7 @@ import { useEffect } from "react";
 import { ChannelFragment } from "@graphql";
 
 interface ChannelDetailsProps {
-  channelPaymentOptions?: ChannelPaymentOptions;
+  channelPaymentOptions: ChannelPaymentOptions;
   channels: ChannelFragment[];
   saveButtonBarState: ConfirmButtonTransitionState;
   loading: boolean;
@@ -80,7 +80,7 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
       pathname: paymentProviderPath,
       query: {
         paymentProviderId: paymentProviders[0].id,
-        channelId: channelPaymentOptions?.channel.id,
+        channelId: channelPaymentOptions.channel.id,
       },
     });
   };
@@ -93,26 +93,19 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
   };
 
   const handleSubmit = (flattenedSettings: Record<string, string>) => {
-    onSubmit(
-      (channelPaymentOptions?.channel.id
-        ? {
-            [channelPaymentOptions.channel.id]: flattenedSettings,
-          }
-        : {}) as ChannelActivePaymentProviders
-    );
+    onSubmit({
+      [channelPaymentOptions.channel.id]: flattenedSettings,
+    } as ChannelActivePaymentProviders);
   };
 
   return (
     <form>
       <AppLayout
-        title={channelPaymentOptions?.channel?.name || ""}
+        title={channelPaymentOptions.channel.name}
         onBackClick={onBackClick}
         onSettingsClick={onSettingsClick}
         items={mapNodesToItems(channels)}
-        selectedItem={
-          channelPaymentOptions?.channel &&
-          mapNodeToItem(channelPaymentOptions.channel)
-        }
+        selectedItem={mapNodeToItem(channelPaymentOptions.channel)}
         loading={loading}
         onItemClick={onChannelClick}
       >
@@ -122,7 +115,7 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
         {loading ? (
           <Skeleton />
         ) : (
-          channelPaymentOptions?.paymentOptions.map(
+          channelPaymentOptions.paymentOptions.map(
             (paymentOption, paymentOptionIdx) => (
               <Accordion
                 key={paymentOption.method.id}
