@@ -1,4 +1,4 @@
-import { ChannelsQuery } from "@graphql";
+import { ChannelFragment } from "@graphql";
 import { findById } from "@utils";
 import { customizations, paymentMethods, paymentProviders } from "consts";
 import {
@@ -26,11 +26,7 @@ export const getCustomizationSettings = (
       (setting: CustomizationSettings<CustomizationID>) => ({
         ...setting,
         value:
-          settingsValues &&
-          settingsValues[customization.id] &&
-          settingsValues[customization.id][setting.id]
-            ? settingsValues[customization.id][setting.id]
-            : setting.value,
+          settingsValues?.[customization.id]?.[setting.id] || setting.value,
       })
     ),
   }));
@@ -43,12 +39,7 @@ export const getPaymentProviderSettings = (
     settings: provider.settings.map(
       (setting: PaymentProviderSettings<PaymentProviderID>) => ({
         ...setting,
-        value:
-          settingsValues &&
-          settingsValues[provider.id] &&
-          settingsValues[provider.id][setting.id]
-            ? settingsValues[provider.id][setting.id]
-            : setting.value,
+        value: settingsValues?.[provider.id]?.[setting.id] || setting.value,
       })
     ),
   }));
@@ -67,7 +58,7 @@ export const getActivePaymentProvidersByChannel = (
   );
 
 export const getChannelPaymentOptionsList = (
-  channels: Exclude<ChannelsQuery["channels"], null | undefined>,
+  channels: ChannelFragment[],
   activePaymentProviders?: ChannelActivePaymentProviders
 ): ChannelPaymentOptions[] =>
   channels.map((channel) => ({
@@ -77,19 +68,16 @@ export const getChannelPaymentOptionsList = (
       id: method.id,
       method,
       availableProviders: paymentProviders,
-      activeProvider:
-        activePaymentProviders &&
-        activePaymentProviders[channel.id] &&
-        activePaymentProviders[channel.id][method.id]
-          ? findById(
-              paymentProviders,
-              activePaymentProviders[channel.id][method.id]
-            ) || null
-          : null,
+      activeProvider: activePaymentProviders?.[channel.id]?.[method.id]
+        ? findById(
+            paymentProviders,
+            activePaymentProviders[channel.id][method.id]
+          ) || null
+        : null,
     })),
   }));
 export const getChannelPaymentOptions = (
-  channels: Exclude<ChannelsQuery["channels"], null | undefined>,
+  channels: ChannelFragment[],
   activePaymentProviders?: ChannelActivePaymentProviders,
   channelId?: string
 ) =>

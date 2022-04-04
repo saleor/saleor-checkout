@@ -36,11 +36,11 @@ import AppSavebar from "@frontend/components/elements/AppSavebar";
 import { Controller, useForm } from "react-hook-form";
 import { getActivePaymentProvider, getFormDefaultValues } from "./data";
 import { useEffect } from "react";
-import { ChannelsQuery } from "@graphql";
+import { ChannelFragment } from "@graphql";
 
 interface ChannelDetailsProps {
   channelPaymentOptions?: ChannelPaymentOptions;
-  channels?: Exclude<ChannelsQuery["channels"], null>;
+  channels: ChannelFragment[];
   saveButtonBarState: ConfirmButtonTransitionState;
   loading: boolean;
   onCancel: () => void;
@@ -66,6 +66,7 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
   } = useForm({
     shouldUnregister: true, // Legacy fields from different subpage using the same form might be still present, this should unregister them
   });
+
   useEffect(() => {
     resetForm(getFormDefaultValues(channelPaymentOptions)); // Update values on subpage change as the same form is used
   }, [channelPaymentOptions, resetForm]);
@@ -91,11 +92,11 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
     });
   };
 
-  const handleSubmit = (flattedSettings: Record<string, string>) => {
+  const handleSubmit = (flattenedSettings: Record<string, string>) => {
     onSubmit(
       (channelPaymentOptions?.channel.id
         ? {
-            [channelPaymentOptions.channel.id]: flattedSettings,
+            [channelPaymentOptions.channel.id]: flattenedSettings,
           }
         : {}) as ChannelActivePaymentProviders
     );
@@ -110,7 +111,7 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
         items={mapNodesToItems(channels)}
         selectedItem={
           channelPaymentOptions?.channel &&
-          mapNodeToItem(channelPaymentOptions?.channel)
+          mapNodeToItem(channelPaymentOptions.channel)
         }
         loading={loading}
         onItemClick={onChannelClick}

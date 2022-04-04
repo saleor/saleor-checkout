@@ -21,26 +21,26 @@ export const flattenSettingId = (optionIdx: number, settingId: string) =>
   `${optionIdx}-${settingId}`;
 
 export const unflattenSettings = <T, S extends Node>(
-  flattedSettings: Record<string, T>,
+  flattenedSettings: Record<string, T>,
   options: S[]
 ) => {
-  const unflattedSettings: UnknownSettingsValues<T> = {};
+  const unflattenedSettings: UnknownSettingsValues<T> = {};
 
-  Object.keys(flattedSettings).forEach((flattedKey) => {
+  Object.keys(flattenedSettings).forEach((flattedKey) => {
     const keys = flattedKey.split(/-(.+)/);
 
     const mainKey = options[Number(keys[0])]?.id;
     const subKey = keys[1];
 
     if (mainKey && subKey) {
-      unflattedSettings[mainKey] = {
-        ...unflattedSettings[mainKey],
-        [subKey]: flattedSettings[flattedKey],
+      unflattenedSettings[mainKey] = {
+        ...unflattenedSettings[mainKey],
+        [subKey]: flattenedSettings[flattedKey],
       };
     }
   });
 
-  return unflattedSettings;
+  return unflattenedSettings;
 };
 
 export const mapMetadataToSettings = (

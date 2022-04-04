@@ -46,6 +46,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   } = useForm({
     shouldUnregister: true, // Legacy fields from different subpage using the same form might be still present, this should unregister them
   });
+
   useEffect(() => {
     resetForm(getFormDefaultValues(selectedPaymentProvider)); // Update values on subpage change as the same form is used
   }, [selectedPaymentProvider, resetForm]);

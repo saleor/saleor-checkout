@@ -1,5 +1,4 @@
 import { isSsr } from "@constants";
-import { parseJwt } from "@frontend/utils";
 import { OperationContext } from "@urql/core";
 import { useMemo } from "react";
 import { useApp } from "./useApp";

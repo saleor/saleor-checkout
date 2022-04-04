@@ -10,7 +10,8 @@
       "@constants": ["constants.ts"]
     },
     "strict": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "noEmit": true
   },
   "extends": "tsconfig/nextjs.json",
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -40,9 +40,12 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
   const classes = useStyles();
   const { control, handleSubmit: handleSubmitForm, formState } = useForm();
 
-  const handleSubmit = (flattedSettings: Record<string, string>) => {
+  const handleSubmit = (flattenedSettings: Record<string, string>) => {
     onSubmit(
-      unflattenSettings(flattedSettings, options) as CustomizationSettingsValues
+      unflattenSettings(
+        flattenedSettings,
+        options
+      ) as CustomizationSettingsValues
     );
   };
 

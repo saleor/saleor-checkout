@@ -30,7 +30,7 @@ const FileInput: React.FC<FileInputProps> = ({
   const anchor = useRef<HTMLInputElement>(null);
   const [src, setSrc] = React.useState<string | undefined>(value);
 
-  const handleFileUploadButtonClick = () => anchor.current?.click();
+  const handleFileUploadButtonClick = () => anchor.current!.click();
 
   const handleDragEvent = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -53,16 +53,14 @@ const FileInput: React.FC<FileInputProps> = ({
   };
 
   const handleFileDelete = () => {
-    if (anchor.current) {
-      anchor.current.value = "";
-      onChange({
-        target: {
-          name,
-          value: "",
-        },
-      } as React.ChangeEvent<HTMLInputElement>);
-      setSrc(undefined);
-    }
+    anchor.current!.value = "";
+    onChange({
+      target: {
+        name,
+        value: "",
+      },
+    } as React.ChangeEvent<HTMLInputElement>);
+    setSrc(undefined);
   };
 
   return (

@@ -1,6 +1,6 @@
-import { ChannelsQuery } from "@graphql";
+import { ChannelFragment } from "@graphql";
 
-export const channels: Exclude<ChannelsQuery["channels"], null | undefined> = [
+export const channels: ChannelFragment[] = [
   {
     id: "channel-1",
     name: "B2B Channel",

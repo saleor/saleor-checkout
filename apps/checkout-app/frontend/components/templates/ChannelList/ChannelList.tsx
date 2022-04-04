@@ -11,11 +11,11 @@ import { channelPath } from "routes";
 import { useStyles } from "./styles";
 import { FormattedMessage } from "react-intl";
 import { messages } from "./messages";
-import { ChannelsQuery } from "@graphql";
+import { ChannelFragment } from "@graphql";
 import Skeleton from "@material-ui/lab/Skeleton";
 
 interface ChannelListProps {
-  channels?: ChannelsQuery["channels"];
+  channels: ChannelFragment[];
   loading: boolean;
 }
 
@@ -23,9 +23,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ channels, loading }) => {
   const router = useRouter();
   const classes = useStyles();
 
-  const onChannelClick = (
-    channel: Exclude<ChannelsQuery["channels"], null | undefined>[number]
-  ) => {
+  const onChannelClick = (channel: ChannelFragment) => {
     router.push({
       pathname: channelPath,
       query: { channelId: channel.id },
@@ -47,7 +45,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ channels, loading }) => {
           {loading ? (
             <Skeleton />
           ) : (
-            channels?.map((channel) => (
+            channels.map((channel) => (
               <OffsettedListItem
                 key={channel.id}
                 className={classes.listItem}
