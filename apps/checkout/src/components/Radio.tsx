@@ -52,6 +52,7 @@ export const Radio: React.FC<RadioProps> = ({
           {subtitle && <Text>{subtitle}</Text>}
         </label>
       ) : (
+        // @ts-ignore to be removed after this is moved to ui kit
         cloneElement(content, { htmlFor: id })
       )}
     </div>
