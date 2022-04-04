@@ -1,4 +1,3 @@
-import { AddressField } from "@lib/globalTypes";
 import { getSortedAddressFieldsFromAddress } from "@lib/utils/address";
 import { Text } from "@components/Text";
 import React from "react";
@@ -6,6 +5,7 @@ import { without } from "lodash";
 import { RadioOptionContentProps } from "@components/Radio";
 import { IconButton } from "@components/IconButton";
 import { PenIcon, TrashIcon } from "@icons";
+import { AddressField } from "@lib/globalTypes";
 
 interface addressBoxContentProps extends RadioOptionContentProps {
   address: Record<AddressField, any>;

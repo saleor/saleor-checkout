@@ -5,7 +5,7 @@ import { useValidationResolver } from "@lib/utils";
 import { PaymentOptions } from "./PaymentOptions";
 import { ShippingMethods } from "./ShippingMethods";
 import { UserAddresses } from "./UserAddresses";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { Contact } from "./Contact";
