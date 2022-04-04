@@ -1,4 +1,5 @@
 export { AddIcon } from "./AddIcon";
+export { AlertIcon } from "./AlertIcon";
 export { BackIcon } from "./BackIcon";
 export { CheckIcon } from "./CheckIcon";
 export { ChevronDownIcon } from "./ChevronDownIcon";
@@ -12,4 +13,5 @@ export { MinusIcon } from "./MinusIcon";
 export { PhotoIcon } from "./PhotoIcon";
 export { PlusIcon } from "./PlusIcon";
 export { RemoveIcon } from "./RemoveIcon";
+export { SuccessIcon } from "./SuccessIcon";
 export { TrashIcon } from "./TrashIcon";

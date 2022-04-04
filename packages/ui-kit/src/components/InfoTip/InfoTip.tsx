@@ -1,4 +1,4 @@
-import { FC, ReactNode, MouseEvent } from "react";
+import { FC } from "react";
 import clsx from "clsx";
 
 import styles from "./InfoTip.module.css";
