@@ -1,26 +1,21 @@
 import { useRouter } from "next/router";
 import CustomizationDetails from "@frontend/components/templates/CustomizationDetails";
 import { CustomizationSettingsValues } from "types/api";
-import { withUrqlClient } from "next-urql";
-import { useAuthContext } from "@frontend/hooks/useAuthContext";
 import {
   usePrivateMetadataQuery,
   useUpdatePrivateMetadataMutation,
 } from "@graphql";
 import { mapMetadataToSettings, mapSettingsToMetadata } from "@frontend/utils";
 import { getCustomizationSettings } from "@frontend/data";
-import { API_URL } from "@constants";
 import { useAuthData } from "@frontend/hooks/useAuthData";
 
 const Customization = () => {
   const router = useRouter();
-  const authContext = useAuthContext();
   const { app } = useAuthData();
   const [metadataQuery] = usePrivateMetadataQuery({
     variables: {
       id: app,
     },
-    context: authContext,
   });
   const [metadataMutation, setPrivateMetadata] =
     useUpdatePrivateMetadataMutation();
@@ -41,13 +36,10 @@ const Customization = () => {
       customizations: data,
     });
 
-    setPrivateMetadata(
-      {
-        id: app,
-        input: metadata,
-      },
-      authContext
-    );
+    setPrivateMetadata({
+      id: app,
+      input: metadata,
+    });
   };
 
   return (
@@ -60,6 +52,4 @@ const Customization = () => {
     />
   );
 };
-export default withUrqlClient(() => ({
-  url: API_URL,
-}))(Customization);
+export default Customization;

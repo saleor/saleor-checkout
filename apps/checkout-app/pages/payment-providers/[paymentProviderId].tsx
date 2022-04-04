@@ -1,9 +1,6 @@
 import PaymentProviderDetails from "frontend/components/templates/PaymentProviderDetails";
 import { PaymentProviderSettingsValues } from "types/api";
 import { useRouter } from "next/router";
-import { withUrqlClient } from "next-urql";
-import { API_URL } from "@constants";
-import { useAuthContext } from "@frontend/hooks/useAuthContext";
 import { useAuthData } from "@frontend/hooks/useAuthData";
 import {
   usePrivateMetadataQuery,
@@ -16,13 +13,11 @@ const PaymentProvider = () => {
   const router = useRouter();
   const { paymentProviderId, channelId } = router.query;
 
-  const authContext = useAuthContext();
   const { app } = useAuthData();
   const [metadataQuery] = usePrivateMetadataQuery({
     variables: {
       id: app,
     },
-    context: authContext,
   });
   const [metadataMutation, setPrivateMetadata] =
     useUpdatePrivateMetadataMutation();
@@ -50,13 +45,10 @@ const PaymentProvider = () => {
       },
     });
 
-    setPrivateMetadata(
-      {
-        id: app,
-        input: metadata,
-      },
-      authContext
-    );
+    setPrivateMetadata({
+      id: app,
+      input: metadata,
+    });
   };
 
   return (
@@ -70,6 +62,4 @@ const PaymentProvider = () => {
     />
   );
 };
-export default withUrqlClient(() => ({
-  url: API_URL,
-}))(PaymentProvider);
+export default PaymentProvider;

@@ -1,6 +1,4 @@
-import { API_URL } from "@constants";
 import { getChannelPaymentOptions } from "@frontend/data";
-import { useAuthContext } from "@frontend/hooks/useAuthContext";
 import { useAuthData } from "@frontend/hooks/useAuthData";
 import { mapMetadataToSettings, mapSettingsToMetadata } from "@frontend/utils";
 import {
@@ -9,7 +7,6 @@ import {
   useUpdatePrivateMetadataMutation,
 } from "@graphql";
 import ChannelDetails from "frontend/components/templates/ChannelDetails";
-import { withUrqlClient } from "next-urql";
 import { useRouter } from "next/router";
 import { ChannelActivePaymentProviders } from "types/api";
 
@@ -17,13 +14,11 @@ const Channel = () => {
   const router = useRouter();
   const { channelId } = router.query;
 
-  const authContext = useAuthContext();
   const { app } = useAuthData();
   const [metadataQuery] = usePrivateMetadataQuery({
     variables: {
       id: app,
     },
-    context: authContext,
   });
   const [metadataMutation, setPrivateMetadata] =
     useUpdatePrivateMetadataMutation();
@@ -32,9 +27,7 @@ const Channel = () => {
     metadataQuery.data?.app?.privateMetadata || []
   );
 
-  const [channelsQuery] = useChannelsQuery({
-    context: authContext,
-  });
+  const [channelsQuery] = useChannelsQuery();
   const channels = channelsQuery.data?.channels || [];
 
   const channelPaymentOptions = getChannelPaymentOptions(
@@ -55,13 +48,10 @@ const Channel = () => {
       },
     });
 
-    setPrivateMetadata(
-      {
-        id: app,
-        input: metadata,
-      },
-      authContext
-    );
+    setPrivateMetadata({
+      id: app,
+      input: metadata,
+    });
   };
 
   return (
@@ -79,6 +69,4 @@ const Channel = () => {
     />
   );
 };
-export default withUrqlClient(() => ({
-  url: API_URL,
-}))(Channel);
+export default Channel;

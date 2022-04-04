@@ -71,7 +71,7 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
                   <div className={classes.optionDetailsContent}>
                     {option.settings?.map(({ id, type, label, value }) =>
                       loading ? (
-                        <Skeleton />
+                        <Skeleton key={id} />
                       ) : (
                         <Controller
                           key={id}

@@ -16,4 +16,7 @@ module.exports = withTM({
     ];
   },
   images: { domains: ["localhost"] },
+  experimental: {
+    esmExternals: false,
+  },
 });

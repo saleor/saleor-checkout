@@ -113,7 +113,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
               {selectedPaymentProvider?.settings?.map(
                 ({ id, type, label, value }) =>
                   loading ? (
-                    <Skeleton />
+                    <Skeleton key={id} />
                   ) : (
                     <Controller
                       key={id}
