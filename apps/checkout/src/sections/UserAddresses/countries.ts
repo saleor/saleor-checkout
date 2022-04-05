@@ -1,7 +1,7 @@
 export const countries = [
   {
     code: "PL",
-    name: "Polsza",
+    name: "Poland",
   },
   {
     code: "GB",
