@@ -1,6 +1,6 @@
 import { isSsr } from "@constants";
-import { OperationContext } from "@urql/core";
 import { useMemo } from "react";
+import { OperationContext } from "urql";
 import { useApp } from "./useApp";
 
 export const useAuthContext = (): Partial<OperationContext> | undefined => {

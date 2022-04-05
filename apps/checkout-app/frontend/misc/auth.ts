@@ -1,6 +1,7 @@
 import { authExchange } from "@urql/exchange-auth";
-import { createClient, makeOperation } from "@urql/core";
 import {
+  createClient,
+  makeOperation,
   cacheExchange,
   ClientOptions,
   dedupExchange,
