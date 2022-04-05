@@ -18,6 +18,17 @@ module.exports = {
       },
     },
   ],
+  typescript: {
+    check: false,
+    checkOptions: {},
+    reactDocgen: "react-docgen-typescript",
+    reactDocgenTypescriptOptions: {
+      compilerOptions: {
+        allowSyntheticDefaultImports: false,
+        esModuleInterop: false,
+      },
+    },
+  },
   framework: "@storybook/react",
   webpackFinal: async (config, options) => {
     config.module.rules.find(
