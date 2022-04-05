@@ -12,7 +12,7 @@ export const PaymentOptions: React.FC<PaymentOptionsProps> = ({}) => {
 
   const finalizeCheckout = async () => {
     const result = await fetch(
-      "https://saleor-checkout-app-git-payments-app-saleorcommerce.vercel.app/api/pay",
+      `${process.env.REACT_APP_CHECKOUT_APP_URL}/pay`,
       {
         method: "POST",
         body: JSON.stringify({
