@@ -13431,6 +13431,19 @@ export type _Service = {
   sdl?: Maybe<Scalars["String"]>;
 };
 
+export type AccountErrorFragment = {
+  __typename?: "AccountError";
+  message?: string | null;
+  code: AccountErrorCode;
+};
+
+export type CheckoutErrorFragment = {
+  __typename?: "CheckoutError";
+  message?: string | null;
+  field?: string | null;
+  code: CheckoutErrorCode;
+};
+
 export type CheckoutFragment = {
   __typename?: "Checkout";
   id: string;
@@ -13770,8 +13783,9 @@ export type CheckoutEmailUpdateMutation = {
     __typename?: "CheckoutEmailUpdate";
     errors: Array<{
       __typename?: "CheckoutError";
-      field?: string | null;
       message?: string | null;
+      field?: string | null;
+      code: CheckoutErrorCode;
     }>;
     checkout?: {
       __typename?: "Checkout";
@@ -13854,8 +13868,9 @@ export type CheckoutCustomerAttachMutation = {
     __typename?: "CheckoutCustomerAttach";
     errors: Array<{
       __typename?: "CheckoutError";
-      field?: string | null;
       message?: string | null;
+      field?: string | null;
+      code: CheckoutErrorCode;
     }>;
     checkout?: {
       __typename?: "Checkout";
@@ -13937,8 +13952,9 @@ export type CheckoutCustomerDetachMutation = {
     __typename?: "CheckoutCustomerDetach";
     errors: Array<{
       __typename?: "CheckoutError";
-      field?: string | null;
       message?: string | null;
+      field?: string | null;
+      code: CheckoutErrorCode;
     }>;
     checkout?: {
       __typename?: "Checkout";
@@ -14020,8 +14036,8 @@ export type UserAddressDeleteMutation = {
     __typename?: "AccountAddressDelete";
     errors: Array<{
       __typename?: "AccountError";
-      field?: string | null;
       message?: string | null;
+      code: AccountErrorCode;
     }>;
     address?: {
       __typename?: "Address";
@@ -14050,8 +14066,8 @@ export type UserAddressUpdateMutation = {
     __typename?: "AccountAddressUpdate";
     errors: Array<{
       __typename?: "AccountError";
-      field?: string | null;
       message?: string | null;
+      code: AccountErrorCode;
     }>;
     address?: {
       __typename?: "Address";
@@ -14080,8 +14096,8 @@ export type UserAddressCreateMutation = {
     __typename?: "AccountAddressCreate";
     errors: Array<{
       __typename?: "AccountError";
-      field?: string | null;
       message?: string | null;
+      code: AccountErrorCode;
     }>;
     address?: {
       __typename?: "Address";
@@ -14110,8 +14126,9 @@ export type CheckoutShippingAddressUpdateMutation = {
     __typename?: "CheckoutShippingAddressUpdate";
     errors: Array<{
       __typename?: "CheckoutError";
-      field?: string | null;
       message?: string | null;
+      field?: string | null;
+      code: CheckoutErrorCode;
     }>;
     checkout?: {
       __typename?: "Checkout";
@@ -14194,8 +14211,9 @@ export type CheckoutBillingAddressUpdateMutation = {
     __typename?: "CheckoutBillingAddressUpdate";
     errors: Array<{
       __typename?: "CheckoutError";
-      field?: string | null;
       message?: string | null;
+      field?: string | null;
+      code: CheckoutErrorCode;
     }>;
     checkout?: {
       __typename?: "Checkout";
@@ -14278,8 +14296,9 @@ export type CheckoutDeliveryMethodUpdateMutation = {
     __typename?: "CheckoutDeliveryMethodUpdate";
     errors: Array<{
       __typename?: "CheckoutError";
-      field?: string | null;
       message?: string | null;
+      field?: string | null;
+      code: CheckoutErrorCode;
     }>;
     checkout?: {
       __typename?: "Checkout";
@@ -14365,6 +14384,19 @@ export type AddressValidationRulesQuery = {
   } | null;
 };
 
+export const AccountErrorFragmentDoc = gql`
+  fragment AccountErrorFragment on AccountError {
+    message
+    code
+  }
+`;
+export const CheckoutErrorFragmentDoc = gql`
+  fragment CheckoutErrorFragment on CheckoutError {
+    message
+    field
+    code
+  }
+`;
 export const CheckoutLineFragmentDoc = gql`
   fragment CheckoutLineFragment on CheckoutLine {
     id
@@ -14523,9 +14555,7 @@ export const CheckoutLinesUpdateDocument = gql`
   mutation checkoutLinesUpdate($token: UUID!, $lines: [CheckoutLineInput]!) {
     checkoutLinesUpdate(token: $token, lines: $lines) {
       errors {
-        message
-        field
-        code
+        ...CheckoutErrorFragment
       }
       checkout {
         token
@@ -14535,6 +14565,7 @@ export const CheckoutLinesUpdateDocument = gql`
       }
     }
   }
+  ${CheckoutErrorFragmentDoc}
   ${CheckoutLineFragmentDoc}
 `;
 
@@ -14548,9 +14579,7 @@ export const CheckoutLineDeleteDocument = gql`
   mutation checkoutLineDelete($token: UUID!, $lineId: ID) {
     checkoutLineDelete(token: $token, lineId: $lineId) {
       errors {
-        message
-        field
-        code
+        ...CheckoutErrorFragment
       }
       checkout {
         token
@@ -14560,6 +14589,7 @@ export const CheckoutLineDeleteDocument = gql`
       }
     }
   }
+  ${CheckoutErrorFragmentDoc}
   ${CheckoutLineFragmentDoc}
 `;
 
@@ -14573,14 +14603,14 @@ export const CheckoutEmailUpdateDocument = gql`
   mutation checkoutEmailUpdate($email: String!, $token: UUID!) {
     checkoutEmailUpdate(email: $email, token: $token) {
       errors {
-        field
-        message
+        ...CheckoutErrorFragment
       }
       checkout {
         ...CheckoutFragment
       }
     }
   }
+  ${CheckoutErrorFragmentDoc}
   ${CheckoutFragmentDoc}
 `;
 
@@ -14594,14 +14624,14 @@ export const CheckoutCustomerAttachDocument = gql`
   mutation checkoutCustomerAttach($customerId: ID!, $token: UUID!) {
     checkoutCustomerAttach(customerId: $customerId, token: $token) {
       errors {
-        field
-        message
+        ...CheckoutErrorFragment
       }
       checkout {
         ...CheckoutFragment
       }
     }
   }
+  ${CheckoutErrorFragmentDoc}
   ${CheckoutFragmentDoc}
 `;
 
@@ -14615,14 +14645,14 @@ export const CheckoutCustomerDetachDocument = gql`
   mutation checkoutCustomerDetach($token: UUID!) {
     checkoutCustomerDetach(token: $token) {
       errors {
-        field
-        message
+        ...CheckoutErrorFragment
       }
       checkout {
         ...CheckoutFragment
       }
     }
   }
+  ${CheckoutErrorFragmentDoc}
   ${CheckoutFragmentDoc}
 `;
 
@@ -14636,14 +14666,14 @@ export const UserAddressDeleteDocument = gql`
   mutation userAddressDelete($id: ID!) {
     accountAddressDelete(id: $id) {
       errors {
-        field
-        message
+        ...AccountErrorFragment
       }
       address {
         ...AddressFragment
       }
     }
   }
+  ${AccountErrorFragmentDoc}
   ${AddressFragmentDoc}
 `;
 
@@ -14657,14 +14687,14 @@ export const UserAddressUpdateDocument = gql`
   mutation userAddressUpdate($id: ID!, $address: AddressInput!) {
     accountAddressUpdate(id: $id, input: $address) {
       errors {
-        field
-        message
+        ...AccountErrorFragment
       }
       address {
         ...AddressFragment
       }
     }
   }
+  ${AccountErrorFragmentDoc}
   ${AddressFragmentDoc}
 `;
 
@@ -14678,14 +14708,14 @@ export const UserAddressCreateDocument = gql`
   mutation userAddressCreate($address: AddressInput!, $type: AddressTypeEnum) {
     accountAddressCreate(type: $type, input: $address) {
       errors {
-        field
-        message
+        ...AccountErrorFragment
       }
       address {
         ...AddressFragment
       }
     }
   }
+  ${AccountErrorFragmentDoc}
   ${AddressFragmentDoc}
 `;
 
@@ -14705,14 +14735,14 @@ export const CheckoutShippingAddressUpdateDocument = gql`
       shippingAddress: $shippingAddress
     ) {
       errors {
-        field
-        message
+        ...CheckoutErrorFragment
       }
       checkout {
         ...CheckoutFragment
       }
     }
   }
+  ${CheckoutErrorFragmentDoc}
   ${CheckoutFragmentDoc}
 `;
 
@@ -14732,14 +14762,14 @@ export const CheckoutBillingAddressUpdateDocument = gql`
       billingAddress: $billingAddress
     ) {
       errors {
-        field
-        message
+        ...CheckoutErrorFragment
       }
       checkout {
         ...CheckoutFragment
       }
     }
   }
+  ${CheckoutErrorFragmentDoc}
   ${CheckoutFragmentDoc}
 `;
 
@@ -14756,14 +14786,14 @@ export const CheckoutDeliveryMethodUpdateDocument = gql`
       deliveryMethodId: $deliveryMethodId
     ) {
       errors {
-        field
-        message
+        ...CheckoutErrorFragment
       }
       checkout {
         ...CheckoutFragment
       }
     }
   }
+  ${CheckoutErrorFragmentDoc}
   ${CheckoutFragmentDoc}
 `;
 

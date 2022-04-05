@@ -1,3 +1,14 @@
+fragment AccountErrorFragment on AccountError {
+  message
+  code
+}
+
+fragment CheckoutErrorFragment on CheckoutError {
+  message
+  field
+  code
+}
+
 fragment CheckoutFragment on Checkout {
   id
   email
@@ -135,9 +146,7 @@ query user($id: ID!) {
 mutation checkoutLinesUpdate($token: UUID!, $lines: [CheckoutLineInput]!) {
   checkoutLinesUpdate(token: $token, lines: $lines) {
     errors {
-      message
-      field
-      code
+      ...CheckoutErrorFragment
     }
     checkout {
       token
@@ -151,9 +160,7 @@ mutation checkoutLinesUpdate($token: UUID!, $lines: [CheckoutLineInput]!) {
 mutation checkoutLineDelete($token: UUID!, $lineId: ID) {
   checkoutLineDelete(token: $token, lineId: $lineId) {
     errors {
-      message
-      field
-      code
+      ...CheckoutErrorFragment
     }
     checkout {
       token
@@ -167,8 +174,7 @@ mutation checkoutLineDelete($token: UUID!, $lineId: ID) {
 mutation checkoutEmailUpdate($email: String!, $token: UUID!) {
   checkoutEmailUpdate(email: $email, token: $token) {
     errors {
-      field
-      message
+      ...CheckoutErrorFragment
     }
     checkout {
       ...CheckoutFragment
@@ -179,8 +185,7 @@ mutation checkoutEmailUpdate($email: String!, $token: UUID!) {
 mutation checkoutCustomerAttach($customerId: ID!, $token: UUID!) {
   checkoutCustomerAttach(customerId: $customerId, token: $token) {
     errors {
-      field
-      message
+      ...CheckoutErrorFragment
     }
     checkout {
       ...CheckoutFragment
@@ -191,8 +196,7 @@ mutation checkoutCustomerAttach($customerId: ID!, $token: UUID!) {
 mutation checkoutCustomerDetach($token: UUID!) {
   checkoutCustomerDetach(token: $token) {
     errors {
-      field
-      message
+      ...CheckoutErrorFragment
     }
     checkout {
       ...CheckoutFragment
@@ -203,8 +207,7 @@ mutation checkoutCustomerDetach($token: UUID!) {
 mutation userAddressDelete($id: ID!) {
   accountAddressDelete(id: $id) {
     errors {
-      field
-      message
+      ...AccountErrorFragment
     }
     address {
       ...AddressFragment
@@ -214,8 +217,7 @@ mutation userAddressDelete($id: ID!) {
 mutation userAddressUpdate($id: ID!, $address: AddressInput!) {
   accountAddressUpdate(id: $id, input: $address) {
     errors {
-      field
-      message
+      ...AccountErrorFragment
     }
     address {
       ...AddressFragment
@@ -226,8 +228,7 @@ mutation userAddressUpdate($id: ID!, $address: AddressInput!) {
 mutation userAddressCreate($address: AddressInput!, $type: AddressTypeEnum) {
   accountAddressCreate(type: $type, input: $address) {
     errors {
-      field
-      message
+      ...AccountErrorFragment
     }
     address {
       ...AddressFragment
@@ -244,8 +245,7 @@ mutation checkoutShippingAddressUpdate(
     shippingAddress: $shippingAddress
   ) {
     errors {
-      field
-      message
+      ...CheckoutErrorFragment
     }
     checkout {
       ...CheckoutFragment
@@ -259,8 +259,7 @@ mutation checkoutBillingAddressUpdate(
 ) {
   checkoutBillingAddressUpdate(token: $token, billingAddress: $billingAddress) {
     errors {
-      field
-      message
+      ...CheckoutErrorFragment
     }
     checkout {
       ...CheckoutFragment
@@ -274,8 +273,7 @@ mutation checkoutDeliveryMethodUpdate($token: UUID!, $deliveryMethodId: ID!) {
     deliveryMethodId: $deliveryMethodId
   ) {
     errors {
-      field
-      message
+      ...CheckoutErrorFragment
     }
     checkout {
       ...CheckoutFragment
