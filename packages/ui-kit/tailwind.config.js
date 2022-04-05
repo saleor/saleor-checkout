@@ -41,6 +41,7 @@ const theme = {
     },
     chipButton: {
       active: "#4f5460",
+      activeTextColor: "#ffffff",
     },
     border: {
       primary: "#B9C1CF",
