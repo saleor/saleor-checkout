@@ -145,7 +145,7 @@ html {
   }
 
   .radio-option {
-    @apply box-content py-6 px-6 flex flex-row items-center border-x border-t border-border-primary;
+    @apply box-content py-6 px-6 flex flex-row items-start border-x border-t border-border-primary;
   }
 
   .radio-option.with-subtitle {

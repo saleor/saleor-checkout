@@ -1,7 +1,6 @@
 import { getSortedAddressFieldsFromAddress } from "@lib/utils/address";
 import { Text } from "@components/Text";
 import React from "react";
-import { without } from "lodash";
 import { RadioOption, RadioOptionContentProps } from "@components/Radio";
 import { IconButton } from "@components/IconButton";
 import { PenIcon, TrashIcon } from "@icons";
@@ -28,7 +27,7 @@ export const AddressBoxContent: React.FC<addressBoxContentProps> = ({
       <div className="flex flex-col">
         <label htmlFor={htmlFor}>
           <Text weight="semibold">{name}</Text>
-          {without(getSortedAddressFieldsFromAddress(address), "name").map(
+          {getSortedAddressFieldsFromAddress(address).map(
             (field: AddressField) => (
               <Text>{address[field] as string}</Text>
             )
