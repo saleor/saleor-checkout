@@ -1,4 +1,4 @@
-// THIS FILE IS GENERATED WITH `yarn generate`
+// THIS FILE IS GENERATED WITH `pnpm generate`
 import gql from 'graphql-tag';
 import * as Urql from 'urql';
 export type Maybe<T> = T | null;
