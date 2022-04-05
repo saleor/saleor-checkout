@@ -64,17 +64,22 @@ export const getChannelPaymentOptionsList = (
   channels.map((channel) => ({
     id: channel.id,
     channel: channel,
-    paymentOptions: paymentMethods.map((method) => ({
-      id: method.id,
-      method,
-      availableProviders: paymentProviders,
-      activeProvider: activePaymentProviders?.[channel.id]?.[method.id]
-        ? findById(
+    paymentOptions: paymentMethods.map((method) => {
+      const activeProvider =
+        (activePaymentProviders?.[channel.id]?.[method.id] &&
+          findById(
             paymentProviders,
             activePaymentProviders[channel.id][method.id]
-          ) || null
-        : null,
-    })),
+          )) ||
+        null;
+
+      return {
+        id: method.id,
+        method,
+        availableProviders: paymentProviders,
+        activeProvider,
+      };
+    }),
   }));
 export const getChannelPaymentOptions = (
   channels: ChannelFragment[],
