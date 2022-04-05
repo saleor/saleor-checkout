@@ -39,6 +39,9 @@ const theme = {
       tertiary: "#DEE4EF",
       quaternary: "#EEF1F7",
     },
+    chipButton: {
+      active: "#4f5460",
+    },
     border: {
       primary: "#B9C1CF",
       tertiary: "#DEE4EF",

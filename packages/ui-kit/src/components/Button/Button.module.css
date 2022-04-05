@@ -1,5 +1,7 @@
 .button {
-  @apply py-3 px-4 whitespace-nowrap border focus:outline-none active:outline-none;
+  @apply py-3 h-12 inline-flex items-center whitespace-nowrap border focus:outline-none active:outline-none;
+  padding-left: calc(theme("spacing.4") - theme("borderWidth.DEFAULT"));
+  padding-right: calc(theme("spacing.4") - theme("borderWidth.DEFAULT"));
 }
 
 .button-primary {
@@ -24,7 +26,7 @@
 }
 
 .button-tertiary {
-  @apply border-none bg-transparent px-0 py-0;
+  @apply border-none bg-transparent p-0 h-auto;
 }
 
 .button-tertiary > span {

@@ -1,5 +1,7 @@
 .chip {
-  @apply h-10 pl-3 pr-2 inline-flex items-center border border-border-tertiary bg-transparent;
+  @apply h-10 inline-flex items-center border border-border-tertiary bg-transparent;
+  padding-left: calc(theme("spacing.3") - theme("borderWidth.DEFAULT"));
+  padding-right: calc(theme("spacing.2") - theme("borderWidth.DEFAULT"));
 }
 
 .chip-label-margin {

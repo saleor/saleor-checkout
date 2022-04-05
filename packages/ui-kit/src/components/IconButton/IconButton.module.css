@@ -1,5 +1,7 @@
 .icon-button {
-  @apply h-10 py-2 px-3 inline-flex items-center;
+  @apply h-10 py-2 inline-flex items-center;
+  padding-left: calc(theme("spacing.3") - theme("borderWidth.DEFAULT"));
+  padding-right: calc(theme("spacing.3") - theme("borderWidth.DEFAULT"));
 }
 
 .icon-button-reverse {
