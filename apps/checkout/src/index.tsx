@@ -11,7 +11,7 @@ import { createFetch, createSaleorClient, SaleorProvider } from "@saleor/sdk";
 const authorizedFetch = createFetch();
 
 const client = createClient({
-  url: "https://new-checkout-flow-poc.api.saleor.rocks/graphql/",
+  url: process.env.REACT_APP_API_URL as string,
   suspense: true,
   requestPolicy: "cache-first",
   fetch: authorizedFetch,
@@ -20,7 +20,7 @@ const client = createClient({
 // temporarily need to use @apollo/client because saleor sdk
 // is based on apollo. to be changed
 const saleorClient = createSaleorClient({
-  apiUrl: "https://new-checkout-flow-poc.api.saleor.rocks/graphql/",
+  apiUrl: process.env.REACT_APP_API_URL as string,
   channel: "default-channel",
 });
 

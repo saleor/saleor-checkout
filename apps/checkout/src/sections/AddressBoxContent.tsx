@@ -29,7 +29,7 @@ export const AddressBoxContent: React.FC<addressBoxContentProps> = ({
           <Text weight="semibold">{name}</Text>
           {getSortedAddressFieldsFromAddress(address).map(
             (field: AddressField) => (
-              <Text>{address[field] as string}</Text>
+              <Text key={field}>{address[field] as string}</Text>
             )
           )}
         </label>
