@@ -1,4 +1,5 @@
-import { CountryCode } from "@graphql";
+import { CountryCode, useCheckoutEmailUpdateMutation } from "@graphql";
+import { useCheckout } from "@hooks/useCheckout";
 import React, { useState } from "react";
 import { AddressFormData } from "./types";
 import { UserAddressForm } from "./UserAddressForm";
@@ -6,11 +7,13 @@ import { UserAddressSectionContainer } from "./UserAddressSectionContainer";
 
 interface GuestAddressSectionProps {
   onSubmit: (address: AddressFormData) => void;
+  address: AddressFormData;
   title: string;
 }
 
 export const GuestAddressSection: React.FC<GuestAddressSectionProps> = ({
   onSubmit,
+  address,
   title,
 }) => {
   const [selectedCountryCode, setSelectedCountryCode] =
@@ -23,7 +26,11 @@ export const GuestAddressSection: React.FC<GuestAddressSectionProps> = ({
       selectedCountryCode={selectedCountryCode}
       onCountrySelect={setSelectedCountryCode}
     >
-      <UserAddressForm onSave={onSubmit} countryCode={selectedCountryCode} />
+      <UserAddressForm
+        onSave={onSubmit}
+        countryCode={selectedCountryCode}
+        defaultValues={address}
+      />
     </UserAddressSectionContainer>
   );
 };

@@ -8,8 +8,8 @@ import {
 import { extractMutationErrors, getById } from "@lib/utils";
 import { AddressTypeEnum } from "@saleor/sdk/dist/apollo/types";
 import React, { Suspense, useEffect, useState } from "react";
-import { AddressFormData } from "./types";
-import { UserAddressForm, UserAddressFormData } from "./UserAddressForm";
+import { AddressFormData, UserAddressFormData } from "./types";
+import { UserAddressForm } from "./UserAddressForm";
 import { UserAddressList } from "./UserAddressList";
 import { UserAddressSectionContainer } from "./UserAddressSectionContainer";
 import { getAddressInputData } from "./utils";

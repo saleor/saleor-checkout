@@ -12,6 +12,12 @@ fragment CheckoutErrorFragment on CheckoutError {
 fragment CheckoutFragment on Checkout {
   id
   email
+  shippingAddress {
+    ...AddressFragment
+  }
+  billingAddress {
+    ...AddressFragment
+  }
   user {
     id
     email
@@ -111,6 +117,8 @@ fragment AddressFragment on Address {
   city
   phone
   postalCode
+  companyName
+  cityArea
   streetAddress1
   streetAddress2
   countryArea

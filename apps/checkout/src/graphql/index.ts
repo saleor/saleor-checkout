@@ -13448,6 +13448,36 @@ export type CheckoutFragment = {
   __typename?: "Checkout";
   id: string;
   email?: string | null;
+  shippingAddress?: {
+    __typename?: "Address";
+    id: string;
+    city: string;
+    phone?: string | null;
+    postalCode: string;
+    companyName: string;
+    cityArea: string;
+    streetAddress1: string;
+    streetAddress2: string;
+    countryArea: string;
+    firstName: string;
+    lastName: string;
+    country: { __typename?: "CountryDisplay"; country: string; code: string };
+  } | null;
+  billingAddress?: {
+    __typename?: "Address";
+    id: string;
+    city: string;
+    phone?: string | null;
+    postalCode: string;
+    companyName: string;
+    cityArea: string;
+    streetAddress1: string;
+    streetAddress2: string;
+    countryArea: string;
+    firstName: string;
+    lastName: string;
+    country: { __typename?: "CountryDisplay"; country: string; code: string };
+  } | null;
   user?: { __typename?: "User"; id: string; email: string } | null;
   totalPrice?: {
     __typename?: "TaxedMoney";
@@ -13552,6 +13582,8 @@ export type AddressFragment = {
   city: string;
   phone?: string | null;
   postalCode: string;
+  companyName: string;
+  cityArea: string;
   streetAddress1: string;
   streetAddress2: string;
   countryArea: string;
@@ -13570,6 +13602,36 @@ export type CheckoutQuery = {
     __typename?: "Checkout";
     id: string;
     email?: string | null;
+    shippingAddress?: {
+      __typename?: "Address";
+      id: string;
+      city: string;
+      phone?: string | null;
+      postalCode: string;
+      companyName: string;
+      cityArea: string;
+      streetAddress1: string;
+      streetAddress2: string;
+      countryArea: string;
+      firstName: string;
+      lastName: string;
+      country: { __typename?: "CountryDisplay"; country: string; code: string };
+    } | null;
+    billingAddress?: {
+      __typename?: "Address";
+      id: string;
+      city: string;
+      phone?: string | null;
+      postalCode: string;
+      companyName: string;
+      cityArea: string;
+      streetAddress1: string;
+      streetAddress2: string;
+      countryArea: string;
+      firstName: string;
+      lastName: string;
+      country: { __typename?: "CountryDisplay"; country: string; code: string };
+    } | null;
     user?: { __typename?: "User"; id: string; email: string } | null;
     totalPrice?: {
       __typename?: "TaxedMoney";
@@ -13650,6 +13712,8 @@ export type UserQuery = {
       city: string;
       phone?: string | null;
       postalCode: string;
+      companyName: string;
+      cityArea: string;
       streetAddress1: string;
       streetAddress2: string;
       countryArea: string;
@@ -13791,6 +13855,44 @@ export type CheckoutEmailUpdateMutation = {
       __typename?: "Checkout";
       id: string;
       email?: string | null;
+      shippingAddress?: {
+        __typename?: "Address";
+        id: string;
+        city: string;
+        phone?: string | null;
+        postalCode: string;
+        companyName: string;
+        cityArea: string;
+        streetAddress1: string;
+        streetAddress2: string;
+        countryArea: string;
+        firstName: string;
+        lastName: string;
+        country: {
+          __typename?: "CountryDisplay";
+          country: string;
+          code: string;
+        };
+      } | null;
+      billingAddress?: {
+        __typename?: "Address";
+        id: string;
+        city: string;
+        phone?: string | null;
+        postalCode: string;
+        companyName: string;
+        cityArea: string;
+        streetAddress1: string;
+        streetAddress2: string;
+        countryArea: string;
+        firstName: string;
+        lastName: string;
+        country: {
+          __typename?: "CountryDisplay";
+          country: string;
+          code: string;
+        };
+      } | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
       totalPrice?: {
         __typename?: "TaxedMoney";
@@ -13876,6 +13978,44 @@ export type CheckoutCustomerAttachMutation = {
       __typename?: "Checkout";
       id: string;
       email?: string | null;
+      shippingAddress?: {
+        __typename?: "Address";
+        id: string;
+        city: string;
+        phone?: string | null;
+        postalCode: string;
+        companyName: string;
+        cityArea: string;
+        streetAddress1: string;
+        streetAddress2: string;
+        countryArea: string;
+        firstName: string;
+        lastName: string;
+        country: {
+          __typename?: "CountryDisplay";
+          country: string;
+          code: string;
+        };
+      } | null;
+      billingAddress?: {
+        __typename?: "Address";
+        id: string;
+        city: string;
+        phone?: string | null;
+        postalCode: string;
+        companyName: string;
+        cityArea: string;
+        streetAddress1: string;
+        streetAddress2: string;
+        countryArea: string;
+        firstName: string;
+        lastName: string;
+        country: {
+          __typename?: "CountryDisplay";
+          country: string;
+          code: string;
+        };
+      } | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
       totalPrice?: {
         __typename?: "TaxedMoney";
@@ -13960,6 +14100,44 @@ export type CheckoutCustomerDetachMutation = {
       __typename?: "Checkout";
       id: string;
       email?: string | null;
+      shippingAddress?: {
+        __typename?: "Address";
+        id: string;
+        city: string;
+        phone?: string | null;
+        postalCode: string;
+        companyName: string;
+        cityArea: string;
+        streetAddress1: string;
+        streetAddress2: string;
+        countryArea: string;
+        firstName: string;
+        lastName: string;
+        country: {
+          __typename?: "CountryDisplay";
+          country: string;
+          code: string;
+        };
+      } | null;
+      billingAddress?: {
+        __typename?: "Address";
+        id: string;
+        city: string;
+        phone?: string | null;
+        postalCode: string;
+        companyName: string;
+        cityArea: string;
+        streetAddress1: string;
+        streetAddress2: string;
+        countryArea: string;
+        firstName: string;
+        lastName: string;
+        country: {
+          __typename?: "CountryDisplay";
+          country: string;
+          code: string;
+        };
+      } | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
       totalPrice?: {
         __typename?: "TaxedMoney";
@@ -14045,6 +14223,8 @@ export type UserAddressDeleteMutation = {
       city: string;
       phone?: string | null;
       postalCode: string;
+      companyName: string;
+      cityArea: string;
       streetAddress1: string;
       streetAddress2: string;
       countryArea: string;
@@ -14075,6 +14255,8 @@ export type UserAddressUpdateMutation = {
       city: string;
       phone?: string | null;
       postalCode: string;
+      companyName: string;
+      cityArea: string;
       streetAddress1: string;
       streetAddress2: string;
       countryArea: string;
@@ -14105,6 +14287,8 @@ export type UserAddressCreateMutation = {
       city: string;
       phone?: string | null;
       postalCode: string;
+      companyName: string;
+      cityArea: string;
       streetAddress1: string;
       streetAddress2: string;
       countryArea: string;
@@ -14134,6 +14318,44 @@ export type CheckoutShippingAddressUpdateMutation = {
       __typename?: "Checkout";
       id: string;
       email?: string | null;
+      shippingAddress?: {
+        __typename?: "Address";
+        id: string;
+        city: string;
+        phone?: string | null;
+        postalCode: string;
+        companyName: string;
+        cityArea: string;
+        streetAddress1: string;
+        streetAddress2: string;
+        countryArea: string;
+        firstName: string;
+        lastName: string;
+        country: {
+          __typename?: "CountryDisplay";
+          country: string;
+          code: string;
+        };
+      } | null;
+      billingAddress?: {
+        __typename?: "Address";
+        id: string;
+        city: string;
+        phone?: string | null;
+        postalCode: string;
+        companyName: string;
+        cityArea: string;
+        streetAddress1: string;
+        streetAddress2: string;
+        countryArea: string;
+        firstName: string;
+        lastName: string;
+        country: {
+          __typename?: "CountryDisplay";
+          country: string;
+          code: string;
+        };
+      } | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
       totalPrice?: {
         __typename?: "TaxedMoney";
@@ -14219,6 +14441,44 @@ export type CheckoutBillingAddressUpdateMutation = {
       __typename?: "Checkout";
       id: string;
       email?: string | null;
+      shippingAddress?: {
+        __typename?: "Address";
+        id: string;
+        city: string;
+        phone?: string | null;
+        postalCode: string;
+        companyName: string;
+        cityArea: string;
+        streetAddress1: string;
+        streetAddress2: string;
+        countryArea: string;
+        firstName: string;
+        lastName: string;
+        country: {
+          __typename?: "CountryDisplay";
+          country: string;
+          code: string;
+        };
+      } | null;
+      billingAddress?: {
+        __typename?: "Address";
+        id: string;
+        city: string;
+        phone?: string | null;
+        postalCode: string;
+        companyName: string;
+        cityArea: string;
+        streetAddress1: string;
+        streetAddress2: string;
+        countryArea: string;
+        firstName: string;
+        lastName: string;
+        country: {
+          __typename?: "CountryDisplay";
+          country: string;
+          code: string;
+        };
+      } | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
       totalPrice?: {
         __typename?: "TaxedMoney";
@@ -14304,6 +14564,44 @@ export type CheckoutDeliveryMethodUpdateMutation = {
       __typename?: "Checkout";
       id: string;
       email?: string | null;
+      shippingAddress?: {
+        __typename?: "Address";
+        id: string;
+        city: string;
+        phone?: string | null;
+        postalCode: string;
+        companyName: string;
+        cityArea: string;
+        streetAddress1: string;
+        streetAddress2: string;
+        countryArea: string;
+        firstName: string;
+        lastName: string;
+        country: {
+          __typename?: "CountryDisplay";
+          country: string;
+          code: string;
+        };
+      } | null;
+      billingAddress?: {
+        __typename?: "Address";
+        id: string;
+        city: string;
+        phone?: string | null;
+        postalCode: string;
+        companyName: string;
+        cityArea: string;
+        streetAddress1: string;
+        streetAddress2: string;
+        countryArea: string;
+        firstName: string;
+        lastName: string;
+        country: {
+          __typename?: "CountryDisplay";
+          country: string;
+          code: string;
+        };
+      } | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
       totalPrice?: {
         __typename?: "TaxedMoney";
@@ -14397,6 +14695,25 @@ export const CheckoutErrorFragmentDoc = gql`
     code
   }
 `;
+export const AddressFragmentDoc = gql`
+  fragment AddressFragment on Address {
+    id
+    city
+    phone
+    postalCode
+    companyName
+    cityArea
+    streetAddress1
+    streetAddress2
+    countryArea
+    country {
+      country
+      code
+    }
+    firstName
+    lastName
+  }
+`;
 export const CheckoutLineFragmentDoc = gql`
   fragment CheckoutLineFragment on CheckoutLine {
     id
@@ -14440,6 +14757,12 @@ export const CheckoutFragmentDoc = gql`
   fragment CheckoutFragment on Checkout {
     id
     email
+    shippingAddress {
+      ...AddressFragment
+    }
+    billingAddress {
+      ...AddressFragment
+    }
     user {
       id
       email
@@ -14495,24 +14818,8 @@ export const CheckoutFragmentDoc = gql`
       ...CheckoutLineFragment
     }
   }
+  ${AddressFragmentDoc}
   ${CheckoutLineFragmentDoc}
-`;
-export const AddressFragmentDoc = gql`
-  fragment AddressFragment on Address {
-    id
-    city
-    phone
-    postalCode
-    streetAddress1
-    streetAddress2
-    countryArea
-    country {
-      country
-      code
-    }
-    firstName
-    lastName
-  }
 `;
 export const CheckoutDocument = gql`
   query checkout($token: UUID!) {

@@ -1,17 +1,16 @@
 import { Checkbox } from "@components/Checkbox";
 import {
   AddressFragment,
-  AddressInput,
   useCheckoutBillingAddressUpdateMutation,
   useCheckoutShippingAddressUpdateMutation,
   useUserQuery,
 } from "@graphql";
+import { useCheckout } from "@hooks/useCheckout";
 import { getDataWithToken } from "@lib/utils";
 import { useAuthState } from "@saleor/sdk";
 import React, { useState } from "react";
 import { GuestAddressSection } from "./GuestAddressSection";
-import { AddressFormData } from "./types";
-import { UserAddressFormData } from "./UserAddressForm";
+import { AddressFormData, UserAddressFormData } from "./types";
 import { UserAddressSection } from "./UserAddressSection";
 import { getAddressInputData } from "./utils";
 
@@ -19,6 +18,7 @@ interface UserAddressesProps {}
 
 export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
   const { user: authUser } = useAuthState();
+  const { checkout } = useCheckout();
   const [useShippingAsBillingAddress, setUseShippingAsBillingAddressSelected] =
     useState(true);
 
@@ -58,7 +58,12 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
           defaultAddress={user?.defaultShippingAddress}
         />
       ) : (
-        <GuestAddressSection title="shipping" onSubmit={handleShippingUpdate} />
+        <GuestAddressSection
+          title="shipping"
+          onSubmit={handleShippingUpdate}
+          // @ts-ignore TMP
+          address={checkout?.shippingAddress as AddressFormData}
+        />
       )}
       <Checkbox
         value="useShippingAsBilling"
@@ -80,6 +85,8 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
           <GuestAddressSection
             title="shipping"
             onSubmit={handleShippingUpdate}
+            // @ts-ignore TMP
+            address={checkout?.billingAddress as AddressFormData}
           />
         ))}
     </div>

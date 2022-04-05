@@ -3,32 +3,26 @@ import { TextInput } from "@components/TextInput";
 import { CountryCode, useAddressValidationRulesQuery } from "@graphql";
 import { useGetInputProps } from "@hooks/useGetInputProps";
 import { AddressField } from "@lib/globalTypes";
-import React from "react";
-import { useForm } from "react-hook-form";
+import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 import { AddressFormData } from "./types";
 
-export interface UserAddressFormData extends AddressFormData {
-  id: string;
-}
-
-interface UserAddressFormProps {
+interface UserAddressFormProps<TFormData extends AddressFormData> {
   countryCode: CountryCode;
-  defaultValues?: UserAddressFormData;
+  defaultValues?: DefaultValues<TFormData>;
   onCancel?: () => void;
-  onSave: (formData: UserAddressFormData) => void;
+  onSave: SubmitHandler<TFormData>;
 }
 
-export const UserAddressForm: React.FC<UserAddressFormProps> = ({
+export const UserAddressForm = <TFormData extends AddressFormData>({
   countryCode,
   defaultValues,
   onCancel,
   onSave,
-}) => {
-  const { handleSubmit, watch, getValues, ...rest } =
-    useForm<UserAddressFormData>({
-      mode: "onBlur",
-      defaultValues,
-    });
+}: UserAddressFormProps<TFormData>) => {
+  const { handleSubmit, watch, getValues, ...rest } = useForm<TFormData>({
+    mode: "onBlur",
+    defaultValues,
+  });
 
   const getInputProps = useGetInputProps(rest);
 
