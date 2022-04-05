@@ -12,7 +12,7 @@
     "strict": true,
     "noEmit": true
   },
-  "extends": "tsconfig/nextjs.json",
+  "extends": "../../packages/tsconfig/nextjs.json",
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
