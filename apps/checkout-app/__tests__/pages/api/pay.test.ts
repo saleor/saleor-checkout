@@ -7,6 +7,7 @@ import { createOrder } from "@/backend/payments/createOrder";
 jest.mock("@/backend/payments/createOrder");
 jest.mock("@/backend/payments/providers/mollie");
 jest.mock("@mollie/api-client");
+jest.mock("urql");
 
 const mockedCreateOrder = <jest.Mock>createOrder;
 const mockedCreateMolliePayment = <jest.Mock>createMolliePayment;
