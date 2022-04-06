@@ -1,8 +1,9 @@
+import { allowCors } from "@/backend/utils";
 import { getActivePaymentProvidersByChannel } from "@/frontend/data";
 import { activePaymentProviders } from "mocks/app";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+function handler(req: NextApiRequest, res: NextApiResponse) {
   const { channelId } = req.query;
   const activePaymentProvidersForChannel = getActivePaymentProvidersByChannel(
     activePaymentProviders,
@@ -10,3 +11,4 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   );
   res.status(200).json(activePaymentProvidersForChannel);
 }
+export default allowCors(handler);

@@ -1,6 +1,8 @@
+import { allowCors } from "@/backend/utils";
 import { activePaymentProviders } from "mocks/app";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+function handler(req: NextApiRequest, res: NextApiResponse) {
   res.status(200).json(activePaymentProviders);
 }
+export default allowCors(handler);
