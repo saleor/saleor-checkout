@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "test": "jest",
     "build": "pnpm run i18n && next build",
     "start": "next start",
     "lint": "next lint",
@@ -51,6 +52,8 @@
     "eslint": "7.32.0",
     "jest": "^27.5.1",
     "next-transpile-modules": "9.0.0",
+    "node-mocks-http": "^1.11.0",
+    "ts-jest": "^27.1.4",
     "tsconfig": "workspace:*",
     "typescript": "^4.5.3"
   }

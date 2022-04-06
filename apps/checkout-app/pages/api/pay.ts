@@ -4,26 +4,34 @@ import { createMolliePayment } from "@backend/payments/providers/mollie";
 import { createOrder } from "@backend/payments/createOrder";
 import { allowCors } from "@backend/utils";
 
-type PaymentProviders = "mollie";
+export type PaymentProviders = "mollie";
+const paymentProviders: PaymentProviders[] = ["mollie"];
 
-type Body = {
+export type Body = {
   provider: PaymentProviders;
   checkoutId: string;
   totalAmount: number;
   captureAmount?: number; // support for partial payments
 };
 
-type MollieResponse = {
+export type MollieResponse = {
   provider: "mollie";
   data: {
     checkoutUrl: string;
   };
 };
 
-type Response = {
+export type SuccessResponse = {
   provider: PaymentProviders;
-  ok: boolean;
+  ok: true;
 } & MollieResponse;
+
+export type ErrorResponse = {
+  ok: false;
+  errors: string[];
+};
+
+export type Response = SuccessResponse | ErrorResponse;
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
@@ -34,15 +42,27 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   let body: Body =
     typeof req.body === "string" ? JSON.parse(req.body) : req.body;
 
-  const orderData = await createOrder(body.checkoutId, body.totalAmount);
+  // check if correct provider was passed
+  if (!paymentProviders.includes(body.provider)) {
+    return res.status(400).json({ ok: false, errors: ["UNKNOWN_PROVIDER"] });
+  }
 
-  let data: Response;
+  const order = await createOrder(body.checkoutId, body.totalAmount);
+
+  if ("errors" in order) {
+    return res.status(400).json({
+      ok: false,
+      errors: order.errors,
+    });
+  }
+
+  let response: Response;
 
   if (body.provider === "mollie") {
-    const url = await createMolliePayment(orderData);
+    const url = await createMolliePayment(order.data);
 
     if (url) {
-      data = {
+      response = {
         ok: true,
         provider: "mollie",
         data: {
@@ -50,7 +70,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         },
       };
 
-      return res.status(200).json(data);
+      return res.status(200).json(response);
     }
   }
 

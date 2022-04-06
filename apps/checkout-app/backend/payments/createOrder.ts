@@ -3,9 +3,20 @@ import {
   OrderCreateDocument,
   OrderCreateMutation,
   OrderCreateMutationVariables,
+  OrderFragment,
 } from "@graphql";
 
-export const createOrder = async (checkoutId: string, totalAmount: number) => {
+export const createOrder = async (
+  checkoutId: string,
+  totalAmount: number
+): Promise<
+  | {
+      data: OrderFragment;
+    }
+  | {
+      errors: string[];
+    }
+> => {
   const { data, error } = await client
     .mutation<OrderCreateMutation, OrderCreateMutationVariables>(
       OrderCreateDocument,
@@ -20,23 +31,23 @@ export const createOrder = async (checkoutId: string, totalAmount: number) => {
     )
     .toPromise();
 
-  console.log("Order id: ", data?.orderCreateFromCheckout?.order?.id);
-
   if (error) {
     throw error;
   }
 
   if (!data?.orderCreateFromCheckout?.order) {
-    throw Error(
-      `Could not create order from checkout. Saleor errors: ${data?.orderCreateFromCheckout?.errors
-        .map((e) => e.message)
-        .join()}`
-    );
+    return {
+      errors: data?.orderCreateFromCheckout?.errors.map((e) => e.code!) || [
+        "COULD_NOT_CREATE_ORDER_FROM_CHECKOUT",
+      ],
+    };
   }
 
   if (data.orderCreateFromCheckout.order.total.gross.amount !== totalAmount) {
-    throw Error("Total amount mismatch");
+    return {
+      errors: ["TOTAL_AMOUNT_MISMATCH"],
+    };
   }
 
-  return data.orderCreateFromCheckout.order;
+  return { data: data.orderCreateFromCheckout.order };
 };

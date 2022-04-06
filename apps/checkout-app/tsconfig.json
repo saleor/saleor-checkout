@@ -9,7 +9,8 @@
       "@graphql": ["graphql"],
       "@graphql/*": ["graphql/*"],
       "@utils": ["utils.ts"],
-      "@constants": ["constants.ts"]
+      "@constants": ["constants.ts"],
+      "@/*": ["./*"]
     },
     "strict": true,
     "noEmit": true,

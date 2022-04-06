@@ -91,6 +91,7 @@ mutation OrderCreate($id: ID!) {
       ...Order
     }
     errors {
+      code
       message
     }
   }
