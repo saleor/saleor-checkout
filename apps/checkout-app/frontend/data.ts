@@ -44,19 +44,6 @@ export const getPaymentProviderSettings = (
     ),
   }));
 
-export const getActivePaymentProvidersByChannel = (
-  activePaymentProviders: ChannelActivePaymentProviders,
-  channelId: string
-): ChannelActivePaymentProvidersByChannel =>
-  Object.keys(activePaymentProviders).reduce(
-    (providers, paymentProvider) => ({
-      ...providers,
-      [paymentProvider]:
-        activePaymentProviders[channelId][paymentProvider as PaymentMethodID],
-    }),
-    {} as ChannelActivePaymentProvidersByChannel
-  );
-
 export const getChannelPaymentOptionsList = (
   channels: ChannelFragment[],
   activePaymentProviders?: ChannelActivePaymentProviders
