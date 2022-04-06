@@ -28,7 +28,7 @@ jobs:
 
       - name: Run tsc
         run: |
-          pnpm turbo run check-types --scope="checkout"
+          pnpm run check-types -- --scope="checkout"
 
       - name: Run lint
         run: |

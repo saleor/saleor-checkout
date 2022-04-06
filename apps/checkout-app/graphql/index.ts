@@ -14111,15 +14111,7 @@ export type PrivateMetadataQueryVariables = Exact<{
 }>;
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 export type PrivateMetadataQuery = { __typename?: 'Query', app?: { __typename?: 'App', id: string, privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | null };
-=======
-export type OrderCreateMutation = { __typename?: 'Mutation', orderCreateFromCheckout?: { __typename?: 'OrderCreateFromCheckout', order?: { __typename?: 'Order', id: string, number?: string | null, userEmail?: string | null, shippingTaxRate: number, shippingMethodName?: string | null, billingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, shippingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, total: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, discounts?: Array<{ __typename?: 'OrderDiscount', name?: string | null, amount: { __typename?: 'Money', currency: string, amount: number } }> | null, shippingPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, net: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, lines: Array<{ __typename?: 'OrderLine', productName: string, variantName: string, quantity: number, taxRate: number, variant?: { __typename?: 'ProductVariant', product: { __typename?: 'Product', productType: { __typename?: 'ProductType', isDigital: boolean, kind: ProductTypeKindEnum } } } | null, unitPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, totalPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } } } | null> } | null, errors: Array<{ __typename?: 'OrderCreateFromCheckoutError', message?: string | null }> } | null };
->>>>>>> 6c1ee0b (Add shipping fees and discounts)
-=======
-export type OrderCreateMutation = { __typename?: 'Mutation', orderCreateFromCheckout?: { __typename?: 'OrderCreateFromCheckout', order?: { __typename?: 'Order', id: string, number?: string | null, userEmail?: string | null, shippingTaxRate: number, shippingMethodName?: string | null, billingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, shippingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, total: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, discounts?: Array<{ __typename?: 'OrderDiscount', name?: string | null, amount: { __typename?: 'Money', currency: string, amount: number } }> | null, shippingPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, net: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, lines: Array<{ __typename?: 'OrderLine', productName: string, variantName: string, quantity: number, taxRate: number, variant?: { __typename?: 'ProductVariant', product: { __typename?: 'Product', productType: { __typename?: 'ProductType', isDigital: boolean, kind: ProductTypeKindEnum } } } | null, unitPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, totalPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } } } | null> } | null, errors: Array<{ __typename?: 'OrderCreateFromCheckoutError', code: OrderCreateFromCheckoutErrorCode, message?: string | null }> } | null };
->>>>>>> 028f1d2 (Add error handling, setup tests)
 
 export type UpdatePrivateMetadataMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -14129,13 +14121,37 @@ export type UpdatePrivateMetadataMutationVariables = Exact<{
 
 export type UpdatePrivateMetadataMutation = { __typename?: 'Mutation', updatePrivateMetadata?: { __typename?: 'UpdatePrivateMetadata', item?: { __typename?: 'App', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'Attribute', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'Category', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'Checkout', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'Collection', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'DigitalContent', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'Fulfillment', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'GiftCard', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'Invoice', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'Menu', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'MenuItem', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'Order', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'Page', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'PageType', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'Payment', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'Product', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'ProductType', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'ProductVariant', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'Sale', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'ShippingMethod', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'ShippingMethodType', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'ShippingZone', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'User', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'Voucher', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | { __typename?: 'Warehouse', privateMetadata: Array<{ __typename?: 'MetadataItem', key: string, value: string } | null> } | null, errors: Array<{ __typename?: 'MetadataError', code: MetadataErrorCode, message?: string | null, field?: string | null }> } | null };
 
-<<<<<<< HEAD
+export type AddressFragment = { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } };
+
+export type MoneyFragment = { __typename?: 'Money', currency: string, amount: number };
+
+export type OrderLineFragment = { __typename?: 'OrderLine', productName: string, variantName: string, quantity: number, taxRate: number, variant?: { __typename?: 'ProductVariant', product: { __typename?: 'Product', productType: { __typename?: 'ProductType', isDigital: boolean, kind: ProductTypeKindEnum } } } | null, unitPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, totalPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } } };
+
+export type OrderFragment = { __typename?: 'Order', id: string, number?: string | null, token: string, userEmail?: string | null, shippingTaxRate: number, shippingMethodName?: string | null, billingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, shippingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, total: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, discounts?: Array<{ __typename?: 'OrderDiscount', name?: string | null, amount: { __typename?: 'Money', currency: string, amount: number } }> | null, shippingPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, net: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, lines: Array<{ __typename?: 'OrderLine', productName: string, variantName: string, quantity: number, taxRate: number, variant?: { __typename?: 'ProductVariant', product: { __typename?: 'Product', productType: { __typename?: 'ProductType', isDigital: boolean, kind: ProductTypeKindEnum } } } | null, unitPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, totalPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } } } | null> };
+
+export type OrderCreateMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type OrderCreateMutation = { __typename?: 'Mutation', orderCreateFromCheckout?: { __typename?: 'OrderCreateFromCheckout', order?: { __typename?: 'Order', id: string, number?: string | null, token: string, userEmail?: string | null, shippingTaxRate: number, shippingMethodName?: string | null, billingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, shippingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, total: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, discounts?: Array<{ __typename?: 'OrderDiscount', name?: string | null, amount: { __typename?: 'Money', currency: string, amount: number } }> | null, shippingPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, net: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, lines: Array<{ __typename?: 'OrderLine', productName: string, variantName: string, quantity: number, taxRate: number, variant?: { __typename?: 'ProductVariant', product: { __typename?: 'Product', productType: { __typename?: 'ProductType', isDigital: boolean, kind: ProductTypeKindEnum } } } | null, unitPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, totalPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } } } | null> } | null, errors: Array<{ __typename?: 'OrderCreateFromCheckoutError', code: OrderCreateFromCheckoutErrorCode, message?: string | null }> } | null };
+
+export type PaymentCreateMutationVariables = Exact<{
+  id: Scalars['ID'];
+  payment: PaymentCreateInput;
+  transaction?: InputMaybe<TransactionInput>;
+}>;
+
+
+export type PaymentCreateMutation = { __typename?: 'Mutation', paymentCreate?: { __typename?: 'PaymentCreate', payment?: { __typename?: 'Payment', id: string } | null, errors: Array<{ __typename?: 'PaymentCreateError', code: PaymentCreateErrorCode, message?: string | null }> } | null };
+
 export const ChannelFragmentDoc = gql`
     fragment ChannelFragment on Channel {
   id
   name
   slug
-=======
+}
+    `;
 export const AddressFragmentDoc = gql`
     fragment Address on Address {
   companyName
@@ -14191,6 +14207,7 @@ export const OrderFragmentDoc = gql`
     fragment Order on Order {
   id
   number
+  token
   userEmail
   billingAddress {
     ...Address
@@ -14225,9 +14242,10 @@ export const OrderFragmentDoc = gql`
   lines {
     ...OrderLine
   }
->>>>>>> 6c1ee0b (Add shipping fees and discounts)
 }
-    `;
+    ${AddressFragmentDoc}
+${MoneyFragmentDoc}
+${OrderLineFragmentDoc}`;
 export const AppDocument = gql`
     query App($id: ID) {
   app(id: $id) {
@@ -14263,7 +14281,6 @@ export const PrivateMetadataDocument = gql`
 }
     `;
 
-<<<<<<< HEAD
 export function usePrivateMetadataQuery(options: Omit<Urql.UseQueryArgs<PrivateMetadataQueryVariables>, 'query'>) {
   return Urql.useQuery<PrivateMetadataQuery>({ query: PrivateMetadataDocument, ...options });
 };
@@ -14275,9 +14292,18 @@ export const UpdatePrivateMetadataDocument = gql`
         key
         value
       }
-=======
-export function useMetadataQuery(options?: Omit<Urql.UseQueryArgs<MetadataQueryVariables>, 'query'>) {
-  return Urql.useQuery<MetadataQuery>({ query: MetadataDocument, ...options });
+    }
+    errors {
+      code
+      message
+      field
+    }
+  }
+}
+    `;
+
+export function useUpdatePrivateMetadataMutation() {
+  return Urql.useMutation<UpdatePrivateMetadataMutation, UpdatePrivateMetadataMutationVariables>(UpdatePrivateMetadataDocument);
 };
 export const OrderCreateDocument = gql`
     mutation OrderCreate($id: ID!) {
@@ -14301,17 +14327,15 @@ export const PaymentCreateDocument = gql`
   paymentCreate(id: $id, payment: $payment, transaction: $transaction) {
     payment {
       id
->>>>>>> 6c1ee0b (Add shipping fees and discounts)
     }
     errors {
       code
       message
-      field
     }
   }
 }
     `;
 
-export function useUpdatePrivateMetadataMutation() {
-  return Urql.useMutation<UpdatePrivateMetadataMutation, UpdatePrivateMetadataMutationVariables>(UpdatePrivateMetadataDocument);
+export function usePaymentCreateMutation() {
+  return Urql.useMutation<PaymentCreateMutation, PaymentCreateMutationVariables>(PaymentCreateDocument);
 };

@@ -9,7 +9,7 @@ import {
   OrderLineFragment,
   PaymentCreateMutationVariables,
 } from "@graphql";
-import { appUrl } from "@consts";
+import { APP_URL } from "@constants";
 
 import { parseAmountToString } from "../utils";
 
@@ -78,9 +78,10 @@ export const createMolliePayment = async (data: OrderFragment) => {
 
   const mollieData = await mollieClient.orders.create({
     orderNumber: data.number!,
-    webhookUrl: `${appUrl}/api/webhooks/mollie`,
+    webhookUrl: `${APP_URL}/api/webhooks/mollie`,
     locale: "en_US",
-    redirectUrl: `${appUrl}/order?id=${data.id}`,
+    // INFO: ENV is temporary, this should be passed as parameter to /pay endpoint
+    redirectUrl: `${process.env.REDIRECT_URL}/order?id=${data.token}`,
     metadata: {
       orderId: data.id,
     },
