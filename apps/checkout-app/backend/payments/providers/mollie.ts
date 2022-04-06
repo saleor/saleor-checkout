@@ -81,7 +81,7 @@ export const createMolliePayment = async (data: OrderFragment) => {
     webhookUrl: `${APP_URL}/api/webhooks/mollie`,
     locale: "en_US",
     // INFO: ENV is temporary, this should be passed as parameter to /pay endpoint
-    redirectUrl: `${process.env.REDIRECT_URL}/order?id=${data.token}`,
+    redirectUrl: `${process.env.REDIRECT_URL}/${data.token}`,
     metadata: {
       orderId: data.id,
     },
