@@ -5,6 +5,7 @@ import {
   useUserAddressCreateMutation,
   useUserAddressUpdateMutation,
 } from "@graphql";
+import { useFormattedMessages } from "@hooks/useFormattedMessages";
 import { extractMutationErrors, getById } from "@lib/utils";
 import { AddressTypeEnum } from "@saleor/sdk/dist/apollo/types";
 import React, { Suspense, useEffect, useState } from "react";
@@ -30,6 +31,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
   title,
   type,
 }) => {
+  const formatMessage = useFormattedMessages();
   const [displayAddressAdd, setDisplayAddressAdd] = useState(false);
 
   const [editedAddressId, setEditedAddressId] = useState<string | null>();
@@ -123,9 +125,10 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
         {displayAddressList && (
           <>
             <Button
+              variant="secondary"
               ariaLabel="add new address"
               onClick={() => setDisplayAddressAdd(true)}
-              title="Add new address"
+              title={formatMessage("addAddress")}
               className="mb-4 w-full"
             />
             <UserAddressList

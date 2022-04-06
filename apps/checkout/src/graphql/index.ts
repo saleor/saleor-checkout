@@ -13479,11 +13479,6 @@ export type CheckoutFragment = {
     country: { __typename?: "CountryDisplay"; country: string; code: string };
   } | null;
   user?: { __typename?: "User"; id: string; email: string } | null;
-  totalPrice?: {
-    __typename?: "TaxedMoney";
-    gross: { __typename?: "Money"; amount: number; currency: string };
-    tax: { __typename?: "Money"; currency: string; amount: number };
-  } | null;
   availablePaymentGateways: Array<{
     __typename?: "PaymentGateway";
     id: string;
@@ -13501,6 +13496,11 @@ export type CheckoutFragment = {
     minimumDeliveryDays?: number | null;
     price: { __typename?: "Money"; amount: number; currency: string };
   } | null>;
+  totalPrice?: {
+    __typename?: "TaxedMoney";
+    gross: { __typename?: "Money"; amount: number; currency: string };
+    tax: { __typename?: "Money"; currency: string; amount: number };
+  } | null;
   shippingPrice?: {
     __typename?: "TaxedMoney";
     gross: { __typename?: "Money"; amount: number; currency: string };
@@ -13584,13 +13584,8 @@ export type AddressFragment = {
   city: string;
   phone?: string | null;
   postalCode: string;
-<<<<<<< HEAD
   companyName: string;
   cityArea: string;
-=======
-  cityArea: string;
-  companyName: string;
->>>>>>> 3787767... Add radio groups to sections, fix styles, refactor a bit
   streetAddress1: string;
   streetAddress2: string;
   countryArea: string;
@@ -13640,11 +13635,6 @@ export type CheckoutQuery = {
       country: { __typename?: "CountryDisplay"; country: string; code: string };
     } | null;
     user?: { __typename?: "User"; id: string; email: string } | null;
-    totalPrice?: {
-      __typename?: "TaxedMoney";
-      gross: { __typename?: "Money"; amount: number; currency: string };
-      tax: { __typename?: "Money"; currency: string; amount: number };
-    } | null;
     availablePaymentGateways: Array<{
       __typename?: "PaymentGateway";
       id: string;
@@ -13662,6 +13652,11 @@ export type CheckoutQuery = {
       minimumDeliveryDays?: number | null;
       price: { __typename?: "Money"; amount: number; currency: string };
     } | null>;
+    totalPrice?: {
+      __typename?: "TaxedMoney";
+      gross: { __typename?: "Money"; amount: number; currency: string };
+      tax: { __typename?: "Money"; currency: string; amount: number };
+    } | null;
     shippingPrice?: {
       __typename?: "TaxedMoney";
       gross: { __typename?: "Money"; amount: number; currency: string };
@@ -13721,13 +13716,8 @@ export type UserQuery = {
       city: string;
       phone?: string | null;
       postalCode: string;
-<<<<<<< HEAD
       companyName: string;
       cityArea: string;
-=======
-      cityArea: string;
-      companyName: string;
->>>>>>> 3787767... Add radio groups to sections, fix styles, refactor a bit
       streetAddress1: string;
       streetAddress2: string;
       countryArea: string;
@@ -13908,11 +13898,6 @@ export type CheckoutEmailUpdateMutation = {
         };
       } | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
-      totalPrice?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
-        tax: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
       availablePaymentGateways: Array<{
         __typename?: "PaymentGateway";
         id: string;
@@ -13930,6 +13915,11 @@ export type CheckoutEmailUpdateMutation = {
         minimumDeliveryDays?: number | null;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
       shippingPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -14033,11 +14023,6 @@ export type CheckoutCustomerAttachMutation = {
         };
       } | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
-      totalPrice?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
-        tax: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
       availablePaymentGateways: Array<{
         __typename?: "PaymentGateway";
         id: string;
@@ -14055,6 +14040,11 @@ export type CheckoutCustomerAttachMutation = {
         minimumDeliveryDays?: number | null;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
       shippingPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -14157,11 +14147,6 @@ export type CheckoutCustomerDetachMutation = {
         };
       } | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
-      totalPrice?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
-        tax: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
       availablePaymentGateways: Array<{
         __typename?: "PaymentGateway";
         id: string;
@@ -14179,6 +14164,11 @@ export type CheckoutCustomerDetachMutation = {
         minimumDeliveryDays?: number | null;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
       shippingPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -14243,13 +14233,8 @@ export type UserAddressDeleteMutation = {
       city: string;
       phone?: string | null;
       postalCode: string;
-<<<<<<< HEAD
       companyName: string;
       cityArea: string;
-=======
-      cityArea: string;
-      companyName: string;
->>>>>>> 3787767... Add radio groups to sections, fix styles, refactor a bit
       streetAddress1: string;
       streetAddress2: string;
       countryArea: string;
@@ -14280,13 +14265,8 @@ export type UserAddressUpdateMutation = {
       city: string;
       phone?: string | null;
       postalCode: string;
-<<<<<<< HEAD
       companyName: string;
       cityArea: string;
-=======
-      cityArea: string;
-      companyName: string;
->>>>>>> 3787767... Add radio groups to sections, fix styles, refactor a bit
       streetAddress1: string;
       streetAddress2: string;
       countryArea: string;
@@ -14317,13 +14297,8 @@ export type UserAddressCreateMutation = {
       city: string;
       phone?: string | null;
       postalCode: string;
-<<<<<<< HEAD
       companyName: string;
       cityArea: string;
-=======
-      cityArea: string;
-      companyName: string;
->>>>>>> 3787767... Add radio groups to sections, fix styles, refactor a bit
       streetAddress1: string;
       streetAddress2: string;
       countryArea: string;
@@ -14392,11 +14367,6 @@ export type CheckoutShippingAddressUpdateMutation = {
         };
       } | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
-      totalPrice?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
-        tax: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
       availablePaymentGateways: Array<{
         __typename?: "PaymentGateway";
         id: string;
@@ -14414,6 +14384,11 @@ export type CheckoutShippingAddressUpdateMutation = {
         minimumDeliveryDays?: number | null;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
       shippingPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -14517,11 +14492,6 @@ export type CheckoutBillingAddressUpdateMutation = {
         };
       } | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
-      totalPrice?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
-        tax: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
       availablePaymentGateways: Array<{
         __typename?: "PaymentGateway";
         id: string;
@@ -14539,6 +14509,11 @@ export type CheckoutBillingAddressUpdateMutation = {
         minimumDeliveryDays?: number | null;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
       shippingPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -14642,11 +14617,6 @@ export type CheckoutDeliveryMethodUpdateMutation = {
         };
       } | null;
       user?: { __typename?: "User"; id: string; email: string } | null;
-      totalPrice?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
-        tax: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
       availablePaymentGateways: Array<{
         __typename?: "PaymentGateway";
         id: string;
@@ -14664,6 +14634,11 @@ export type CheckoutDeliveryMethodUpdateMutation = {
         minimumDeliveryDays?: number | null;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
+      totalPrice?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+        tax: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
       shippingPrice?: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; amount: number; currency: string };
@@ -14808,6 +14783,26 @@ export const CheckoutFragmentDoc = gql`
       id
       email
     }
+    availablePaymentGateways {
+      id
+      name
+    }
+    deliveryMethod {
+      ... on ShippingMethod {
+        id
+      }
+      ... on Warehouse {
+        id
+      }
+    }
+    shippingMethods {
+      id
+      name
+      price {
+        amount
+        currency
+      }
+    }
     totalPrice {
       gross {
         amount
@@ -14864,28 +14859,6 @@ export const CheckoutFragmentDoc = gql`
   ${AddressFragmentDoc}
   ${CheckoutLineFragmentDoc}
 `;
-<<<<<<< HEAD
-=======
-export const AddressFragmentDoc = gql`
-  fragment AddressFragment on Address {
-    id
-    city
-    phone
-    postalCode
-    cityArea
-    companyName
-    streetAddress1
-    streetAddress2
-    countryArea
-    country {
-      country
-      code
-    }
-    firstName
-    lastName
-  }
-`;
->>>>>>> 3787767... Add radio groups to sections, fix styles, refactor a bit
 export const CheckoutDocument = gql`
   query checkout($token: UUID!) {
     checkout(token: $token) {
