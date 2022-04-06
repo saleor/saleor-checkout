@@ -56,6 +56,14 @@ const theme = {
       error: "#FFE9EA",
       success: "#EDF9F0",
     },
+    switch: {
+      bgOn: "#394052",
+      bgOff: "transparent",
+      dotOn: "#ffffff",
+      dotOff: "#b9c1cf",
+      borderOn: "#394052",
+      borderOff: "#b9c1cf",
+    },
   },
   fontFamily: {
     sans: ["Inter"],

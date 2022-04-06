@@ -7,5 +7,6 @@ export * from "./icons";
 export * from "./InfoTip";
 export * from "./Label";
 export * from "./RemoveButton";
+export * from "./Switch";
 export * from "./Text";
 export * from "./TextInput";
