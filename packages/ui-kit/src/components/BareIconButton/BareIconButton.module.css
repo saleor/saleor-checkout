@@ -1,0 +1,7 @@
+.bare-icon-button {
+  @apply text-text-primary bg-transparent hover:text-text-secondary;
+}
+
+.bare-icon-button:hover > img {
+  @apply opacity-70;
+}
