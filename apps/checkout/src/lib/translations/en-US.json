@@ -57,6 +57,7 @@
   "addItemQuantityLabel": "add item quantity",
   "subtractItemQuantityLabel": "subtract item quantity",
   "error": "error",
+<<<<<<< HEAD
   "deliveryMethod": "Delivery method",
   "businessDays": "{min} - {max} business days",
   "finalizeCheckoutLabel": "finalize checkout",
@@ -68,4 +69,7 @@
   "addAddressLabel": "add new address",
   "useShippingAsBilling": "Use shipping address as billing address",
   "shippingMethodsLabel": "shipping methods"
+=======
+  "paymentProviders": "Payment providers"
+>>>>>>> Connect app to payment providers from dashboard app
 }
