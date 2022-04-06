@@ -12,10 +12,8 @@
       "@constants": ["constants.ts"],
       "@/*": ["./*"]
     },
-    "strict": true,
-    "noEmit": true,
-    "declaration": false, // Fixes "inferred type cannot be named without a reference to ..." errors
-    "declarationMap": false // Fixes "inferred type cannot be named without a reference to ..." errors
+    "declaration": false,
+    "declarationMap": false
   },
   "extends": "../../packages/tsconfig/nextjs.json",
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
