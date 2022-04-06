@@ -2,6 +2,7 @@ import { Button } from "@components/Button";
 import { useCheckout } from "@hooks/useCheckout";
 import { useFormattedMessages } from "@hooks/useFormattedMessages";
 import React from "react";
+import { pay } from "./requests";
 
 interface PaymentOptionsProps {}
 
@@ -10,17 +11,11 @@ export const PaymentOptions: React.FC<PaymentOptionsProps> = ({}) => {
   const { checkout } = useCheckout();
 
   const finalizeCheckout = async () => {
-    const result = await fetch(
-      `${process.env.REACT_APP_CHECKOUT_APP_URL}/pay`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          provider: "mollie",
-          checkoutId: checkout?.id,
-          totalAmount: checkout?.totalPrice?.gross?.amount,
-        }),
-      }
-    );
+    const result = await pay({
+      provider: "mollie",
+      checkoutId: checkout?.id,
+      totalAmount: checkout?.totalPrice?.gross?.amount as number,
+    });
 
     const { data } = await result.json();
 

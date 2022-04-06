@@ -1,4 +1,3 @@
-import { getSortedAddressFieldsFromAddress } from "@lib/utils/address";
 import { Text } from "@components/Text";
 import React from "react";
 import { RadioOptionChildrenProps } from "@components/Radio";
@@ -6,6 +5,7 @@ import { IconButton } from "@components/IconButton";
 import { PenIcon, TrashIcon } from "@icons";
 import { AddressField } from "@lib/globalTypes";
 import { useFormattedMessages } from "@hooks/useFormattedMessages";
+import { getSortedAddressFieldsFromAddress } from "@lib/utils";
 
 interface AddressBoxContentProps extends RadioOptionChildrenProps {
   address: Partial<Record<AddressField, any>>;
