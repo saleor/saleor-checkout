@@ -17,9 +17,9 @@ Basic.args = {
   label: "English",
 };
 
-export const Selected = Template.bind({});
+export const Active = Template.bind({});
 
-Selected.args = {
+Active.args = {
   label: "English",
-  selected: true,
+  active: true,
 };

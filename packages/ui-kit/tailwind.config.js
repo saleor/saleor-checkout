@@ -80,6 +80,7 @@ const theme = {
   },
   borderRadius: {
     DEFAULT: "4px",
+    full: "50%",
   },
 };
 

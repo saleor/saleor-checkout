@@ -5,12 +5,12 @@ import styles from "./ChipButton.module.css";
 
 export interface ChipButtonProps extends HTMLAttributes<HTMLSpanElement> {
   label: string;
-  selected?: boolean;
+  active?: boolean;
 }
 
 export const ChipButton: VFC<ChipButtonProps> = ({
   label,
-  selected,
+  active,
   className,
   ...rest
 }) => (
@@ -18,7 +18,7 @@ export const ChipButton: VFC<ChipButtonProps> = ({
     className={clsx(
       styles["chip-button"],
       {
-        [styles["chip-button-active"]]: selected,
+        [styles["chip-button-active"]]: active,
       },
       className
     )}
