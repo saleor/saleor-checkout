@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { createMolliePayment } from "@backend/payments/providers/mollie";
-import { createOrder } from "@backend/payments/createOrder";
-import { allowCors } from "@backend/utils";
+import { createMolliePayment } from "@/backend/payments/providers/mollie";
+import { createOrder } from "@/backend/payments/createOrder";
+import { allowCors } from "@/backend/utils";
 
 export type PaymentProviders = "mollie";
 const paymentProviders: PaymentProviders[] = ["mollie"];

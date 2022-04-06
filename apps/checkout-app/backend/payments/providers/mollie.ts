@@ -8,8 +8,8 @@ import {
   OrderFragment,
   OrderLineFragment,
   PaymentCreateMutationVariables,
-} from "@graphql";
-import { APP_URL } from "@constants";
+} from "@/graphql";
+import { APP_URL } from "@/constants";
 
 import { parseAmountToString } from "../utils";
 

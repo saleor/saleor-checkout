@@ -1,9 +1,9 @@
-import { client } from "@graphql/client";
+import { client } from "@/graphql/client";
 import {
   PaymentCreateDocument,
   PaymentCreateMutation,
   PaymentCreateMutationVariables,
-} from "@graphql";
+} from "@/graphql";
 
 export const createPayment = async (args: PaymentCreateMutationVariables) => {
   const { data, error } = await client

@@ -1,10 +1,10 @@
-import { client } from "@graphql/client";
+import { client } from "@/graphql/client";
 import {
   OrderCreateDocument,
   OrderCreateMutation,
   OrderCreateMutationVariables,
   OrderFragment,
-} from "@graphql";
+} from "@/graphql";
 
 export const createOrder = async (
   checkoutId: string,

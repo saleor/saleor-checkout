@@ -2,8 +2,8 @@
 
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { verifyPayment } from "@backend/payments/providers/mollie";
-import { createPayment } from "@backend/payments/createPayment";
+import { verifyPayment } from "@/backend/payments/providers/mollie";
+import { createPayment } from "@/backend/payments/createPayment";
 
 export default async function handler(
   req: NextApiRequest,
