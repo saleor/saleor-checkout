@@ -56,5 +56,7 @@
   "sectionChangeButtonLabel": "contact section change button",
   "addItemQuantityLabel": "add item quantity",
   "subtractItemQuantityLabel": "subtract item quantity",
-  "error": "error"
+  "error": "error",
+  "deliveryMethod": "Delivery method",
+  "businessDays": "{min} - {max} business days"
 }

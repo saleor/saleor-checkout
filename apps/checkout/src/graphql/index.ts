@@ -13497,6 +13497,8 @@ export type CheckoutFragment = {
     __typename?: "ShippingMethod";
     id: string;
     name: string;
+    maximumDeliveryDays?: number | null;
+    minimumDeliveryDays?: number | null;
     price: { __typename?: "Money"; amount: number; currency: string };
   } | null>;
   shippingPrice?: {
@@ -13582,8 +13584,13 @@ export type AddressFragment = {
   city: string;
   phone?: string | null;
   postalCode: string;
+<<<<<<< HEAD
   companyName: string;
   cityArea: string;
+=======
+  cityArea: string;
+  companyName: string;
+>>>>>>> 3787767... Add radio groups to sections, fix styles, refactor a bit
   streetAddress1: string;
   streetAddress2: string;
   countryArea: string;
@@ -13651,6 +13658,8 @@ export type CheckoutQuery = {
       __typename?: "ShippingMethod";
       id: string;
       name: string;
+      maximumDeliveryDays?: number | null;
+      minimumDeliveryDays?: number | null;
       price: { __typename?: "Money"; amount: number; currency: string };
     } | null>;
     shippingPrice?: {
@@ -13712,8 +13721,13 @@ export type UserQuery = {
       city: string;
       phone?: string | null;
       postalCode: string;
+<<<<<<< HEAD
       companyName: string;
       cityArea: string;
+=======
+      cityArea: string;
+      companyName: string;
+>>>>>>> 3787767... Add radio groups to sections, fix styles, refactor a bit
       streetAddress1: string;
       streetAddress2: string;
       countryArea: string;
@@ -13912,6 +13926,8 @@ export type CheckoutEmailUpdateMutation = {
         __typename?: "ShippingMethod";
         id: string;
         name: string;
+        maximumDeliveryDays?: number | null;
+        minimumDeliveryDays?: number | null;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
       shippingPrice?: {
@@ -14035,6 +14051,8 @@ export type CheckoutCustomerAttachMutation = {
         __typename?: "ShippingMethod";
         id: string;
         name: string;
+        maximumDeliveryDays?: number | null;
+        minimumDeliveryDays?: number | null;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
       shippingPrice?: {
@@ -14157,6 +14175,8 @@ export type CheckoutCustomerDetachMutation = {
         __typename?: "ShippingMethod";
         id: string;
         name: string;
+        maximumDeliveryDays?: number | null;
+        minimumDeliveryDays?: number | null;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
       shippingPrice?: {
@@ -14223,8 +14243,13 @@ export type UserAddressDeleteMutation = {
       city: string;
       phone?: string | null;
       postalCode: string;
+<<<<<<< HEAD
       companyName: string;
       cityArea: string;
+=======
+      cityArea: string;
+      companyName: string;
+>>>>>>> 3787767... Add radio groups to sections, fix styles, refactor a bit
       streetAddress1: string;
       streetAddress2: string;
       countryArea: string;
@@ -14255,8 +14280,13 @@ export type UserAddressUpdateMutation = {
       city: string;
       phone?: string | null;
       postalCode: string;
+<<<<<<< HEAD
       companyName: string;
       cityArea: string;
+=======
+      cityArea: string;
+      companyName: string;
+>>>>>>> 3787767... Add radio groups to sections, fix styles, refactor a bit
       streetAddress1: string;
       streetAddress2: string;
       countryArea: string;
@@ -14287,8 +14317,13 @@ export type UserAddressCreateMutation = {
       city: string;
       phone?: string | null;
       postalCode: string;
+<<<<<<< HEAD
       companyName: string;
       cityArea: string;
+=======
+      cityArea: string;
+      companyName: string;
+>>>>>>> 3787767... Add radio groups to sections, fix styles, refactor a bit
       streetAddress1: string;
       streetAddress2: string;
       countryArea: string;
@@ -14375,6 +14410,8 @@ export type CheckoutShippingAddressUpdateMutation = {
         __typename?: "ShippingMethod";
         id: string;
         name: string;
+        maximumDeliveryDays?: number | null;
+        minimumDeliveryDays?: number | null;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
       shippingPrice?: {
@@ -14498,6 +14535,8 @@ export type CheckoutBillingAddressUpdateMutation = {
         __typename?: "ShippingMethod";
         id: string;
         name: string;
+        maximumDeliveryDays?: number | null;
+        minimumDeliveryDays?: number | null;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
       shippingPrice?: {
@@ -14621,6 +14660,8 @@ export type CheckoutDeliveryMethodUpdateMutation = {
         __typename?: "ShippingMethod";
         id: string;
         name: string;
+        maximumDeliveryDays?: number | null;
+        minimumDeliveryDays?: number | null;
         price: { __typename?: "Money"; amount: number; currency: string };
       } | null>;
       shippingPrice?: {
@@ -14791,6 +14832,8 @@ export const CheckoutFragmentDoc = gql`
         amount
         currency
       }
+      maximumDeliveryDays
+      minimumDeliveryDays
     }
     totalPrice {
       gross {
@@ -14821,6 +14864,28 @@ export const CheckoutFragmentDoc = gql`
   ${AddressFragmentDoc}
   ${CheckoutLineFragmentDoc}
 `;
+<<<<<<< HEAD
+=======
+export const AddressFragmentDoc = gql`
+  fragment AddressFragment on Address {
+    id
+    city
+    phone
+    postalCode
+    cityArea
+    companyName
+    streetAddress1
+    streetAddress2
+    countryArea
+    country {
+      country
+      code
+    }
+    firstName
+    lastName
+  }
+`;
+>>>>>>> 3787767... Add radio groups to sections, fix styles, refactor a bit
 export const CheckoutDocument = gql`
   query checkout($token: UUID!) {
     checkout(token: $token) {

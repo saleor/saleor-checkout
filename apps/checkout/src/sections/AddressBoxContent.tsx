@@ -6,15 +6,15 @@ import { IconButton } from "@components/IconButton";
 import { PenIcon, TrashIcon } from "@icons";
 import { AddressField } from "@lib/globalTypes";
 
-interface addressBoxContentProps
+interface AddressBoxContentProps
   extends RadioOptionContentProps,
     Pick<RadioOption, "disabled"> {
-  address: Record<AddressField, any>;
+  address: Partial<Record<AddressField, any>>;
   onEdit: () => void;
   onDelete: () => void;
 }
 
-export const AddressBoxContent: React.FC<addressBoxContentProps> = ({
+export const AddressBoxContent: React.FC<AddressBoxContentProps> = ({
   address,
   htmlFor,
   onDelete,
