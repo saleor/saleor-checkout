@@ -23,3 +23,9 @@ Checked.args = {
   label: "Selector Label",
   checked: true,
 };
+
+export const WithoutLabel = Template.bind({});
+
+WithoutLabel.args = {
+  checked: true,
+};

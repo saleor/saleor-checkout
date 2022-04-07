@@ -3,7 +3,11 @@
 }
 
 :local(.box) {
-  @apply absolute h-5 w-5 pointer-events-none;
+  @apply absolute h-5 w-5 pointer-events-none inline-flex;
+}
+
+.box-static {
+  @apply relative;
 }
 
 :local([type="checkbox"]) {
