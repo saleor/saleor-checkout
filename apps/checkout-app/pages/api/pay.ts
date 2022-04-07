@@ -3,12 +3,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { createMolliePayment } from "@/backend/payments/providers/mollie";
 import { createOrder } from "@/backend/payments/createOrder";
 import { allowCors } from "@/backend/utils";
+import { PaymentProviderID } from "@/types/common";
+import { Errors } from "@/backend/payments/types";
 
-export type PaymentProviders = "mollie";
-const paymentProviders: PaymentProviders[] = ["mollie"];
+const paymentProviders: PaymentProviderID[] = ["mollie"];
 
 export type Body = {
-  provider: PaymentProviders;
+  provider: PaymentProviderID;
   checkoutId: string;
   totalAmount: number;
   captureAmount?: number; // support for partial payments
@@ -22,13 +23,13 @@ export type MollieResponse = {
 };
 
 export type SuccessResponse = {
-  provider: PaymentProviders;
+  provider: PaymentProviderID;
   ok: true;
 } & MollieResponse;
 
 export type ErrorResponse = {
   ok: false;
-  errors: string[];
+  errors: Errors;
 };
 
 export type Response = SuccessResponse | ErrorResponse;

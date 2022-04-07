@@ -9,7 +9,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log("WEBHOOK CALLED", req.body);
   if ("id" in req.body) {
     const paymentData = await verifyPayment(req.body.id);
 

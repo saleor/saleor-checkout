@@ -5,10 +5,6 @@ module.exports = withTM({
     locales: ["en-US", "pl-PL"],
     defaultLocale: "en-US",
   },
-  // TODO: REMOVE THIS, FRONTEND APP NEEDS TO ADJUST TYPES
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   reactStrictMode: true,
   async redirects() {
     return [

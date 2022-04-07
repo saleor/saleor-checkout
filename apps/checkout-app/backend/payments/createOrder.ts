@@ -6,6 +6,8 @@ import {
   OrderFragment,
 } from "@/graphql";
 
+import { Errors } from "./types";
+
 export const createOrder = async (
   checkoutId: string,
   totalAmount: number
@@ -14,7 +16,7 @@ export const createOrder = async (
       data: OrderFragment;
     }
   | {
-      errors: string[];
+      errors: Errors;
     }
 > => {
   const { data, error } = await client
