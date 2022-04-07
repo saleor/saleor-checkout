@@ -5,6 +5,7 @@ import { RadioOption, RadioOptionContentProps } from "@components/Radio";
 import { IconButton } from "@components/IconButton";
 import { PenIcon, TrashIcon } from "@icons";
 import { AddressField } from "@lib/globalTypes";
+import { useFormattedMessages } from "@hooks/useFormattedMessages";
 
 interface AddressBoxContentProps
   extends RadioOptionContentProps,
@@ -20,6 +21,7 @@ export const AddressBoxContent: React.FC<AddressBoxContentProps> = ({
   onDelete,
   onEdit,
 }) => {
+  const formatMessage = useFormattedMessages();
   const name = address.name || `${address.firstName} ${address.lastName}`;
 
   return (
@@ -35,10 +37,17 @@ export const AddressBoxContent: React.FC<AddressBoxContentProps> = ({
         </label>
       </div>
       <div>
-        <IconButton onClick={onEdit} ariaLabel="edit address" className="mr-2">
+        <IconButton
+          onClick={onEdit}
+          ariaLabel={formatMessage("editAddressLabel")}
+          className="mr-2"
+        >
           <img src={PenIcon} />
         </IconButton>
-        <IconButton onClick={onDelete} ariaLabel="delete address">
+        <IconButton
+          onClick={onDelete}
+          ariaLabel={formatMessage("deleteAddressLabel")}
+        >
           <img src={TrashIcon} />
         </IconButton>
       </div>

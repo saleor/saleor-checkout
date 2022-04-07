@@ -1,10 +1,12 @@
 import { Button } from "@components/Button";
 import { useCheckout } from "@hooks/useCheckout";
+import { useFormattedMessages } from "@hooks/useFormattedMessages";
 import React from "react";
 
 interface PaymentOptionsProps {}
 
 export const PaymentOptions: React.FC<PaymentOptionsProps> = ({}) => {
+  const formatMessage = useFormattedMessages();
   const { checkout } = useCheckout();
 
   const finalizeCheckout = async () => {
@@ -30,7 +32,7 @@ export const PaymentOptions: React.FC<PaymentOptionsProps> = ({}) => {
   return (
     <div className="mb-10">
       <Button
-        ariaLabel="finaliza checkout"
+        ariaLabel={formatMessage("finalizeCheckoutLabel")}
         title="Pay"
         onClick={finalizeCheckout}
         className="min-w-28"

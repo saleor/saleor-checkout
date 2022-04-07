@@ -52,14 +52,14 @@ export const UserAddressForm = <TFormData extends AddressFormData>({
         {onCancel && (
           <Button
             className="mr-4"
-            ariaLabel="cancel"
+            ariaLabel={formatMessage("cancelLabel")}
             variant="secondary"
             onClick={onCancel}
             title={formatMessage("cancel")}
           />
         )}
         <Button
-          ariaLabel="save"
+          ariaLabel={formatMessage("saveLabel")}
           onClick={handleSubmit(onSave)}
           title={formatMessage("saveAddress")}
         />
