@@ -86,7 +86,7 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
         ) : (
           <GuestAddressSection
             title={formatMessage("billingAddress")}
-            onSubmit={handleShippingUpdate}
+            onSubmit={handleBillingUpdate}
             // @ts-ignore TMP
             address={checkout?.billingAddress as AddressFormData}
           />
