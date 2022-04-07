@@ -24,14 +24,14 @@ const handler = async (
     return;
   }
 
-  await fetch(process.env.SALEOR_MARKETPLACE_REGISTER_URL as string, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      auth_token,
-      marketplace_token: process.env.SALEOR_MARKETPLACE_TOKEN,
-    }),
-  });
+  // await fetch(process.env.SALEOR_MARKETPLACE_REGISTER_URL as string, {
+  //   method: "POST",
+  //   headers: { "Content-Type": "application/json" },
+  //   body: JSON.stringify({
+  //     auth_token,
+  //     marketplace_token: process.env.SALEOR_MARKETPLACE_TOKEN,
+  //   }),
+  // });
 
   response.json({ success: true });
 };
