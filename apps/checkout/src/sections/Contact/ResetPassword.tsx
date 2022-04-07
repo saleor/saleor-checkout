@@ -37,7 +37,6 @@ export const ResetPassword: React.FC<ResetPasswordProps> = ({
   const onSubmit = ({ password }: FormData) => {
     const { email, passwordResetToken } = getQueryVariables();
 
-    console.log({ email });
     setPassword({
       password,
       email: email as string,

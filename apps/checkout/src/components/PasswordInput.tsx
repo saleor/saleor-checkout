@@ -17,7 +17,6 @@ export const PasswordInputComponent = <
   const formatMessage = useFormattedMessages();
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  console.log({ passwordVisible });
   return (
     <TextInput
       {...props}

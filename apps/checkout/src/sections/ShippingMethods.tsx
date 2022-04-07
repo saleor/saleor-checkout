@@ -37,7 +37,6 @@ export const ShippingMethods: React.FC<ShippingMethodsProps> = ({}) => {
     min?: number | null;
     max?: number | null;
   }) => {
-    console.log({ min, max });
     if (!min || !max) {
       return undefined;
     }
