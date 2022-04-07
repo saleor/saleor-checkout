@@ -1,8 +1,5 @@
-const path = require("path");
-
 module.exports = {
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
-  staticDirs: ["../public"],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
@@ -13,7 +10,12 @@ module.exports = {
         postcssLoaderOptions: {
           implementation: require("postcss"),
           postcssOptions: {
-            plugins: [require("tailwindcss")(), require("autoprefixer")()],
+            plugins: [
+              require("tailwindcss")({
+                config: "./.storybook/tailwind.config.js",
+              }),
+              require("autoprefixer")(),
+            ],
           },
         },
       },
@@ -49,7 +51,12 @@ module.exports = {
           loader: "postcss-loader",
           options: {
             postcssOptions: {
-              plugins: [require("tailwindcss")(), require("autoprefixer")()],
+              plugins: [
+                require("tailwindcss")({
+                  config: "./.storybook/tailwind.config.js",
+                }),
+                require("autoprefixer")(),
+              ],
             },
           },
         },

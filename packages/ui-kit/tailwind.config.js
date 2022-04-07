@@ -95,6 +95,8 @@ const theme = {
 module.exports = {
   content: ["./src/**/*.tsx"],
   mode: "jit",
-  theme: theme,
+  theme: {
+    extend: theme,
+  },
   plugins: [],
 };
