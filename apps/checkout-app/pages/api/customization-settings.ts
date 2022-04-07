@@ -1,8 +1,10 @@
+import { getSettings } from "@/backend/configuration/settings";
 import { allowCors } from "@/backend/utils";
-import { customizationSettingsValues } from "mocks/app";
 import { NextApiRequest, NextApiResponse } from "next";
 
-function handler(req: NextApiRequest, res: NextApiResponse) {
-  res.status(200).json(customizationSettingsValues);
+async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const settings = await getSettings(req.body);
+
+  res.status(200).json(settings.customizations);
 }
 export default allowCors(handler);

@@ -20,7 +20,7 @@ import {
   ChannelActivePaymentProviders,
   ChannelPaymentOptions,
 } from "types/api";
-import { paymentProviders } from "consts";
+import { paymentProviders } from "configuration";
 import { useStyles } from "./styles";
 import { channelListPath, channelPath, paymentProviderPath } from "routes";
 import { messages } from "./messages";
