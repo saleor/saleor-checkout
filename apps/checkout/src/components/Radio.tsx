@@ -1,22 +1,38 @@
-import React, { cloneElement, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { Text } from "@components/Text";
 import clsx from "clsx";
 
-export interface RadioOption {
+export interface RadioOptionBase {
   onSelect: (value: string) => void;
   selectedValue: string | undefined;
   value: string;
-  title?: string;
-  subtitle?: string;
-  content?: ReactNode;
   disabled?: boolean;
 }
 
-export interface RadioOptionContentProps {
+export type ContentFunction = (
+  props: Pick<RadioOptionContentProps, "htmlFor">
+) => ReactNode;
+
+export interface CustomRadioOption extends RadioOptionBase {
+  content: ContentFunction;
+  title?: never;
+  subtitle?: never;
+}
+
+export interface SimpleRadioOption extends RadioOptionBase {
+  title: string;
+  subtitle?: string;
+  content?: never;
+}
+
+export type RadioOption = SimpleRadioOption | CustomRadioOption;
+
+export interface RadioOptionContentProps
+  extends Pick<RadioOptionBase, "disabled"> {
   htmlFor: string;
 }
 
-export const Radio: React.FC<RadioOption> = ({
+export const Radio: React.FC<SimpleRadioOption | CustomRadioOption> = ({
   value,
   title,
   subtitle,
@@ -24,6 +40,10 @@ export const Radio: React.FC<RadioOption> = ({
   selectedValue,
   onSelect,
   disabled,
+}: RadioOption & {
+  title?: string;
+  subtitle?: string;
+  content?: ContentFunction;
 }) => (
   <>
     <div
@@ -51,17 +71,16 @@ export const Radio: React.FC<RadioOption> = ({
         />
         <span className="radio-input-icon" />
       </div>
-      {title ? (
+      {title && (
         <label htmlFor={value} className="radio-label">
           <Text className={clsx(disabled && "text-text-secondary")}>
             {title}
           </Text>
           {subtitle && <Text>{subtitle}</Text>}
         </label>
-      ) : (
-        // @ts-ignore to be removed after this is moved to ui kit
-        cloneElement(content, { htmlFor: value })
       )}
+
+      {content && content({ htmlFor: value })}
     </div>
   </>
 );
