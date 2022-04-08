@@ -30,7 +30,7 @@ export const PaymentOptions: React.FC<PaymentOptionsProps> = ({}) => {
   };
 
   return (
-    <div className="mb-10">
+    <div className="mb-10 flex flex-row justify-end">
       <Button
         ariaLabel={formatMessage("finalizeCheckoutLabel")}
         title="Pay"

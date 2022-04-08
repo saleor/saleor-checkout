@@ -71,7 +71,7 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
         value="useShippingAsBilling"
         checked={useShippingAsBillingAddress}
         onChange={setUseShippingAsBillingAddressSelected}
-        label="use shipping address as billing address"
+        label={formatMessage("useShippingAsBilling")}
       />
       {!useShippingAsBillingAddress &&
         (authUser ? (
