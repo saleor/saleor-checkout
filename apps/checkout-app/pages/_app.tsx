@@ -11,6 +11,8 @@ import ClientProvider from "@/frontend/components/elements/ClientProvider";
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
 
+  console.log("App");
+
   const { locale, messages } = useFormattedMessages();
 
   return (

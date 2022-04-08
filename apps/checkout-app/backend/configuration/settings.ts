@@ -14,6 +14,8 @@ export const getSettings = async (args: PrivateMetadataQueryVariables) => {
     )
     .toPromise();
 
+  console.log(data, error);
+
   if (error) {
     throw error;
   }
