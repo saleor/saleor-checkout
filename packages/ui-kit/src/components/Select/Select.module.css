@@ -1,0 +1,39 @@
+.container {
+  @apply relative inline-block;
+}
+
+:local(.trigger) {
+  @apply h-10 border border-border-primary hover:border-border-active text-base inline-flex items-center cursor-pointer;
+  padding-left: calc(theme("spacing.3") - theme("borderWidth.DEFAULT"));
+  padding-right: calc(theme("spacing.2") - theme("borderWidth.DEFAULT"));
+}
+
+.arrow-container {
+  @apply relative inline-flex items-center pl-2 ml-3;
+}
+
+.arrow-container svg {
+  @apply opacity-60;
+}
+
+:local(.trigger:hover .arrow-container svg) {
+  @apply opacity-100;
+}
+
+.arrow-container-open svg {
+  @apply rotate-180;
+}
+
+.arrow-container::before {
+  @apply absolute h-5 w-[1px] left-0 bg-border-primary;
+  content: "";
+}
+
+.options {
+  @apply absolute shadow-modal;
+  min-width: 100%;
+}
+
+.option {
+  @apply px-4 pt-[14px] pb-[13px] text-base cursor-pointer;
+}

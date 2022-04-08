@@ -90,6 +90,9 @@ const theme = {
     DEFAULT: "4px",
     full: "50%",
   },
+  boxShadow: {
+    modal: "0px 4px 20px 0px rgba(0, 0, 0, 0.12)",
+  },
 };
 
 module.exports = {
