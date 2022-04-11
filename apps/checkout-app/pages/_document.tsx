@@ -4,8 +4,6 @@ import { ServerStyleSheets } from "@material-ui/styles";
 
 class Document extends NextDocument {
   render() {
-    console.log("Document");
-
     return (
       <Html>
         <Head>

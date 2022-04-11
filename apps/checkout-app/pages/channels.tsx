@@ -5,8 +5,6 @@ const Channels = () => {
   const [channelsQuery] = useChannelsQuery();
   const channels = channelsQuery.data?.channels || [];
 
-  console.log("channels", channels);
-
   return <ChannelList channels={channels} loading={channelsQuery.fetching} />;
 };
 export default Channels;
