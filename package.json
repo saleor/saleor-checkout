@@ -11,6 +11,7 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
+    "test": "turbo run test",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
@@ -21,5 +22,5 @@
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
   },
-  "packageManager": "yarn@1.22.10"
+  "packageManager": "pnpm@6.19.0"
 }

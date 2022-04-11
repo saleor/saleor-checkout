@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "strict": true,
+    "noEmit": true,
     "paths": {
-      "@frontend/*": ["frontend/*"],
-      "@backend/*": ["backend/*"],
-      "@graphql": ["graphql"],
-      "@graphql/*": ["graphql/*"],
-      "@utils": ["utils.ts"]
-    }
+      "@/*": ["./*"]
+    },
+    "declaration": false,
+    "declarationMap": false
   },
-  "extends": "tsconfig/nextjs.json",
+  "extends": "../../packages/tsconfig/nextjs.json",
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

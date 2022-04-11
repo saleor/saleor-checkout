@@ -1,5 +1,5 @@
-import ColorInput from "@frontend/components/elements/ColorInput";
-import FileInput from "@frontend/components/elements/FileInput";
+import ColorInput from "@/frontend/components/elements/ColorInput";
+import FileInput from "@/frontend/components/elements/FileInput";
 import { TextField } from "@material-ui/core";
 import { SettingType } from "types/common";
 
@@ -8,7 +8,11 @@ interface SettingProps {
   type: SettingType;
   label: string;
   value?: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    event:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | React.DragEvent<HTMLDivElement>
+  ) => void;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 

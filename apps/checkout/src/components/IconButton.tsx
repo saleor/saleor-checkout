@@ -1,22 +1,17 @@
-import { useButton } from "@react-aria/button";
-import { useRef } from "react";
+import { Classes } from "@lib/globalTypes";
+import clsx from "clsx";
 import { ButtonProps } from "./Button";
 
-export const IconButton = (
-  props: Omit<ButtonProps, "title"> & { ariaLabel: string }
-) => {
-  const { children, ariaLabel } = props;
-  const ref = useRef<HTMLButtonElement | null>(null);
-  const { buttonProps } = useButton(props, ref);
+interface IconButtonProps extends Classes, Omit<ButtonProps, "title"> {
+  ariaLabel: string;
+}
 
-  return (
-    <button
-      className="outline-none focus:outline-none active:outline-none"
-      aria-label={ariaLabel}
-      ref={ref}
-      {...buttonProps}
-    >
-      {children}
-    </button>
-  );
-};
+export const IconButton: React.FC<IconButtonProps> = ({
+  children,
+  ariaLabel,
+  className,
+}) => (
+  <button className={clsx("icon-button", className)} aria-label={ariaLabel}>
+    {children}
+  </button>
+);
