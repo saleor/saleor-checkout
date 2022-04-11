@@ -64,6 +64,9 @@ const theme = {
       borderOn: "#394052",
       borderOff: "#b9c1cf",
     },
+    select: {
+      disabled: "#d5d5d8",
+    },
   },
   fontFamily: {
     sans: ["Inter"],

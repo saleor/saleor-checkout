@@ -8,6 +8,19 @@
   padding-right: calc(theme("spacing.2") - theme("borderWidth.DEFAULT"));
 }
 
+.trigger-error {
+  @apply border-border-error;
+}
+
+.trigger-disabled {
+  @apply bg-select-disabled border-select-disabled pointer-events-none;
+  padding-right: calc(theme("spacing.3") - theme("borderWidth.DEFAULT"));
+}
+
+.trigger-before {
+  @apply ml-1 mr-3;
+}
+
 .arrow-container {
   @apply relative inline-flex items-center pl-2 ml-3;
 }
@@ -35,5 +48,9 @@
 }
 
 .option {
-  @apply px-4 pt-[14px] pb-[13px] text-base cursor-pointer;
+  @apply px-4 pt-[14px] pb-[13px] text-base cursor-pointer flex items-center;
+}
+
+.option-before {
+  @apply mr-3;
 }
