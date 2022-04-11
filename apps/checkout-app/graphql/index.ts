@@ -14101,6 +14101,13 @@ export type AppQuery = { __typename?: 'Query', app?: { __typename?: 'App', id: s
 
 export type ChannelFragment = { __typename?: 'Channel', id: string, name: string, slug: string };
 
+export type ChannelQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ChannelQuery = { __typename?: 'Query', channel?: { __typename?: 'Channel', id: string, name: string, slug: string } | null };
+
 export type ChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -14257,6 +14264,17 @@ export const AppDocument = gql`
 
 export function useAppQuery(options?: Omit<Urql.UseQueryArgs<AppQueryVariables>, 'query'>) {
   return Urql.useQuery<AppQuery>({ query: AppDocument, ...options });
+};
+export const ChannelDocument = gql`
+    query Channel($id: ID!) {
+  channel(id: $id) {
+    ...ChannelFragment
+  }
+}
+    ${ChannelFragmentDoc}`;
+
+export function useChannelQuery(options: Omit<Urql.UseQueryArgs<ChannelQueryVariables>, 'query'>) {
+  return Urql.useQuery<ChannelQuery>({ query: ChannelDocument, ...options });
 };
 export const ChannelsDocument = gql`
     query Channels {

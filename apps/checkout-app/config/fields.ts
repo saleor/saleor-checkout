@@ -62,7 +62,6 @@ export const brandingCustomization: Customization<"branding"> = {
       id: "active",
       label: "Active",
       type: "color",
-      value: "#394052", // Default value
     },
     {
       id: "text",

@@ -1,3 +1,4 @@
+import settingsValues from "config/defaults";
 import { SettingsValues, UnknownSettingsValues } from "types/api";
 import { allSettingID, Item, NamedNode, Node, SettingID } from "types/common";
 
@@ -49,7 +50,7 @@ export const mapMetadataToSettings = (
     key: string;
     value: string;
   } | null>
-): Partial<SettingsValues> => {
+): SettingsValues => {
   const settings = metadata.reduce((settings, metadataItem) => {
     const settingsKey = metadataItem?.key;
 
@@ -72,7 +73,7 @@ export const mapMetadataToSettings = (
         [settingsKey]: {},
       };
     }
-  }, {} as SettingsValues);
+  }, settingsValues);
 
   return settings;
 };

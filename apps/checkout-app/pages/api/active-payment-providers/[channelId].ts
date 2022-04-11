@@ -1,4 +1,4 @@
-import { getSettings } from "@/backend/configuration/settings";
+import { getChannelActivePaymentProvidersSettings } from "@/backend/configuration/settings";
 import { allowCors } from "@/backend/utils";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -7,12 +7,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   console.log(channelId);
 
-  const settings = await getSettings(req.body);
+  const channelProvidersSettings =
+    await getChannelActivePaymentProvidersSettings(channelId?.toString());
 
-  console.log(settings);
+  console.log(channelProvidersSettings);
 
-  res
-    .status(200)
-    .json(settings.channelActivePaymentProviders?.[channelId?.toString()]);
+  res.status(200).json(channelProvidersSettings);
 }
 export default allowCors(handler);

@@ -4,7 +4,7 @@ import {
   customizations,
   paymentMethods,
   paymentProviders,
-} from "configuration";
+} from "config/fields";
 import {
   ChannelActivePaymentProviders,
   ChannelActivePaymentProvidersByChannel,

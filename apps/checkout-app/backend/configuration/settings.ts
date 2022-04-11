@@ -1,12 +1,20 @@
 import { mapMetadataToSettings } from "@frontend/utils";
 import {
+  ChannelDocument,
+  ChannelQuery,
+  ChannelQueryVariables,
+  ChannelsDocument,
+  ChannelsQuery,
+  ChannelsQueryVariables,
   PrivateMetadataDocument,
   PrivateMetadataQuery,
   PrivateMetadataQueryVariables,
 } from "@graphql";
 import { client } from "@graphql/client";
+import { defaultActiveChannelPaymentProviders } from "config/defaults";
+import { ChannelActivePaymentProviders } from "types/api";
 
-export const getSettings = async (args: PrivateMetadataQueryVariables) => {
+export const getSettings = async () => {
   const { data, error } = await client
     .query<PrivateMetadataQuery, PrivateMetadataQueryVariables>(
       PrivateMetadataDocument,
@@ -25,4 +33,56 @@ export const getSettings = async (args: PrivateMetadataQueryVariables) => {
   );
 
   return settingsValues;
+};
+
+export const getActivePaymentProvidersSettings = async () => {
+  const settings = await getSettings();
+
+  const { data, error } = await client
+    .query<ChannelsQuery, ChannelsQueryVariables>(ChannelsDocument)
+    .toPromise();
+
+  console.log(data, error);
+
+  if (error) {
+    throw error;
+  }
+
+  const activePaymentProvidersSettings: ChannelActivePaymentProviders =
+    data?.channels?.reduce((assignedSettings, channel) => {
+      const channelSettings =
+        assignedSettings[channel.id] || defaultActiveChannelPaymentProviders;
+
+      return {
+        ...assignedSettings,
+        [channel.id]: channelSettings,
+      };
+    }, settings.channelActivePaymentProviders) ||
+    settings.channelActivePaymentProviders;
+
+  return activePaymentProvidersSettings;
+};
+
+export const getChannelActivePaymentProvidersSettings = async (
+  channelId: string
+) => {
+  const settings = await getSettings();
+
+  const { data, error } = await client
+    .query<ChannelQuery, ChannelQueryVariables>(ChannelDocument, {
+      id: channelId,
+    })
+    .toPromise();
+
+  console.log(data, error);
+
+  if (error) {
+    throw error;
+  }
+
+  const channelActivePaymentProvidersSettings =
+    settings.channelActivePaymentProviders?.[channelId] ||
+    defaultActiveChannelPaymentProviders;
+
+  return channelActivePaymentProvidersSettings;
 };

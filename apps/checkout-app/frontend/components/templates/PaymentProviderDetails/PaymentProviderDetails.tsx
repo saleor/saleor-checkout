@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import { Item, PaymentProvider, PaymentProviderID } from "types/common";
+import { paymentProviders } from "config/fields";
 import VerticalSpacer from "@/frontend/components/elements/VerticalSpacer";
-import { paymentProviders } from "configuration";
 import { channelListPath, channelPath, paymentProviderPath } from "routes";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useStyles } from "./styles";
