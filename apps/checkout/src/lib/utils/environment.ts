@@ -13,7 +13,6 @@ export interface EnvVars
 
 export const getEnvVars = (): EnvVars => {
   const envVars = process.env;
-  console.log({ envVars });
 
   return {
     checkoutAppUrl: envVars.REACT_APP_CHECKOUT_APP_URL,

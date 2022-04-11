@@ -2,6 +2,7 @@
   "compilerOptions": {
     "paths": {
       "@components/*": ["./src/components/*"],
+      "@providers/*": ["./src/providers/*"],
       "@sections/*": ["./src/sections/*"],
       "@icons": ["./src/assets/icons"],
       "@images": ["./src/assets/images"],

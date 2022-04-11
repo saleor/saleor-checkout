@@ -8,6 +8,7 @@ import { getCurrentRegion } from "./lib/regions";
 import { I18nProvider } from "@react-aria/i18n";
 import { createFetch, createSaleorClient, SaleorProvider } from "@saleor/sdk";
 import { getEnvVars } from "@lib/utils";
+import { AppConfigProvider } from "@providers/AppConfigProvider";
 
 const authorizedFetch = createFetch();
 
@@ -36,7 +37,9 @@ root.render(
   <SaleorProvider client={saleorClient}>
     <I18nProvider locale={getCurrentRegion()}>
       <UrqlProvider value={client}>
-        <Checkout />
+        <AppConfigProvider>
+          <Checkout />
+        </AppConfigProvider>
       </UrqlProvider>
     </I18nProvider>
   </SaleorProvider>

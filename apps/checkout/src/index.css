@@ -107,7 +107,7 @@ html {
   }
 
   .button-primary p {
-    @apply text-text-tertiary;
+    @apply text-text-button;
   }
 
   .button-primary:hover p,

@@ -20,3 +20,6 @@ export const pay = ({
       totalAmount,
     }),
   });
+
+export const getAppConfig = () =>
+  fetch(`${getEnvVars().configAppUrl}/customization-settings`);
