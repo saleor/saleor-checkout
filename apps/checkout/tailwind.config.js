@@ -28,8 +28,8 @@ const theme = {
     },
     text: {
       primary: "var(--text-color)",
-      secondary: "rgba(var(--text-color), 0.6)",
-      tertiary: "rgba(var(--text-color), 0.4)",
+      secondary: "rgba(var(--text-color-rgb), 0.6)",
+      tertiary: "rgba(var(--text-color-rgb), 0.4)",
       button: "var(--button-text-color)",
       error: "var(--error-color)",
     },
