@@ -7,7 +7,6 @@ import {
 } from "config/fields";
 import {
   ChannelActivePaymentProviders,
-  ChannelActivePaymentProvidersByChannel,
   ChannelPaymentOptions,
   UnknownSettingsValues,
 } from "types/api";
@@ -15,35 +14,33 @@ import {
   Customization,
   CustomizationID,
   CustomizationSettings,
-  PaymentMethodID,
   PaymentProvider,
   PaymentProviderID,
   PaymentProviderSettings,
 } from "types/common";
 
 export const getCustomizationSettings = (
-  settingsValues?: UnknownSettingsValues
+  settingsValues: UnknownSettingsValues
 ): Customization<CustomizationID>[] =>
   customizations.map((customization) => ({
     ...customization,
     settings: customization.settings.map(
       (setting: CustomizationSettings<CustomizationID>) => ({
         ...setting,
-        value:
-          settingsValues?.[customization.id]?.[setting.id] || setting.value,
+        value: settingsValues[customization.id][setting.id],
       })
     ),
   }));
 
 export const getPaymentProviderSettings = (
-  settingsValues?: UnknownSettingsValues
+  settingsValues: UnknownSettingsValues
 ): PaymentProvider<PaymentProviderID>[] =>
   paymentProviders.map((provider) => ({
     ...provider,
     settings: provider.settings.map(
       (setting: PaymentProviderSettings<PaymentProviderID>) => ({
         ...setting,
-        value: settingsValues?.[provider.id]?.[setting.id] || setting.value,
+        value: settingsValues[provider.id][setting.id],
       })
     ),
   }));
