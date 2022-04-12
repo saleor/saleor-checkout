@@ -14113,6 +14113,8 @@ export type ChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ChannelsQuery = { __typename?: 'Query', channels?: Array<{ __typename?: 'Channel', id: string, name: string, slug: string }> | null };
 
+export type MetadataItemFragment = { __typename?: 'MetadataItem', key: string, value: string };
+
 export type PrivateMetadataQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -14253,6 +14255,12 @@ export const OrderFragmentDoc = gql`
     ${AddressFragmentDoc}
 ${MoneyFragmentDoc}
 ${OrderLineFragmentDoc}`;
+export const MetadataItemFragmentDoc = gql`
+    fragment MetadataItemFragment on MetadataItem {
+  key
+  value
+}
+    `;
 export const AppDocument = gql`
     query App($id: ID) {
   app(id: $id) {
@@ -14292,12 +14300,11 @@ export const PrivateMetadataDocument = gql`
   app(id: $id) {
     id
     privateMetadata {
-      key
-      value
+      ...MetadataItemFragment
     }
   }
 }
-    `;
+    ${MetadataItemFragmentDoc}`;
 
 export function usePrivateMetadataQuery(options: Omit<Urql.UseQueryArgs<PrivateMetadataQueryVariables>, 'query'>) {
   return Urql.useQuery<PrivateMetadataQuery>({ query: PrivateMetadataDocument, ...options });
@@ -14307,8 +14314,7 @@ export const UpdatePrivateMetadataDocument = gql`
   updatePrivateMetadata(id: $id, input: $input) {
     item {
       privateMetadata {
-        key
-        value
+        ...MetadataItemFragment
       }
     }
     errors {
@@ -14318,7 +14324,7 @@ export const UpdatePrivateMetadataDocument = gql`
     }
   }
 }
-    `;
+    ${MetadataItemFragmentDoc}`;
 
 export function useUpdatePrivateMetadataMutation() {
   return Urql.useMutation<UpdatePrivateMetadataMutation, UpdatePrivateMetadataMutationVariables>(UpdatePrivateMetadataDocument);
