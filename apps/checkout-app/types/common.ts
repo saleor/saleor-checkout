@@ -45,11 +45,13 @@ export interface PaymentProvider<P extends PaymentProviderID> {
  */
 export type CustomizationID = "branding" | "product-settings";
 export type BrandingCustomizationSettingID =
-  | "active"
-  | "text"
-  | "bg"
-  | "error"
-  | "success"
+  | "button-bg-color-primary"
+  | "button-bg-color-hover"
+  | "border-color-primary"
+  | "error-color"
+  | "success-color"
+  | "text-color"
+  | "button-text-color"
   | "logo";
 export type ProductCustomizationSettingID = "low-stock-threshold";
 export type CustomizationSettingID<P extends CustomizationID> =

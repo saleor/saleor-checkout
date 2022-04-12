@@ -59,28 +59,38 @@ export const brandingCustomization: Customization<"branding"> = {
   label: "Branding",
   settings: [
     {
-      id: "active",
-      label: "Active",
+      id: "button-bg-color-primary",
+      label: "Button BG Primary",
       type: "color",
     },
     {
-      id: "text",
-      label: "Text",
+      id: "button-bg-color-hover",
+      label: "Button BG Hover",
       type: "color",
     },
     {
-      id: "bg",
-      label: "BG",
+      id: "border-color-primary",
+      label: "Border Primary",
       type: "color",
     },
     {
-      id: "error",
+      id: "error-color",
       label: "Error",
       type: "color",
     },
     {
-      id: "success",
+      id: "success-color",
       label: "Success",
+      type: "color",
+    },
+    {
+      id: "button-text-color",
+      label: "Button Text",
+      type: "color",
+    },
+    {
+      id: "text-color",
+      label: "Text",
       type: "color",
     },
     {

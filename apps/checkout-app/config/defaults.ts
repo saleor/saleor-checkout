@@ -26,11 +26,13 @@ export const defaultPaymentProviderSettings: PaymentProviderSettingsValues = {
 
 export const defaultCustomizationSettings: CustomizationSettingsValues = {
   branding: {
-    active: "#394052",
-    text: "#394052",
-    bg: "#FAFAFA",
-    error: "#B65757",
-    success: "#2C9B2A",
+    "button-bg-color-primary": "#394052",
+    "button-bg-color-hover": "#394052",
+    "border-color-primary": "#FAFAFA",
+    "error-color": "#B65757",
+    "success-color": "#2C9B2A",
+    "button-text-color": "#ffffff",
+    "text-color": "#000000",
     logo: "",
   },
   "product-settings": {
