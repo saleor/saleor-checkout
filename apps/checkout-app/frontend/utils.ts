@@ -1,4 +1,4 @@
-import { MetadataItemFragment } from "@graphql";
+import { MetadataItemFragment } from "@/graphql";
 import settingsValues from "config/defaults";
 import { SettingsValues, UnknownSettingsValues } from "types/api";
 import { allSettingID, Item, NamedNode, Node, SettingID } from "types/common";

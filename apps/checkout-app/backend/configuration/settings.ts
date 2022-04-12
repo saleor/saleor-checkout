@@ -1,4 +1,4 @@
-import { mapMetadataToSettings } from "@frontend/utils";
+import { mapMetadataToSettings } from "@/frontend/utils";
 import {
   ChannelDocument,
   ChannelQuery,
@@ -9,8 +9,8 @@ import {
   PrivateMetadataDocument,
   PrivateMetadataQuery,
   PrivateMetadataQueryVariables,
-} from "@graphql";
-import { client } from "@graphql/client";
+} from "@/graphql";
+import { client } from "@/graphql/client";
 import { defaultActiveChannelPaymentProviders } from "config/defaults";
 import { ChannelActivePaymentProviders } from "types/api";
 
