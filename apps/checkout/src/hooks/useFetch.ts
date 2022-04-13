@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
 export const useFetch = <TArgs extends Record<string, any>>(
-  fetchFn: (args: TArgs) => Promise<any>,
-  args?: TArgs = {}
+  fetchFn: (args?: TArgs) => Promise<any>,
+  args?: TArgs
 ) => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState<any>(null);
+
+  const useFetchDeps = args ? Object.values(args) : [];
 
   useEffect(() => {
     setLoading(true);
@@ -24,7 +26,7 @@ export const useFetch = <TArgs extends Record<string, any>>(
     };
 
     fetchData();
-  }, Object.values(args));
+  }, useFetchDeps);
 
   return [result, loading, error];
 };

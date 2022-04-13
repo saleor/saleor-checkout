@@ -2,16 +2,17 @@
   "compilerOptions": {
     "paths": {
       "@components/*": ["./src/components/*"],
-      "@providers/*": ["./src/providers/*"],
       "@sections/*": ["./src/sections/*"],
       "@icons": ["./src/assets/icons"],
       "@images": ["./src/assets/images"],
       "@assets/*": ["./src/assets/*"],
       "@graphql": ["./src/graphql"],
+      "@fetch": ["./src/fetch"],
       "@lib/*": ["./src/lib/*"],
-      "@hooks/*": ["./src/hooks/*"]
+      "@hooks/*": ["./src/hooks/*"],
+      "@providers/*": ["./src/providers/*"]
     },
-    "types": ["react/next", "react-dom/next"],
+    "types": ["react/next", "react-dom"],
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,

@@ -37,7 +37,6 @@ export const Contact = ({ onEmailChange, email }: ContactProps) => {
 
   const passwordResetToken = getQueryVariables().passwordResetToken;
 
-  console.log(666, { currentSection });
   useEffect(() => {
     if (loading) {
       return;

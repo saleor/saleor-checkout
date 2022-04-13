@@ -1,7 +1,7 @@
 import { useFetch } from "@hooks/useFetch";
 import createSafeContext from "@providers/createSafeContext";
-import { getAppConfig } from "@sections/requests";
-import { useEffect, useRef } from "react";
+import { getAppConfig } from "@fetch";
+import { PropsWithChildren, useEffect, useRef } from "react";
 import { AppConfig, BrandingColors, BrandingColorsData } from "./types";
 import isEqual from "lodash/isEqual";
 import { getParsedCssBody } from "./utils";
@@ -15,7 +15,9 @@ interface AppConfigContextConsumerProps {
 export const [useContext, Provider] =
   createSafeContext<AppConfigContextConsumerProps>();
 
-export const AppConfigProvider: React.FC = ({ children }) => {
+export const AppConfigProvider: React.FC<PropsWithChildren<{}>> = ({
+  children,
+}) => {
   const [appConfig, loading] = useFetch(getAppConfig);
   const stylingRef = useRef(appConfig);
 

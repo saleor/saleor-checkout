@@ -103,7 +103,7 @@ html {
   }
 
   .button-primary {
-    @apply bg-button-primary hover:bg-button-secondary active:bg-button-tertiary disabled:border-none disabled:bg-background-tertiary;
+    @apply border-border-primary bg-button-primary hover:bg-button-secondary active:bg-button-tertiary disabled:border-none disabled:bg-background-tertiary;
   }
 
   .button-primary p {
