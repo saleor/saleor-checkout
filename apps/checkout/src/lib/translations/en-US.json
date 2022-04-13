@@ -66,5 +66,6 @@
   "cancelLabel": "cancel",
   "saveLabel": "save",
   "addAddressLabel": "add new address",
-  "useShippingAsBilling": "Use shipping address as billing address"
+  "useShippingAsBilling": "Use shipping address as billing address",
+  "shippingMethodsLabel": "shipping methods"
 }
