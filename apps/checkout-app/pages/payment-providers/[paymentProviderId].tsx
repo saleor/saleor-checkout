@@ -55,6 +55,11 @@ const PaymentProvider = () => {
     });
   };
 
+  const errors = [
+    ...(metadataMutation.data?.updatePrivateMetadata?.errors || []),
+    ...(metadataMutation.error?.graphQLErrors || []),
+  ];
+
   if (!paymentProvider) {
     return (
       <ErrorDetails
@@ -69,6 +74,7 @@ const PaymentProvider = () => {
       channelId={channelId?.toString()}
       saveButtonBarState="default"
       loading={metadataQuery.fetching || metadataMutation.fetching}
+      errors={errors}
       onCancel={handleCancel}
       onSubmit={handleSubmit}
     />

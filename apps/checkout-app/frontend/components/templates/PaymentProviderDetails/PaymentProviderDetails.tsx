@@ -13,16 +13,26 @@ import AppLayout from "@/frontend/components/elements/AppLayout";
 import AppSavebar from "@/frontend/components/elements/AppSavebar";
 import Setting from "@/frontend/components/elements/Setting";
 import { PaymentProviderSettingsValues } from "types/api";
-import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
+import { Alert, ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { getFormDefaultValues } from "./data";
 import { useEffect } from "react";
+import { getMetadataErrorMessage } from "@/frontend/misc/errors";
+import { MetadataErrorCode } from "@/graphql";
+import { commonErrorMessages } from "@/frontend/misc/errorMessages";
 
 interface PaymentProviderDetailsProps {
   selectedPaymentProvider: PaymentProvider<PaymentProviderID>;
   channelId?: string;
   saveButtonBarState: ConfirmButtonTransitionState;
   loading: boolean;
+  errors?:
+    | {
+        __typename?: "MetadataError" | undefined;
+        code?: MetadataErrorCode;
+        message?: string | null | undefined;
+        field?: string | null | undefined;
+      }[];
   onCancel: () => void;
   onSubmit: (data: PaymentProviderSettingsValues) => void;
 }
@@ -32,6 +42,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   channelId,
   saveButtonBarState,
   loading,
+  errors,
   onCancel,
   onSubmit,
 }) => {
@@ -99,6 +110,26 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
         loading={loading}
         onItemClick={onPaymentProviderClick}
       >
+        {!!errors?.length && (
+          <>
+            <VerticalSpacer />
+            <Alert
+              variant="error"
+              title={intl.formatMessage(commonErrorMessages.somethingWentWrong)}
+            >
+              {errors?.map((error, idx) =>
+                error.code ? (
+                  <Typography key={idx}>
+                    {getMetadataErrorMessage(error.code, intl)}
+                  </Typography>
+                ) : (
+                  <Typography>{error.message}</Typography>
+                )
+              )}
+            </Alert>
+            <VerticalSpacer />
+          </>
+        )}
         <Card>
           <CardContent>
             <Typography variant="body1">

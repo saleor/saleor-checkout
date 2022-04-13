@@ -42,11 +42,17 @@ const Customization = () => {
     });
   };
 
+  const errors = [
+    ...(metadataMutation.data?.updatePrivateMetadata?.errors || []),
+    ...(metadataMutation.error?.graphQLErrors || []),
+  ];
+
   return (
     <CustomizationDetails
       options={customizationSettings}
       loading={metadataQuery.fetching || metadataMutation.fetching}
       saveButtonBarState="default"
+      errors={errors}
       onCancel={handleCancel}
       onSubmit={handleSubmit}
     />

@@ -1,4 +1,5 @@
 import {
+  Alert,
   ConfirmButtonTransitionState,
   OffsettedList,
   OffsettedListBody,
@@ -8,7 +9,7 @@ import {
 } from "@saleor/macaw-ui";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import { useRouter } from "next/router";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import {
   Accordion,
   AccordionDetails,
@@ -36,13 +37,23 @@ import AppSavebar from "@/frontend/components/elements/AppSavebar";
 import { Controller, useForm } from "react-hook-form";
 import { getActivePaymentProvider, getFormDefaultValues } from "./data";
 import { useEffect } from "react";
-import { ChannelFragment } from "@/graphql";
+import { ChannelFragment, MetadataErrorCode } from "@/graphql";
+import { getMetadataErrorMessage } from "@/frontend/misc/errors";
+import { commonErrorMessages } from "@/frontend/misc/errorMessages";
+import VerticalSpacer from "../../elements/VerticalSpacer";
 
 interface ChannelDetailsProps {
   channelPaymentOptions: ChannelPaymentOptions;
   channels: ChannelFragment[];
   saveButtonBarState: ConfirmButtonTransitionState;
   loading: boolean;
+  errors?:
+    | {
+        __typename?: "MetadataError" | undefined;
+        code?: MetadataErrorCode;
+        message?: string | null | undefined;
+        field?: string | null | undefined;
+      }[];
   onCancel: () => void;
   onSubmit: (data: ChannelActivePaymentProviders) => void;
 }
@@ -52,9 +63,11 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
   channels,
   saveButtonBarState,
   loading,
+  errors,
   onCancel,
   onSubmit,
 }) => {
+  const intl = useIntl();
   const router = useRouter();
   const classes = useStyles();
   const { actions } = useOffsettedListWidths();
@@ -109,6 +122,26 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
         loading={loading}
         onItemClick={onChannelClick}
       >
+        {!!errors?.length && (
+          <>
+            <VerticalSpacer />
+            <Alert
+              variant="error"
+              title={intl.formatMessage(commonErrorMessages.somethingWentWrong)}
+            >
+              {errors?.map((error, idx) =>
+                error.code ? (
+                  <Typography key={idx}>
+                    {getMetadataErrorMessage(error.code, intl)}
+                  </Typography>
+                ) : (
+                  <Typography>{error.message}</Typography>
+                )
+              )}
+            </Alert>
+            <VerticalSpacer />
+          </>
+        )}
         <Typography variant="subtitle1">
           <FormattedMessage {...messages.selectPaymentMethods} />
         </Typography>

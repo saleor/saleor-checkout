@@ -58,6 +58,11 @@ const Channel = () => {
     });
   };
 
+  const errors = [
+    ...(metadataMutation.data?.updatePrivateMetadata?.errors || []),
+    ...(metadataMutation.error?.graphQLErrors || []),
+  ];
+
   if (!channelPaymentOptions) {
     return (
       <ErrorDetails
@@ -78,6 +83,7 @@ const Channel = () => {
         metadataQuery.fetching ||
         metadataMutation.fetching
       }
+      errors={errors}
       onCancel={handleCancel}
       onSubmit={handleSubmit}
     />

@@ -1,5 +1,12 @@
 import { defineMessages } from "react-intl";
 
+export const commonErrorMessages = defineMessages({
+  somethingWentWrong: {
+    defaultMessage: "Something went wrong",
+    description: "error message",
+  },
+});
+
 export const notFoundMessages = defineMessages({
   paymentProviderNotFound: {
     defaultMessage: "Payment provider not found.",
@@ -7,6 +14,33 @@ export const notFoundMessages = defineMessages({
   },
   channelPaymentOptionsNotFound: {
     defaultMessage: "Channel payment options not found.",
+    description: "error message",
+  },
+});
+
+export const metadataErrorMessages = defineMessages({
+  invalid: {
+    defaultMessage: "Invalid",
+    description: "error message",
+  },
+  required: {
+    defaultMessage: "Required",
+    description: "error message",
+  },
+  notFound: {
+    defaultMessage: "Not found",
+    description: "error message",
+  },
+  notUpdated: {
+    defaultMessage: "Not updated",
+    description: "error message",
+  },
+  graphQLError: {
+    defaultMessage: "GraphQL error",
+    description: "error message",
+  },
+  unknown: {
+    defaultMessage: "Unknown error",
     description: "error message",
   },
 });

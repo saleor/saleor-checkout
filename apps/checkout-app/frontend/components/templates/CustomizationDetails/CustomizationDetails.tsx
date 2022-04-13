@@ -11,21 +11,33 @@ import {
   OffsettedList,
   OffsettedListBody,
   ConfirmButtonTransitionState,
+  Alert,
 } from "@saleor/macaw-ui";
 import { Customization, CustomizationID } from "types/common";
 import { CustomizationSettingsValues } from "types/api";
 import { useStyles } from "./styles";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useForm, Controller } from "react-hook-form";
 import { messages } from "./messages";
 import Setting from "@/frontend/components/elements/Setting";
 import { flattenSettingId, unflattenSettings } from "@/frontend/utils";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { MetadataErrorCode } from "@/graphql";
+import { getMetadataErrorMessage } from "@/frontend/misc/errors";
+import { commonErrorMessages } from "@/frontend/misc/errorMessages";
+import VerticalSpacer from "../../elements/VerticalSpacer";
 
 interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
   loading: boolean;
   saveButtonBarState: ConfirmButtonTransitionState;
+  errors?:
+    | {
+        __typename?: "MetadataError" | undefined;
+        code?: MetadataErrorCode;
+        message?: string | null | undefined;
+        field?: string | null | undefined;
+      }[];
   onCancel: () => void;
   onSubmit: (data: CustomizationSettingsValues) => void;
 }
@@ -34,9 +46,11 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
   options,
   loading,
   saveButtonBarState,
+  errors,
   onCancel,
   onSubmit,
 }) => {
+  const intl = useIntl();
   const classes = useStyles();
   const { control, handleSubmit: handleSubmitForm, formState } = useForm();
 
@@ -52,6 +66,25 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
   return (
     <form>
       <AppNavigation />
+      {!!errors?.length && (
+        <>
+          <VerticalSpacer />
+          <Alert
+            variant="error"
+            title={intl.formatMessage(commonErrorMessages.somethingWentWrong)}
+          >
+            {errors?.map((error, idx) =>
+              error.code ? (
+                <Typography key={idx}>
+                  {getMetadataErrorMessage(error.code, intl)}
+                </Typography>
+              ) : (
+                <Typography>{error.message}</Typography>
+              )
+            )}
+          </Alert>
+        </>
+      )}
       <div className={classes.root}>
         <OffsettedList gridTemplate={["1fr"]} className={classes.optionList}>
           <OffsettedListBody>
