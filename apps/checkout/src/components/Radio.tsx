@@ -9,12 +9,12 @@ export interface RadioOptionBase {
   disabled?: boolean;
 }
 
-export type ContentFunction = (
-  props: Pick<RadioOptionContentProps, "htmlFor">
+export type RadioChildren = (
+  props: Pick<RadioOptionChildrenProps, "htmlFor">
 ) => ReactNode;
 
 export interface CustomRadioOption extends RadioOptionBase {
-  content: ContentFunction;
+  children: RadioChildren;
   title?: never;
   subtitle?: never;
 }
@@ -22,12 +22,12 @@ export interface CustomRadioOption extends RadioOptionBase {
 export interface SimpleRadioOption extends RadioOptionBase {
   title: string;
   subtitle?: string;
-  content?: never;
+  children?: never;
 }
 
 export type RadioOption = SimpleRadioOption | CustomRadioOption;
 
-export interface RadioOptionContentProps
+export interface RadioOptionChildrenProps
   extends Pick<RadioOptionBase, "disabled"> {
   htmlFor: string;
 }
@@ -36,51 +36,56 @@ export const Radio: React.FC<SimpleRadioOption | CustomRadioOption> = ({
   value,
   title,
   subtitle,
-  content,
+  children,
   selectedValue,
   onSelect,
   disabled,
 }: RadioOption & {
   title?: string;
   subtitle?: string;
-  content?: ContentFunction;
-}) => (
-  <>
-    <div
-      className={clsx(
-        "radio-option",
-        disabled && "disabled",
-        subtitle && "with-subtitle",
-        { selected: selectedValue === value && !disabled }
-      )}
-    >
-      <div
-        className="radio-input-container"
-        onClick={() => {
-          if (!disabled) {
-            onSelect(value);
-          }
-        }}
-      >
-        <input
-          disabled={disabled}
-          name={title}
-          className="radio-input"
-          id={value}
-          checked={selectedValue === value}
-        />
-        <span className="radio-input-icon" />
-      </div>
-      {title && (
-        <label htmlFor={value} className="radio-label">
-          <Text className={clsx(disabled && "text-text-secondary")}>
-            {title}
-          </Text>
-          {subtitle && <Text>{subtitle}</Text>}
-        </label>
-      )}
+  children?: RadioChildren;
+}) => {
+  const isSimpleRadio = title && !children;
+  const isCustomRadio = !title && children;
 
-      {content && content({ htmlFor: value })}
-    </div>
-  </>
-);
+  return (
+    <>
+      <div
+        className={clsx(
+          "radio-option",
+          disabled && "disabled",
+          subtitle && "with-subtitle",
+          { selected: selectedValue === value && !disabled }
+        )}
+      >
+        <div
+          className="radio-input-container"
+          onClick={() => {
+            if (!disabled) {
+              onSelect(value);
+            }
+          }}
+        >
+          <input
+            disabled={disabled}
+            name={title}
+            className="radio-input"
+            id={value}
+            checked={selectedValue === value}
+          />
+          <span className="radio-input-icon" />
+        </div>
+        {isSimpleRadio && (
+          <label htmlFor={value} className="radio-label">
+            <Text className={clsx(disabled && "text-text-secondary")}>
+              {title}
+            </Text>
+            {subtitle && <Text>{subtitle}</Text>}
+          </label>
+        )}
+
+        {isCustomRadio && children({ htmlFor: value })}
+      </div>
+    </>
+  );
+};
