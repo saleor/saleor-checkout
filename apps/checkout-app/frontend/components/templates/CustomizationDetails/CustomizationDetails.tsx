@@ -11,12 +11,11 @@ import {
   OffsettedList,
   OffsettedListBody,
   ConfirmButtonTransitionState,
-  Alert,
 } from "@saleor/macaw-ui";
 import { Customization, CustomizationID } from "types/common";
 import { CustomizationSettingsValues } from "types/api";
 import { useStyles } from "./styles";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { useForm, Controller } from "react-hook-form";
 import { messages } from "./messages";
 import Setting from "@/frontend/components/elements/Setting";
@@ -24,8 +23,7 @@ import { flattenSettingId, unflattenSettings } from "@/frontend/utils";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { MetadataErrorCode } from "@/graphql";
 import { getMetadataErrorMessage } from "@/frontend/misc/errors";
-import { commonErrorMessages } from "@/frontend/misc/errorMessages";
-import VerticalSpacer from "../../elements/VerticalSpacer";
+import ErrorAlert from "../../elements/ErrorAlert";
 
 interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
@@ -50,7 +48,6 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
   onCancel,
   onSubmit,
 }) => {
-  const intl = useIntl();
   const classes = useStyles();
   const { control, handleSubmit: handleSubmitForm, formState } = useForm();
 
@@ -66,25 +63,6 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
   return (
     <form>
       <AppNavigation />
-      {!!errors?.length && (
-        <>
-          <VerticalSpacer />
-          <Alert
-            variant="error"
-            title={intl.formatMessage(commonErrorMessages.somethingWentWrong)}
-          >
-            {errors?.map((error, idx) =>
-              error.code ? (
-                <Typography key={idx}>
-                  {getMetadataErrorMessage(error.code, intl)}
-                </Typography>
-              ) : (
-                <Typography>{error.message}</Typography>
-              )
-            )}
-          </Alert>
-        </>
-      )}
       <div className={classes.root}>
         <OffsettedList gridTemplate={["1fr"]} className={classes.optionList}>
           <OffsettedListBody>
@@ -131,6 +109,14 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
           </OffsettedListBody>
         </OffsettedList>
         <div className={classes.design}>
+          <ErrorAlert
+            errors={errors}
+            getErrorMessage={(error, intl) =>
+              error.code
+                ? getMetadataErrorMessage(error.code, intl)
+                : error.message
+            }
+          />
           <Typography variant="subtitle1">
             <FormattedMessage {...messages.customizationPreview} />
           </Typography>

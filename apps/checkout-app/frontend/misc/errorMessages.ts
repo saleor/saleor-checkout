@@ -5,20 +5,18 @@ export const commonErrorMessages = defineMessages({
     defaultMessage: "Something went wrong",
     description: "error message",
   },
-});
-
-export const notFoundMessages = defineMessages({
-  paymentProviderNotFound: {
-    defaultMessage: "Payment provider not found.",
+  unknownError: {
+    defaultMessage: "Unknown error",
     description: "error message",
   },
-  channelPaymentOptionsNotFound: {
-    defaultMessage: "Channel payment options not found.",
+  graphQLError: {
+    defaultMessage: "GraphQL error",
     description: "error message",
   },
-});
-
-export const metadataErrorMessages = defineMessages({
+  unknown: {
+    defaultMessage: "Unknown error",
+    description: "error message",
+  },
   invalid: {
     defaultMessage: "Invalid",
     description: "error message",
@@ -35,12 +33,15 @@ export const metadataErrorMessages = defineMessages({
     defaultMessage: "Not updated",
     description: "error message",
   },
-  graphQLError: {
-    defaultMessage: "GraphQL error",
+});
+
+export const notFoundMessages = defineMessages({
+  paymentProviderNotFound: {
+    defaultMessage: "Payment provider not found.",
     description: "error message",
   },
-  unknown: {
-    defaultMessage: "Unknown error",
+  channelPaymentOptionsNotFound: {
+    defaultMessage: "Channel payment options not found.",
     description: "error message",
   },
 });

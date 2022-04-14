@@ -9,7 +9,7 @@ import {
 } from "@saleor/macaw-ui";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import { useRouter } from "next/router";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import {
   Accordion,
   AccordionDetails,
@@ -39,8 +39,7 @@ import { getActivePaymentProvider, getFormDefaultValues } from "./data";
 import { useEffect } from "react";
 import { ChannelFragment, MetadataErrorCode } from "@/graphql";
 import { getMetadataErrorMessage } from "@/frontend/misc/errors";
-import { commonErrorMessages } from "@/frontend/misc/errorMessages";
-import VerticalSpacer from "../../elements/VerticalSpacer";
+import ErrorAlert from "../../elements/ErrorAlert";
 
 interface ChannelDetailsProps {
   channelPaymentOptions: ChannelPaymentOptions;
@@ -67,7 +66,6 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
   onCancel,
   onSubmit,
 }) => {
-  const intl = useIntl();
   const router = useRouter();
   const classes = useStyles();
   const { actions } = useOffsettedListWidths();
@@ -122,26 +120,14 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
         loading={loading}
         onItemClick={onChannelClick}
       >
-        {!!errors?.length && (
-          <>
-            <VerticalSpacer />
-            <Alert
-              variant="error"
-              title={intl.formatMessage(commonErrorMessages.somethingWentWrong)}
-            >
-              {errors?.map((error, idx) =>
-                error.code ? (
-                  <Typography key={idx}>
-                    {getMetadataErrorMessage(error.code, intl)}
-                  </Typography>
-                ) : (
-                  <Typography>{error.message}</Typography>
-                )
-              )}
-            </Alert>
-            <VerticalSpacer />
-          </>
-        )}
+        <ErrorAlert
+          errors={errors}
+          getErrorMessage={(error, intl) =>
+            error.code
+              ? getMetadataErrorMessage(error.code, intl)
+              : error.message
+          }
+        />
         <Typography variant="subtitle1">
           <FormattedMessage {...messages.selectPaymentMethods} />
         </Typography>

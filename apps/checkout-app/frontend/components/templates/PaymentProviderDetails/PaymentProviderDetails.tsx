@@ -13,13 +13,13 @@ import AppLayout from "@/frontend/components/elements/AppLayout";
 import AppSavebar from "@/frontend/components/elements/AppSavebar";
 import Setting from "@/frontend/components/elements/Setting";
 import { PaymentProviderSettingsValues } from "types/api";
-import { Alert, ConfirmButtonTransitionState } from "@saleor/macaw-ui";
+import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { getFormDefaultValues } from "./data";
 import { useEffect } from "react";
 import { getMetadataErrorMessage } from "@/frontend/misc/errors";
 import { MetadataErrorCode } from "@/graphql";
-import { commonErrorMessages } from "@/frontend/misc/errorMessages";
+import ErrorAlert from "../../elements/ErrorAlert";
 
 interface PaymentProviderDetailsProps {
   selectedPaymentProvider: PaymentProvider<PaymentProviderID>;
@@ -110,26 +110,14 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
         loading={loading}
         onItemClick={onPaymentProviderClick}
       >
-        {!!errors?.length && (
-          <>
-            <VerticalSpacer />
-            <Alert
-              variant="error"
-              title={intl.formatMessage(commonErrorMessages.somethingWentWrong)}
-            >
-              {errors?.map((error, idx) =>
-                error.code ? (
-                  <Typography key={idx}>
-                    {getMetadataErrorMessage(error.code, intl)}
-                  </Typography>
-                ) : (
-                  <Typography>{error.message}</Typography>
-                )
-              )}
-            </Alert>
-            <VerticalSpacer />
-          </>
-        )}
+        <ErrorAlert
+          errors={errors}
+          getErrorMessage={(error, intl) =>
+            error.code
+              ? getMetadataErrorMessage(error.code, intl)
+              : error.message
+          }
+        />
         <Card>
           <CardContent>
             <Typography variant="body1">

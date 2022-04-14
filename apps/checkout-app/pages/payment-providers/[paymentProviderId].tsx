@@ -6,7 +6,11 @@ import {
   usePrivateMetadataQuery,
   useUpdatePrivateMetadataMutation,
 } from "@/graphql";
-import { mapMetadataToSettings, mapSettingsToMetadata } from "@/frontend/utils";
+import {
+  getCommonErrors,
+  mapMetadataToSettings,
+  mapSettingsToMetadata,
+} from "@/frontend/utils";
 import { getPaymentProviderSettings } from "@/frontend/data";
 import ErrorDetails from "@/frontend/components/templates/ErrorDetails";
 import { useIntl } from "react-intl";
@@ -57,7 +61,7 @@ const PaymentProvider = () => {
 
   const errors = [
     ...(metadataMutation.data?.updatePrivateMetadata?.errors || []),
-    ...(metadataMutation.error?.graphQLErrors || []),
+    ...getCommonErrors(metadataMutation.error),
   ];
 
   if (!paymentProvider) {

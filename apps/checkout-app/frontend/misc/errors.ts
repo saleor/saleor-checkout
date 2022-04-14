@@ -1,6 +1,6 @@
 import { MetadataErrorCode } from "@/graphql";
 import { IntlShape } from "react-intl";
-import { metadataErrorMessages } from "./errorMessages";
+import { commonErrorMessages } from "./errorMessages";
 
 export const getMetadataErrorMessage = (
   code: MetadataErrorCode,
@@ -8,16 +8,16 @@ export const getMetadataErrorMessage = (
 ) => {
   switch (code) {
     case "INVALID":
-      return intl.formatMessage(metadataErrorMessages.invalid);
+      return intl.formatMessage(commonErrorMessages.invalid);
     case "REQUIRED":
-      return intl.formatMessage(metadataErrorMessages.required);
+      return intl.formatMessage(commonErrorMessages.required);
     case "NOT_FOUND":
-      return intl.formatMessage(metadataErrorMessages.notFound);
+      return intl.formatMessage(commonErrorMessages.notFound);
     case "NOT_UPDATED":
-      return intl.formatMessage(metadataErrorMessages.notUpdated);
+      return intl.formatMessage(commonErrorMessages.notUpdated);
     case "GRAPHQL_ERROR":
-      return intl.formatMessage(metadataErrorMessages.graphQLError);
+      return intl.formatMessage(commonErrorMessages.graphQLError);
     default:
-      return intl.formatMessage(metadataErrorMessages.unknown);
+      return intl.formatMessage(commonErrorMessages.unknown);
   }
 };
