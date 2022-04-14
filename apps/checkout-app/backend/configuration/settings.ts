@@ -13,6 +13,7 @@ import {
 import { client } from "@/graphql/client";
 import { defaultActiveChannelPaymentProviders } from "config/defaults";
 import { ChannelActivePaymentProviders } from "types/api";
+import { mergeChannelsWithPaymentProvidersSettings } from "./utils";
 
 export const getSettings = async () => {
   const { data, error } = await client
@@ -48,17 +49,8 @@ export const getActivePaymentProvidersSettings = async () => {
     throw error;
   }
 
-  const activePaymentProvidersSettings: ChannelActivePaymentProviders =
-    data?.channels?.reduce((assignedSettings, channel) => {
-      const channelSettings =
-        assignedSettings[channel.id] || defaultActiveChannelPaymentProviders;
-
-      return {
-        ...assignedSettings,
-        [channel.id]: channelSettings,
-      };
-    }, settings.channelActivePaymentProviders) ||
-    settings.channelActivePaymentProviders;
+  const activePaymentProvidersSettings =
+    mergeChannelsWithPaymentProvidersSettings(settings, data?.channels);
 
   return activePaymentProvidersSettings;
 };
