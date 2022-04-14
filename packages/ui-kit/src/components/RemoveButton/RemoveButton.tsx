@@ -14,13 +14,7 @@ export const RemoveButton: VFC<RemoveButtonProps> = ({
   <Button
     label={<RemoveIcon />}
     variant='secondary'
-    className={clsx(
-      styles["remove-button"],
-      // {
-      //   [styles["chip-button-active"]]: selected,
-      // },
-      className
-    )}
+    className={clsx(styles["remove-button"], className)}
     {...rest}
   />
 );
