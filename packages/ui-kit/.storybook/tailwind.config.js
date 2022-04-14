@@ -1,6 +1,6 @@
 const mainConfig = require("../tailwind.config");
 
 module.exports = {
-  ...mainCongif,
+  ...mainConfig,
   safelist: [{ pattern: /.*/ }],
 };
