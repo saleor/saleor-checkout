@@ -9,8 +9,9 @@ import { Suspense, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { Contact } from "./Contact";
-import { pay } from "@/fetch";
+import { pay as payRequest } from "@/fetch";
 import { Button } from "@/components/Button";
+import { useFetch } from "@/hooks/useFetch";
 
 interface FormData {
   email: string;
@@ -20,6 +21,15 @@ interface FormData {
 export const CheckoutForm = () => {
   const errorMessages = useErrorMessages();
   const { checkout } = useCheckout();
+  const [{ data }, pay] = useFetch(
+    payRequest,
+    {
+      provider: "mollie",
+      checkoutId: checkout?.id,
+      totalAmount: checkout?.totalPrice?.gross?.amount as number,
+    },
+    { skip: true }
+  );
 
   const [selectedPaymentProvider, setSelectedPaymentProvider] =
     useState<string>();
@@ -44,13 +54,7 @@ export const CheckoutForm = () => {
   const handleEmailChange = (value: string) => setValue("email", value);
 
   const finalizeCheckout = async () => {
-    const result = await pay({
-      provider: "mollie",
-      checkoutId: checkout?.id,
-      totalAmount: checkout?.totalPrice?.gross?.amount as number,
-    });
-
-    const { data } = await result.json();
+    await pay();
 
     if (data?.checkoutUrl) {
       window.location.replace(data.checkoutUrl);

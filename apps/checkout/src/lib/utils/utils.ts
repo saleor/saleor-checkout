@@ -1,7 +1,7 @@
 import { reduce } from "lodash";
 import queryString from "query-string";
 import { OperationResult } from "urql";
-import { getEnvVars } from "./environment";
+import { envVars } from "./environment";
 
 export const getById =
   <T extends { id: string }>(idToCompare: string | undefined) =>
@@ -31,7 +31,7 @@ const extractCheckoutTokenFromUrl = (): string => {
   const { checkoutToken } = getQueryVariables();
 
   // for development & preview purposes
-  const token = checkoutToken || getEnvVars().checkoutAppUrl;
+  const token = checkoutToken || envVars.devCheckoutToken;
 
   if (typeof token !== "string") {
     throw new Error("Checkout token does not exist");

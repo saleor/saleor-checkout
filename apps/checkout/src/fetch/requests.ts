@@ -1,7 +1,12 @@
-import { getEnvVars } from "@/lib/utils";
+import { FetchResponse } from "@/hooks/useFetch";
+import { envVars } from "@/lib/utils";
 
 export const getPaymentProviders = () =>
-  fetch(`${getEnvVars().configAppUrl}/active-payment-providers/channel-1`);
+  fetch(`${envVars.configAppUrl}/active-payment-providers/channel-1`);
+
+export interface PayResult {
+  checkoutUrl: string;
+}
 
 export const pay = ({
   checkoutId,
@@ -11,8 +16,8 @@ export const pay = ({
   checkoutId: string;
   totalAmount: number;
   provider: string;
-}) =>
-  fetch(`${getEnvVars().checkoutAppUrl}/pay`, {
+}): FetchResponse<PayResult> =>
+  fetch(`${envVars.apiUrl}/pay`, {
     method: "POST",
     body: JSON.stringify({
       provider,
@@ -22,4 +27,4 @@ export const pay = ({
   });
 
 export const getAppConfig = () =>
-  fetch(`${getEnvVars().configAppUrl}/customization-settings`);
+  fetch(`${envVars.configAppUrl}/customization-settings`);

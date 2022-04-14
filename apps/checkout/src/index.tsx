@@ -7,13 +7,13 @@ import reportWebVitals from "./reportWebVitals";
 import { getCurrentRegion } from "./lib/regions";
 import { I18nProvider } from "@react-aria/i18n";
 import { createFetch, createSaleorClient, SaleorProvider } from "@saleor/sdk";
-import { getEnvVars } from "@/lib/utils";
+import { envVars } from "@/lib/utils";
 import { AppConfigProvider } from "@/providers/AppConfigProvider";
 
 const authorizedFetch = createFetch();
 
 const client = createClient({
-  url: getEnvVars().apiUrl,
+  url: envVars.apiUrl,
   suspense: true,
   requestPolicy: "cache-first",
   fetch: authorizedFetch,
@@ -22,7 +22,7 @@ const client = createClient({
 // temporarily need to use @apollo/client because saleor sdk
 // is based on apollo. to be changed
 const saleorClient = createSaleorClient({
-  apiUrl: getEnvVars().apiUrl,
+  apiUrl: envVars.apiUrl,
   channel: "default-channel",
 });
 
