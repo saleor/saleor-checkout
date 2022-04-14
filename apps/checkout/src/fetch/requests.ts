@@ -1,4 +1,4 @@
-import { getEnvVars } from "@lib/utils";
+import { getEnvVars } from "@/lib/utils";
 
 export const getPaymentProviders = () =>
   fetch(`${getEnvVars().configAppUrl}/active-payment-providers/channel-1`);

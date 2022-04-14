@@ -1,5 +1,5 @@
-import { useCheckoutQuery } from "@graphql";
-import { getDataWithToken } from "@lib/utils";
+import { useCheckoutQuery } from "@/graphql";
+import { getDataWithToken } from "@/lib/utils";
 import { useAuthState } from "@saleor/sdk";
 
 export const useCheckout = () => {

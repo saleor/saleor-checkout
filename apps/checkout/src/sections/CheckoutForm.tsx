@@ -1,7 +1,7 @@
-import { Divider } from "@components/Divider";
-import { useCheckout } from "@hooks/useCheckout";
-import { useErrorMessages } from "@hooks/useErrorMessages";
-import { useValidationResolver } from "@lib/utils";
+import { Divider } from "@/components/Divider";
+import { useCheckout } from "@/hooks/useCheckout";
+import { useErrorMessages } from "@/hooks/useErrorMessages";
+import { useValidationResolver } from "@/lib/utils";
 import { PaymentProviders } from "./PaymentProviders";
 import { ShippingMethods } from "./ShippingMethods";
 import { UserAddresses } from "./UserAddresses";
@@ -9,8 +9,8 @@ import { Suspense, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { Contact } from "./Contact";
-import { pay } from "@fetch";
-import { Button } from "@components/Button";
+import { pay } from "@/fetch";
+import { Button } from "@/components/Button";
 
 interface FormData {
   email: string;

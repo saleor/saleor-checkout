@@ -1,6 +1,6 @@
-import { useFetch } from "@hooks/useFetch";
-import createSafeContext from "@providers/createSafeContext";
-import { getAppConfig } from "@fetch";
+import { useFetch } from "@/hooks/useFetch";
+import createSafeContext from "@/providers/createSafeContext";
+import { getAppConfig } from "@/fetch";
 import { PropsWithChildren, useEffect, useRef } from "react";
 import { AppConfig, BrandingColors, BrandingColorsData } from "./types";
 import isEqual from "lodash/isEqual";

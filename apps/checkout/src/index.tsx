@@ -7,8 +7,8 @@ import reportWebVitals from "./reportWebVitals";
 import { getCurrentRegion } from "./lib/regions";
 import { I18nProvider } from "@react-aria/i18n";
 import { createFetch, createSaleorClient, SaleorProvider } from "@saleor/sdk";
-import { getEnvVars } from "@lib/utils";
-import { AppConfigProvider } from "@providers/AppConfigProvider";
+import { getEnvVars } from "@/lib/utils";
+import { AppConfigProvider } from "@/providers/AppConfigProvider";
 
 const authorizedFetch = createFetch();
 

@@ -1,9 +1,9 @@
-import PageHeader from "@sections/PageHeader";
-import { Summary } from "@sections/Summary";
-import { CheckoutForm } from "@sections/CheckoutForm";
+import PageHeader from "@/sections/PageHeader";
+import { Summary } from "@/sections/Summary";
+import { CheckoutForm } from "@/sections/CheckoutForm";
 import { Suspense } from "react";
-import { SummaryPlaceholder } from "@sections/Summary/SummaryPlaceholder";
-import { PageNotFound } from "@sections/PageNotFound";
+import { SummaryPlaceholder } from "@/sections/Summary/SummaryPlaceholder";
+import { PageNotFound } from "@/sections/PageNotFound";
 import { ErrorBoundary } from "react-error-boundary";
 
 export const Checkout = () => {

@@ -1,11 +1,11 @@
-import { useCheckout } from "@hooks/useCheckout";
-import { getDataWithToken, getQueryVariables } from "@lib/utils";
+import { useCheckout } from "@/hooks/useCheckout";
+import { getDataWithToken, getQueryVariables } from "@/lib/utils";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { SignInForm } from "./SignInForm";
 import { SignedInUser } from "./SignedInUser";
 import { useAuthState } from "@saleor/sdk";
-import { useCheckoutCustomerAttachMutation } from "@graphql";
+import { useCheckoutCustomerAttachMutation } from "@/graphql";
 import { ResetPassword } from "./ResetPassword";
 import { GuestUserForm } from "./GuestUserForm";
 
