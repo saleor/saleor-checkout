@@ -1,4 +1,4 @@
-const mainCongif = require("../tailwind.config");
+const mainConfig = require("../tailwind.config");
 
 module.exports = {
   ...mainCongif,
