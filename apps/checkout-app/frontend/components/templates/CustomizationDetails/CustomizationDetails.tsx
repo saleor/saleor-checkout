@@ -21,7 +21,7 @@ import { messages } from "./messages";
 import Setting from "@/frontend/components/elements/Setting";
 import { flattenSettingId, unflattenSettings } from "@/frontend/utils";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { MetadataErrorCode } from "@/graphql";
+import { MetadataErrorFragment } from "@/graphql";
 import { getMetadataErrorMessage } from "@/frontend/misc/errors";
 import ErrorAlert from "../../elements/ErrorAlert";
 
@@ -29,13 +29,7 @@ interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
   loading: boolean;
   saveButtonBarState: ConfirmButtonTransitionState;
-  errors?:
-    | {
-        __typename?: "MetadataError" | undefined;
-        code?: MetadataErrorCode;
-        message?: string | null | undefined;
-        field?: string | null | undefined;
-      }[];
+  errors?: Partial<MetadataErrorFragment>[];
   onCancel: () => void;
   onSubmit: (data: CustomizationSettingsValues) => void;
 }

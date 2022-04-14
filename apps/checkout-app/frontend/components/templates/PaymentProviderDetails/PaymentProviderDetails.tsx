@@ -18,7 +18,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { getFormDefaultValues } from "./data";
 import { useEffect } from "react";
 import { getMetadataErrorMessage } from "@/frontend/misc/errors";
-import { MetadataErrorCode } from "@/graphql";
+import { MetadataErrorFragment } from "@/graphql";
 import ErrorAlert from "../../elements/ErrorAlert";
 
 interface PaymentProviderDetailsProps {
@@ -26,13 +26,7 @@ interface PaymentProviderDetailsProps {
   channelId?: string;
   saveButtonBarState: ConfirmButtonTransitionState;
   loading: boolean;
-  errors?:
-    | {
-        __typename?: "MetadataError" | undefined;
-        code?: MetadataErrorCode;
-        message?: string | null | undefined;
-        field?: string | null | undefined;
-      }[];
+  errors?: Partial<MetadataErrorFragment>[];
   onCancel: () => void;
   onSubmit: (data: PaymentProviderSettingsValues) => void;
 }

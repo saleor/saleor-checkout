@@ -37,7 +37,7 @@ import AppSavebar from "@/frontend/components/elements/AppSavebar";
 import { Controller, useForm } from "react-hook-form";
 import { getActivePaymentProvider, getFormDefaultValues } from "./data";
 import { useEffect } from "react";
-import { ChannelFragment, MetadataErrorCode } from "@/graphql";
+import { ChannelFragment, MetadataErrorFragment } from "@/graphql";
 import { getMetadataErrorMessage } from "@/frontend/misc/errors";
 import ErrorAlert from "../../elements/ErrorAlert";
 
@@ -46,13 +46,7 @@ interface ChannelDetailsProps {
   channels: ChannelFragment[];
   saveButtonBarState: ConfirmButtonTransitionState;
   loading: boolean;
-  errors?:
-    | {
-        __typename?: "MetadataError" | undefined;
-        code?: MetadataErrorCode;
-        message?: string | null | undefined;
-        field?: string | null | undefined;
-      }[];
+  errors?: Partial<MetadataErrorFragment>[];
   onCancel: () => void;
   onSubmit: (data: ChannelActivePaymentProviders) => void;
 }
