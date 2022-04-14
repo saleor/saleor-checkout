@@ -7,36 +7,36 @@ import {
 
 export const defaultActiveChannelPaymentProviders: ChannelActivePaymentProvidersByChannel =
   {
-    "apple-pay": "",
-    "credit-card": "",
+    applePay: "",
+    creditCard: "",
     paypal: "",
   };
 
 export const defaultPaymentProviderSettings: PaymentProviderSettingsValues = {
   mollie: {
-    "partner-id": "",
-    "live-test-api-key": "",
+    partnerId: "",
+    liveTestApiKey: "",
   },
   adyen: {
-    "merchant-account": "",
-    "client-key": "",
-    "supported-currencies": "",
+    merchantAccount: "",
+    clientKey: "",
+    supportedCurrencies: "",
   },
 };
 
 export const defaultCustomizationSettings: CustomizationSettingsValues = {
   branding: {
-    "button-bg-color-primary": "#394052",
-    "button-bg-color-hover": "#394052",
-    "border-color-primary": "#FAFAFA",
-    "error-color": "#B65757",
-    "success-color": "#2C9B2A",
-    "button-text-color": "#ffffff",
-    "text-color": "#000000",
-    logo: "",
+    buttonBgColorPrimary: "#394052",
+    buttonBgColorHover: "#394052",
+    borderColorPrimary: "#FAFAFA",
+    errorColor: "#B65757",
+    successColor: "#2C9B2A",
+    buttonTextColor: "#ffffff",
+    textColor: "#000000",
+    logoUrl: "",
   },
-  "product-settings": {
-    "low-stock-threshold": "",
+  productSettings: {
+    lowStockThreshold: "",
   },
 };
 

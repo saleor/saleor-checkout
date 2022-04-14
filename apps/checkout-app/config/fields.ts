@@ -2,11 +2,11 @@ import { Customization, PaymentMethod, PaymentProvider } from "types/common";
 
 export const paymentMethods: PaymentMethod[] = [
   {
-    id: "credit-card",
+    id: "creditCard",
     name: "Credit card",
   },
   {
-    id: "apple-pay",
+    id: "applePay",
     name: "Apple Pay",
   },
   {
@@ -20,12 +20,12 @@ export const molliePaymentProvider: PaymentProvider<"mollie"> = {
   label: "Mollie",
   settings: [
     {
-      id: "partner-id", // To be used as reference to settings values in the backend
+      id: "partnerId", // To be used as reference to settings values in the backend
       label: "Partner ID", // TODO: change to intl message
       type: "string",
     },
     {
-      id: "live-test-api-key", // To be used as reference to settings values in the backend
+      id: "liveTestApiKey", // To be used as reference to settings values in the backend
       label: "Live Test API Key", // TODO: change to intl message
       type: "string",
     },
@@ -36,17 +36,17 @@ export const adyenPaymentProvider: PaymentProvider<"adyen"> = {
   label: "Adyen",
   settings: [
     {
-      id: "merchant-account",
+      id: "merchantAccount",
       label: "Merchant Account",
       type: "string",
     },
     {
-      id: "client-key",
+      id: "clientKey",
       label: "Client Key",
       type: "string",
     },
     {
-      id: "supported-currencies",
+      id: "supportedCurrencies",
       label: "Supported Currencies",
       type: "string",
     },
@@ -59,53 +59,53 @@ export const brandingCustomization: Customization<"branding"> = {
   label: "Branding",
   settings: [
     {
-      id: "button-bg-color-primary",
+      id: "buttonBgColorPrimary",
       label: "Button BG Primary",
       type: "color",
     },
     {
-      id: "button-bg-color-hover",
+      id: "buttonBgColorHover",
       label: "Button BG Hover",
       type: "color",
     },
     {
-      id: "border-color-primary",
+      id: "borderColorPrimary",
       label: "Border Primary",
       type: "color",
     },
     {
-      id: "error-color",
+      id: "errorColor",
       label: "Error",
       type: "color",
     },
     {
-      id: "success-color",
+      id: "successColor",
       label: "Success",
       type: "color",
     },
     {
-      id: "button-text-color",
+      id: "buttonTextColor",
       label: "Button Text",
       type: "color",
     },
     {
-      id: "text-color",
+      id: "textColor",
       label: "Text",
       type: "color",
     },
     {
-      id: "logo",
+      id: "logoUrl",
       label: "Logo",
       type: "image",
     },
   ],
 };
-export const sectionsCustomization: Customization<"product-settings"> = {
-  id: "product-settings",
+export const sectionsCustomization: Customization<"productSettings"> = {
+  id: "productSettings",
   label: "Product settings",
   settings: [
     {
-      id: "low-stock-threshold",
+      id: "lowStockThreshold",
       label: "Low stock treshold",
       type: "string",
     },
