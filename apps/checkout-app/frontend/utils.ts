@@ -1,7 +1,7 @@
 import { MetadataItemFragment } from "@/graphql";
-import settingsValues from "config/defaults";
-import { SettingsValues, UnknownSettingsValues } from "types/api";
-import { allSettingID, Item, NamedNode, Node, SettingID } from "types/common";
+import settingsValues from "@/config/defaults";
+import { SettingsValues, UnknownSettingsValues } from "@/types/api";
+import { allSettingID, Item, NamedNode, Node, SettingID } from "@/types/common";
 
 export function parseJwt(token: string) {
   var base64Url = token.split(".")[1];
@@ -51,7 +51,7 @@ export const unflattenSettings = <T, S extends Node>(
  * @param savedSettings
  * @returns Returns either previously saved settings values or default settings values. If settings values are present in default and saved at the same time, then saved value is returned.
  */
-const mergeSettingsValues = (
+export const mergeSettingsValues = (
   defaultSettings: UnknownSettingsValues,
   savedSettings: UnknownSettingsValues
 ) => {
@@ -62,36 +62,20 @@ const mergeSettingsValues = (
 
   const mergedSettings = Object.keys(settings).reduce((mergedSettings, key) => {
     const defaultSubSettings = defaultSettings[key];
-    const fetchedSubSettings = savedSettings[key];
+    const savedSubSettings = savedSettings[key];
 
-    if (!defaultSubSettings || !fetchedSubSettings) {
+    if (!defaultSubSettings || !savedSubSettings) {
       return mergedSettings;
     }
 
     const subSettings = {
       ...defaultSubSettings,
-      ...fetchedSubSettings,
+      ...savedSubSettings,
     };
-
-    const mergedSubSettings = Object.keys(subSettings).reduce(
-      (mergedSubSettings, subKey) => {
-        const defaultSubSettingsValue = defaultSettings[key][subKey];
-        const fetchedSubSettingsValue = savedSettings[key][subKey];
-
-        const subSettingsValue =
-          fetchedSubSettingsValue || defaultSubSettingsValue;
-
-        return {
-          ...mergedSubSettings,
-          [subKey]: subSettingsValue,
-        };
-      },
-      subSettings
-    );
 
     return {
       ...mergedSettings,
-      [key]: mergedSubSettings,
+      [key]: subSettings,
     };
   }, settings);
 
