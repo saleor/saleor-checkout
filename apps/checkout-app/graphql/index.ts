@@ -14161,6 +14161,12 @@ export const ChannelFragmentDoc = gql`
   slug
 }
     `;
+export const MetadataItemFragmentDoc = gql`
+    fragment MetadataItemFragment on MetadataItem {
+  key
+  value
+}
+    `;
 export const AddressFragmentDoc = gql`
     fragment Address on Address {
   companyName
@@ -14255,12 +14261,6 @@ export const OrderFragmentDoc = gql`
     ${AddressFragmentDoc}
 ${MoneyFragmentDoc}
 ${OrderLineFragmentDoc}`;
-export const MetadataItemFragmentDoc = gql`
-    fragment MetadataItemFragment on MetadataItem {
-  key
-  value
-}
-    `;
 export const AppDocument = gql`
     query App($id: ID) {
   app(id: $id) {

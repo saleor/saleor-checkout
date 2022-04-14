@@ -1,16 +1,10 @@
 import { defaultActiveChannelPaymentProviders } from "@/config/defaults";
+import { ChannelFragment } from "@/graphql";
 import { ChannelActivePaymentProviders, SettingsValues } from "@/types/api";
 
 export const mergeChannelsWithPaymentProvidersSettings = (
   settings: SettingsValues,
-  channels?:
-    | {
-        __typename?: "Channel" | undefined;
-        id: string;
-        name: string;
-        slug: string;
-      }[]
-    | null // Will be changed in future to fragment type
+  channels?: ChannelFragment[] | null
 ): ChannelActivePaymentProviders =>
   channels?.reduce((assignedSettings, channel) => {
     const channelSettings =
