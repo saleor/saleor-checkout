@@ -14,20 +14,28 @@
   @apply text-text-error;
 }
 
-.txt-sm {
-  @apply text-sm;
+.txt-xs {
+  @apply text-xs;
 }
 
-.txt-base {
-  @apply text-base;
+.txt-sm {
+  @apply text-sm;
 }
 
 .txt-md {
   @apply text-md;
 }
 
+.txt-base {
+  @apply text-base;
+}
+
 .txt-lg {
   @apply text-lg;
+}
+
+.txt-xl {
+  @apply text-xl;
 }
 
 .txt-bold {

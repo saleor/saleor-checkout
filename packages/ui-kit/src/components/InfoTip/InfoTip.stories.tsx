@@ -21,5 +21,5 @@ export const IndicatorOnRight = Template.bind({});
 
 IndicatorOnRight.args = {
   content: "Lorem Ipsum dolor sit amet consectetur",
-  indicatorPosition: "right",
+  alignment: "right",
 };

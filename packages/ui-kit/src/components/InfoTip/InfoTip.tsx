@@ -7,13 +7,13 @@ import { Text } from "../Text";
 export interface InfoTipProps {
   content: string;
   className?: string;
-  indicatorPosition?: "left" | "right";
+  alignment?: "left" | "right";
 }
 
 export const InfoTip: FC<InfoTipProps> = ({
   content,
   className,
-  indicatorPosition = "left",
+  alignment = "left",
   ...rest
 }) => (
   <Text
@@ -21,8 +21,8 @@ export const InfoTip: FC<InfoTipProps> = ({
     className={clsx(
       styles.infotip,
       {
-        [styles["infotip-triangle-left"]]: indicatorPosition === "left",
-        [styles["infotip-triangle-right"]]: indicatorPosition === "right",
+        [styles["infotip-triangle-left"]]: alignment === "left",
+        [styles["infotip-triangle-right"]]: alignment === "right",
       },
       className
     )}
