@@ -20,7 +20,7 @@ export const createPayment = async (args: PaymentCreateMutationVariables) => {
     )
     .toPromise();
 
-  console.log(data, error);
+  console.log(data?.paymentCreate?.errors, error);
 
   if (
     data?.paymentCreate?.payment?.id &&

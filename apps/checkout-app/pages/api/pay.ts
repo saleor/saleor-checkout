@@ -5,8 +5,9 @@ import { createOrder } from "@/backend/payments/createOrder";
 import { allowCors } from "@/backend/utils";
 import { PaymentProviderID } from "@/types/common";
 import { Errors } from "@/backend/payments/types";
+import { createAdyenPayment } from "@/backend/payments/providers/adyen";
 
-const paymentProviders: PaymentProviderID[] = ["mollie"];
+const paymentProviders: PaymentProviderID[] = ["mollie", "adyen"];
 
 export type Body = {
   provider: PaymentProviderID;
@@ -22,10 +23,17 @@ export type MollieResponse = {
   };
 };
 
+export type AdyenResponse = {
+  provider: "adyen";
+  data: {
+    paymentUrl: string;
+  };
+};
+
 export type SuccessResponse = {
   provider: PaymentProviderID;
   ok: true;
-} & MollieResponse;
+} & (MollieResponse | AdyenResponse);
 
 export type ErrorResponse = {
   ok: false;
@@ -68,6 +76,20 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         provider: "mollie",
         data: {
           checkoutUrl: url.href,
+        },
+      };
+
+      return res.status(200).json(response);
+    }
+  } else if (body.provider === "adyen") {
+    const paymentUrl = await createAdyenPayment(order.data);
+
+    if (paymentUrl) {
+      response = {
+        ok: true,
+        provider: "adyen",
+        data: {
+          paymentUrl,
         },
       };
 
