@@ -1,31 +1,23 @@
 import { useEffect, useState } from "react";
-
-export type FetchResponse<TData> = Promise<
-  Response & {
-    json: () => Promise<TData>;
-  }
->;
-
-export type UseFetchResult<TError, TData, TArgs> = [
-  { data?: TData | null; loading: boolean; error?: TError | null },
-  () => Promise<void>
-];
-
-type GetArgsType<TFetchFn> = TFetchFn extends (args: infer ArgsType) => any
-  ? ArgsType
-  : never;
+import {
+  FetchFn,
+  GetArgsType,
+  GetDataType,
+  UseFetchOptionalProps,
+  UseFetchResult,
+} from "./types";
 
 export const useFetch = <
-  TData extends {},
   TError,
-  TFetchFn = (args: Record<string, any> | never) => FetchResponse<TData>,
+  TFetchFn extends FetchFn<TData>,
+  TData extends ReturnType<TFetchFn>,
   TArgs = GetArgsType<TFetchFn>
 >(
   fetchFn: TFetchFn,
-  args: TArgs,
-  opts: { skip?: boolean } = { skip: false }
+  optionalProps?: UseFetchOptionalProps<TArgs>
 ): UseFetchResult<TError, TData, TArgs> => {
-  const { skip } = opts;
+  const { args, opts } = optionalProps || {};
+  const { skip = false } = opts || {};
 
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<TData | null>(null);
@@ -33,15 +25,16 @@ export const useFetch = <
 
   const useFetchDeps = args ? Object.values(args) : [];
 
-  const fetchData = async () => {
+  const fetchData = async (immediateArgs?: TArgs): Promise<TData | void> => {
     setLoading(true);
 
     try {
-      const response = await fetchFn(args);
+      const response = await fetchFn((immediateArgs || args) as TArgs);
       const result = await response.json();
       setResult(result);
+      return result;
     } catch (e) {
-      setError(e);
+      setError(e as TError);
     } finally {
       setLoading(false);
     }

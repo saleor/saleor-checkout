@@ -21,15 +21,7 @@ interface FormData {
 export const CheckoutForm = () => {
   const errorMessages = useErrorMessages();
   const { checkout } = useCheckout();
-  const [{ data }, pay] = useFetch(
-    payRequest,
-    {
-      provider: "mollie",
-      checkoutId: checkout?.id,
-      totalAmount: checkout?.totalPrice?.gross?.amount as number,
-    },
-    { skip: true }
-  );
+  const [{ data }, pay] = useFetch(payRequest, undefined, { skip: true });
 
   const [selectedPaymentProvider, setSelectedPaymentProvider] =
     useState<string>();
@@ -54,7 +46,11 @@ export const CheckoutForm = () => {
   const handleEmailChange = (value: string) => setValue("email", value);
 
   const finalizeCheckout = async () => {
-    await pay();
+    await pay({
+      provider: "mollie",
+      checkoutId: checkout?.id,
+      totalAmount: checkout?.totalPrice?.gross?.amount as number,
+    });
 
     if (data?.checkoutUrl) {
       window.location.replace(data.checkoutUrl);

@@ -25,8 +25,3 @@ export type AddressField =
   | "streetAddress2"
   | "phone";
 
-export type FetchResponse<TData> = Promise<
-  Response & {
-    json: () => Promise<TData>;
-  }
->;

@@ -18,7 +18,7 @@ export const [useContext, Provider] =
 export const AppConfigProvider: React.FC<PropsWithChildren<{}>> = ({
   children,
 }) => {
-  const [appConfig, loading] = useFetch(getAppConfig);
+  const [{ data: appConfig, loading }] = useFetch(getAppConfig);
   const stylingRef = useRef(appConfig);
 
   const fulfillStyling = (
