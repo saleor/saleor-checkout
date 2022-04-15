@@ -32,12 +32,14 @@ const theme = {
       tertiary: "#EEF1F7",
       error: "#B65757",
       inverted: "#FFFFFF",
+      disabled: "rgba(57, 64, 82, 0.4)",
     },
     button: {
       primary: "#394052",
       secondary: "#FFFFFF",
-      tertiary: "#DEE4EF",
+      tertiary: "rgba(57, 64, 82, 0.15)",
       quaternary: "#EEF1F7",
+      disabled: "rgba(57, 64, 82, 0.1)",
     },
     chipButton: {
       active: "#4f5460",

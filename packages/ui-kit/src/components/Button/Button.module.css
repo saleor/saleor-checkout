@@ -5,7 +5,7 @@
 }
 
 .button-primary {
-  @apply bg-button-primary hover:bg-button-secondary active:bg-button-tertiary disabled:border-none disabled:bg-background-tertiary;
+  @apply bg-button-primary hover:bg-button-secondary hover:border-border-active active:bg-button-tertiary disabled:border-none disabled:bg-button-disabled;
 }
 
 .button-primary > span {
@@ -22,7 +22,7 @@
 }
 
 .button-secondary {
-  @apply border-border-primary hover:border-border-active bg-transparent hover:bg-button-secondary active:bg-button-tertiary disabled:border-border-primary disabled:bg-transparent;
+  @apply border-border-primary hover:border-border-active bg-transparent hover:bg-button-secondary active:bg-button-tertiary disabled:border-button-disabled disabled:bg-transparent;
 }
 
 .button-tertiary {
@@ -31,4 +31,7 @@
 
 .button-tertiary > span {
   @apply active:text-text-secondary;
+}
+.button:disabled > span {
+  @apply active:text-text-disabled;
 }
