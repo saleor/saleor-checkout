@@ -23,7 +23,7 @@ export const useFetch = <
   const [result, setResult] = useState<TData | null>(null);
   const [error, setError] = useState<TError | null>(null);
 
-  const useFetchDeps = args ? Object.values(args) : [];
+  const useFetchArgsDeps = args ? Object.values(args) : [];
 
   const fetchData = async (immediateArgs?: TArgs): Promise<TData | void> => {
     setLoading(true);
@@ -46,7 +46,7 @@ export const useFetch = <
     }
 
     fetchData();
-  }, useFetchDeps);
+  }, [skip, ...useFetchArgsDeps]);
 
   return [{ data: result, loading, error }, fetchData];
 };
