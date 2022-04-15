@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { IconButton } from "./IconButton";
-import { DiscountIcon, EditIcon, TrashIcon } from "../icons";
+import { DiscountIcon, EditIcon, TrashIcon, RemoveIcon } from "../icons";
 
 export default {
   title: "Components/IconButton",
@@ -31,4 +31,18 @@ export const OnlyIcon = Template.bind({});
 
 OnlyIcon.args = {
   icon: <TrashIcon />,
+};
+
+export const Bare = Template.bind({});
+
+Bare.args = {
+  icon: <RemoveIcon />,
+  variant: "bare",
+};
+
+export const BareWithImage = Template.bind({});
+
+BareWithImage.args = {
+  icon: <img src='/plus.svg' alt='Samle img' />, // eslint-disable-line
+  variant: "bare",
 };

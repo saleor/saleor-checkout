@@ -7,15 +7,28 @@ import { Button, ButtonProps, ButtonLabel } from "../Button/Button";
 export interface IconButtonProps extends Omit<ButtonProps, "variant"> {
   icon: ReactNode;
   reverse?: boolean;
+  variant?: "bare";
 }
 
 export const IconButton: VFC<IconButtonProps> = ({
   label,
   icon,
   className,
+  variant,
   reverse,
   ...rest
 }) => {
+  if (variant === "bare") {
+    return (
+      <button
+        aria-label={typeof label === "string" ? label : undefined}
+        className={clsx(styles["bare-icon-button"], className)}
+        {...rest}>
+        {icon}
+      </button>
+    );
+  }
+
   const content = (
     <>
       {icon}
