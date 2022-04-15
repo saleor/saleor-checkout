@@ -4,17 +4,14 @@ import clsx from "clsx";
 import styles from "./Checkbox.module.css";
 import { CheckIcon } from "../icons";
 import { Label } from "../Label";
+import { ClassNames } from "../../globalTypes";
 
 export interface CheckboxProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "className"> {
   label?: string | ReactNode;
-  classNames?: {
-    container?: string;
-    inputContainer?: string;
-    input?: string;
-    checkbox?: string;
-    label?: string;
-  };
+  classNames?: ClassNames<
+    "container" | "inputContainer" | "input" | "checkbox" | "label"
+  >;
 }
 
 export const Checkbox: FC<CheckboxProps> = ({

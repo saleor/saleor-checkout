@@ -2,19 +2,15 @@ import { FC, ReactNode, InputHTMLAttributes, useId } from "react";
 import clsx from "clsx";
 
 import styles from "./Radio.module.css";
-import { CheckIcon } from "../icons";
 import { Label } from "../Label";
+import { ClassNames } from "../../globalTypes";
 
 export interface RadioProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "className"> {
   label?: string | ReactNode;
-  classNames?: {
-    container?: string;
-    inputContainer?: string;
-    input?: string;
-    radio?: string;
-    label?: string;
-  };
+  classNames?: ClassNames<
+    "container" | "inputContainer" | "input" | "radio" | "label"
+  >;
 }
 
 export const Radio: FC<RadioProps> = ({

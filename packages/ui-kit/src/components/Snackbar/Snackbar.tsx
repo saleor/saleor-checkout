@@ -11,7 +11,7 @@ export interface SnackbarProps {
   className?: string;
 }
 
-const switchIcon = (
+const selectIcon = (
   variant: SnackbarProps["variant"]
 ): ReactNode | undefined => {
   switch (variant) {
@@ -30,7 +30,7 @@ export const Snackbar: FC<SnackbarProps> = ({
   className,
   ...rest
 }) => {
-  const icon = switchIcon(variant);
+  const icon = selectIcon(variant);
 
   return (
     <div

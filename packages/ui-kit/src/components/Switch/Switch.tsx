@@ -4,15 +4,12 @@ import { Switch as HeadlessSwitch } from "@headlessui/react";
 
 import styles from "./Switch.module.css";
 import labelStyles from "../Label/Label.module.css";
+import { ClassNames } from "../../globalTypes";
 
 export interface SwitchProps {
   checked?: boolean;
   label?: string;
-  classNames?: {
-    container?: string;
-    toggle?: string;
-    label?: string;
-  };
+  classNames?: ClassNames<"container" | "toggle" | "label">;
   onChange(checked: boolean): void;
 }
 

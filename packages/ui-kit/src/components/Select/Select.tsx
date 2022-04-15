@@ -4,6 +4,7 @@ import { Combobox } from "@headlessui/react";
 
 import styles from "./Select.module.css";
 import { ChevronDownIcon } from "../icons";
+import { ClassNames } from "../../globalTypes";
 
 interface Option {
   label: string | ReactNode;
@@ -18,15 +19,15 @@ export interface SelectProps {
   selected: Option;
   error?: boolean;
   disabled?: boolean;
-  classNames?: {
-    container?: string;
-    triggerIcon?: string;
-    trigger?: string;
-    triggerArrow?: string;
-    options?: string;
-    optionIcon?: string;
-    option?: string;
-  };
+  classNames?: ClassNames<
+    | "container"
+    | "triggerIcon"
+    | "trigger"
+    | "triggerArrow"
+    | "options"
+    | "optionIcon"
+    | "option"
+  >;
   onChange?: (option: Option) => void;
 }
 
