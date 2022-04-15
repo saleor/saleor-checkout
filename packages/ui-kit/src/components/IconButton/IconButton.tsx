@@ -6,7 +6,7 @@ import { Button, ButtonProps, ButtonLabel } from "../Button/Button";
 
 export interface IconButtonProps extends Omit<ButtonProps, "variant"> {
   icon: ReactNode;
-  reverse?: boolean;
+  alignment?: "left" | "right";
   variant?: "bare";
 }
 
@@ -15,7 +15,7 @@ export const IconButton: FC<IconButtonProps> = ({
   icon,
   className,
   variant,
-  reverse,
+  alignment = "left",
   ...rest
 }) => {
   if (variant === "bare") {
@@ -35,7 +35,11 @@ export const IconButton: FC<IconButtonProps> = ({
       {typeof label === "string" && (
         <ButtonLabel
           className={
-            styles[reverse ? "icon-button-label-reverse" : "icon-button-label"]
+            styles[
+              alignment === "right"
+                ? "icon-button-label-reverse"
+                : "icon-button-label"
+            ]
           }
           content={label}
         />
@@ -50,7 +54,7 @@ export const IconButton: FC<IconButtonProps> = ({
       className={clsx(
         styles["icon-button"],
         {
-          [styles["icon-button-reverse"]]: reverse,
+          [styles["icon-button-reverse"]]: alignment === "right",
           [styles["icon-button-nolabel"]]: !label,
         },
         className

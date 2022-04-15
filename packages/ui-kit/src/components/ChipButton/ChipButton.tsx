@@ -1,9 +1,10 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
 
 import styles from "./ChipButton.module.css";
 
-export interface ChipButtonProps extends HTMLAttributes<HTMLSpanElement> {
+export interface ChipButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   active?: boolean;
 }
@@ -14,7 +15,7 @@ export const ChipButton: FC<ChipButtonProps> = ({
   className,
   ...rest
 }) => (
-  <span
+  <button
     className={clsx(
       styles["chip-button"],
       {
@@ -24,5 +25,5 @@ export const ChipButton: FC<ChipButtonProps> = ({
     )}
     {...rest}>
     {label}
-  </span>
+  </button>
 );

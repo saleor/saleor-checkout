@@ -19,12 +19,12 @@ Basic.args = {
   label: "Button label",
 };
 
-export const Reverse = Template.bind({});
+export const Alignment = Template.bind({});
 
-Reverse.args = {
+Alignment.args = {
   icon: <EditIcon />,
   label: "Button label",
-  reverse: true,
+  alignment: "right",
 };
 
 export const OnlyIcon = Template.bind({});
