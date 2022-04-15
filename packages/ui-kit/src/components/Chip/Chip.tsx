@@ -4,28 +4,34 @@ import clsx from "clsx";
 import styles from "./Chip.module.css";
 import { ButtonLabel } from "../Button/Button";
 import { RemoveIcon } from "../icons";
+import { ClassNames } from "../../globalTypes";
 
 export interface ChipProps {
   icon?: ReactNode;
   label: string;
-  className?: string;
+  classNames?: ClassNames<"container" | "label" | "button">;
   onClick: (e?: MouseEvent) => void;
 }
 
 export const Chip: FC<ChipProps> = ({
   label,
   icon,
-  className,
+  classNames,
   onClick,
   ...rest
 }) => (
-  <div className={clsx(styles.chip, className)} {...rest}>
+  <div className={clsx(styles.chip, classNames?.container)} {...rest}>
     {icon}
     <ButtonLabel
       content={label}
-      className={clsx({ [styles["chip-label-margin"]]: !!icon })}
+      className={clsx(
+        { [styles["chip-label-margin"]]: !!icon },
+        classNames?.label
+      )}
     />
-    <button className={styles["chip-button"]} onClick={onClick}>
+    <button
+      className={clsx(styles["chip-button"], classNames?.button)}
+      onClick={onClick}>
       <RemoveIcon />
     </button>
   </div>
