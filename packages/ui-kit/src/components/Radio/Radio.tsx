@@ -1,6 +1,5 @@
-import { FC, ReactNode, InputHTMLAttributes } from "react";
+import { FC, ReactNode, InputHTMLAttributes, useId } from "react";
 import clsx from "clsx";
-import { nanoid } from "nanoid";
 
 import styles from "./Radio.module.css";
 import { CheckIcon } from "../icons";
@@ -23,7 +22,7 @@ export const Radio: FC<RadioProps> = ({
   checked,
   value,
   classNames,
-  id = nanoid(),
+  id = useId(),
   ...rest
 }) => (
   <div className={clsx(styles.radio, classNames?.container)}>

@@ -1,7 +1,6 @@
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode, useId } from "react";
 import clsx from "clsx";
 import { Combobox } from "@headlessui/react";
-import { nanoid } from "nanoid";
 
 import styles from "./Select.module.css";
 import { ChevronDownIcon } from "../icons";
@@ -37,70 +36,68 @@ export const Select: FC<SelectProps> = ({
   disabled,
   classNames,
   onChange,
-}) => {
-  return (
-    <div className={clsx(styles.container, classNames?.container)}>
-      <Combobox value={selected} onChange={onChange as any}>
-        <Combobox.Button
-          className={clsx(
-            styles.trigger,
-            {
-              [styles["trigger-error"]]: error,
-              [styles["trigger-disabled"]]: disabled,
-            },
-            classNames?.trigger
-          )}>
-          {({ open }) => {
-            return (
-              <>
-                {selected?.before && (
-                  <div
-                    className={clsx(
-                      styles["trigger-before"],
-                      classNames?.triggerBefore
-                    )}>
-                    {selected?.before}
-                  </div>
-                )}
-                {selected?.label}
-                {!disabled && (
-                  <span
-                    className={clsx(
-                      styles["arrow-container"],
-                      {
-                        [styles["arrow-container-open"]]: open,
-                      },
-                      classNames?.triggerArrow
-                    )}>
-                    <ChevronDownIcon />
-                  </span>
-                )}
-              </>
-            );
-          }}
-        </Combobox.Button>
-        {!disabled && (
-          <Combobox.Options className={clsx(styles.options)}>
-            {options.map((option) => (
-              <Combobox.Option
-                key={option?.id || nanoid()}
-                value={option}
-                className={clsx(styles.option, classNames?.option)}>
-                {option?.before && (
-                  <div
-                    className={clsx(
-                      styles["option-before"],
-                      classNames?.optionBefore
-                    )}>
-                    {option?.before}
-                  </div>
-                )}
-                {option.label}
-              </Combobox.Option>
-            ))}
-          </Combobox.Options>
-        )}
-      </Combobox>
-    </div>
-  );
-};
+}) => (
+  <div className={clsx(styles.container, classNames?.container)}>
+    <Combobox value={selected} onChange={onChange as any}>
+      <Combobox.Button
+        className={clsx(
+          styles.trigger,
+          {
+            [styles["trigger-error"]]: error,
+            [styles["trigger-disabled"]]: disabled,
+          },
+          classNames?.trigger
+        )}>
+        {({ open }) => {
+          return (
+            <>
+              {selected?.before && (
+                <div
+                  className={clsx(
+                    styles["trigger-before"],
+                    classNames?.triggerBefore
+                  )}>
+                  {selected?.before}
+                </div>
+              )}
+              {selected?.label}
+              {!disabled && (
+                <span
+                  className={clsx(
+                    styles["arrow-container"],
+                    {
+                      [styles["arrow-container-open"]]: open,
+                    },
+                    classNames?.triggerArrow
+                  )}>
+                  <ChevronDownIcon />
+                </span>
+              )}
+            </>
+          );
+        }}
+      </Combobox.Button>
+      {!disabled && (
+        <Combobox.Options className={clsx(styles.options)}>
+          {options.map((option) => (
+            <Combobox.Option
+              key={option?.id || useId()}
+              value={option}
+              className={clsx(styles.option, classNames?.option)}>
+              {option?.before && (
+                <div
+                  className={clsx(
+                    styles["option-before"],
+                    classNames?.optionBefore
+                  )}>
+                  {option?.before}
+                </div>
+              )}
+              {option.label}
+            </Combobox.Option>
+          ))}
+        </Combobox.Options>
+      )}
+    </Combobox>
+  </div>
+);
