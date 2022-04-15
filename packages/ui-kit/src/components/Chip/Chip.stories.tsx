@@ -15,7 +15,7 @@ export const Basic = Template.bind({});
 
 Basic.args = {
   label: "SAVE10",
-  onCloseClick: action("onCloseClick"),
+  onClick: action("onCloseClick"),
 };
 
 export const WithIcon = Template.bind({});
@@ -23,5 +23,5 @@ export const WithIcon = Template.bind({});
 WithIcon.args = {
   icon: <DiscountIcon />,
   label: "SAVE10",
-  onCloseClick: action("onCloseClick"),
+  onClick: action("onCloseClick"),
 };

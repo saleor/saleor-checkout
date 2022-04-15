@@ -9,14 +9,14 @@ export interface ChipProps {
   icon?: ReactNode;
   label: string;
   className?: string;
-  onCloseClick: (e?: MouseEvent) => void;
+  onClick: (e?: MouseEvent) => void;
 }
 
 export const Chip: VFC<ChipProps> = ({
   label,
   icon,
   className,
-  onCloseClick,
+  onClick,
   ...rest
 }) => (
   <div className={clsx(styles.chip, className)} {...rest}>
@@ -25,7 +25,7 @@ export const Chip: VFC<ChipProps> = ({
       content={label}
       className={clsx({ [styles["chip-label-margin"]]: !!icon })}
     />
-    <button className={styles["chip-button"]} onClick={onCloseClick}>
+    <button className={styles["chip-button"]} onClick={onClick}>
       <RemoveIcon />
     </button>
   </div>

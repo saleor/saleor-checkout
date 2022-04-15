@@ -1,4 +1,4 @@
-import { VFC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes } from "react";
 import clsx from "clsx";
 
 import styles from "./RemoveButton.module.css";
@@ -7,10 +7,7 @@ import { RemoveIcon } from "../icons";
 
 export interface RemoveButtonProps extends Omit<ButtonProps, "label"> {}
 
-export const RemoveButton: VFC<RemoveButtonProps> = ({
-  className,
-  ...rest
-}) => (
+export const RemoveButton: FC<RemoveButtonProps> = ({ className, ...rest }) => (
   <Button
     label={<RemoveIcon />}
     variant='secondary'

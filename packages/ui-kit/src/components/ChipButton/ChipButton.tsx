@@ -1,4 +1,4 @@
-import { VFC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes } from "react";
 import clsx from "clsx";
 
 import styles from "./ChipButton.module.css";
@@ -8,7 +8,7 @@ export interface ChipButtonProps extends HTMLAttributes<HTMLSpanElement> {
   active?: boolean;
 }
 
-export const ChipButton: VFC<ChipButtonProps> = ({
+export const ChipButton: FC<ChipButtonProps> = ({
   label,
   active,
   className,

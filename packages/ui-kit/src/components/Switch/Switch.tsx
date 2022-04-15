@@ -1,4 +1,4 @@
-import { VFC } from "react";
+import { FC } from "react";
 import clsx from "clsx";
 import { Switch as HeadlessSwitch } from "@headlessui/react";
 
@@ -13,7 +13,7 @@ export interface SwitchProps {
   onChange(checked: boolean): void;
 }
 
-export const Switch: VFC<SwitchProps> = ({
+export const Switch: FC<SwitchProps> = ({
   checked = false,
   label,
   classNames,

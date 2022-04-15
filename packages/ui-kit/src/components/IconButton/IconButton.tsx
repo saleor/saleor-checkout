@@ -1,4 +1,4 @@
-import { VFC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import clsx from "clsx";
 
 import styles from "./IconButton.module.css";
@@ -10,7 +10,7 @@ export interface IconButtonProps extends Omit<ButtonProps, "variant"> {
   variant?: "bare";
 }
 
-export const IconButton: VFC<IconButtonProps> = ({
+export const IconButton: FC<IconButtonProps> = ({
   label,
   icon,
   className,

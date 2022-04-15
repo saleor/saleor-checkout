@@ -1,4 +1,4 @@
-import { VFC, ReactNode, ButtonHTMLAttributes } from "react";
+import { FC, ReactNode, ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
 
 import styles from "./Button.module.css";
@@ -14,13 +14,13 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "tertiary";
 }
 
-export const ButtonLabel: VFC<ButtonLabelProps> = ({ content, ...rest }) => (
+export const ButtonLabel: FC<ButtonLabelProps> = ({ content, ...rest }) => (
   <Text as='span' weight='semibold' {...rest}>
     {content}
   </Text>
 );
 
-export const Button: VFC<ButtonProps> = ({
+export const Button: FC<ButtonProps> = ({
   label,
   className,
   variant = "primary",
