@@ -39,7 +39,7 @@ CustomLook.args = {
       <span className='text-text-secondary'>3-4 business days</span>
     </>
   ),
-  className: {
+  classNames: {
     container: "px-[15px] py-[21px] border hover:border-border-active",
     radio: "!border-sky-500",
   },

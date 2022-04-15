@@ -9,7 +9,7 @@ import { Label } from "../Label";
 export interface CheckboxProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "className"> {
   label?: string | ReactNode;
-  className?: {
+  classNames?: {
     container?: string;
     inputContainer?: string;
     input?: string;
@@ -22,11 +22,11 @@ export const Checkbox: FC<CheckboxProps> = ({
   label,
   checked,
   value,
-  className,
+  classNames,
   id = nanoid(),
   ...rest
 }) => (
-  <div className={clsx(styles.checkbox, className?.container)}>
+  <div className={clsx(styles.checkbox, classNames?.container)}>
     <div
       className={clsx(styles["box"], {
         [styles["box-static"]]: !label,
@@ -36,16 +36,16 @@ export const Checkbox: FC<CheckboxProps> = ({
         value={value}
         checked={checked}
         id={id}
-        className={className?.input}
+        className={classNames?.input}
         {...rest}
       />
-      <div className={clsx(styles["checkbox-input"], className?.checkbox)}>
+      <div className={clsx(styles["checkbox-input"], classNames?.checkbox)}>
         <CheckIcon />
       </div>
     </div>
     {label && (
       <Label
-        className={clsx(styles["checkbox-label"], className?.label)}
+        className={clsx(styles["checkbox-label"], classNames?.label)}
         htmlFor={id}>
         {label}
       </Label>

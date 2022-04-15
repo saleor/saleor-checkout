@@ -18,7 +18,7 @@ export interface SelectProps {
   selected: Option;
   error?: boolean;
   disabled?: boolean;
-  className?: {
+  classNames?: {
     container?: string;
     triggerBefore?: string;
     trigger?: string;
@@ -35,11 +35,11 @@ export const Select: FC<SelectProps> = ({
   options,
   error,
   disabled,
-  className,
+  classNames,
   onChange,
 }) => {
   return (
-    <div className={clsx(styles.container, className?.container)}>
+    <div className={clsx(styles.container, classNames?.container)}>
       <Combobox value={selected} onChange={onChange as any}>
         <Combobox.Button
           className={clsx(
@@ -48,7 +48,7 @@ export const Select: FC<SelectProps> = ({
               [styles["trigger-error"]]: error,
               [styles["trigger-disabled"]]: disabled,
             },
-            className?.trigger
+            classNames?.trigger
           )}>
           {({ open }) => {
             return (
@@ -57,7 +57,7 @@ export const Select: FC<SelectProps> = ({
                   <div
                     className={clsx(
                       styles["trigger-before"],
-                      className?.triggerBefore
+                      classNames?.triggerBefore
                     )}>
                     {selected?.before}
                   </div>
@@ -70,7 +70,7 @@ export const Select: FC<SelectProps> = ({
                       {
                         [styles["arrow-container-open"]]: open,
                       },
-                      className?.triggerArrow
+                      classNames?.triggerArrow
                     )}>
                     <ChevronDownIcon />
                   </span>
@@ -85,12 +85,12 @@ export const Select: FC<SelectProps> = ({
               <Combobox.Option
                 key={option?.id || nanoid()}
                 value={option}
-                className={clsx(styles.option, className?.option)}>
+                className={clsx(styles.option, classNames?.option)}>
                 {option?.before && (
                   <div
                     className={clsx(
                       styles["option-before"],
-                      className?.optionBefore
+                      classNames?.optionBefore
                     )}>
                     {option?.before}
                   </div>

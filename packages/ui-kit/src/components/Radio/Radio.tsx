@@ -9,7 +9,7 @@ import { Label } from "../Label";
 export interface RadioProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "className"> {
   label?: string | ReactNode;
-  className?: {
+  classNames?: {
     container?: string;
     inputContainer?: string;
     input?: string;
@@ -22,11 +22,11 @@ export const Radio: FC<RadioProps> = ({
   label,
   checked,
   value,
-  className,
+  classNames,
   id = nanoid(),
   ...rest
 }) => (
-  <div className={clsx(styles.radio, className?.container)}>
+  <div className={clsx(styles.radio, classNames?.container)}>
     <div
       className={clsx(styles["box"], {
         [styles["box-static"]]: !label,
@@ -36,14 +36,14 @@ export const Radio: FC<RadioProps> = ({
         value={value}
         checked={checked}
         id={id}
-        className={className?.input}
+        className={classNames?.input}
         {...rest}
       />
-      <div className={clsx(styles["radio-input"], className?.radio)} />
+      <div className={clsx(styles["radio-input"], classNames?.radio)} />
     </div>
     {label && (
       <Label
-        className={clsx(styles["radio-label"], className?.label)}
+        className={clsx(styles["radio-label"], classNames?.label)}
         htmlFor={id}>
         {label}
       </Label>

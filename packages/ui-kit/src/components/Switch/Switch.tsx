@@ -8,7 +8,7 @@ import labelStyles from "../Label/Label.module.css";
 export interface SwitchProps {
   checked?: boolean;
   label?: string;
-  className?: {
+  classNames?: {
     container?: string;
     toggle?: string;
     label?: string;
@@ -19,10 +19,10 @@ export interface SwitchProps {
 export const Switch: VFC<SwitchProps> = ({
   checked = false,
   label,
-  className,
+  classNames,
   onChange,
 }) => (
-  <div className={className?.container}>
+  <div className={classNames?.container}>
     <HeadlessSwitch.Group>
       <HeadlessSwitch
         checked={checked}
@@ -32,7 +32,7 @@ export const Switch: VFC<SwitchProps> = ({
           {
             [styles["toggle-active"]]: checked,
           },
-          className?.toggle
+          classNames?.toggle
         )}>
         <span
           aria-hidden='true'
@@ -43,7 +43,7 @@ export const Switch: VFC<SwitchProps> = ({
       </HeadlessSwitch>
       {label && (
         <HeadlessSwitch.Label
-          className={clsx(labelStyles.label, styles.label, className?.label)}>
+          className={clsx(labelStyles.label, styles.label, classNames?.label)}>
           {label}
         </HeadlessSwitch.Label>
       )}
