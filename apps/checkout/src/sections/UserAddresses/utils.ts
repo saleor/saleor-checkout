@@ -4,8 +4,6 @@ import { AddressFormData } from "./types";
 
 export const getAddressInputData = ({
   name,
-  firstName,
-  lastName,
   countryCode,
   country,
   ...rest
@@ -17,7 +15,5 @@ export const getAddressInputData = ({
   }
 >): AddressInput => ({
   ...omit(rest, ["id", "__typename"]),
-  firstName: firstName || name?.split(" ")[0] || "",
-  lastName: lastName || name?.split(" ")[1] || "",
   country: countryCode || (country?.code as CountryCode),
 });

@@ -1,9 +1,14 @@
 import { Button } from "@/components/Button";
 import { TextInput } from "@/components/TextInput";
 import { CountryCode, useAddressValidationRulesQuery } from "@/graphql";
-import { useFormattedMessages } from "@/hooks/useFormattedMessages";
+import { MessageKey, useFormattedMessages } from "@/hooks/useFormattedMessages";
 import { useGetInputProps } from "@/hooks/useGetInputProps";
 import { AddressField } from "@/lib/globalTypes";
+import {
+  ensureArray,
+  getRequiredAddressFields,
+  getSortedAddressFields,
+} from "@/lib/utils";
 import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 import { AddressFormData } from "./types";
 
@@ -35,16 +40,19 @@ export const UserAddressForm = <TFormData extends AddressFormData>({
 
   const validationRules = data?.addressValidationRules;
 
+  const isFieldOptional = (field: AddressField) =>
+    !getRequiredAddressFields(
+      ensureArray(validationRules?.requiredFields)
+    ).includes(field);
+
   return (
     <div>
-      {/* TMP */}
-      {(validationRules?.allowedFields as Partial<AddressField>[])?.map(
+      {getSortedAddressFields(ensureArray(validationRules?.allowedFields))?.map(
         (field: AddressField) => (
           <TextInput
-            label={field}
-            // @ts-ignore TMP
+            label={formatMessage(field as MessageKey)}
             {...getInputProps(field)}
-            optional={!validationRules?.requiredFields?.includes(field)}
+            optional={isFieldOptional(field)}
           />
         )
       )}

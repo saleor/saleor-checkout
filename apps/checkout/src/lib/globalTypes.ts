@@ -12,7 +12,6 @@ export interface ValidationError<TFormData> {
 
 export type AddressField =
   | "city"
-  | "name"
   | "firstName"
   | "lastName"
   | "country"
@@ -24,3 +23,5 @@ export type AddressField =
   | "streetAddress1"
   | "streetAddress2"
   | "phone";
+
+export type ApiAddressField = AddressField | "name";
