@@ -17,7 +17,7 @@
   padding-right: calc(theme("spacing.3") - theme("borderWidth.DEFAULT"));
 }
 
-.trigger-before {
+.trigger-icon {
   @apply ml-1 mr-3;
 }
 
@@ -51,6 +51,6 @@
   @apply px-4 pt-[14px] pb-[13px] text-base cursor-pointer flex items-center;
 }
 
-.option-before {
+.option-icon {
   @apply mr-3;
 }

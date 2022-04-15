@@ -21,11 +21,11 @@ const Template: ComponentStory<typeof Select> = ({ selected, ...args }) => {
 };
 
 const users = [
-  { label: "Durward Reynolds" },
-  { label: "Kenton Towne" },
-  { label: "Therese Wunsch" },
-  { label: "Benedict Kessler" },
-  { label: "Katelyn Rohan" },
+  { label: "Durward Reynolds", value: "Durward Reynolds", id: "1" },
+  { label: "Kenton Towne", value: "Kenton Towne", id: "2" },
+  { label: "Therese Wunsch", value: "Therese Wunsch", id: "3" },
+  { label: "Benedict Kessler", value: "Benedict Kessler", id: "4" },
+  { label: "Katelyn Rohan", value: "Katelyn Rohan", id: "5" },
 ];
 
 const commonArgs = {
@@ -54,11 +54,11 @@ Disabled.args = {
 export const Countries = Template.bind({});
 
 const countries = [
-  { label: "Polska", before: "🇵🇱" },
-  { label: "Niemcy", before: "🇩🇪" },
-  { label: "USA", before: "🇺🇸" },
-  { label: "Francja", before: "🇫🇷" },
-  { label: "Bangladesz", before: "🇧🇩" },
+  { label: "Polska", value: "Polska", icon: "🇵🇱", id: "1" },
+  { label: "Niemcy", value: "Niemcy", icon: "🇩🇪", id: "2" },
+  { label: "USA", value: "USA", icon: "🇺🇸", id: "3" },
+  { label: "Francja", value: "Francja", icon: "🇫🇷", id: "4" },
+  { label: "Bangladesz", value: "Bangladesz", icon: "🇧🇩", id: "5" },
 ];
 
 Countries.args = {
