@@ -24,4 +24,3 @@ export type AddressField =
   | "streetAddress1"
   | "streetAddress2"
   | "phone";
-

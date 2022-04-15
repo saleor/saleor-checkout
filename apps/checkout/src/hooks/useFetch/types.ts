@@ -21,11 +21,11 @@ export type GetDataType<TFetchFn> = TFetchFn extends (
   ? TData
   : never;
 
-export type FetchFn<TData> = (
-  args: Record<string, any> | never
+export type FetchFn<TArgs extends Record<string, any> | never, TData> = (
+  args: TArgs
 ) => FetchResponse<TData>;
 
 export interface UseFetchOptionalProps<TArgs> {
   args?: TArgs;
-  opts?: { skip: boolean };
+  opts?: { skip?: boolean };
 }

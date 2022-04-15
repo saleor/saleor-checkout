@@ -21,10 +21,11 @@ interface FormData {
 export const CheckoutForm = () => {
   const errorMessages = useErrorMessages();
   const { checkout } = useCheckout();
-  const [{ data }, pay] = useFetch(payRequest, undefined, { skip: true });
+  const [{ data }, pay] = useFetch(payRequest, { opts: { skip: true } });
 
-  const [selectedPaymentProvider, setSelectedPaymentProvider] =
-    useState<string>();
+  // TMP
+  // const [selectedPaymentProvider, setSelectedPaymentProvider] =
+  //   useState<string>();
 
   const schema = object({
     password: string().required(errorMessages.requiredField),
@@ -65,10 +66,11 @@ export const CheckoutForm = () => {
           <Divider className="mt-4" />
           <UserAddresses />
           <ShippingMethods />
-          <PaymentProviders
+          {/* TMP */}
+          {/* <PaymentProviders
             onSelect={setSelectedPaymentProvider}
             selectedValue={selectedPaymentProvider}
-          />
+          /> */}
           <Button
             ariaLabel="finaliza checkout"
             title="Pay"

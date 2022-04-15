@@ -12,7 +12,7 @@ export const PaymentProviders: React.FC<
   Pick<RadioOption, "onSelect" | "selectedValue">
 > = ({ ...rest }) => {
   const formatMessage = useFormattedMessages();
-  const [availalablePaymentProviders, loading] = useFetch(getPaymentProviders);
+  const [{ data: availalablePaymentProviders }] = useFetch(getPaymentProviders);
 
   return (
     <div className="mb-10">

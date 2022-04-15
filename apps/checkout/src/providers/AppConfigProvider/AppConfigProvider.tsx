@@ -8,7 +8,7 @@ import { getParsedCssBody } from "./utils";
 import { defaultAppColors, STYLE_ELEMENT_ID } from "./consts";
 
 interface AppConfigContextConsumerProps {
-  config: AppConfig;
+  config?: AppConfig | null;
   loading: boolean;
 }
 
@@ -19,7 +19,7 @@ export const AppConfigProvider: React.FC<PropsWithChildren<{}>> = ({
   children,
 }) => {
   const [{ data: appConfig, loading }] = useFetch(getAppConfig);
-  const stylingRef = useRef(appConfig);
+  const stylingRef = useRef(appConfig?.branding);
 
   const fulfillStyling = (
     brandingColors: BrandingColorsData
@@ -54,14 +54,14 @@ export const AppConfigProvider: React.FC<PropsWithChildren<{}>> = ({
     );
 
     if (hasStylingConfigChanged) {
-      appendStylingToBody({
-        // TMP this is not the obj passes from the dashboard app
-        // because the names of the props don't match just yet and
-        // colors are for preview purposes
-        buttonBgColorPrimary: "#FF7C7C",
-        textColor: "#FF85BA",
-        borderColorPrimary: "#9D39FF",
-      });
+      // appendStylingToBody({
+      //   // TMP this is not the obj passes from the dashboard app
+      //   // because the names of the props don't match just yet and
+      //   // colors are for preview purposes
+      //   buttonBgColorPrimary: "#FF7C7C",
+      //   textColor: "#FF85BA",
+      //   borderColorPrimary: "#9D39FF",
+      // });
     }
 
     stylingRef.current = appConfig?.branding;

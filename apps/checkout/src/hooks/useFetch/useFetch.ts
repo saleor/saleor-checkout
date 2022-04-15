@@ -9,8 +9,8 @@ import {
 
 export const useFetch = <
   TError,
-  TFetchFn extends FetchFn<TData>,
-  TData extends ReturnType<TFetchFn>,
+  TFetchFn extends FetchFn<any, any>,
+  TData = GetDataType<TFetchFn>,
   TArgs = GetArgsType<TFetchFn>
 >(
   fetchFn: TFetchFn,
