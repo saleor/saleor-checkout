@@ -75,7 +75,6 @@ export const useGetFormErrorsFromApiErrors = <TFormData>(): ((
       return {} as FieldErrors<TFormData>;
     }
 
-    console.log(666, "API ERRORS", apiErrors);
     return apiErrors.reduce((result, { field, code }) => {
       const errorCode = code.toLowerCase() as ValidationErrorCode;
 
