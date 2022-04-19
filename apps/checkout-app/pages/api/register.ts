@@ -24,7 +24,7 @@ const handler = async (
     return;
   }
 
-  response.json({ success: true });
+  response.status(200).json({ success: true });
 };
 
 export default handler;

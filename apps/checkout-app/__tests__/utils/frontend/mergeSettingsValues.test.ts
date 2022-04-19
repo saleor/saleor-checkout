@@ -1,7 +1,7 @@
 import { mergeSettingsValues } from "@/frontend/utils";
 
 describe("/utils/frontend/mergeSettingsValues", () => {
-  it("override default values", async () => {
+  it("overrides default values", async () => {
     const defaultSettings = {
       foo: {
         bar: "baz",
@@ -27,7 +27,7 @@ describe("/utils/frontend/mergeSettingsValues", () => {
     expect(mergedSettings).toEqual(expectedSettings);
   });
 
-  it("add default values when no corresponding saved values", async () => {
+  it("adds default values when no corresponding saved values", async () => {
     const defaultSettings = {
       foo: {
         bar: "baz",
@@ -38,17 +38,10 @@ describe("/utils/frontend/mergeSettingsValues", () => {
 
     const mergedSettings = mergeSettingsValues(defaultSettings, savedSettings);
 
-    const expectedSettings = {
-      foo: {
-        bar: "baz",
-        car: "caz",
-      },
-    };
-
-    expect(mergedSettings).toEqual(expectedSettings);
+    expect(mergedSettings).toEqual(defaultSettings);
   });
 
-  it("add saved values when no corresponding default values", async () => {
+  it("adds saved values when no corresponding default values", async () => {
     const defaultSettings = {};
     const savedSettings = {
       foo: {
@@ -59,17 +52,10 @@ describe("/utils/frontend/mergeSettingsValues", () => {
 
     const mergedSettings = mergeSettingsValues(defaultSettings, savedSettings);
 
-    const expectedSettings = {
-      foo: {
-        bar: "qux",
-        cat: "cax",
-      },
-    };
-
-    expect(mergedSettings).toEqual(expectedSettings);
+    expect(mergedSettings).toEqual(savedSettings);
   });
 
-  it("merge default and saved values", async () => {
+  it("merges default and saved values", async () => {
     const defaultSettings = {
       foo: {
         fooOne: "one",
@@ -131,7 +117,7 @@ describe("/utils/frontend/mergeSettingsValues", () => {
     expect(mergedSettings).toEqual(expectedSettings);
   });
 
-  it("merge default and saved sub-settings", async () => {
+  it("merges default and saved sub-settings", async () => {
     const defaultSettings = {
       foo: {
         abc: "123",

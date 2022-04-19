@@ -10,9 +10,8 @@ import {
   PrivateMetadataQuery,
   PrivateMetadataQueryVariables,
 } from "@/graphql";
-import { client } from "@/graphql/client";
+import { client } from "@/backend/client";
 import { defaultActiveChannelPaymentProviders } from "config/defaults";
-import { ChannelActivePaymentProviders } from "types/api";
 import { mergeChannelsWithPaymentProvidersSettings } from "./utils";
 
 export const getSettings = async () => {
