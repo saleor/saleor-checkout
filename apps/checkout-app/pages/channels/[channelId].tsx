@@ -42,6 +42,7 @@ const Channel = () => {
   const channels = channelsQuery.data?.channels || [];
 
   const channelPaymentOptions = getChannelPaymentOptions(
+    intl,
     channels,
     settingsValues.channelActivePaymentProviders,
     channelId?.toString()

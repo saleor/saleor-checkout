@@ -35,6 +35,7 @@ const PaymentProvider = () => {
     metadataQuery.data?.app?.privateMetadata || []
   );
   const paymentProviders = getPaymentProviderSettings(
+    intl,
     settingsValues.paymentProviders
   );
 

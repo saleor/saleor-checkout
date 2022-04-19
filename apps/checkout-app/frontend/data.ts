@@ -1,10 +1,11 @@
 import { ChannelFragment } from "@/graphql";
 import { findById } from "@/utils";
 import {
-  customizations,
-  paymentMethods,
-  paymentProviders,
-} from "config/fields";
+  getCustomizations,
+  getPaymentMethods,
+  getPaymentProviders,
+} from "@/config/fields";
+import { IntlShape } from "react-intl";
 import {
   ChannelActivePaymentProviders,
   ChannelPaymentOptions,
@@ -20,9 +21,10 @@ import {
 } from "types/common";
 
 export const getCustomizationSettings = (
+  intl: IntlShape,
   settingsValues: UnknownSettingsValues
 ): Customization<CustomizationID>[] =>
-  customizations.map((customization) => ({
+  getCustomizations(intl).map((customization) => ({
     ...customization,
     settings: customization.settings.map(
       (setting: CustomizationSettings<CustomizationID>) => ({
@@ -33,9 +35,10 @@ export const getCustomizationSettings = (
   }));
 
 export const getPaymentProviderSettings = (
+  intl: IntlShape,
   settingsValues: UnknownSettingsValues
 ): PaymentProvider<PaymentProviderID>[] =>
-  paymentProviders.map((provider) => ({
+  getPaymentProviders(intl).map((provider) => ({
     ...provider,
     settings: provider.settings.map(
       (setting: PaymentProviderSettings<PaymentProviderID>) => ({
@@ -46,10 +49,14 @@ export const getPaymentProviderSettings = (
   }));
 
 export const getChannelPaymentOptionsList = (
+  intl: IntlShape,
   channels: ChannelFragment[],
   activePaymentProviders?: ChannelActivePaymentProviders
-): ChannelPaymentOptions[] =>
-  channels.map((channel) => ({
+): ChannelPaymentOptions[] => {
+  const paymentMethods = getPaymentMethods(intl);
+  const paymentProviders = getPaymentProviders(intl);
+
+  return channels.map((channel) => ({
     id: channel.id,
     channel: channel,
     paymentOptions: paymentMethods.map((method) => {
@@ -69,11 +76,13 @@ export const getChannelPaymentOptionsList = (
       };
     }),
   }));
+};
 export const getChannelPaymentOptions = (
+  intl: IntlShape,
   channels: ChannelFragment[],
   activePaymentProviders?: ChannelActivePaymentProviders,
   channelId?: string
 ) =>
-  getChannelPaymentOptionsList(channels, activePaymentProviders).find(
+  getChannelPaymentOptionsList(intl, channels, activePaymentProviders).find(
     (channelPayments) => channelPayments.channel.id === channelId
   );

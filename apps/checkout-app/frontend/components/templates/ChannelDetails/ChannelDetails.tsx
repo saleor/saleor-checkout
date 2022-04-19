@@ -21,7 +21,6 @@ import {
   ChannelActivePaymentProviders,
   ChannelPaymentOptions,
 } from "types/api";
-import { paymentProviders } from "config/fields";
 import { useStyles } from "./styles";
 import { channelListPath, channelPath, paymentProviderPath } from "routes";
 import { messages } from "./messages";
@@ -84,7 +83,6 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
     router.push({
       pathname: paymentProviderPath,
       query: {
-        paymentProviderId: paymentProviders[0].id,
         channelId: channelPaymentOptions.channel.id,
       },
     });

@@ -12,8 +12,10 @@ import {
 } from "@/frontend/utils";
 import { getCustomizationSettings } from "@/frontend/data";
 import { useAuthData } from "@/frontend/hooks/useAuthData";
+import { useIntl } from "react-intl";
 
 const Customization = () => {
+  const intl = useIntl();
   const router = useRouter();
   const { appId, isAuthorized } = useAuthData();
   const [metadataQuery] = usePrivateMetadataQuery({
@@ -29,6 +31,7 @@ const Customization = () => {
     metadataQuery.data?.app?.privateMetadata || []
   );
   const customizationSettings = getCustomizationSettings(
+    intl,
     settingsValues.customizations
   );
 
