@@ -6,3 +6,4 @@ export const SALEOR_DOMAIN_HEADER = "x-saleor-domain";
 export const SALEOR_TOKEN_HEADER = "x-saleor-token";
 
 export const isSsr = typeof window === "undefined";
+export const appId = process.env.SALEOR_APP_ID!;

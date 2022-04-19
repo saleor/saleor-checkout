@@ -13,6 +13,7 @@ import { FormattedMessage } from "react-intl";
 import { messages } from "./messages";
 import { ChannelFragment } from "@/graphql";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { useDashboardRouter } from "@/frontend/hooks/useDashboardRouter";
 
 interface ChannelListProps {
   channels: ChannelFragment[];
@@ -20,11 +21,11 @@ interface ChannelListProps {
 }
 
 const ChannelList: React.FC<ChannelListProps> = ({ channels, loading }) => {
-  const router = useRouter();
+  const dashboardRouter = useDashboardRouter();
   const classes = useStyles();
 
   const onChannelClick = (channel: ChannelFragment) => {
-    router.push({
+    dashboardRouter.push({
       pathname: channelPath,
       query: { channelId: channel.id },
     });

@@ -17,13 +17,13 @@ import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { getFormDefaultValues } from "./data";
 import { useEffect } from "react";
+import { useDashboardRouter } from "@/frontend/hooks/useDashboardRouter";
 
 interface PaymentProviderDetailsProps {
   selectedPaymentProvider: PaymentProvider<PaymentProviderID>;
   channelId?: string;
   saveButtonBarState: ConfirmButtonTransitionState;
   loading: boolean;
-  onCancel: () => void;
   onSubmit: (data: PaymentProviderSettingsValues) => void;
 }
 
@@ -32,10 +32,9 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   channelId,
   saveButtonBarState,
   loading,
-  onCancel,
   onSubmit,
 }) => {
-  const router = useRouter();
+  const dashboardRouter = useDashboardRouter();
   const intl = useIntl();
   const classes = useStyles();
   const {
@@ -53,20 +52,20 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
 
   const onBackClick = () => {
     if (channelId) {
-      router.push({
+      dashboardRouter.push({
         pathname: channelPath,
         query: {
           channelId: channelId,
         },
       });
     } else {
-      router.push(channelListPath);
+      dashboardRouter.push(channelListPath);
     }
   };
 
   const onPaymentProviderClick = (paymentProvider: Item) => {
     if (channelId) {
-      router.push({
+      dashboardRouter.push({
         pathname: paymentProviderPath,
         query: {
           paymentProviderId: paymentProvider.id,
@@ -74,7 +73,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
         },
       });
     } else {
-      router.push({
+      dashboardRouter.push({
         pathname: paymentProviderPath,
         query: {
           paymentProviderId: paymentProvider.id,
@@ -136,7 +135,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
       <AppSavebar
         disabled={loading || !formState.isDirty}
         state={saveButtonBarState}
-        onCancel={onCancel}
+        onCancel={onBackClick}
         onSubmit={handleSubmitForm(handleSubmit)}
       />
     </form>

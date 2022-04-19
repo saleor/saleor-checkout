@@ -26,7 +26,6 @@ interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
   loading: boolean;
   saveButtonBarState: ConfirmButtonTransitionState;
-  onCancel: () => void;
   onSubmit: (data: CustomizationSettingsValues) => void;
 }
 
@@ -34,11 +33,19 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
   options,
   loading,
   saveButtonBarState,
-  onCancel,
   onSubmit,
 }) => {
   const classes = useStyles();
-  const { control, handleSubmit: handleSubmitForm, formState } = useForm();
+  const {
+    control,
+    handleSubmit: handleSubmitForm,
+    formState,
+    reset: resetForm,
+  } = useForm();
+
+  const handleCancel = () => {
+    resetForm();
+  };
 
   const handleSubmit = (flattenedSettings: Record<string, string>) => {
     onSubmit(
@@ -107,7 +114,7 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
       <AppSavebar
         disabled={loading || !formState.isDirty}
         state={saveButtonBarState}
-        onCancel={onCancel}
+        onCancel={handleCancel}
         onSubmit={handleSubmitForm(handleSubmit)}
       />
     </form>

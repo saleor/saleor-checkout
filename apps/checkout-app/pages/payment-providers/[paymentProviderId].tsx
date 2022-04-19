@@ -37,10 +37,6 @@ const PaymentProvider = () => {
     (paymentMethod) => paymentMethod.id === paymentProviderId
   );
 
-  const handleCancel = () => {
-    router.back();
-  };
-
   const handleSubmit = (data: PaymentProviderSettingsValues) => {
     const metadata = mapSettingsToMetadata({
       paymentProviders: {
@@ -69,7 +65,6 @@ const PaymentProvider = () => {
       channelId={channelId?.toString()}
       saveButtonBarState="default"
       loading={metadataQuery.fetching || metadataMutation.fetching}
-      onCancel={handleCancel}
       onSubmit={handleSubmit}
     />
   );

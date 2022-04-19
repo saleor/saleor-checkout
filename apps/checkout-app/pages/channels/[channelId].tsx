@@ -1,6 +1,7 @@
 import ErrorDetails from "@/frontend/components/templates/ErrorDetails";
 import { getChannelPaymentOptions } from "@/frontend/data";
 import { useAuthData } from "@/frontend/hooks/useAuthData";
+import { useDashboardRouter } from "@/frontend/hooks/useDashboardRouter";
 import { notFoundMessages } from "@/frontend/misc/errorMessages";
 import { mapMetadataToSettings, mapSettingsToMetadata } from "@/frontend/utils";
 import {
@@ -40,10 +41,6 @@ const Channel = () => {
     channelId?.toString()
   );
 
-  const handleCancel = () => {
-    router.back();
-  };
-
   const handleSubmit = (data: ChannelActivePaymentProviders) => {
     const metadata = mapSettingsToMetadata({
       channelActivePaymentProviders: {
@@ -78,7 +75,6 @@ const Channel = () => {
         metadataQuery.fetching ||
         metadataMutation.fetching
       }
-      onCancel={handleCancel}
       onSubmit={handleSubmit}
     />
   );

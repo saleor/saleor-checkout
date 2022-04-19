@@ -3,13 +3,15 @@ import { useRouter } from "next/router";
 import { channelListPath, customizationPath } from "routes";
 import { useIntl } from "react-intl";
 import { sectionMessages } from "@/frontend/misc/commonMessages";
+import { useDashboardRouter } from "@/frontend/hooks/useDashboardRouter";
 
 const AppNavigation: React.FC = () => {
   const router = useRouter();
+  const dashboardRouter = useDashboardRouter();
   const intl = useIntl();
 
   return (
-    <PageTabs onChange={router.push} value={router.pathname}>
+    <PageTabs onChange={dashboardRouter.push} value={router.pathname}>
       <PageTab
         value={channelListPath}
         label={intl.formatMessage(sectionMessages.channels)}

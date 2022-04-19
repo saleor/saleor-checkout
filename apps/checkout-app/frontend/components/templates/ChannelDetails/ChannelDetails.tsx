@@ -7,7 +7,7 @@ import {
   useOffsettedListWidths,
 } from "@saleor/macaw-ui";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { FormattedMessage } from "react-intl";
 import {
   Accordion,
@@ -37,13 +37,13 @@ import { Controller, useForm } from "react-hook-form";
 import { getActivePaymentProvider, getFormDefaultValues } from "./data";
 import { useEffect } from "react";
 import { ChannelFragment } from "@/graphql";
+import { useDashboardRouter } from "@/frontend/hooks/useDashboardRouter";
 
 interface ChannelDetailsProps {
   channelPaymentOptions: ChannelPaymentOptions;
   channels: ChannelFragment[];
   saveButtonBarState: ConfirmButtonTransitionState;
   loading: boolean;
-  onCancel: () => void;
   onSubmit: (data: ChannelActivePaymentProviders) => void;
 }
 
@@ -52,10 +52,9 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
   channels,
   saveButtonBarState,
   loading,
-  onCancel,
   onSubmit,
 }) => {
-  const router = useRouter();
+  const dashboardRouter = useDashboardRouter();
   const classes = useStyles();
   const { actions } = useOffsettedListWidths();
   const {
@@ -72,11 +71,11 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
   }, [channelPaymentOptions, resetForm]);
 
   const onBackClick = () => {
-    router.push(channelListPath);
+    dashboardRouter.push(channelListPath);
   };
 
   const onSettingsClick = () => {
-    router.push({
+    dashboardRouter.push({
       pathname: paymentProviderPath,
       query: {
         paymentProviderId: paymentProviders[0].id,
@@ -86,10 +85,14 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
   };
 
   const onChannelClick = (channel: Item) => {
-    router.push({
+    dashboardRouter.push({
       pathname: channelPath,
       query: { channelId: channel.id },
     });
+  };
+
+  const handleCancel = () => {
+    resetForm(getFormDefaultValues(channelPaymentOptions));
   };
 
   const handleSubmit = (flattenedSettings: Record<string, string>) => {
@@ -184,7 +187,7 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
       <AppSavebar
         disabled={loading || !formState.isDirty}
         state={saveButtonBarState}
-        onCancel={onCancel}
+        onCancel={handleCancel}
         onSubmit={handleSubmitForm(handleSubmit)}
       />
     </form>

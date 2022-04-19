@@ -8,8 +8,8 @@ const handler = (_req: NextApiRequest, res: NextApiResponse) => {
     version: version,
     name: APP_NAME,
     permissions: ["MANAGE_APPS"],
-    appUrl: `${APP_URL}/channels`,
-    configurationUrl: `${APP_URL}/channels`,
+    appUrl: APP_URL,
+    configurationUrl: APP_URL,
     tokenTargetUrl: `${APP_URL}/api/register`,
   };
   res.end(JSON.stringify(manifest));
