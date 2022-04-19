@@ -66,7 +66,7 @@ export const useCheckoutAddressUpdate = ({
       return;
     }
 
-    const { shippingAddress, billingAddress } = checkout;
+    const { shippingAddress } = checkout;
 
     const shouldUpdateBillingAddress =
       useShippingAsBillingAddress && !!shippingAddress;
