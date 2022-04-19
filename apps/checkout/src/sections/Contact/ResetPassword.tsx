@@ -23,7 +23,7 @@ export const ResetPassword: React.FC<ResetPasswordProps> = ({
   onSectionChange,
 }) => {
   const formatMessage = useFormattedMessages();
-  const errorMessages = useErrorMessages();
+  const { errorMessages } = useErrorMessages();
   const { setPassword } = useAuth();
 
   const schema = object({

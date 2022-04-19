@@ -2,10 +2,10 @@ export interface Classes {
   className?: string;
 }
 
-export type ValidationErrorType = "invalid" | "missing";
+export type ValidationErrorCode = "invalid" | "missing" | "required";
 
 export interface ValidationError<TFormData> {
-  type: ValidationErrorType;
+  type: ValidationErrorCode;
   path: keyof TFormData;
   message: string;
 }
