@@ -19,7 +19,7 @@ interface FormData {
 }
 
 export const CheckoutForm = () => {
-  const errorMessages = useErrorMessages();
+  const { errorMessages } = useErrorMessages();
   const { checkout } = useCheckout();
   const [{ data }, pay] = useFetch(payRequest, { opts: { skip: true } });
 

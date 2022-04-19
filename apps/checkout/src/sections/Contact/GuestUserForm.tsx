@@ -30,7 +30,7 @@ export const GuestUserForm: React.FC<AnonymousCustomerFormProps> = ({
   defaultValues,
 }) => {
   const formatMessage = useFormattedMessages();
-  const errorMessages = useErrorMessages();
+  const { errorMessages } = useErrorMessages();
   const [createAccountSelected, setCreateAccountSelected] = useState(false);
 
   const schema = object({

@@ -10,7 +10,7 @@ import { extractMutationErrors, getById } from "@/lib/utils";
 import { AddressTypeEnum } from "@saleor/sdk/dist/apollo/types";
 import React, { Suspense, useEffect, useState } from "react";
 import { AddressFormData, UserAddressFormData } from "./types";
-import { UserAddressForm } from "./UserAddressForm";
+import { AddressForm } from "./AddressForm";
 import { UserAddressList } from "./UserAddressList";
 import { UserAddressSectionContainer } from "./UserAddressSectionContainer";
 import { getAddressInputData } from "./utils";
@@ -101,7 +101,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
         onCountrySelect={setSelectedCountryCode}
       >
         {displayAddressAdd && (
-          <UserAddressForm
+          <AddressForm
             onSave={handleAddressAdd}
             countryCode={selectedCountryCode}
             onCancel={() => setDisplayAddressAdd(false)}
@@ -109,7 +109,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
         )}
 
         {displayAddressEdit && (
-          <UserAddressForm
+          <AddressForm
             onSave={handleAddressUpdate}
             countryCode={selectedCountryCode}
             defaultValues={

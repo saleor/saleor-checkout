@@ -38,7 +38,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   defaultValues,
 }) => {
   const formatMessage = useFormattedMessages();
-  const errorMessages = useErrorMessages();
+  const { errorMessages } = useErrorMessages();
   const [passwordResetSent, setPasswordResetSent] = useState(false);
   const { login, requestPasswordReset } = useAuth();
 

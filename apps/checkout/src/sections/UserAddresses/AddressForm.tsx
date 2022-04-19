@@ -9,30 +9,49 @@ import {
   getRequiredAddressFields,
   getSortedAddressFields,
 } from "@/lib/utils";
-import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
+import { useErrorsContext } from "@/providers/ErrorsProvider";
+import forEach from "lodash/forEach";
+import { useEffect } from "react";
+import {
+  DefaultValues,
+  FieldError,
+  Path,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 import { AddressFormData } from "./types";
 
-interface UserAddressFormProps<TFormData extends AddressFormData> {
+interface AddressFormProps<TFormData extends AddressFormData> {
   countryCode: CountryCode;
   defaultValues?: DefaultValues<TFormData>;
   onCancel?: () => void;
   onSave: SubmitHandler<TFormData>;
 }
 
-export const UserAddressForm = <TFormData extends AddressFormData>({
+export const AddressForm = <TFormData extends AddressFormData>({
   countryCode,
   defaultValues,
   onCancel,
   onSave,
-}: UserAddressFormProps<TFormData>) => {
+}: AddressFormProps<TFormData>) => {
   const formatMessage = useFormattedMessages();
+  const { errors, hasErrors } = useErrorsContext();
 
-  const { handleSubmit, watch, getValues, ...rest } = useForm<TFormData>({
-    mode: "onBlur",
-    defaultValues,
-  });
+  const { handleSubmit, watch, getValues, setError, formState, ...rest } =
+    useForm<TFormData>({
+      mode: "onBlur",
+      defaultValues,
+    });
 
-  const getInputProps = useGetInputProps(rest);
+  useEffect(() => {
+    if (hasErrors) {
+      forEach(errors, ({ message }, key) => {
+        setError(key as Path<TFormData>, { message });
+      });
+    }
+  }, [errors]);
+
+  const getInputProps = useGetInputProps({ ...rest, formState });
 
   const [{ data }] = useAddressValidationRulesQuery({
     variables: { countryCode },
@@ -56,7 +75,7 @@ export const UserAddressForm = <TFormData extends AddressFormData>({
           />
         )
       )}
-      <div className="boo">
+      <div>
         {onCancel && (
           <Button
             className="mr-4"
