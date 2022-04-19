@@ -1,23 +1,28 @@
 import {
+  AddressInput,
   useCheckoutBillingAddressUpdateMutation,
   useCheckoutShippingAddressUpdateMutation,
 } from "@/graphql";
+import { useCheckout } from "@/hooks/useCheckout";
 import { extractMutationErrors, getDataWithToken } from "@/lib/utils";
-import { ApiErrors, Errors } from "@/providers/ErrorsProvider";
-import { useState } from "react";
+import { ApiErrors } from "@/providers/ErrorsProvider";
+import { useEffect, useState } from "react";
 import { AddressFormData } from "./types";
-import { getAddressInputData } from "./utils";
+import { getAddressFormDataFromAddress, getAddressInputData } from "./utils";
 
 export const useCheckoutAddressUpdate = ({
   useShippingAsBillingAddress,
 }: {
   useShippingAsBillingAddress: boolean;
 }) => {
-  const [shippingAddressUpdateErrors, setShippingAddressUpdateErrors] =
-    useState<ApiErrors>([]);
+  const { checkout } = useCheckout();
 
-  const [billingAddressUpdateErrors, setBillingAddressUpdateErrors] =
-    useState<ApiErrors>([]);
+  const [shippingAddressUpdateErrors, setShippingAddressUpdateErrors] =
+    useState<ApiErrors<AddressFormData>>([]);
+
+  const [billingAddressUpdateErrors, setBillingAddressUpdateErrors] = useState<
+    ApiErrors<AddressFormData>
+  >([]);
 
   const [, checkoutShippingAddressUpdate] =
     useCheckoutShippingAddressUpdateMutation();
@@ -35,16 +40,18 @@ export const useCheckoutAddressUpdate = ({
     }
 
     if (useShippingAsBillingAddress) {
-      updateBillingAddress(address);
+      handleUpdateBillingAddress(address);
     }
   };
 
   const [, checkoutBillingAddressUpdate] =
     useCheckoutBillingAddressUpdateMutation();
 
-  const updateBillingAddress = async (address: AddressFormData) => {
+  const updateBillingAddress = async (addressInput: AddressInput) => {
     const result = await checkoutBillingAddressUpdate(
-      getDataWithToken({ billingAddress: getAddressInputData(address) })
+      getDataWithToken({
+        billingAddress: addressInput,
+      })
     );
 
     const [hasErrors, errors] = extractMutationErrors(result);
@@ -54,9 +61,31 @@ export const useCheckoutAddressUpdate = ({
     }
   };
 
+  const setBillingAddressWhenSameAsShipping = () => {
+    if (!checkout) {
+      return;
+    }
+
+    const { shippingAddress, billingAddress } = checkout;
+
+    const shouldUpdateBillingAddress =
+      useShippingAsBillingAddress && !!shippingAddress;
+
+    if (shouldUpdateBillingAddress) {
+      updateBillingAddress(
+        getAddressInputData(getAddressFormDataFromAddress(shippingAddress))
+      );
+    }
+  };
+
+  const handleUpdateBillingAddress = (address: AddressFormData) =>
+    updateBillingAddress(getAddressInputData(address));
+
+  useEffect(setBillingAddressWhenSameAsShipping, [useShippingAsBillingAddress]);
+
   return {
     updateShippingAddress,
-    updateBillingAddress,
+    updateBillingAddress: handleUpdateBillingAddress,
     shippingAddressUpdateErrors,
     billingAddressUpdateErrors,
   };

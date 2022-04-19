@@ -1,6 +1,7 @@
 import { Button } from "@/components/Button";
 import { TextInput } from "@/components/TextInput";
 import { CountryCode, useAddressValidationRulesQuery } from "@/graphql";
+import { useErrorMessages } from "@/hooks/useErrorMessages";
 import { MessageKey, useFormattedMessages } from "@/hooks/useFormattedMessages";
 import { useGetInputProps } from "@/hooks/useGetInputProps";
 import { AddressField } from "@/lib/globalTypes";
@@ -8,17 +9,19 @@ import {
   ensureArray,
   getRequiredAddressFields,
   getSortedAddressFields,
+  useValidationResolver,
 } from "@/lib/utils";
 import { useErrorsContext } from "@/providers/ErrorsProvider";
 import forEach from "lodash/forEach";
 import { useEffect } from "react";
 import {
   DefaultValues,
-  FieldError,
   Path,
   SubmitHandler,
+  UnpackNestedValue,
   useForm,
 } from "react-hook-form";
+import { object, string } from "yup";
 import { AddressFormData } from "./types";
 
 interface AddressFormProps<TFormData extends AddressFormData> {
@@ -35,13 +38,36 @@ export const AddressForm = <TFormData extends AddressFormData>({
   onSave,
 }: AddressFormProps<TFormData>) => {
   const formatMessage = useFormattedMessages();
-  const { errors, hasErrors } = useErrorsContext();
+  const { errorMessages } = useErrorMessages();
+  const {
+    errors,
+    hasErrors,
+    clearErrors: clearContextErrors,
+  } = useErrorsContext();
 
-  const { handleSubmit, watch, getValues, setError, formState, ...rest } =
-    useForm<TFormData>({
-      mode: "onBlur",
-      defaultValues,
-    });
+  const schema = object({
+    firstName: string().required(errorMessages.requiredField),
+    lastName: string().required(errorMessages.requiredField),
+    streetAddress1: string().required(errorMessages.requiredField),
+    postalCode: string().required(errorMessages.requiredField),
+    city: string().required(errorMessages.requiredField),
+  });
+
+  const resolver = useValidationResolver(schema);
+
+  const {
+    handleSubmit,
+    watch,
+    getValues,
+    setError,
+    formState,
+    clearErrors,
+    ...rest
+  } = useForm<TFormData>({
+    resolver,
+    mode: "onBlur",
+    defaultValues,
+  });
 
   useEffect(() => {
     if (hasErrors) {
@@ -64,6 +90,20 @@ export const AddressForm = <TFormData extends AddressFormData>({
       ensureArray(validationRules?.requiredFields)
     ).includes(field);
 
+  const handleCancel = () => {
+    clearErrors();
+    clearContextErrors();
+
+    if (onCancel) {
+      onCancel();
+    }
+  };
+
+  const handleSave = (address: UnpackNestedValue<TFormData>) => {
+    clearContextErrors();
+    onSave(address);
+  };
+
   return (
     <div>
       {getSortedAddressFields(ensureArray(validationRules?.allowedFields))?.map(
@@ -81,13 +121,13 @@ export const AddressForm = <TFormData extends AddressFormData>({
             className="mr-4"
             ariaLabel={formatMessage("cancelLabel")}
             variant="secondary"
-            onClick={onCancel}
+            onClick={handleCancel}
             title={formatMessage("cancel")}
           />
         )}
         <Button
           ariaLabel={formatMessage("saveLabel")}
-          onClick={handleSubmit(onSave)}
+          onClick={handleSubmit(handleSave)}
           title={formatMessage("saveAddress")}
         />
       </div>
