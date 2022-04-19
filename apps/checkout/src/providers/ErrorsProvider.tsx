@@ -42,8 +42,8 @@ export const ErrorsProvider = function <TFormData>({
     setErrors(getErrorsFromApi(apiErrors));
   };
 
+  // @ts-ignore
   const clearErrors = () => setErrors({});
-  console.log({ errors });
 
   const providerValues: ErrorsContextConsumerProps<TFormData> = {
     errors,

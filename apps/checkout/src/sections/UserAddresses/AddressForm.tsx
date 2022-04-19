@@ -64,6 +64,7 @@ export const AddressForm = <TFormData extends AddressFormData>({
     clearErrors,
     ...rest
   } = useForm<TFormData>({
+    // @ts-ignore
     resolver,
     mode: "onBlur",
     defaultValues,
@@ -110,6 +111,7 @@ export const AddressForm = <TFormData extends AddressFormData>({
         (field: AddressField) => (
           <TextInput
             label={formatMessage(field as MessageKey)}
+            // @ts-ignore
             {...getInputProps(field)}
             optional={isFieldOptional(field)}
           />
