@@ -2,6 +2,7 @@ import { MetadataItemFragment } from "@/graphql";
 import settingsValues from "@/config/defaults";
 import { SettingsValues, UnknownSettingsValues } from "@/types/api";
 import { allSettingID, Item, NamedNode, Node, SettingID } from "@/types/common";
+import reduce from "lodash/reduce";
 
 export function parseJwt(token: string) {
   var base64Url = token.split(".")[1];
@@ -55,29 +56,22 @@ export const mergeSettingsValues = (
   defaultSettings: UnknownSettingsValues,
   savedSettings: UnknownSettingsValues
 ) => {
-  const settings = {
-    ...defaultSettings,
-    ...savedSettings,
-  };
+  return reduce(
+    defaultSettings,
+    (result, defaultSetting, settingKey) => {
+      const savedSetting = savedSettings[settingKey];
+      const hasSettingInBothSettings = !!savedSetting;
+      const udpatedSetting = hasSettingInBothSettings
+        ? { ...defaultSetting, ...savedSetting }
+        : defaultSetting;
 
-  return Object.keys(settings).reduce((mergedSettings, key) => {
-    const defaultSubSettings = defaultSettings[key];
-    const savedSubSettings = savedSettings[key];
-
-    if (!defaultSubSettings || !savedSubSettings) {
-      return mergedSettings;
-    }
-
-    const subSettings = {
-      ...defaultSubSettings,
-      ...savedSubSettings,
-    };
-
-    return {
-      ...mergedSettings,
-      [key]: subSettings,
-    };
-  }, settings);
+      return {
+        ...result,
+        [settingKey]: udpatedSetting,
+      };
+    },
+    savedSettings
+  );
 };
 
 export const mapMetadataToSettings = (
