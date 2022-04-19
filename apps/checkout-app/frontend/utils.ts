@@ -60,7 +60,7 @@ export const mergeSettingsValues = (
     ...savedSettings,
   };
 
-  const mergedSettings = Object.keys(settings).reduce((mergedSettings, key) => {
+  return Object.keys(settings).reduce((mergedSettings, key) => {
     const defaultSubSettings = defaultSettings[key];
     const savedSubSettings = savedSettings[key];
 
@@ -78,8 +78,6 @@ export const mergeSettingsValues = (
       [key]: subSettings,
     };
   }, settings);
-
-  return mergedSettings;
 };
 
 export const mapMetadataToSettings = (
