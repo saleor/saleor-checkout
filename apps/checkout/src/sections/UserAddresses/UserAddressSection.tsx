@@ -14,6 +14,7 @@ import { AddressForm } from "./AddressForm";
 import { UserAddressList } from "./UserAddressList";
 import { UserAddressSectionContainer } from "./UserAddressSectionContainer";
 import { getAddressInputData } from "./utils";
+import { useErrorsContext } from "@/providers/ErrorsProvider";
 
 export interface UserAddressSectionProps {
   // TMP
@@ -32,6 +33,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
   type,
 }) => {
   const formatMessage = useFormattedMessages();
+  const { setErrorsFromApi } = useErrorsContext();
   const [displayAddressAdd, setDisplayAddressAdd] = useState(false);
 
   const [editedAddressId, setEditedAddressId] = useState<string | null>();
@@ -69,11 +71,14 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
       id: address.id,
     });
 
-    const [hasErrors] = extractMutationErrors(result);
+    const [hasErrors, errors] = extractMutationErrors(result);
 
     if (!hasErrors) {
       setEditedAddressId(null);
+      return;
     }
+
+    setErrorsFromApi(errors);
   };
 
   const handleAddressAdd = async (address: AddressFormData) => {
@@ -85,15 +90,18 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
       type,
     });
 
-    const [hasErrors] = extractMutationErrors(result);
+    const [hasErrors, errors] = extractMutationErrors(result);
 
     if (!hasErrors) {
       setDisplayAddressAdd(false);
+      return;
     }
+
+    setErrorsFromApi(errors);
   };
 
   return (
-    <Suspense fallback="loaden...">
+    <Suspense fallback="loading...">
       <UserAddressSectionContainer
         title={title}
         displayCountrySelect={displayAddressEdit || displayAddressAdd}

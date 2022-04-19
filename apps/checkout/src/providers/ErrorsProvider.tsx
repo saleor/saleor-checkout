@@ -1,5 +1,5 @@
-import { useFromErrorsFromApiErrors } from "@/lib/utils";
-import { PropsWithChildren } from "react";
+import { useGetFormErrorsFromApiErrors } from "@/lib/utils";
+import { PropsWithChildren, useState } from "react";
 import { FieldErrors } from "react-hook-form";
 import createSafeContext from "./createSafeContext";
 
@@ -14,6 +14,9 @@ export type Errors<TFormData> = FieldErrors<TFormData>;
 export type ErrorsContextConsumerProps<TFormData = any> = {
   errors: Errors<TFormData>;
   hasErrors: boolean;
+  setErrorsFromApi: (apiErrors: ApiErrors<TFormData>) => void;
+  setErrors: (errors: FieldErrors<TFormData>) => void;
+  clearErrors: () => void;
 };
 
 interface ErrorsProviderProps<TFormData> {
@@ -27,8 +30,28 @@ export const ErrorsProvider = function <TFormData>({
   apiErrors,
   children,
 }: PropsWithChildren<ErrorsProviderProps<TFormData>>) {
-  const errors = useFromErrorsFromApiErrors(apiErrors);
+  const getErrorsFromApi = useGetFormErrorsFromApiErrors<TFormData>();
+
+  const [errors, setErrors] = useState<FieldErrors<TFormData>>(
+    getErrorsFromApi(apiErrors)
+  );
+
   const hasErrors = Object.keys(errors).length > 0;
 
-  return <Provider value={{ errors, hasErrors }}>{children}</Provider>;
+  const setErrorsFromApi = (apiErrors: ApiErrors<TFormData>) => {
+    setErrors(getErrorsFromApi(apiErrors));
+  };
+
+  const clearErrors = () => setErrors({});
+  console.log({ errors });
+
+  const providerValues: ErrorsContextConsumerProps<TFormData> = {
+    errors,
+    hasErrors,
+    setErrors,
+    setErrorsFromApi,
+    clearErrors,
+  };
+
+  return <Provider value={providerValues}>{children}</Provider>;
 };

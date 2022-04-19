@@ -16,8 +16,10 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
   const formatMessage = useFormattedMessages();
   const { user: authUser } = useAuthState();
   const { checkout } = useCheckout();
+
   const [useShippingAsBillingAddress, setUseShippingAsBillingAddressSelected] =
-    useState(true);
+    useState(!checkout?.billingAddress);
+
   const {
     shippingAddressUpdateErrors,
     billingAddressUpdateErrors,

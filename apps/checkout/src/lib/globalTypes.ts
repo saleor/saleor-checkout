@@ -1,3 +1,5 @@
+import { AnySchema } from "yup";
+
 export interface Classes {
   className?: string;
 }

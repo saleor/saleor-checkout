@@ -8,13 +8,11 @@ import { omit } from "lodash";
 import { AddressFormData } from "./types";
 
 export const getAddressInputData = ({
-  name,
   countryCode,
   country,
   ...rest
 }: Partial<
   AddressFormData & {
-    name?: string;
     countryCode?: CountryCode;
     country: CountryDisplay;
   }
@@ -24,7 +22,7 @@ export const getAddressInputData = ({
 });
 
 export const getAddressFormDataFromAddress = (
-  address: AddressFragment
+  address?: AddressFragment | null
 ): Partial<AddressFormData> => {
   if (!address) {
     return {};

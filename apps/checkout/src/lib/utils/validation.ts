@@ -2,7 +2,7 @@ import { useErrorMessages } from "@/hooks/useErrorMessages";
 import { ValidationError, ValidationErrorCode } from "@/lib/globalTypes";
 import { ApiErrors } from "@/providers/ErrorsProvider";
 import { useCallback } from "react";
-import { FieldError, FieldErrors } from "react-hook-form";
+import { FieldErrors } from "react-hook-form";
 import { ValidationError as ValidationErrorObject } from "yup";
 import { OptionalObjectSchema } from "yup/lib/object";
 
@@ -65,23 +65,26 @@ export const useValidationResolver = <
     [schema]
   );
 
-export const useFromErrorsFromApiErrors = <TFormData>(
+export const useGetFormErrorsFromApiErrors = <TFormData>(): ((
   apiErrors: ApiErrors<TFormData>
-): FieldErrors<TFormData> => {
+) => FieldErrors<TFormData>) => {
   const { getMessageByErrorCode } = useErrorMessages();
 
-  if (!apiErrors) {
-    return {} as FieldErrors<TFormData>;
-  }
+  const getErrorsFromApi = (apiErrors: ApiErrors<TFormData>) => {
+    if (!apiErrors) {
+      return {} as FieldErrors<TFormData>;
+    }
 
-  console.log(666, apiErrors);
-  return apiErrors.reduce((result, { field, code }) => {
-    const errorCode = code.toLowerCase() as ValidationErrorCode;
+    console.log(666, "API ERRORS", apiErrors);
+    return apiErrors.reduce((result, { field, code }) => {
+      const errorCode = code.toLowerCase() as ValidationErrorCode;
 
-    console.log({ errorCode, lol: getMessageByErrorCode(errorCode) });
-    return {
-      ...result,
-      [field]: { code: errorCode, message: getMessageByErrorCode(errorCode) },
-    };
-  }, {} as FieldErrors<TFormData>);
+      return {
+        ...result,
+        [field]: { code: errorCode, message: getMessageByErrorCode(errorCode) },
+      };
+    }, {} as FieldErrors<TFormData>);
+  };
+
+  return getErrorsFromApi;
 };
