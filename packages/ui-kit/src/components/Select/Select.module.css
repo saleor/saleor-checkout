@@ -1,11 +1,11 @@
 .container {
-  @apply relative inline-block;
+  @apply relative block;
 }
 
 :local(.trigger) {
-  @apply h-10 border border-border-primary hover:border-border-active text-base inline-flex items-center cursor-pointer;
+  @apply h-10 border border-border-primary hover:border-border-active text-base items-center cursor-pointer w-full text-left whitespace-nowrap text-ellipsis overflow-hidden;
   padding-left: calc(theme("spacing.3") - theme("borderWidth.DEFAULT"));
-  padding-right: calc(theme("spacing.2") - theme("borderWidth.DEFAULT"));
+  padding-right: calc(theme("spacing.11") - theme("borderWidth.DEFAULT"));
 }
 
 .trigger-error {
@@ -18,11 +18,11 @@
 }
 
 .trigger-icon {
-  @apply ml-1 mr-3;
+  @apply ml-1 mr-3 inline-block;
 }
 
 .arrow-container {
-  @apply relative inline-flex items-center pl-2 ml-3;
+  @apply absolute right-0 inline-flex items-center px-2 ml-3;
 }
 
 .arrow-container svg {

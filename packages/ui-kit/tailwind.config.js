@@ -67,7 +67,7 @@ const theme = {
       borderOff: "#b9c1cf",
     },
     select: {
-      disabled: "#d5d5d8",
+      disabled: "rgba(57, 64, 82, 0.1)",
     },
   },
   fontFamily: {

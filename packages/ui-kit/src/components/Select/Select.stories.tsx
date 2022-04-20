@@ -16,7 +16,13 @@ const Template: ComponentStory<typeof Select> = ({ selected, ...args }) => {
   }, [selected]);
 
   return (
-    <Select {...args} selected={selectedOption} onChange={setSelectedOption} />
+    <div className='w-[440px]'>
+      <Select
+        {...args}
+        selected={selectedOption}
+        onChange={setSelectedOption}
+      />
+    </div>
   );
 };
 
