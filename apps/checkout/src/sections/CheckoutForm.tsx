@@ -47,16 +47,14 @@ export const CheckoutForm = () => {
   const handleEmailChange = (value: string) => setValue("email", value);
 
   const finalizeCheckout = async () => {
-    const result = await pay({
+    const data = await pay({
       provider: "mollie",
       checkoutId: checkout?.id,
       totalAmount: checkout?.totalPrice?.gross?.amount as number,
     });
 
-    const { data } = await result.json();
-
-    if (data?.checkoutUrl) {
-      window.location.replace(data.checkoutUrl);
+    if (data!.checkoutUrl) {
+      window.location.replace(data!.checkoutUrl);
     }
   };
 
