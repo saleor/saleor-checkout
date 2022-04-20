@@ -22,8 +22,12 @@ export const molliePaymentProviderMessages =
       defaultMessage: "Partner ID",
       description: "payment provider setting",
     },
-    liveTestApiKey: {
-      defaultMessage: "Live Test API Key",
+    liveApiKey: {
+      defaultMessage: "Live API key",
+      description: "payment provider setting",
+    },
+    testApiKey: {
+      defaultMessage: "Test API key",
       description: "payment provider setting",
     },
   });

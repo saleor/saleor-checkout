@@ -33,11 +33,15 @@ export const getMolliePaymentProvider = (
   label: intl.formatMessage(paymentProvidersMessages.mollie),
   settings: withLabels(intl, molliePaymentProviderMessages, [
     {
-      id: "liveTestApiKey",
+      id: "partnerId",
       type: "string",
     },
     {
-      id: "liveTestApiKey",
+      id: "liveApiKey",
+      type: "string",
+    },
+    {
+      id: "testApiKey",
       type: "string",
     },
   ]),
