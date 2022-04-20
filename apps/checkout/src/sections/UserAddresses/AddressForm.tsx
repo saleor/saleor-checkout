@@ -111,8 +111,7 @@ export const AddressForm = <TFormData extends AddressFormData>({
         (field: AddressField) => (
           <TextInput
             label={formatMessage(field as MessageKey)}
-            // @ts-ignore
-            {...getInputProps(field)}
+            {...getInputProps(field as Path<TFormData>)}
             optional={isFieldOptional(field)}
           />
         )

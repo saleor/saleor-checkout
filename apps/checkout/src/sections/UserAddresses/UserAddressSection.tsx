@@ -17,7 +17,6 @@ import { getAddressInputData } from "./utils";
 import { useErrorsContext } from "@/providers/ErrorsProvider";
 
 export interface UserAddressSectionProps {
-  // TMP
   defaultAddress?: Pick<AddressFragment, "id"> | null;
   onAddressSelect: (address: UserAddressFormData) => void;
   addresses: AddressFragment[];
