@@ -6,7 +6,6 @@ import { MessageKey, useFormattedMessages } from "@/hooks/useFormattedMessages";
 import { useGetInputProps } from "@/hooks/useGetInputProps";
 import { AddressField } from "@/lib/globalTypes";
 import {
-  ensureArray,
   getRequiredAddressFields,
   getSortedAddressFields,
   useValidationResolver,
@@ -88,7 +87,7 @@ export const AddressForm = <TFormData extends AddressFormData>({
 
   const isFieldOptional = (field: AddressField) =>
     !getRequiredAddressFields(
-      ensureArray(validationRules?.requiredFields)
+      validationRules?.requiredFields! as AddressField[]
     ).includes(field);
 
   const handleCancel = () => {
@@ -107,15 +106,15 @@ export const AddressForm = <TFormData extends AddressFormData>({
 
   return (
     <div>
-      {getSortedAddressFields(ensureArray(validationRules?.allowedFields))?.map(
-        (field: AddressField) => (
-          <TextInput
-            label={formatMessage(field as MessageKey)}
-            {...getInputProps(field as Path<TFormData>)}
-            optional={isFieldOptional(field)}
-          />
-        )
-      )}
+      {getSortedAddressFields(
+        validationRules?.allowedFields! as AddressField[]
+      )?.map((field: AddressField) => (
+        <TextInput
+          label={formatMessage(field as MessageKey)}
+          {...getInputProps(field as Path<TFormData>)}
+          optional={isFieldOptional(field)}
+        />
+      ))}
       <div>
         {onCancel && (
           <Button

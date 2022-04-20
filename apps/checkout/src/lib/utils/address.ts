@@ -1,5 +1,4 @@
 import uniq from "lodash/uniq";
-import compact from "lodash/compact";
 import { AddressField, ApiAddressField } from "../globalTypes";
 
 const addressFieldsOrder: AddressField[] = [
@@ -43,16 +42,6 @@ export const getSortedAddressFields = (addressFields: AddressField[] = []) => {
 export const getSortedAddressFieldsFromAddress = (
   address: Partial<Record<AddressField, any>>
 ) => getSortedAddressFields(Object.keys(address) as AddressField[]);
-
-export const ensureArray = <TData extends any[] | null[] | null>(
-  array?: TData
-) => {
-  if (!array) {
-    return [];
-  }
-
-  return compact(array);
-};
 
 export const getRequiredAddressFields = (
   requiredFields: AddressField[]
