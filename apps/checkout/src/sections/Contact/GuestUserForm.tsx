@@ -36,7 +36,7 @@ export const GuestUserForm: React.FC<AnonymousCustomerFormProps> = ({
   const schema = object({
     email: string()
       .email(errorMessages.invalidValue)
-      .required(errorMessages.requiredField),
+      .required(errorMessages.requiredValue),
   });
 
   const resolver = useValidationResolver(schema);

@@ -28,10 +28,10 @@ export const CheckoutForm = () => {
   //   useState<string>();
 
   const schema = object({
-    password: string().required(errorMessages.requiredField),
+    password: string().required(errorMessages.requiredValue),
     email: string()
       .email(errorMessages.invalidValue)
-      .required(errorMessages.requiredField),
+      .required(errorMessages.requiredValue),
   });
 
   const resolver = useValidationResolver(schema);
@@ -47,11 +47,13 @@ export const CheckoutForm = () => {
   const handleEmailChange = (value: string) => setValue("email", value);
 
   const finalizeCheckout = async () => {
-    await pay({
+    const result = await pay({
       provider: "mollie",
       checkoutId: checkout?.id,
       totalAmount: checkout?.totalPrice?.gross?.amount as number,
     });
+
+    const { data } = await result.json();
 
     if (data?.checkoutUrl) {
       window.location.replace(data.checkoutUrl);

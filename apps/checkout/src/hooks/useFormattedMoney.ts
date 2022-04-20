@@ -12,7 +12,7 @@ export const useFormattedMoney = <TMoney extends Money>(
 
   const formatter = useNumberFormatter({
     style: "currency",
-    currency: money?.currency,
+    currency: money.currency,
     minimumFractionDigits: 2,
   });
 

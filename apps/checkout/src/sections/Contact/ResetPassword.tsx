@@ -27,7 +27,7 @@ export const ResetPassword: React.FC<ResetPasswordProps> = ({
   const { setPassword } = useAuth();
 
   const schema = object({
-    password: string().required(errorMessages.requiredField),
+    password: string().required(errorMessages.requiredValue),
   });
 
   const resolver = useValidationResolver(schema);

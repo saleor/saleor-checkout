@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import {
   DefaultValues,
   Path,
+  Resolver,
   SubmitHandler,
   UnpackNestedValue,
   useForm,
@@ -46,11 +47,11 @@ export const AddressForm = <TFormData extends AddressFormData>({
   } = useErrorsContext();
 
   const schema = object({
-    firstName: string().required(errorMessages.requiredField),
-    lastName: string().required(errorMessages.requiredField),
-    streetAddress1: string().required(errorMessages.requiredField),
-    postalCode: string().required(errorMessages.requiredField),
-    city: string().required(errorMessages.requiredField),
+    firstName: string().required(errorMessages.requiredValue),
+    lastName: string().required(errorMessages.requiredValue),
+    streetAddress1: string().required(errorMessages.requiredValue),
+    postalCode: string().required(errorMessages.requiredValue),
+    city: string().required(errorMessages.requiredValue),
   });
 
   const resolver = useValidationResolver(schema);
@@ -64,8 +65,7 @@ export const AddressForm = <TFormData extends AddressFormData>({
     clearErrors,
     ...rest
   } = useForm<TFormData>({
-    // @ts-ignore
-    resolver,
+    resolver: resolver as unknown as Resolver<TFormData, any>,
     mode: "onBlur",
     defaultValues,
   });

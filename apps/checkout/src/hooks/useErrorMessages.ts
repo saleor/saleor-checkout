@@ -6,7 +6,6 @@ export const useErrorMessages = () => {
 
   const errorMessages = {
     invalidValue: formatMessage("invalid"),
-    requiredField: formatMessage("required"),
     requiredValue: formatMessage("required"),
   };
 
@@ -17,9 +16,6 @@ export const useErrorMessages = () => {
 
       case "invalid":
         return errorMessages.invalidValue;
-
-      case "missing":
-        return errorMessages.requiredField;
 
       default:
         break;

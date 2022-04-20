@@ -1,10 +1,8 @@
-import { AnySchema } from "yup";
-
 export interface Classes {
   className?: string;
 }
 
-export type ValidationErrorCode = "invalid" | "missing" | "required";
+export type ValidationErrorCode = "invalid" | "required";
 
 export interface ValidationError<TFormData> {
   type: ValidationErrorCode;

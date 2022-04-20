@@ -9,7 +9,7 @@ export type ApiErrors<TFormData> = Array<{
   message: string;
 }>;
 
-export type Errors<TFormData> = FieldErrors<TFormData>;
+export type Errors<TFormData> = Partial<FieldErrors<TFormData>>;
 
 export type ErrorsContextConsumerProps<TFormData = any> = {
   errors: Errors<TFormData>;
@@ -32,7 +32,7 @@ export const ErrorsProvider = function <TFormData>({
 }: PropsWithChildren<ErrorsProviderProps<TFormData>>) {
   const getErrorsFromApi = useGetFormErrorsFromApiErrors<TFormData>();
 
-  const [errors, setErrors] = useState<FieldErrors<TFormData>>(
+  const [errors, setErrors] = useState<Partial<FieldErrors<TFormData>>>(
     getErrorsFromApi(apiErrors)
   );
 
@@ -42,7 +42,6 @@ export const ErrorsProvider = function <TFormData>({
     setErrors(getErrorsFromApi(apiErrors));
   };
 
-  // @ts-ignore
   const clearErrors = () => setErrors({});
 
   const providerValues: ErrorsContextConsumerProps<TFormData> = {
