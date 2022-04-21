@@ -45,9 +45,10 @@ export default async function handler(
   res: NextApiResponse
 ) {
   // Get basic auth token
-  const encodedCredentials = btoa(
-    process.env.ADYEN_BASIC_USERNAME + ":" + process.env.ADYEN_BASIC_PASSWORD
-  );
+  const encodedCredentials = Buffer.from(
+    process.env.ADYEN_BASIC_USERNAME + ":" + process.env.ADYEN_BASIC_PASSWORD,
+    "ascii"
+  ).toString("base64");
 
   if (req.headers.authorization !== `Basic ${encodedCredentials}`) {
     return res.status(401).send("Invalid credentials");
