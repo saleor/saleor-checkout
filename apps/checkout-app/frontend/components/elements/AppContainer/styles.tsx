@@ -1,7 +1,7 @@
-import { makeStyles, SaleorTheme } from "@saleor/macaw-ui";
+import { makeStyles } from "@saleor/macaw-ui";
 
 export const useStyles = makeStyles(
-  (theme: SaleorTheme) => ({
+  (theme) => ({
     root: {
       padding: theme.spacing(0, 0, 2, 0),
     },

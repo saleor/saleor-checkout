@@ -1,8 +1,8 @@
-import { makeStyles, SaleorTheme } from "@saleor/macaw-ui";
+import { makeStyles } from "@saleor/macaw-ui";
 import { VerticalSpacerProps } from "./types";
 
 export const useStyles = makeStyles(
-  (theme: SaleorTheme) => ({
+  (theme) => ({
     container: ({ spacing }: VerticalSpacerProps) => ({
       height: theme.spacing(spacing || 0),
     }),

@@ -1,7 +1,7 @@
-import { makeStyles, SaleorTheme } from "@saleor/macaw-ui";
+import { makeStyles } from "@saleor/macaw-ui";
 
 export const useStyles = makeStyles(
-  (theme: SaleorTheme) => ({
+  (theme) => ({
     settings: {
       width: "100%",
       display: "flex",
