@@ -213,8 +213,8 @@ mutation checkoutEmailUpdate($email: String!, $token: UUID!) {
   }
 }
 
-mutation checkoutCustomerAttach($customerId: ID!, $token: UUID!) {
-  checkoutCustomerAttach(customerId: $customerId, token: $token) {
+mutation checkoutCustomerAttach($token: UUID!) {
+  checkoutCustomerAttach(token: $token) {
     errors {
       ...CheckoutErrorFragment
     }

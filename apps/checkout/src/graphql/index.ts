@@ -13965,7 +13965,6 @@ export type CheckoutEmailUpdateMutation = {
 };
 
 export type CheckoutCustomerAttachMutationVariables = Exact<{
-  customerId: Scalars["ID"];
   token: Scalars["UUID"];
 }>;
 
@@ -14969,8 +14968,8 @@ export function useCheckoutEmailUpdateMutation() {
   >(CheckoutEmailUpdateDocument);
 }
 export const CheckoutCustomerAttachDocument = gql`
-  mutation checkoutCustomerAttach($customerId: ID!, $token: UUID!) {
-    checkoutCustomerAttach(customerId: $customerId, token: $token) {
+  mutation checkoutCustomerAttach($token: UUID!) {
+    checkoutCustomerAttach(token: $token) {
       errors {
         ...CheckoutErrorFragment
       }
