@@ -1,14 +1,14 @@
 import { Client, CheckoutAPI, Types } from "@adyen/api-library";
 
-import { OrderFragment, PaymentCreateMutationVariables } from "@/graphql";
+import { OrderFragment, TransactionCreateMutationVariables } from "@/graphql";
 import { APP_URL } from "@/constants";
 
 import {
   getAdyenAmountFromSaleor,
   getSaleorAmountFromAdyen,
   mapAvailableActions,
+  getLineItems,
 } from "./utils";
-import { getLines } from "../mollie/utils";
 
 const client = new Client({
   apiKey: process.env.ADYEN_API_KEY!,
@@ -30,7 +30,7 @@ export const createAdyenPayment = async (data: OrderFragment) => {
     metadata: {
       orderId: data.id,
     },
-    lineItems: getLines(data.lines),
+    lineItems: getLineItems(data.lines),
     shopperEmail: data.userEmail!,
     shopperLocale: "EN", //TODO: get from checkout and pass here
     telephoneNumber:
@@ -70,7 +70,7 @@ export const createAdyenPayment = async (data: OrderFragment) => {
 
 export const verifyPayment = async (
   notification: Types.notification.NotificationRequestItem
-): Promise<PaymentCreateMutationVariables | undefined> => {
+): Promise<TransactionCreateMutationVariables | undefined> => {
   const {
     eventCode,
     amount,
@@ -97,29 +97,10 @@ export const verifyPayment = async (
   ) {
     return {
       id: metadata.orderId,
-      payment: {
+      transaction: {
         status: eventCode.toString(),
         type: `adyen-${paymentMethod}`,
         amountAuthorized: {
-          amount: getSaleorAmountFromAdyen(amount.value!),
-          currency: amount.currency!,
-        },
-        reference: pspReference,
-        availableActions: mapAvailableActions(operations),
-      },
-    };
-  }
-
-  if (
-    eventCode ===
-    Types.notification.NotificationRequestItem.EventCodeEnum.CaptureFailed
-  ) {
-    return {
-      id: metadata.orderId,
-      payment: {
-        status: eventCode.toString(),
-        type: `adyen-${paymentMethod}`,
-        amountCaptured: {
           amount: getSaleorAmountFromAdyen(amount.value!),
           currency: amount.currency!,
         },
@@ -135,7 +116,7 @@ export const verifyPayment = async (
   ) {
     return {
       id: metadata.orderId,
-      payment: {
+      transaction: {
         status: eventCode.toString(),
         type: `adyen-${paymentMethod}`,
         amountCaptured: {

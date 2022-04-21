@@ -3,7 +3,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import { verifyPayment } from "@/backend/payments/providers/mollie";
-import { createPayment } from "@/backend/payments/createPayment";
+import { createTransaction } from "@/backend/payments/createTransaction";
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,7 +15,7 @@ export default async function handler(
     if (paymentData) {
       res.status(200).send("ok");
 
-      createPayment(paymentData);
+      createTransaction(paymentData);
 
       return;
     }
