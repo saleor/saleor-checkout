@@ -113,6 +113,7 @@ importers:
 
   apps/checkout-app:
     specifiers:
+      '@adyen/api-library': ^10.2.0
       '@babel/eslint-parser': ^7.17.0
       '@formatjs/cli': ^4.8.2
       '@graphql-codegen/add': ^3.1.1
@@ -157,6 +158,7 @@ importers:
       typescript: ^4.5.3
       urql: ^2.2.0
     dependencies:
+      '@adyen/api-library': 10.2.0
       '@babel/eslint-parser': 7.17.0_eslint@7.32.0
       '@material-ui/core': 4.12.4_5539cae010396b202b015f3568914e95
       '@material-ui/icons': 4.11.3_6b1dc0c9d553a2d02b19272f2ed5c6ad
@@ -11263,6 +11265,16 @@ packages:
   /https-browserify/1.0.0:
     resolution: {integrity: sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=}
     dev: true
+
+  /https-proxy-agent/5.0.0:
+    resolution: {integrity: sha512-EkYm5BcKUGiduxzSt3Eppko+PiNWNEpa4ySk9vTC6wDsQJW9rHSa+UhGNJoRYp7bz6Ht1eaRIa6QaJqO5rCFbA==}
+    engines: {node: '>= 6'}
+    dependencies:
+      agent-base: 6.0.2
+      debug: 4.3.4
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /https-proxy-agent/5.0.1:
     resolution: {integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==}
