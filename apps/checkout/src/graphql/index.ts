@@ -13702,13 +13702,11 @@ export type CheckoutQuery = {
   } | null;
 };
 
-export type UserQueryVariables = Exact<{
-  id: Scalars["ID"];
-}>;
+export type UserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserQuery = {
   __typename?: "Query";
-  user?: {
+  me?: {
     __typename?: "User";
     id: string;
     addresses?: Array<{
@@ -14879,8 +14877,8 @@ export function useCheckoutQuery(
   return Urql.useQuery<CheckoutQuery>({ query: CheckoutDocument, ...options });
 }
 export const UserDocument = gql`
-  query user($id: ID!) {
-    user(id: $id) {
+  query user {
+    me {
       id
       addresses {
         ...AddressFragment
@@ -14897,7 +14895,7 @@ export const UserDocument = gql`
 `;
 
 export function useUserQuery(
-  options: Omit<Urql.UseQueryArgs<UserQueryVariables>, "query">
+  options?: Omit<Urql.UseQueryArgs<UserQueryVariables>, "query">
 ) {
   return Urql.useQuery<UserQuery>({ query: UserDocument, ...options });
 }

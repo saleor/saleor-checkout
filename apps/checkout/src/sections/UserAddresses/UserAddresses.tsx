@@ -24,9 +24,9 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
 
   const [{ data }] = useUserQuery({
     pause: !authUser?.id,
-    variables: { id: authUser?.id as string },
   });
-  const user = data?.user;
+
+  const user = data?.me;
   const addresses = user?.addresses;
 
   const defaultShippingAddress =

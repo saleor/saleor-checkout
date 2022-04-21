@@ -159,8 +159,8 @@ query checkout($token: UUID!) {
   }
 }
 
-query user($id: ID!) {
-  user(id: $id) {
+query user {
+  me {
     id
     addresses {
       ...AddressFragment
