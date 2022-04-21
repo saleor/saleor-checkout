@@ -10,6 +10,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { Button } from "@/components/Button";
 import { useCheckoutFinalize } from "./useCheckoutFinalize";
+import { FormData } from "./types";
 
 export const CheckoutForm = () => {
   const { errorMessages } = useErrorMessages();
@@ -35,15 +36,13 @@ export const CheckoutForm = () => {
     defaultValues: { email: checkout?.email || "" },
   });
 
-  const { setValue, watch, handleSubmit } = methods;
-
-  const handleEmailChange = (value: string) => setValue("email", value);
+  const { handleSubmit } = methods;
 
   return (
     <Suspense fallback="loaden">
       <FormProvider {...methods}>
         <div className="checkout-form">
-          <Contact onEmailChange={handleEmailChange} email={watch("email")} />
+          <Contact />
           <Divider className="mt-4" />
           <UserAddresses />
           <ShippingMethods />
