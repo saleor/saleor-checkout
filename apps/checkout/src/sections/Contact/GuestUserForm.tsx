@@ -59,6 +59,11 @@ export const GuestUserForm: React.FC<AnonymousCustomerFormProps> = ({
 
   useEffect(() => setContextValue("email", emailValue), [emailValue]);
 
+  useEffect(
+    () => setContextValue("createAccount", createAccountSelected),
+    [createAccountSelected]
+  );
+
   return (
     <SignInFormContainer
       title={formatMessage("contact")}

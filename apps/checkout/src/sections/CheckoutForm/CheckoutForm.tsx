@@ -11,8 +11,10 @@ import { object, string } from "yup";
 import { Button } from "@/components/Button";
 import { useCheckoutFinalize } from "./useCheckoutFinalize";
 import { FormData } from "./types";
+import { useFormattedMessages } from "@/hooks/useFormattedMessages";
 
 export const CheckoutForm = () => {
+  const formatMessage = useFormattedMessages();
   const { errorMessages } = useErrorMessages();
   const { checkout } = useCheckout();
   const { checkoutFinalize } = useCheckoutFinalize();
@@ -33,32 +35,35 @@ export const CheckoutForm = () => {
   const methods = useForm<FormData>({
     resolver,
     mode: "onBlur",
-    defaultValues: { email: checkout?.email || "" },
+    defaultValues: { email: checkout?.email || "", createAccount: false },
   });
 
-  const { handleSubmit } = methods;
+  const { getValues } = methods;
+
+  // not using form handleSubmit on purpose
+  const handleSubmit = () => checkoutFinalize(getValues());
 
   return (
     <Suspense fallback="loaden">
-      <FormProvider {...methods}>
-        <div className="checkout-form">
+      <div className="checkout-form">
+        <FormProvider {...methods}>
           <Contact />
-          <Divider className="mt-4" />
-          <UserAddresses />
-          <ShippingMethods />
-          {/* TMP */}
-          {/* <PaymentProviders
+        </FormProvider>
+        <Divider className="mt-4" />
+        <UserAddresses />
+        <ShippingMethods />
+        {/* TMP */}
+        {/* <PaymentProviders
             onSelect={setSelectedPaymentProvider}
             selectedValue={selectedPaymentProvider}
           /> */}
-          <Button
-            ariaLabel="finaliza checkout"
-            title="Pay"
-            onClick={handleSubmit(checkoutFinalize)}
-            className="min-w-28"
-          />
-        </div>
-      </FormProvider>
+        <Button
+          ariaLabel={formatMessage("finalizeCheckoutLabel")}
+          title="Pay"
+          onClick={handleSubmit}
+          className="min-w-28"
+        />
+      </div>
     </Suspense>
   );
 };
