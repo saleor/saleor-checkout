@@ -1,4 +1,4 @@
-import { client } from "@/graphql/client";
+import { client } from "@/backend/client";
 import {
   TransactionUpdateDocument,
   TransactionUpdateMutation,
@@ -11,14 +11,7 @@ export const updateTransaction = async (
   const { data, error } = await client
     .mutation<TransactionUpdateMutation, TransactionUpdateMutationVariables>(
       TransactionUpdateDocument,
-      args,
-      {
-        fetchOptions: {
-          headers: {
-            "authorization-bearer": process.env.SALEOR_APP_TOKEN || "",
-          },
-        },
-      }
+      args
     )
     .toPromise();
 
