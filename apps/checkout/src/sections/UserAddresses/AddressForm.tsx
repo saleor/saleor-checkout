@@ -10,7 +10,7 @@ import {
   getSortedAddressFields,
   useValidationResolver,
 } from "@/lib/utils";
-import { useErrorsContext } from "@/providers/ErrorsProvider";
+import { UseErrorsProps } from "@/providers/ErrorsProvider";
 import forEach from "lodash/forEach";
 import { useEffect } from "react";
 import {
@@ -24,7 +24,11 @@ import {
 import { object, string } from "yup";
 import { AddressFormData } from "./types";
 
-interface AddressFormProps<TFormData extends AddressFormData> {
+export interface AddressFormProps<TFormData extends AddressFormData>
+  extends Pick<
+    UseErrorsProps<TFormData>,
+    "errors" | "hasErrors" | "setErrors" | "clearErrors"
+  > {
   countryCode: CountryCode;
   defaultValues?: DefaultValues<TFormData>;
   onCancel?: () => void;
@@ -36,14 +40,12 @@ export const AddressForm = <TFormData extends AddressFormData>({
   defaultValues,
   onCancel,
   onSave,
+  hasErrors,
+  errors,
+  clearErrors: onCleanErrors,
 }: AddressFormProps<TFormData>) => {
   const formatMessage = useFormattedMessages();
   const { errorMessages } = useErrorMessages();
-  const {
-    errors,
-    hasErrors,
-    clearErrors: clearContextErrors,
-  } = useErrorsContext();
 
   const schema = object({
     firstName: string().required(errorMessages.requiredValue),
@@ -92,7 +94,7 @@ export const AddressForm = <TFormData extends AddressFormData>({
 
   const handleCancel = () => {
     clearErrors();
-    clearContextErrors();
+    onCleanErrors();
 
     if (onCancel) {
       onCancel();
@@ -100,7 +102,7 @@ export const AddressForm = <TFormData extends AddressFormData>({
   };
 
   const handleSave = (address: UnpackNestedValue<TFormData>) => {
-    clearContextErrors();
+    onCleanErrors();
     onSave(address);
   };
 

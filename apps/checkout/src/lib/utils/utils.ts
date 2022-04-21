@@ -41,7 +41,8 @@ const extractCheckoutTokenFromUrl = (): string => {
 };
 
 export const extractMutationErrors = <TData extends Object, TVars = any>(
-  result: OperationResult<TData, TVars>
+  result: OperationResult<TData, TVars> | any // any to cover apollo client
+  // mutations, to be removed once we remoce apollo client from sdk
 ): [boolean, any[]] => {
   const urqlErrors = result.error ? [result.error] : [];
 
