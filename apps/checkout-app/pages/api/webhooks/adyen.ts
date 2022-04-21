@@ -3,10 +3,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { hmacValidator, Types } from "@adyen/api-library";
 
-import { createPayment } from "@/backend/payments/createPayment";
+import { createTransaction } from "@/backend/payments/createTransaction";
 import { verifyPayment } from "@/backend/payments/providers/adyen";
 
-const HMAC = process.env.ADYEN_HMAC;
+const HMAC = process.env.ADYEN_HMAC!;
 
 const validator = new hmacValidator();
 
@@ -19,7 +19,7 @@ const validateNotificationItems = (
       const valid = validator.validateHMAC(NotificationRequestItem, HMAC);
 
       if (!valid) {
-        throw Error("HMAC key invalid");
+        throw "Invalid HMAC key";
       }
 
       return NotificationRequestItem;
@@ -37,7 +37,7 @@ const notificationHandler = async (
     return;
   }
 
-  createPayment(data);
+  createTransaction(data);
 };
 
 export default async function handler(
@@ -53,10 +53,12 @@ export default async function handler(
     return res.status(401).send("Invalid credentials");
   }
 
-  console.log("live: ", req.body.live);
-
-  const items = validateNotificationItems(req.body.notificationItems);
-  console.log("items validated");
+  let items;
+  try {
+    items = validateNotificationItems(req.body.notificationItems);
+  } catch (error) {
+    return res.status(401).send(error);
+  }
 
   res.status(200).send("[accepted]");
 

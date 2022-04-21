@@ -1,6 +1,6 @@
 import createMollieClient, { OrderStatus } from "@mollie/api-client";
 
-import { OrderFragment, PaymentCreateMutationVariables } from "@/graphql";
+import { OrderFragment, TransactionCreateMutationVariables } from "@/graphql";
 import { APP_URL } from "@/constants";
 
 import {
@@ -62,14 +62,14 @@ export const createMolliePayment = async (data: OrderFragment) => {
 
 export const verifyPayment = async (
   id: string
-): Promise<PaymentCreateMutationVariables | undefined> => {
+): Promise<TransactionCreateMutationVariables | undefined> => {
   const { status, amountCaptured, metadata, method, amount } =
     await mollieClient.orders.get(id);
 
   if (status === OrderStatus.authorized) {
     return {
       id: metadata.orderId,
-      payment: {
+      transaction: {
         status,
         type: `mollie-${method}`,
         amountAuthorized: {
@@ -83,7 +83,7 @@ export const verifyPayment = async (
   if (status === OrderStatus.paid) {
     return {
       id: metadata.orderId,
-      payment: {
+      transaction: {
         status,
         type: `mollie-${method}`,
         amountCaptured: amountCaptured && {

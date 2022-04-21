@@ -19,7 +19,7 @@ export type Body = {
 export type MollieResponse = {
   provider: "mollie";
   data: {
-    checkoutUrl: string;
+    paymentUrl: string;
   };
 };
 
@@ -33,10 +33,12 @@ export type AdyenResponse = {
 export type SuccessResponse = {
   provider: PaymentProviderID;
   ok: true;
+  orderToken: string;
 } & (MollieResponse | AdyenResponse);
 
 export type ErrorResponse = {
   ok: false;
+  orderToken?: string;
   errors: Errors;
 };
 
@@ -74,20 +76,23 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       response = {
         ok: true,
         provider: "mollie",
+        orderToken: order.data.token,
         data: {
-          checkoutUrl: url.href,
+          paymentUrl: url.href,
         },
       };
 
       return res.status(200).json(response);
     }
   } else if (body.provider === "adyen") {
+    console.log("getting paymentUrl");
     const paymentUrl = await createAdyenPayment(order.data);
 
     if (paymentUrl) {
       response = {
         ok: true,
         provider: "adyen",
+        orderToken: order.data.token,
         data: {
           paymentUrl,
         },
@@ -97,7 +102,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
   }
 
-  res.status(400).json({ ok: false });
+  res.status(400).json({ ok: false, orderToken: order.data.token });
 }
 
 export default allowCors(handler);

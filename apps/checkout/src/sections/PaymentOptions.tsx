@@ -25,8 +25,8 @@ export const PaymentOptions: React.FC<PaymentOptionsProps> = ({}) => {
 
     const { data } = await result.json();
 
-    if (data?.checkoutUrl) {
-      window.location.replace(data.checkoutUrl);
+    if (data?.paymentUrl) {
+      window.location.replace(data.paymentUrl);
     }
   };
 
