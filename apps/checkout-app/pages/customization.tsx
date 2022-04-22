@@ -11,11 +11,12 @@ import { useAuthData } from "@/frontend/hooks/useAuthData";
 
 const Customization = () => {
   const router = useRouter();
-  const { app } = useAuthData();
+  const { app, isAuthorized } = useAuthData();
   const [metadataQuery] = usePrivateMetadataQuery({
     variables: {
       id: app,
     },
+    pause: !isAuthorized,
   });
   const [metadataMutation, setPrivateMetadata] =
     useUpdatePrivateMetadataMutation();

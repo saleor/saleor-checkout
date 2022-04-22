@@ -18,11 +18,12 @@ const Channel = () => {
   const { channelId } = router.query;
   const intl = useIntl();
 
-  const { app } = useAuthData();
+  const { app, isAuthorized } = useAuthData();
   const [metadataQuery] = usePrivateMetadataQuery({
     variables: {
       id: app,
     },
+    pause: !isAuthorized,
   });
   const [metadataMutation, setPrivateMetadata] =
     useUpdatePrivateMetadataMutation();
@@ -31,7 +32,9 @@ const Channel = () => {
     metadataQuery.data?.app?.privateMetadata || []
   );
 
-  const [channelsQuery] = useChannelsQuery();
+  const [channelsQuery] = useChannelsQuery({
+    pause: !isAuthorized,
+  });
   const channels = channelsQuery.data?.channels || [];
 
   const channelPaymentOptions = getChannelPaymentOptions(

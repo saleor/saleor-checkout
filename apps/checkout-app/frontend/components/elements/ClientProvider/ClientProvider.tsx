@@ -1,3 +1,4 @@
+import { API_URL, isSsr } from "@/constants";
 import { useApp } from "@/frontend/hooks/useApp";
 import { getClient } from "@/frontend/misc/auth";
 import { useMemo } from "react";
@@ -6,12 +7,10 @@ import { Provider } from "urql";
 const ClientProvider: React.FC = ({ children, ...props }) => {
   const app = useApp();
 
-  const token = app?.getState()?.token;
+  const token = app.token || app.app?.getState()?.token;
 
   const client = useMemo(() => {
-    if (token) {
-      return getClient(token);
-    }
+    return getClient(API_URL, token);
   }, [token]);
 
   if (client) {

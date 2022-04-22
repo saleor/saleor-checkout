@@ -8,7 +8,6 @@ import {
   fetchExchange,
   Operation,
 } from "urql";
-import { API_URL } from "@/constants";
 
 interface AuthState {
   token: string;
@@ -57,8 +56,8 @@ const addAuthToOperation = ({
   });
 };
 
-const getAuthConfig = (token?: string): ClientOptions => ({
-  url: API_URL,
+const getAuthConfig = (apiUrl: string, token?: string): ClientOptions => ({
+  url: apiUrl,
   exchanges: [
     dedupExchange,
     cacheExchange,
@@ -70,4 +69,5 @@ const getAuthConfig = (token?: string): ClientOptions => ({
   ],
 });
 
-export const getClient = (token?: string) => createClient(getAuthConfig(token));
+export const getClient = (apiUrl: string, token?: string) =>
+  createClient(getAuthConfig(apiUrl, token));

@@ -28,6 +28,8 @@ export const getSettings = async () => {
     throw error;
   }
 
+  console.log(data?.app?.privateMetadata);
+
   const settingsValues = mapMetadataToSettings(
     data?.app?.privateMetadata || []
   );
