@@ -11,10 +11,10 @@ import { useAuthData } from "@/frontend/hooks/useAuthData";
 
 const Customization = () => {
   const router = useRouter();
-  const { app, isAuthorized } = useAuthData();
+  const { appId, isAuthorized } = useAuthData();
   const [metadataQuery] = usePrivateMetadataQuery({
     variables: {
-      id: app,
+      id: appId,
     },
     pause: !isAuthorized,
   });
@@ -38,7 +38,7 @@ const Customization = () => {
     });
 
     setPrivateMetadata({
-      id: app,
+      id: appId,
       input: metadata,
     });
   };

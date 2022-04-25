@@ -18,10 +18,10 @@ const Channel = () => {
   const { channelId } = router.query;
   const intl = useIntl();
 
-  const { app, isAuthorized } = useAuthData();
+  const { appId, isAuthorized } = useAuthData();
   const [metadataQuery] = usePrivateMetadataQuery({
     variables: {
-      id: app,
+      id: appId,
     },
     pause: !isAuthorized,
   });
@@ -56,7 +56,7 @@ const Channel = () => {
     });
 
     setPrivateMetadata({
-      id: app,
+      id: appId,
       input: metadata,
     });
   };

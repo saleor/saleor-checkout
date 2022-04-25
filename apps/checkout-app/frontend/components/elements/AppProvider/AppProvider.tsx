@@ -1,39 +1,34 @@
 import { isSsr } from "@/constants";
 import { createApp } from "@saleor/app-bridge";
-import { createContext, useEffect, useMemo, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+
+const app = !isSsr ? createApp() : undefined;
 
 interface IAppContext {
-  app?: any;
-  token?: string;
+  app?: ReturnType<typeof createApp>;
+  isAuthorized: boolean;
 }
 
 export const AppContext = createContext<IAppContext>({
   app: undefined,
-  token: undefined,
+  isAuthorized: false,
 });
 
 const AppProvider: React.FC = (props) => {
-  const [token, setToken] = useState<string>();
-
-  const app = useMemo(() => {
-    if (!isSsr) {
-      return createApp();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSsr]);
+  const [isAuthorized, setIsAuthorized] = useState(!!app?.getState()?.token);
 
   useEffect(() => {
     if (app) {
       const unsubscribe = app.subscribe("handshake", (payload) => {
-        setToken(payload.token);
+        setIsAuthorized(!!payload.token);
       });
 
       return () => {
         unsubscribe();
       };
     }
-  }, [app]);
+  }, []);
 
-  return <AppContext.Provider value={{ app, token }} {...props} />;
+  return <AppContext.Provider value={{ app, isAuthorized }} {...props} />;
 };
 export default AppProvider;
