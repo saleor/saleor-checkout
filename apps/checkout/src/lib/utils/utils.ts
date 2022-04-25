@@ -1,4 +1,4 @@
-import { reduce } from "lodash";
+import { reduce } from "lodash-es";
 import queryString from "query-string";
 import { OperationResult } from "urql";
 import { envVars } from "./environment";

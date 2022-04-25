@@ -1,7 +1,6 @@
 import { useGetFormErrorsFromApiErrors } from "@/lib/utils";
 import { PropsWithChildren, useState } from "react";
 import createSafeContext from "@/providers/createSafeContext";
-import omit from "lodash/omit";
 import {
   ApiErrors,
   Errors,
@@ -9,6 +8,7 @@ import {
   SetApiErrors,
   SetErrors,
 } from "./types";
+import { omit } from "lodash-es";
 
 export type ErrorsContextConsumerProps = {
   errorsState: ErrorsState;

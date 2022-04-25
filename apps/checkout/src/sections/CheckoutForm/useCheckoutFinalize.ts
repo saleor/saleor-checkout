@@ -4,8 +4,8 @@ import { useFetch } from "@/hooks/useFetch";
 import { extractMutationErrors } from "@/lib/utils";
 import { useErrors } from "@/providers/ErrorsProvider";
 import { useAuth, useAuthState } from "@saleor/sdk";
+import { omit } from "lodash-es";
 import { FormData } from "./types";
-import omit from "lodash/omit";
 
 export const useCheckoutFinalize = () => {
   const { checkout } = useCheckout();

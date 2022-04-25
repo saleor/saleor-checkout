@@ -6,7 +6,7 @@ import { PenIcon, TrashIcon } from "@/icons";
 import { AddressField } from "@/lib/globalTypes";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
 import { getSortedAddressFieldsFromAddress } from "@/lib/utils";
-import pull from "lodash/pull";
+import { pull } from "lodash-es";
 
 interface AddressBoxContentProps extends RadioOptionChildrenProps {
   address: Partial<Record<AddressField, any>>;

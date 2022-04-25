@@ -11,7 +11,7 @@ import {
   useValidationResolver,
 } from "@/lib/utils";
 import { UseErrorsProps } from "@/providers/ErrorsProvider";
-import forEach from "lodash/forEach";
+import { forEach } from "lodash-es";
 import { useEffect } from "react";
 import {
   DefaultValues,
