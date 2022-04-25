@@ -11,7 +11,7 @@ export const useCheckoutFinalize = () => {
   const { checkout } = useCheckout();
   const { register } = useAuth();
   const { user } = useAuthState();
-  const [, pay] = useFetch(payRequest, { opts: { skip: true } });
+  const [, pay] = useFetch(payRequest, { skip: true });
   const { setApiErrors, errors } = useErrors<FormData>("userRegister");
 
   const checkoutPay = async () => {
