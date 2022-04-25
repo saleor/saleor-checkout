@@ -2,7 +2,7 @@ import { commonErrorMessages } from "@/frontend/misc/errorMessages";
 import { Typography } from "@material-ui/core";
 import { Alert } from "@saleor/macaw-ui";
 import { IntlShape, useIntl } from "react-intl";
-import VerticalSpacer from "../VerticalSpacer";
+import { useStyles } from "./styles";
 
 interface UnknownError<T> {
   message?: string | null;
@@ -22,6 +22,7 @@ const ErrorAlert = <T extends any>({
   getErrorMessage,
 }: ErrorAlertProps<T>) => {
   const intl = useIntl();
+  const classes = useStyles();
 
   if (!errors?.length) {
     return null;
@@ -29,10 +30,10 @@ const ErrorAlert = <T extends any>({
 
   return (
     <>
-      <VerticalSpacer />
       <Alert
         variant="error"
         title={intl.formatMessage(commonErrorMessages.somethingWentWrong)}
+        className={classes.root}
       >
         {errors.map((error, idx) => (
           <Typography key={idx}>
@@ -40,7 +41,6 @@ const ErrorAlert = <T extends any>({
           </Typography>
         ))}
       </Alert>
-      <VerticalSpacer />
     </>
   );
 };

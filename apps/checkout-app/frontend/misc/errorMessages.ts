@@ -9,7 +9,7 @@ export const commonErrorMessages = defineMessages({
     defaultMessage: "Unknown error",
     description: "error message",
   },
-  graphQLError: {
+  graphqlError: {
     defaultMessage: "GraphQL error",
     description: "error message",
   },
