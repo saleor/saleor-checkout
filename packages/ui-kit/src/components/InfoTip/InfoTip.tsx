@@ -3,11 +3,12 @@ import clsx from "clsx";
 
 import styles from "./InfoTip.module.css";
 import { Text } from "../Text";
+import { HorizontalAlignment } from "@lib/globalTypes";
 
 export interface InfoTipProps {
   content: string;
   className?: string;
-  alignment?: "left" | "right";
+  alignment?: HorizontalAlignment;
 }
 
 export const InfoTip: FC<InfoTipProps> = ({
@@ -21,7 +22,7 @@ export const InfoTip: FC<InfoTipProps> = ({
     className={clsx(
       styles.infotip,
       {
-        [styles["infotip-triangle-left"]]: alignment === "left",
+        [styles["infotip-triangle-left"]]: alignment !== "right",
         [styles["infotip-triangle-right"]]: alignment === "right",
       },
       className

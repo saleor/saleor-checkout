@@ -4,7 +4,7 @@ import clsx from "clsx";
 import styles from "./Chip.module.css";
 import { ButtonLabel } from "../Button/Button";
 import { RemoveIcon } from "../icons";
-import { ClassNames } from "../../globalTypes";
+import { ClassNames } from "@lib/globalTypes";
 
 export interface ChipProps {
   icon?: ReactNode;

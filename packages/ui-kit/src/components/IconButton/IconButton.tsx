@@ -3,10 +3,11 @@ import clsx from "clsx";
 
 import styles from "./IconButton.module.css";
 import { Button, ButtonProps, ButtonLabel } from "../Button/Button";
+import { HorizontalAlignment } from "@lib/globalTypes";
 
 export interface IconButtonProps extends Omit<ButtonProps, "variant"> {
   icon: ReactNode;
-  alignment?: "left" | "right";
+  alignment?: HorizontalAlignment;
   variant?: "bare";
 }
 
@@ -29,27 +30,25 @@ export const IconButton: FC<IconButtonProps> = ({
     );
   }
 
-  const content = (
-    <>
-      {icon}
-      {typeof label === "string" && (
-        <ButtonLabel
-          className={
-            styles[
-              alignment === "right"
-                ? "icon-button-label-reverse"
-                : "icon-button-label"
-            ]
-          }
-          content={label}
-        />
-      )}
-    </>
-  );
-
   return (
     <Button
-      label={content}
+      label={
+        <>
+          {icon}
+          {typeof label === "string" && (
+            <ButtonLabel
+              className={
+                styles[
+                  alignment === "right"
+                    ? "icon-button-label-reverse"
+                    : "icon-button-label"
+                ]
+              }
+              content={label}
+            />
+          )}
+        </>
+      }
       variant='secondary'
       className={clsx(
         styles["icon-button"],

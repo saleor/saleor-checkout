@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 import styles from "./Radio.module.css";
 import { Label } from "../Label";
-import { ClassNames } from "../../globalTypes";
+import { ClassNames } from "@lib/globalTypes";
 
 export interface RadioProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "className"> {

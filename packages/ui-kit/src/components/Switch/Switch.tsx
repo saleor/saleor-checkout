@@ -4,7 +4,7 @@ import { Switch as HeadlessSwitch } from "@headlessui/react";
 
 import styles from "./Switch.module.css";
 import labelStyles from "../Label/Label.module.css";
-import { ClassNames } from "../../globalTypes";
+import { ClassNames } from "@lib/globalTypes";
 
 export interface SwitchProps {
   checked?: boolean;

@@ -4,7 +4,7 @@ import { Combobox } from "@headlessui/react";
 
 import styles from "./Select.module.css";
 import { ChevronDownIcon } from "../icons";
-import { ClassNames } from "../../globalTypes";
+import { ClassNames } from "@lib/globalTypes";
 
 interface Option {
   label: string | ReactNode;

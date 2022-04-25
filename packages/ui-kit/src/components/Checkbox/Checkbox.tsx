@@ -4,7 +4,7 @@ import clsx from "clsx";
 import styles from "./Checkbox.module.css";
 import { CheckIcon } from "../icons";
 import { Label } from "../Label";
-import { ClassNames } from "../../globalTypes";
+import { ClassNames } from "@lib/globalTypes";
 
 export interface CheckboxProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "className"> {
