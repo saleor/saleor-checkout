@@ -4,11 +4,12 @@ import { useFormattedMessages } from "@/hooks/useFormattedMessages";
 import { getById } from "@/lib/utils";
 import { AddressTypeEnum } from "@saleor/sdk/dist/apollo/types";
 import React, { Suspense, useEffect, useState } from "react";
-import { AddressFormCommonProps, UserAddressFormData } from "./types";
+import { UserAddressFormData } from "./types";
 import { UserAddressList } from "./UserAddressList";
 import { UserAddressSectionContainer } from "./UserAddressSectionContainer";
 import { AddressCreateForm } from "./AddressCreateForm";
 import { AddressEditForm } from "./AddressEditForm";
+import { getAddressFormDataFromAddress } from "./utils";
 
 export interface UserAddressSectionProps {
   defaultAddress?: Pick<AddressFragment, "id"> | null;
@@ -71,12 +72,9 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
           show={displayAddressEdit}
           countryCode={selectedCountryCode}
           onClose={() => setEditedAddressId(null)}
-          defaultValues={
-            addresses.find(
-              getById(editedAddressId as string)
-              // TMP
-            ) as unknown as UserAddressFormData
-          }
+          defaultValues={getAddressFormDataFromAddress(
+            addresses.find(getById(editedAddressId as string))
+          )}
         />
 
         {displayAddressList && (

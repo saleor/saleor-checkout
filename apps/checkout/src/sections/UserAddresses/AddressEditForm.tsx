@@ -6,14 +6,14 @@ import { AddressForm, AddressFormProps } from "./AddressForm";
 import { AddressFormCommonProps, UserAddressFormData } from "./types";
 import { getAddressInputData } from "./utils";
 
-interface AddressUpdateFormProps
+interface AddressEditFormProps
   extends AddressFormCommonProps,
     Pick<AddressFormProps<UserAddressFormData>, "defaultValues"> {
   onClose: () => void;
   show: boolean;
 }
 
-export const AddressEditForm: React.FC<AddressUpdateFormProps> = ({
+export const AddressEditForm: React.FC<AddressEditFormProps> = ({
   onClose,
   countryCode,
   show,

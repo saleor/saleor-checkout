@@ -31,7 +31,7 @@ export interface AddressFormProps<TFormData extends AddressFormData>
     "errors" | "hasErrors" | "setErrors" | "clearErrors"
   > {
   countryCode: CountryCode;
-  defaultValues?: DefaultValues<TFormData>;
+  defaultValues?: Partial<TFormData>;
   onCancel?: () => void;
   onSave: SubmitHandler<TFormData>;
 }
@@ -69,14 +69,15 @@ export const AddressForm = <TFormData extends AddressFormData>({
   } = useForm<TFormData>({
     resolver: resolver as unknown as Resolver<TFormData, any>,
     mode: "onBlur",
-    defaultValues,
+    defaultValues: defaultValues as DefaultValues<TFormData>,
   });
 
   useEffect(() => {
     if (hasErrors) {
-      // @ts-ignore something is typed wrongly here in forEach with deepMaps
-      forEach(errors, (error: FieldError, key: string) => {
-        setError(key as Path<TFormData>, { message: error.message });
+      forEach(errors, (error, key) => {
+        setError(key as Path<TFormData>, {
+          message: (error as unknown as FieldError).message,
+        });
       });
     }
   }, [errors]);
