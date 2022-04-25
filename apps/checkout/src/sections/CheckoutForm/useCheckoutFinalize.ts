@@ -12,7 +12,7 @@ export const useCheckoutFinalize = () => {
   const { register } = useAuth();
   const { user } = useAuthState();
   const [, pay] = useFetch(payRequest, { skip: true });
-  const { setApiErrors, errors } = useErrors<FormData>("userRegister");
+  const { setApiErrors, hasErrors } = useErrors<FormData>("userRegister");
 
   const checkoutPay = async () => {
     const data = await pay({
@@ -41,10 +41,11 @@ export const useCheckoutFinalize = () => {
 
   const checkoutFinalize = async (formData: FormData) => {
     if (!user && formData.createAccount) {
+      console.log("CREATE MORDO");
       await handleUserRegister(formData);
     }
 
-    if (!errors) {
+    if (!hasErrors) {
       checkoutPay();
     }
   };
