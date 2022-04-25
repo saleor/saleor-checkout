@@ -5,6 +5,7 @@ import { extractMutationErrors } from "@/lib/utils";
 import { useErrors } from "@/providers/ErrorsProvider";
 import { useAuth, useAuthState } from "@saleor/sdk";
 import { FormData } from "./types";
+import omit from "lodash/omit";
 
 export const useCheckoutFinalize = () => {
   const { checkout } = useCheckout();
@@ -26,9 +27,10 @@ export const useCheckoutFinalize = () => {
   };
 
   const handleUserRegister = async (formData: FormData) => {
+    const registerFormData = omit(formData, "createAccount");
     // adding redirect url becuase api is broken and requires it
     // despite te types saying otherwise
-    const result = await register({ ...formData, redirectUrl: "" });
+    const result = await register({ ...registerFormData, redirectUrl: "" });
 
     const [hasErrors, errors] = extractMutationErrors(result);
 
