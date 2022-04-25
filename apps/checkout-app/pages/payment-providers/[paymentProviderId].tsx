@@ -11,7 +11,7 @@ import {
   mapMetadataToSettings,
   mapSettingsToMetadata,
 } from "@/frontend/utils";
-import { getPaymentProviderSettings } from "@/frontend/data";
+import { usePaymentProviderSettings } from "@/frontend/data";
 import ErrorDetails from "@/frontend/components/templates/ErrorDetails";
 import { useIntl } from "react-intl";
 import { notFoundMessages } from "@/frontend/misc/errorMessages";
@@ -34,8 +34,7 @@ const PaymentProvider = () => {
   const settingsValues = mapMetadataToSettings(
     metadataQuery.data?.app?.privateMetadata || []
   );
-  const paymentProviders = getPaymentProviderSettings(
-    intl,
+  const paymentProviders = usePaymentProviderSettings(
     settingsValues.paymentProviders
   );
 

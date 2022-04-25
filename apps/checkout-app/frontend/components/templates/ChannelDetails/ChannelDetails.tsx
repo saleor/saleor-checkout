@@ -39,6 +39,7 @@ import { useEffect } from "react";
 import { ChannelFragment, MetadataErrorFragment } from "@/graphql";
 import { getMetadataErrorMessage } from "@/frontend/misc/errors";
 import ErrorAlert from "../../elements/ErrorAlert";
+import { usePaymentProviders } from "@/config/fields";
 
 interface ChannelDetailsProps {
   channelPaymentOptions: ChannelPaymentOptions;
@@ -59,6 +60,7 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
   onCancel,
   onSubmit,
 }) => {
+  const paymentProviders = usePaymentProviders();
   const router = useRouter();
   const classes = useStyles();
   const { actions } = useOffsettedListWidths();
@@ -84,6 +86,7 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
       pathname: paymentProviderPath,
       query: {
         channelId: channelPaymentOptions.channel.id,
+        paymentProviderId: paymentProviders[0].id,
       },
     });
   };

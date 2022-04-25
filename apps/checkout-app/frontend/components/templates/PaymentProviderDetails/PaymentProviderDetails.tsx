@@ -19,7 +19,7 @@ import { useEffect } from "react";
 import { getMetadataErrorMessage } from "@/frontend/misc/errors";
 import { MetadataErrorFragment } from "@/graphql";
 import ErrorAlert from "../../elements/ErrorAlert";
-import { getPaymentProviders } from "@/config/fields";
+import { usePaymentProviders } from "@/config/fields";
 
 interface PaymentProviderDetailsProps {
   selectedPaymentProvider: PaymentProvider<PaymentProviderID>;
@@ -43,6 +43,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   const router = useRouter();
   const intl = useIntl();
   const classes = useStyles();
+  const paymentProviders = usePaymentProviders();
   const {
     control,
     handleSubmit: handleSubmitForm,
@@ -99,7 +100,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
       <AppLayout
         title={intl.formatMessage(sectionMessages.settings)}
         onBackClick={onBackClick}
-        items={getPaymentProviders(intl)}
+        items={paymentProviders}
         selectedItem={selectedPaymentProvider}
         loading={loading}
         onItemClick={onPaymentProviderClick}
