@@ -21,10 +21,7 @@ export const IconButton: FC<IconButtonProps> = ({
 }) => {
   if (variant === "bare") {
     return (
-      <button
-        aria-label={typeof label === "string" ? label : undefined}
-        className={clsx(styles["bare-icon-button"], className)}
-        {...rest}>
+      <button className={clsx(styles["bare-icon-button"], className)} {...rest}>
         {icon}
       </button>
     );
