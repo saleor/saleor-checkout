@@ -15,6 +15,7 @@ import forEach from "lodash/forEach";
 import { useEffect } from "react";
 import {
   DefaultValues,
+  FieldError,
   Path,
   Resolver,
   SubmitHandler,
@@ -73,8 +74,9 @@ export const AddressForm = <TFormData extends AddressFormData>({
 
   useEffect(() => {
     if (hasErrors) {
-      forEach(errors, ({ message }, key) => {
-        setError(key as Path<TFormData>, { message });
+      // @ts-ignore something is typed wrongly here in forEach with deepMaps
+      forEach(errors, (error: FieldError, key: string) => {
+        setError(key as Path<TFormData>, { message: error.message });
       });
     }
   }, [errors]);
