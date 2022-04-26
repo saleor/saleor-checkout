@@ -15,14 +15,14 @@ export const useCheckoutFinalize = () => {
   const { setApiErrors, hasErrors } = useErrors<FormData>("userRegister");
 
   const checkoutPay = async () => {
-    const data = await pay({
+    const result = await pay({
       provider: "mollie",
       checkoutId: checkout?.id,
       totalAmount: checkout?.totalPrice?.gross?.amount as number,
     });
 
-    if (data!.checkoutUrl) {
-      window.location.replace(data!.checkoutUrl);
+    if (result?.data?.checkoutUrl) {
+      window.location.replace(result?.data?.checkoutUrl);
     }
   };
 
