@@ -174,7 +174,10 @@ query user {
   }
 }
 
-mutation checkoutLinesUpdate($token: UUID!, $lines: [CheckoutLineInput]!) {
+mutation checkoutLinesUpdate(
+  $token: UUID!
+  $lines: [CheckoutLineUpdateInput!]!
+) {
   checkoutLinesUpdate(token: $token, lines: $lines) {
     errors {
       ...CheckoutErrorFragment

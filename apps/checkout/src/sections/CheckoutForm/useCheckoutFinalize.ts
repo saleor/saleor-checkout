@@ -15,6 +15,7 @@ export const useCheckoutFinalize = () => {
   const { setApiErrors, hasErrors } = useErrors<FormData>("userRegister");
 
   const checkoutPay = async () => {
+    console.log("PAYYYYYY");
     const data = await pay({
       provider: "mollie",
       checkoutId: checkout?.id,

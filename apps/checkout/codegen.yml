@@ -1,5 +1,5 @@
 overwrite: true
-schema: "https://vercel-saleor-cloud.graphcdn.app/"
+schema: https://payment-mutations-for-new-checkout-flow.api.saleor.rocks/graphql/
 documents: "src/**/*.graphql"
 generates:
   src/graphql/index.ts:
