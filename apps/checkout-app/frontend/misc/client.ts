@@ -1,3 +1,4 @@
+import { API_URL } from "@/constants";
 import { authExchange } from "@urql/exchange-auth";
 import {
   createClient,
@@ -8,27 +9,25 @@ import {
   fetchExchange,
   Operation,
 } from "urql";
-import { AppBridge } from "../components/elements/AppProvider";
+import { app } from "./app";
 
 interface AuthState {
   token: string;
 }
 
-const getAuth =
-  (app?: AppBridge) =>
-  async ({ authState }: { authState?: AuthState | null }) => {
-    if (!authState) {
-      if (typeof window === "undefined") {
-        return null;
-      }
-      const token = app?.getState().token;
-      if (token) {
-        return { token };
-      }
+const getAuth = async ({ authState }: { authState?: AuthState | null }) => {
+  if (!authState) {
+    if (typeof window === "undefined") {
+      return null;
     }
+    const token = app?.getState().token;
+    if (token) {
+      return { token };
+    }
+  }
 
-    return null;
-  };
+  return null;
+};
 
 const addAuthToOperation = ({
   authState,
@@ -37,7 +36,7 @@ const addAuthToOperation = ({
   authState?: AuthState | null;
   operation: Operation<any, any>;
 }) => {
-  if (!authState || !authState.token) {
+  if (!authState?.token) {
     return operation;
   }
 
@@ -58,18 +57,21 @@ const addAuthToOperation = ({
   });
 };
 
-const getAuthConfig = (apiUrl: string, app?: AppBridge): ClientOptions => ({
-  url: apiUrl,
+const willAuthError = ({ authState }: { authState?: AuthState | null }) =>
+  !authState?.token;
+
+const authConfig: ClientOptions = {
+  url: API_URL,
   exchanges: [
     dedupExchange,
     cacheExchange,
     authExchange({
-      getAuth: getAuth(app),
+      getAuth,
+      willAuthError,
       addAuthToOperation,
     }),
     fetchExchange,
   ],
-});
+};
 
-export const getClient = (apiUrl: string, app?: AppBridge) =>
-  createClient(getAuthConfig(apiUrl, app));
+export const client = createClient(authConfig);
