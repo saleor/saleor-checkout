@@ -17,10 +17,8 @@ interface AuthState {
 
 const getAuth = async ({ authState }: { authState?: AuthState | null }) => {
   if (!authState) {
-    if (typeof window === "undefined") {
-      return null;
-    }
     const token = app?.getState().token;
+
     if (token) {
       return { token };
     }
