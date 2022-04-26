@@ -41,7 +41,6 @@ export const useCheckoutFinalize = () => {
 
   const checkoutFinalize = async (formData: FormData) => {
     if (!user && formData.createAccount) {
-      console.log("CREATE MORDO");
       await handleUserRegister(formData);
     }
 
