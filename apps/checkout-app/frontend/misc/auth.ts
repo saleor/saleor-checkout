@@ -8,18 +8,20 @@ import {
   fetchExchange,
   Operation,
 } from "urql";
+import { AppBridge } from "../components/elements/AppProvider";
 
 interface AuthState {
   token: string;
 }
 
 const getAuth =
-  (token?: string) =>
+  (app?: AppBridge) =>
   async ({ authState }: { authState?: AuthState | null }) => {
     if (!authState) {
       if (typeof window === "undefined") {
         return null;
       }
+      const token = app?.getState().token;
       if (token) {
         return { token };
       }
@@ -56,18 +58,18 @@ const addAuthToOperation = ({
   });
 };
 
-const getAuthConfig = (apiUrl: string, token?: string): ClientOptions => ({
+const getAuthConfig = (apiUrl: string, app?: AppBridge): ClientOptions => ({
   url: apiUrl,
   exchanges: [
     dedupExchange,
     cacheExchange,
     authExchange({
-      getAuth: getAuth(token),
+      getAuth: getAuth(app),
       addAuthToOperation,
     }),
     fetchExchange,
   ],
 });
 
-export const getClient = (apiUrl: string, token?: string) =>
-  createClient(getAuthConfig(apiUrl, token));
+export const getClient = (apiUrl: string, app?: AppBridge) =>
+  createClient(getAuthConfig(apiUrl, app));

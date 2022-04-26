@@ -7,14 +7,12 @@ import { Provider } from "urql";
 const ClientProvider: React.FC = ({ children, ...props }) => {
   const { app } = useApp();
 
-  const token = app?.getState()?.token;
-
-  const client = useRef(getClient(API_URL, token));
+  const client = useRef(getClient(API_URL, app));
 
   useEffect(() => {
     if (app) {
-      const unsubscribe = app.subscribe("handshake", (payload) => {
-        client.current = getClient(API_URL, payload.token);
+      const unsubscribe = app.subscribe("handshake", () => {
+        client.current = getClient(API_URL, app);
       });
 
       return () => {

@@ -2,10 +2,12 @@ import { isSsr } from "@/constants";
 import { createApp } from "@saleor/app-bridge";
 import { createContext, useEffect, useState } from "react";
 
-const app = !isSsr ? createApp() : undefined;
+export const app = !isSsr ? createApp() : undefined;
+
+export type AppBridge = ReturnType<typeof createApp>;
 
 interface IAppContext {
-  app?: ReturnType<typeof createApp>;
+  app?: AppBridge;
   isAuthorized: boolean;
 }
 
