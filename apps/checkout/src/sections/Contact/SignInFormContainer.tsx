@@ -40,7 +40,7 @@ export const SignInFormContainer: React.FC<
                 ariaLabel={formatMessage("sectionChangeButtonLabel")}
                 onClick={onSectionChange}
                 variant="tertiary"
-                title={redirectButtonLabel}
+                label={redirectButtonLabel}
               />
             )}
           </div>
