@@ -1,6 +1,6 @@
 import { CheckoutLineFragment, OrderLineFragment } from "@/graphql";
 import React from "react";
-import { Text } from "@/components/Text";
+import { Text } from "@saleor/ui-kit";
 import { SummaryItemMoneySection } from "./SummaryItemMoneySection";
 import { SummaryItemMoneyEditableSection } from "./SummaryItemMoneyEditableSection";
 import { SummaryItemDelete } from "./SummaryItemDelete";

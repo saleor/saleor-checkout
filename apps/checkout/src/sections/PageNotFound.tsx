@@ -1,5 +1,5 @@
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
-import { Text } from "@/components/Text";
+import { Text } from "@saleor/ui-kit";
 import { Button } from "@/components/Button";
 import { SaleorLogo } from "@/images";
 import { Title } from "@/components/Title";
