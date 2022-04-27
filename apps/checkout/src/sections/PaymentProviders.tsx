@@ -1,4 +1,3 @@
-import { Radio, RadioOption } from "@/components/Radio";
 import { RadioGroup } from "@/components/RadioGroup";
 import { Title } from "@/components/Title";
 import { useFetch } from "@/hooks/useFetch";
@@ -6,9 +5,10 @@ import { MessageKey, useFormattedMessages } from "@/hooks/useFormattedMessages";
 import React from "react";
 import { getPaymentProviders } from "@/fetch";
 import { camelCase, map } from "lodash-es";
+import { Radio, RadioProps } from "@saleor/ui-kit";
 
 export const PaymentProviders: React.FC<
-  Pick<RadioOption, "onSelect" | "selectedValue">
+  Pick<RadioProps, "onSelect" | "value">
 > = ({ ...rest }) => {
   const formatMessage = useFormattedMessages();
   const [{ data: availalablePaymentProviders }] = useFetch(getPaymentProviders);
