@@ -210,7 +210,7 @@ importers:
   packages/ui-kit:
     specifiers:
       '@babel/core': ^7.17.8
-      '@headlessui/react': ^1.5.0
+      '@headlessui/react': ^1.6.0
       '@storybook/addon-actions': ^6.4.20
       '@storybook/addon-essentials': ^6.4.20
       '@storybook/addon-interactions': ^6.4.20
@@ -240,7 +240,7 @@ importers:
       tsup: ^5.11.11
       typescript: ^4.5.3
     dependencies:
-      '@headlessui/react': 1.5.0_react-dom@18.0.0+react@18.0.0
+      '@headlessui/react': 1.6.0_react-dom@18.0.0+react@18.0.0
       clsx: 1.1.1
       react-dom: 18.0.0_react@18.0.0
     devDependencies:
@@ -2907,6 +2907,17 @@ packages:
 
   /@headlessui/react/1.5.0_react-dom@18.0.0+react@18.0.0:
     resolution: {integrity: sha512-aaRnYxBb3MU2FNJf3Ut9RMTUqqU3as0aI1lQhgo2n9Fa67wRu14iOGqx93xB+uMNVfNwZ5B3y/Ndm7qZGuFeMQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+      react-dom: ^16 || ^17 || ^18
+    dependencies:
+      react: 18.0.0
+      react-dom: 18.0.0_react@18.0.0
+    dev: false
+
+  /@headlessui/react/1.6.0_react-dom@18.0.0+react@18.0.0:
+    resolution: {integrity: sha512-PlDuytBC6iDC/uMvpANm5VpRSuayyXMEeo/dNIwAZNHCfhZUqDQgLXjGu48SHsvMw22Kc3c3u9TOAMZNg+1vzw==}
     engines: {node: '>=10'}
     peerDependencies:
       react: ^16 || ^17 || ^18
