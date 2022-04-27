@@ -9,7 +9,7 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup --inject ./react_import.js",
     "dev": "PORT=3000 tsup",
     "lint": "eslint --max-warnings=0 \"src/**/*.@(tsx|ts|jsx|js)\" --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
