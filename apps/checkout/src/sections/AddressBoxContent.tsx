@@ -1,4 +1,4 @@
-import { Text } from "@/components/Text";
+import { Text } from "@saleor/ui-kit";
 import React from "react";
 import { RadioOptionChildrenProps } from "@/components/Radio";
 import { IconButton } from "@/components/IconButton";
@@ -39,18 +39,17 @@ export const AddressBoxContent: React.FC<AddressBoxContentProps> = ({
       </div>
       <div>
         <IconButton
+          variant="bare"
+          icon={<img src={PenIcon} />}
           onClick={onEdit}
           ariaLabel={formatMessage("editAddressLabel")}
           className="mr-2"
-        >
-          <img src={PenIcon} />
-        </IconButton>
+        />
         <IconButton
           onClick={onDelete}
           ariaLabel={formatMessage("deleteAddressLabel")}
-        >
-          <img src={TrashIcon} />
-        </IconButton>
+          icon={<img src={TrashIcon} />}
+        />
       </div>
     </div>
   );

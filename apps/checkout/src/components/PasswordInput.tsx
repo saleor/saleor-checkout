@@ -26,9 +26,8 @@ export const PasswordInputComponent = <
         <IconButton
           ariaLabel={formatMessage("passwordVisibilityLabel")}
           onClick={() => setPasswordVisible(!passwordVisible)}
-        >
-          <img src={passwordVisible ? EyeIcon : EyeHiddenIcon} alt="" />
-        </IconButton>
+          icon={<img src={passwordVisible ? EyeIcon : EyeHiddenIcon} alt="" />}
+        />
       }
     />
   );
