@@ -16,10 +16,10 @@ html {
     @apply h-5 w-5;
   }
 
-  /* Icon Button */
+  /* Icon Button
   .icon-button {
     @apply icon outline-none focus:outline-none active:outline-none;
-  }
+  } */
 
   /* Checkbox */
   .checkbox {
@@ -97,7 +97,7 @@ html {
     @apply h-px w-full bg-border-primary;
   }
 
-  /* Button */
+  /* Button
   .button {
     @apply py-3 px-4 whitespace-nowrap border focus:outline-none active:outline-none;
   }
@@ -129,20 +129,27 @@ html {
 
   .button-tertiary p {
     @apply active:text-text-secondary;
-  }
+  } */
 
   /* Radio Group */
-  .radio-group {
+  .radio-box-group {
     @apply w-full;
   }
 
-  .radio-group div.radio-option:last-of-type {
+  .radio-box-group div.radio-box:last-of-type {
     @apply border-b border-border-primary;
   }
 
-  .radio-option {
+  .radio-box {
     @apply box-content py-6 px-6 flex flex-row items-start border-x border-t border-border-primary;
   }
+
+  .address-radio-box {
+    @apply flex flex-row justify-between;
+  }
+  /*
+
+ 
 
   .radio-option.with-subtitle {
     @apply items-start py-4;
@@ -201,7 +208,7 @@ html {
 
   div.radio-option.selected + div.radio-option {
     @apply border-t-0;
-  }
+  } */
 
   /* General Layout */
   .app {

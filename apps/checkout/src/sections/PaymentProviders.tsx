@@ -1,4 +1,3 @@
-import { RadioGroup } from "@/components/RadioGroup";
 import { Title } from "@/components/Title";
 import { useFetch } from "@/hooks/useFetch";
 import { MessageKey, useFormattedMessages } from "@/hooks/useFormattedMessages";
@@ -6,6 +5,7 @@ import React from "react";
 import { getPaymentProviders } from "@/fetch";
 import { camelCase, map } from "lodash-es";
 import { Radio, RadioProps } from "@saleor/ui-kit";
+import { RadioBoxGroup } from "@/components/RadioBoxGroup";
 
 export const PaymentProviders: React.FC<
   Pick<RadioProps, "onSelect" | "value">
@@ -16,7 +16,7 @@ export const PaymentProviders: React.FC<
   return (
     <div className="mb-10">
       <Title>{formatMessage("paymentProviders")}</Title>
-      <RadioGroup label={formatMessage("paymentProvidersLabel")}>
+      <RadioBoxGroup label={formatMessage("paymentProvidersLabel")}>
         {map(
           availalablePaymentProviders || {},
           (providerId: string, providerKey: string) => {
@@ -29,7 +29,7 @@ export const PaymentProviders: React.FC<
             );
           }
         )}
-      </RadioGroup>
+      </RadioBoxGroup>
     </div>
   );
 };
