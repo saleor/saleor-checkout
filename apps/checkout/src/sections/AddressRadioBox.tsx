@@ -4,13 +4,13 @@ import { IconButton } from "@/components/IconButton";
 import { PenIcon, TrashIcon } from "@/icons";
 import { AddressField } from "@/lib/globalTypes";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
-import {
-  getSortedAddressFieldsFromAddress,
-  handleInputChange,
-} from "@/lib/utils";
+import { getSortedAddressFieldsFromAddress } from "@/lib/utils";
 import { pull } from "lodash-es";
 import { Label } from "@/components/Label";
-import { RadioBoxProps } from "@/components/RadioBox";
+import {
+  getRadioPropsFromRadioBoxProps,
+  RadioBoxProps,
+} from "@/components/RadioBox";
 
 interface AddressRadioBoxProps extends RadioBoxProps {
   address: Partial<Record<AddressField, any>>;
@@ -22,7 +22,6 @@ export const AddressRadioBox: React.FC<AddressRadioBoxProps> = ({
   address,
   onDelete,
   onEdit,
-  onSelect,
   ...rest
 }) => {
   const formatMessage = useFormattedMessages();
@@ -31,7 +30,7 @@ export const AddressRadioBox: React.FC<AddressRadioBoxProps> = ({
 
   return (
     <div className="radio-box address-radio-box">
-      <Radio {...rest} onSelect={handleInputChange(onSelect)} id={id.current} />
+      <Radio {...getRadioPropsFromRadioBoxProps(rest)} id={id.current} />
       <div className="flex flex-row justify-between w-full">
         <div className="flex flex-col">
           <Label htmlFor={id.current}>

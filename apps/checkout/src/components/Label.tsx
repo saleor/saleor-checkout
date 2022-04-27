@@ -1,10 +1,13 @@
-import { Label as UiKitLabel } from "@saleor/ui-kit";
-import React, { PropsWithChildren } from "react";
+import {
+  Label as UiKitLabel,
+  LabelProps as UiKitLabelProps,
+} from "@saleor/ui-kit";
+import React from "react";
 
-interface LabelProps {
+interface LabelProps extends UiKitLabelProps {
   htmlFor: string;
 }
 
-export const Label: React.FC<PropsWithChildren<LabelProps>> = ({ ...rest }) => (
+export const Label: React.FC<LabelProps> = ({ ...rest }) => (
   <UiKitLabel {...rest} />
 );

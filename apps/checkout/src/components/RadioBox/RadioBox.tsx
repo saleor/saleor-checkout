@@ -1,10 +1,10 @@
 import React from "react";
-import { handleInputChange } from "@/lib/utils";
 import {
   Text,
   Radio as UiKitRadio,
   RadioProps as UiKitRadioProps,
 } from "@saleor/ui-kit";
+import { getRadioPropsFromRadioBoxProps } from "./utils";
 
 export interface RadioBoxProps extends Omit<UiKitRadioProps, "onSelect"> {
   onSelect: (value: string) => void;
@@ -12,21 +12,10 @@ export interface RadioBoxProps extends Omit<UiKitRadioProps, "onSelect"> {
   subtitle?: string;
 }
 
-export const RadioBox: React.FC<RadioBoxProps> = ({
-  subtitle,
-  title,
-  ...rest
-}) => {
-  const { value, onSelect, selectedValue } = rest;
-
+export const RadioBox: React.FC<RadioBoxProps> = ({ subtitle, ...rest }) => {
   return (
     <div className="radio-box">
-      <UiKitRadio
-        {...rest}
-        label={title}
-        onSelect={handleInputChange(onSelect)}
-        checked={selectedValue === value}
-      />
+      <UiKitRadio {...getRadioPropsFromRadioBoxProps(rest)} />
       {subtitle && <Text>{subtitle}</Text>}
     </div>
   );
