@@ -24,7 +24,7 @@ export const PageNotFound = () => {
           ariaLabel={formatMessage("goBackToStoreLabel")}
           onClick={goBack}
           variant="secondary"
-          title={formatMessage("goBackToStore")}
+          label={formatMessage("goBackToStore")}
         />
       </div>
     </div>

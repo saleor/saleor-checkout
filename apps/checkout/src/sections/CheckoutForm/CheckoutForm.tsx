@@ -59,7 +59,7 @@ export const CheckoutForm = () => {
           /> */}
         <Button
           ariaLabel={formatMessage("finalizeCheckoutLabel")}
-          title="Pay"
+          label="Pay"
           onClick={handleSubmit}
           className="min-w-28"
         />

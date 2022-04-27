@@ -38,7 +38,7 @@ export const SignedInUser: React.FC<SignedInUserProps> = ({
           ariaLabel={formatMessage("signOutLabel")}
           variant="tertiary"
           onClick={handleLogout}
-          title={formatMessage("signOut")}
+          label={formatMessage("signOut")}
         />
       </div>
     </SignInFormContainer>

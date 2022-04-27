@@ -109,14 +109,14 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
         <Button
           ariaLabel={formatMessage("sendPasswordLabel")}
           variant="tertiary"
-          title={formatMessage(passwordResetSent ? "resend" : "forgotPassword")}
+          label={formatMessage(passwordResetSent ? "resend" : "forgotPassword")}
           className="ml-1 mr-4"
           onClick={onPasswordReset}
         />
         <Button
           ariaLabel={formatMessage("signInLabel")}
           onClick={handleSubmit(onSubmit)}
-          title={formatMessage("signIn")}
+          label={formatMessage("signIn")}
         />
       </div>
     </SignInFormContainer>
