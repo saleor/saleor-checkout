@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "paths": {
       "@/icons": ["./src/assets/icons"],
       "@/images": ["./src/assets/images"],
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "graphql": ["./node_modules/graphql"]
     },
     "types": ["react/next", "react-dom"],
-    "target": "es5",
+    // "target": "es5",
+    "target": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,

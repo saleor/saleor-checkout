@@ -30,7 +30,7 @@ importers:
       '@testing-library/react': ^12.1.2
       '@testing-library/user-event': ^13.5.0
       '@types/jest': ^27.4.0
-      '@types/lodash': ^4.14.180
+      '@types/lodash-es': ^4.17.6
       '@types/node': ^16.11.22
       '@types/react': 18.0.3
       '@types/react-dom': 18.0.0
@@ -38,16 +38,19 @@ importers:
       '@types/yup': ^0.29.13
       '@typescript-eslint/parser': ^5.17.0
       autoprefixer: 9.8.6
-      checkout-app: workspace:*
       clsx: ^1.1.1
+      css-modules-typescript-loader: ^4.0.1
+      esbuild-css-modules-plugin: ^2.2.12
       eslint: ^8.12.0
       eslint-plugin-react: ^7.29.4
       eslint-plugin-react-hooks: ^4.3.0
       graphql: ^16.3.0
       graphql-tag: ^2.12.6
       hex-rgb: ^5.0.0
-      lodash: ^4.17.21
+      lodash-es: ^4.17.21
       postcss: ^8.4.6
+      postcss-csso: ^6.0.0
+      postcss-loader: 4.3.0
       prettier: ^2.5.1
       query-string: ^7.1.1
       react: ^18.0.0-rc.0
@@ -56,6 +59,7 @@ importers:
       react-hook-form: ^7.27.1
       react-scripts: 5.0.0
       tailwindcss: ^3.0.18
+      tsup: ^5.11.11
       typescript: ^4.5.5
       urql: ^2.1.3
       web-vitals: ^2.1.4
@@ -72,7 +76,6 @@ importers:
       '@testing-library/react': 12.1.5_react-dom@18.0.0+react@18.0.0
       '@testing-library/user-event': 13.5.0
       '@types/jest': 27.4.1
-      '@types/lodash': 4.14.182
       '@types/node': 16.11.27
       '@types/react': 18.0.3
       '@types/react-dom': 18.0.0
@@ -83,7 +86,7 @@ importers:
       graphql: 16.3.0
       graphql-tag: 2.12.6_graphql@16.3.0
       hex-rgb: 5.0.0
-      lodash: 4.17.21
+      lodash-es: 4.17.21
       postcss: 8.4.12
       query-string: 7.1.1
       react: 18.0.0
@@ -103,12 +106,17 @@ importers:
       '@graphql-codegen/typescript-operations': 2.2.3_graphql@16.3.0
       '@graphql-codegen/typescript-urql': 3.5.7_e20029557891e0afb887c44ec7f516f8
       '@graphql-codegen/urql-introspection': 2.1.1_graphql@16.3.0
+      '@types/lodash-es': 4.17.6
       '@types/webpack-env': 1.16.4
-      checkout-app: link:../checkout-app
+      css-modules-typescript-loader: 4.0.1
+      esbuild-css-modules-plugin: 2.2.16
       eslint: 8.13.0
       eslint-plugin-react: 7.29.4_eslint@8.13.0
       eslint-plugin-react-hooks: 4.4.0_eslint@8.13.0
+      postcss-csso: 6.0.0_postcss@8.4.12
+      postcss-loader: 4.3.0_postcss@8.4.12
       prettier: 2.6.2
+      tsup: 5.12.5_postcss@8.4.12+typescript@4.6.3
       typescript: 4.6.3
 
   apps/checkout-app:
@@ -133,6 +141,7 @@ importers:
       '@types/react-dom': 17.0.11
       '@urql/exchange-auth': ^0.1.7
       babel-plugin-formatjs: ^10.3.18
+      checkout: workspace:*
       clsx: ^1.1.1
       config: workspace:*
       eslint: 7.32.0
@@ -151,6 +160,7 @@ importers:
       react-is: ^17.0.2
       ts-jest: ^27.1.4
       tsconfig: workspace:*
+      tsup: ^5.11.11
       typescript: ^4.5.3
       urql: ^2.2.0
     dependencies:
@@ -163,6 +173,7 @@ importers:
       '@saleor/app-bridge': 0.1.7
       '@saleor/macaw-ui': 0.4.0_1cdc5c7fddbb2168add9985cd94e1e8b
       '@urql/exchange-auth': 0.1.7_graphql@16.3.0
+      checkout: link:../checkout
       clsx: 1.1.1
       eslint-plugin-react: 7.29.4_eslint@7.32.0
       eslint-plugin-react-hooks: 4.4.0_eslint@7.32.0
@@ -194,6 +205,7 @@ importers:
       node-mocks-http: 1.11.0
       ts-jest: 27.1.4_jest@27.5.1+typescript@4.6.3
       tsconfig: link:../../packages/tsconfig
+      tsup: 5.12.5_typescript@4.6.3
       typescript: 4.6.3
 
   packages/config:
@@ -5797,9 +5809,14 @@ packages:
       '@types/node': 16.11.27
     dev: true
 
+  /@types/lodash-es/4.17.6:
+    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==}
+    dependencies:
+      '@types/lodash': 4.14.182
+    dev: true
+
   /@types/lodash/4.14.182:
     resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==}
-    dev: false
 
   /@types/mdast/3.0.10:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==}
@@ -15421,6 +15438,22 @@ packages:
       postcss-value-parser: 4.2.0
     dev: false
 
+  /postcss-load-config/3.1.4:
+    resolution: {integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==}
+    engines: {node: '>= 10'}
+    peerDependencies:
+      postcss: '>=8.0.9'
+      ts-node: '>=9.0.0'
+    peerDependenciesMeta:
+      postcss:
+        optional: true
+      ts-node:
+        optional: true
+    dependencies:
+      lilconfig: 2.0.5
+      yaml: 1.10.2
+    dev: true
+
   /postcss-load-config/3.1.4_postcss@8.4.12:
     resolution: {integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==}
     engines: {node: '>= 10'}
@@ -18850,6 +18883,36 @@ packages:
       globby: 11.1.0
       joycon: 3.1.1
       postcss-load-config: 3.1.4_postcss@8.4.12
+      resolve-from: 5.0.0
+      rollup: 2.70.2
+      source-map: 0.7.3
+      sucrase: 3.21.0
+      tree-kill: 1.2.2
+      typescript: 4.6.3
+    transitivePeerDependencies:
+      - postcss
+      - supports-color
+      - ts-node
+    dev: true
+
+  /tsup/5.12.5_typescript@4.6.3:
+    resolution: {integrity: sha512-lKwzJsB49sDto51QjqOB4SdiBLKRvgTymEBuBCovcksdDwFEz3esrkbf3m497PXntUKVTzcgOfPdTgknMtvufw==}
+    hasBin: true
+    peerDependencies:
+      typescript: ^4.1.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      bundle-require: 3.0.4_esbuild@0.14.36
+      cac: 6.7.12
+      chokidar: 3.5.3
+      debug: 4.3.4
+      esbuild: 0.14.36
+      execa: 5.1.1
+      globby: 11.1.0
+      joycon: 3.1.1
+      postcss-load-config: 3.1.4
       resolve-from: 5.0.0
       rollup: 2.70.2
       source-map: 0.7.3

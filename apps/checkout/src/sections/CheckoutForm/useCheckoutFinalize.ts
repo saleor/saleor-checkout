@@ -2,16 +2,21 @@ import { pay as payRequest } from "@/fetch";
 import { useCheckout } from "@/hooks/useCheckout";
 import { useFetch } from "@/hooks/useFetch";
 import { extractMutationErrors } from "@/lib/utils";
+import { useEnvContext } from "@/providers/EnvProvider";
 import { useErrors } from "@/providers/ErrorsProvider";
 import { useAuth, useAuthState } from "@saleor/sdk";
 import { omit } from "lodash-es";
 import { FormData } from "./types";
 
 export const useCheckoutFinalize = () => {
+  const envContext = useEnvContext();
   const { checkout } = useCheckout();
   const { register } = useAuth();
   const { user } = useAuthState();
-  const [, pay] = useFetch(payRequest, { skip: true });
+  const [, pay] = useFetch(
+    (args) => payRequest(args, envContext.envVars?.configAppUrl),
+    { skip: true }
+  );
   const { setApiErrors, hasErrors } = useErrors<FormData>("userRegister");
 
   const checkoutPay = async () => {

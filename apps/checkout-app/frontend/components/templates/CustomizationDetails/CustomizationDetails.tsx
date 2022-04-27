@@ -24,6 +24,8 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { MetadataErrorFragment } from "@/graphql";
 import { getMetadataErrorMessage } from "@/frontend/misc/errors";
 import ErrorAlert from "../../elements/ErrorAlert";
+import { Checkout } from "checkout/dist/Checkout";
+import { API_URL, APP_URL } from "@/constants";
 
 interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
@@ -114,7 +116,21 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
           <Typography variant="subtitle1">
             <FormattedMessage {...messages.customizationPreview} />
           </Typography>
-          <div className={classes.designPreview}>Customization</div>
+          <div className={classes.designPreview}>
+            Customization
+            <br />
+            {typeof location !== "undefined" && (
+              <Checkout
+                location={location}
+                envVars={{
+                  apiUrl: API_URL,
+                  checkoutAppUrl: APP_URL,
+                  configAppUrl: APP_URL,
+                  devCheckoutToken: process.env.SALEOR_APP_TOKEN!,
+                }}
+              />
+            )}
+          </div>
         </div>
       </div>
       <AppSavebar

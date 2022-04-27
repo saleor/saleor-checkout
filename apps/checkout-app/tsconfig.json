@@ -4,12 +4,21 @@
     "strict": true,
     "noEmit": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     },
     "declaration": false,
-    "declarationMap": false
+    "declarationMap": false,
+    "jsx": "preserve"
   },
   "extends": "../../packages/tsconfig/nextjs.json",
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

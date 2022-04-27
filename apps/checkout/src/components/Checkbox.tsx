@@ -1,8 +1,8 @@
 import { Label } from "@/components/Label";
+import { useId } from "@/hooks/useId";
 import { CheckIcon } from "@/icons";
 import { Classes } from "@/lib/globalTypes";
 import clsx from "clsx";
-import { useId } from "react";
 
 interface CheckboxProps extends Classes {
   label: string;

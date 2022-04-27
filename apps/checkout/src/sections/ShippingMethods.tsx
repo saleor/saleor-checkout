@@ -11,6 +11,7 @@ import { RadioGroup } from "@/components/RadioGroup";
 import { getFormattedMoney } from "@/hooks/useFormattedMoney";
 import { Radio } from "@/components/Radio";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
+import { useEnvContext } from "@/providers/EnvProvider";
 
 interface ShippingMethodsProps {}
 
@@ -21,11 +22,14 @@ export const ShippingMethods: React.FC<ShippingMethodsProps> = ({}) => {
     checkout?.deliveryMethod?.id
   );
   const [, updateDeliveryMethod] = useCheckoutDeliveryMethodUpdateMutation();
+  const envContext = useEnvContext();
 
   useEffect(() => {
     if (selectedMethodId) {
       updateDeliveryMethod(
-        getDataWithToken({ deliveryMethodId: selectedMethodId })
+        getDataWithToken(envContext, {
+          deliveryMethodId: selectedMethodId,
+        })
       );
     }
   }, [selectedMethodId]);

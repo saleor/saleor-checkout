@@ -45,4 +45,7 @@ export const getSortedAddressFieldsFromAddress = (
 
 export const getRequiredAddressFields = (
   requiredFields: AddressField[]
-): AddressField[] => [...requiredFields, "firstName", "lastName"];
+): AddressField[] => [
+  /*...requiredFields, DOESNT WORK ITS NOT ITERABLE */ "firstName",
+  "lastName",
+];

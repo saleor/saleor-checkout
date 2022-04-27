@@ -6,12 +6,16 @@ import { MessageKey, useFormattedMessages } from "@/hooks/useFormattedMessages";
 import React from "react";
 import { getPaymentProviders } from "@/fetch";
 import { camelCase, map } from "lodash-es";
+import { useEnvContext } from "@/providers/EnvProvider";
 
 export const PaymentProviders: React.FC<
   Pick<RadioOption, "onSelect" | "selectedValue">
 > = ({ ...rest }) => {
   const formatMessage = useFormattedMessages();
-  const [{ data: availalablePaymentProviders }] = useFetch(getPaymentProviders);
+  const envContext = useEnvContext();
+  const [{ data: availalablePaymentProviders }] = useFetch(() =>
+    getPaymentProviders(envContext.envVars?.configAppUrl)
+  );
 
   return (
     <div className="mb-10">

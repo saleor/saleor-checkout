@@ -1,3 +1,4 @@
+import { EnvContextConsumerProps } from "@/providers/EnvProvider";
 import { reduce } from "lodash-es";
 import queryString from "query-string";
 import { OperationResult } from "urql";
@@ -9,9 +10,13 @@ export const getById =
     obj.id === idToCompare;
 
 export const getDataWithToken = <TData extends {} = {}>(
+  envContext: EnvContextConsumerProps,
   data: TData = {} as TData
 ) => ({
-  token: extractCheckoutTokenFromUrl(),
+  token: extractCheckoutTokenFromUrl(
+    envContext.location,
+    envContext.envVars?.devCheckoutToken
+  ),
   ...data,
 });
 
@@ -20,18 +25,23 @@ export type QueryVariables = Record<
   string
 >;
 
-export const getQueryVariables = (): Partial<QueryVariables> => {
+export const getQueryVariables = (
+  location: Location
+): Partial<QueryVariables> => {
   const vars = queryString.parse(location.search);
   return { ...vars, passwordResetToken: vars.token as string | undefined };
 };
 
-export const getCurrentHref = () => location.href;
+export const getCurrentHref = (location: Location) => location.href;
 
-const extractCheckoutTokenFromUrl = (): string => {
-  const { checkoutToken } = getQueryVariables();
+const extractCheckoutTokenFromUrl = (
+  location: Location,
+  devCheckoutToken: string | undefined
+): string => {
+  const { checkoutToken } = getQueryVariables(location);
 
   // for development & preview purposes
-  const token = checkoutToken || envVars.devCheckoutToken;
+  const token = checkoutToken || devCheckoutToken;
 
   if (typeof token !== "string") {
     throw new Error("Checkout token does not exist");

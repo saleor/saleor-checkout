@@ -13,6 +13,7 @@ import { object, string } from "yup";
 import { useForm, useFormContext } from "react-hook-form";
 import { useGetInputProps } from "@/hooks/useGetInputProps";
 import { useErrorMessages } from "@/hooks/useErrorMessages";
+import { useEnvContext } from "@/providers/EnvProvider";
 
 type AnonymousCustomerFormProps = Pick<
   SignInFormContainerProps,
@@ -51,9 +52,10 @@ export const GuestUserForm: React.FC<AnonymousCustomerFormProps> = ({
   const getContextInputProps = useGetInputProps(contextPropsRest);
 
   const [, updateEmail] = useCheckoutEmailUpdateMutation();
+  const envContext = useEnvContext();
 
   const onSubmit = ({ email }: FormData) =>
-    updateEmail(getDataWithToken({ email }));
+    updateEmail(getDataWithToken(envContext, { email }));
 
   const emailValue = watch("email");
 

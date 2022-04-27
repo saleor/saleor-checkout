@@ -4,7 +4,6 @@ import React, {
   ForwardedRef,
   forwardRef,
   useEffect,
-  useId,
   useState,
 } from "react";
 import { Classes } from "@/lib/globalTypes";
@@ -16,6 +15,7 @@ import {
   useWatch,
 } from "react-hook-form";
 import { ControlFormData } from "@/hooks/useGetInputProps";
+import { useId } from "@/hooks/useId";
 
 export interface TextInputProps<
   TControl extends Control<any, any>,

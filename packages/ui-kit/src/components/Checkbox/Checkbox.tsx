@@ -1,10 +1,11 @@
-import { FC, ReactNode, InputHTMLAttributes, useId } from "react";
+import { FC, ReactNode, InputHTMLAttributes } from "react";
 import clsx from "clsx";
 
 import styles from "./Checkbox.module.css";
 import { CheckIcon } from "../icons";
 import { Label } from "../Label";
 import { ClassNames } from "@lib/globalTypes";
+import { useId } from "@lib/useId";
 
 export interface CheckboxProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "className"> {
@@ -26,9 +27,10 @@ export const Checkbox: FC<CheckboxProps> = ({
     <div
       className={clsx(styles["box"], {
         [styles["box-static"]]: !label,
-      })}>
+      })}
+    >
       <input
-        type='checkbox'
+        type="checkbox"
         value={value}
         checked={checked}
         id={id}
@@ -42,7 +44,8 @@ export const Checkbox: FC<CheckboxProps> = ({
     {label && (
       <Label
         className={clsx(styles["checkbox-label"], classNames?.label)}
-        htmlFor={id}>
+        htmlFor={id}
+      >
         {label}
       </Label>
     )}

@@ -1,9 +1,10 @@
-import { FC, ReactNode, InputHTMLAttributes, useId } from "react";
+import { FC, ReactNode, InputHTMLAttributes } from "react";
 import clsx from "clsx";
 
 import styles from "./Radio.module.css";
 import { Label } from "../Label";
 import { ClassNames } from "@lib/globalTypes";
+import { useId } from "@lib/useId";
 
 export interface RadioProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "className"> {
@@ -25,9 +26,10 @@ export const Radio: FC<RadioProps> = ({
     <div
       className={clsx(styles["box"], {
         [styles["box-static"]]: !label,
-      })}>
+      })}
+    >
       <input
-        type='radio'
+        type="radio"
         value={value}
         checked={checked}
         id={id}
@@ -39,7 +41,8 @@ export const Radio: FC<RadioProps> = ({
     {label && (
       <Label
         className={clsx(styles["radio-label"], classNames?.label)}
-        htmlFor={id}>
+        htmlFor={id}
+      >
         {label}
       </Label>
     )}

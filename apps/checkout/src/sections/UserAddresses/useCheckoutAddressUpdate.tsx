@@ -5,6 +5,7 @@ import {
 } from "@/graphql";
 import { useCheckout } from "@/hooks/useCheckout";
 import { extractMutationErrors, getDataWithToken } from "@/lib/utils";
+import { useEnvContext } from "@/providers/EnvProvider";
 import { useErrors } from "@/providers/ErrorsProvider";
 import { useEffect } from "react";
 import { AddressFormData } from "./types";
@@ -15,6 +16,7 @@ export const useCheckoutAddressUpdate = ({
 }: {
   useShippingAsBillingAddress: boolean;
 }) => {
+  const envContext = useEnvContext();
   const { checkout } = useCheckout();
   const { setApiErrors: setShippingApiErrors } = useErrors<AddressFormData>(
     "checkoutShippingUpdate"
@@ -28,7 +30,9 @@ export const useCheckoutAddressUpdate = ({
 
   const updateShippingAddress = async (address: AddressFormData) => {
     const result = await checkoutShippingAddressUpdate(
-      getDataWithToken({ shippingAddress: getAddressInputData(address) })
+      getDataWithToken(envContext, {
+        shippingAddress: getAddressInputData(address),
+      })
     );
 
     const [hasErrors, errors] = extractMutationErrors(result);
@@ -48,7 +52,7 @@ export const useCheckoutAddressUpdate = ({
 
   const updateBillingAddress = async (addressInput: AddressInput) => {
     const result = await checkoutBillingAddressUpdate(
-      getDataWithToken({
+      getDataWithToken(envContext, {
         billingAddress: addressInput,
       })
     );

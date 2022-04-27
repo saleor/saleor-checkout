@@ -8,6 +8,7 @@ import { useAuthState } from "@saleor/sdk";
 import { useCheckoutCustomerAttachMutation } from "@/graphql";
 import { ResetPassword } from "./ResetPassword";
 import { GuestUserForm } from "./GuestUserForm";
+import { useEnvContext } from "@/providers/EnvProvider";
 
 type Section = "signedInUser" | "guestUser" | "signIn" | "resetPassword";
 
@@ -29,8 +30,11 @@ export const Contact = () => {
 
   const { authenticated, user } = useAuthState();
   const { checkout, loading } = useCheckout();
+  const envContext = useEnvContext();
 
-  const passwordResetToken = getQueryVariables().passwordResetToken;
+  const passwordResetToken = getQueryVariables(
+    envContext.location
+  ).passwordResetToken;
 
   useEffect(() => {
     if (loading) {
@@ -41,7 +45,7 @@ export const Contact = () => {
       setCurrentSection("signedInUser");
 
       if (checkout?.user?.id !== user?.id) {
-        customerAttach(getDataWithToken());
+        customerAttach(getDataWithToken(envContext));
       }
 
       return;

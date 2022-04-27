@@ -14,6 +14,7 @@ import { Money } from "@/components/Money";
 import clsx from "clsx";
 import { getDataWithToken } from "@/lib/utils";
 import { debounce } from "lodash-es";
+import { useEnvContext } from "@/providers/EnvProvider";
 
 interface LineItemQuantitySelectorProps {
   line: CheckoutLine;
@@ -29,6 +30,7 @@ export const SummaryItemMoneySection: React.FC<
   const [quantity, setQuantity] = useState(line.quantity);
   const previousQuantity = useRef(line.quantity);
   const [{ fetching, data }, updateLines] = useCheckoutLinesUpdateMutation();
+  const envContext = useEnvContext();
 
   useEffect(() => {
     if (fetching) {
@@ -54,7 +56,7 @@ export const SummaryItemMoneySection: React.FC<
   const getUpdateLineVars = (
     quantity: number
   ): CheckoutLinesUpdateMutationVariables =>
-    getDataWithToken({
+    getDataWithToken(envContext, {
       lines: [
         {
           quantity,
