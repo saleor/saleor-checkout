@@ -30,7 +30,7 @@ importers:
       '@testing-library/react': ^12.1.2
       '@testing-library/user-event': ^13.5.0
       '@types/jest': ^27.4.0
-      '@types/lodash': ^4.14.180
+      '@types/lodash-es': ^4.17.6
       '@types/node': ^16.11.22
       '@types/react': 18.0.3
       '@types/react-dom': 18.0.0
@@ -46,7 +46,7 @@ importers:
       graphql: ^16.3.0
       graphql-tag: ^2.12.6
       hex-rgb: ^5.0.0
-      lodash: ^4.17.21
+      lodash-es: ^4.17.21
       postcss: ^8.4.6
       prettier: ^2.5.1
       query-string: ^7.1.1
@@ -72,7 +72,7 @@ importers:
       '@testing-library/react': 12.1.5_react-dom@18.0.0+react@18.0.0
       '@testing-library/user-event': 13.5.0
       '@types/jest': 27.4.1
-      '@types/lodash': 4.14.182
+      '@types/lodash-es': 4.17.6
       '@types/node': 16.11.27
       '@types/react': 18.0.3
       '@types/react-dom': 18.0.0
@@ -83,7 +83,7 @@ importers:
       graphql: 16.3.0
       graphql-tag: 2.12.6_graphql@16.3.0
       hex-rgb: 5.0.0
-      lodash: 4.17.21
+      lodash-es: 4.17.21
       postcss: 8.4.12
       query-string: 7.1.1
       react: 18.0.0
@@ -5796,6 +5796,12 @@ packages:
     dependencies:
       '@types/node': 16.11.27
     dev: true
+
+  /@types/lodash-es/4.17.6:
+    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==}
+    dependencies:
+      '@types/lodash': 4.14.182
+    dev: false
 
   /@types/lodash/4.14.182:
     resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==}
