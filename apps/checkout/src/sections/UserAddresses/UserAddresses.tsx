@@ -1,8 +1,9 @@
-import { Checkbox } from "@/components/Checkbox";
 import { AddressFragment, useUserQuery } from "@/graphql";
 import { useCheckout } from "@/hooks/useCheckout";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
+import { handleBoolChange } from "@/lib/utils";
 import { useAuthState } from "@saleor/sdk";
+import { Checkbox } from "@saleor/ui-kit";
 import React, { useState } from "react";
 import { GuestAddressSection } from "./GuestAddressSection";
 import { UserAddressFormData } from "./types";
@@ -56,7 +57,7 @@ export const UserAddresses: React.FC<UserAddressesProps> = ({}) => {
       <Checkbox
         value="useShippingAsBilling"
         checked={useShippingAsBillingAddress}
-        onChange={setUseShippingAsBillingAddressSelected}
+        onChange={handleBoolChange(setUseShippingAsBillingAddressSelected)}
         label={formatMessage("useShippingAsBilling")}
       />
       {!useShippingAsBillingAddress &&
