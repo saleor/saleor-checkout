@@ -1,15 +1,14 @@
 import { Title } from "@/components/Title";
-import { Text } from "@saleor/ui-kit";
+import { Radio, Text } from "@saleor/ui-kit";
 import {
   ShippingMethod,
   useCheckoutDeliveryMethodUpdateMutation,
 } from "@/graphql";
 import { useCheckout } from "@/hooks/useCheckout";
-import { getDataWithToken } from "@/lib/utils";
+import { getDataWithToken, handleInputChange } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import { RadioGroup } from "@/components/RadioGroup";
 import { getFormattedMoney } from "@/hooks/useFormattedMoney";
-import { Radio } from "@/components/Radio";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
 
 interface ShippingMethodsProps {}

@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
-import { Text } from "@saleor/ui-kit";
-import clsx from "clsx";
-import { Label } from "./Label";
+import { handleInputChange } from "@/lib/utils";
+import { Radio as UiKitRadio } from "@saleor/ui-kit";
 
 export interface RadioOptionBase {
   onSelect: (value: string) => void;
@@ -34,24 +33,21 @@ export interface RadioOptionChildrenProps
 }
 
 export const Radio: React.FC<SimpleRadioOption | CustomRadioOption> = ({
-  value,
-  title,
-  subtitle,
   children,
-  selectedValue,
-  onSelect,
-  disabled,
+  ...rest
 }: RadioOption & {
   title?: string;
   subtitle?: string;
   children?: RadioChildren;
 }) => {
+  const { title, value, onSelect, selectedValue } = rest;
+
   const isSimpleRadio = title && !children;
   const isCustomRadio = !title && children;
 
   return (
     <>
-      <div
+      {/* <div
         className={clsx(
           "radio-option",
           disabled && "disabled",
@@ -75,18 +71,17 @@ export const Radio: React.FC<SimpleRadioOption | CustomRadioOption> = ({
             checked={selectedValue === value}
           />
           <span className="radio-input-icon" />
-        </div>
-        {isSimpleRadio && (
-          <Label htmlFor={value} className="radio-label">
-            <Text className={clsx(disabled && "text-text-secondary")}>
-              {title}
-            </Text>
-            {subtitle && <Text>{subtitle}</Text>}
-          </Label>
-        )}
+        </div> */}
+      {isSimpleRadio && (
+        <UiKitRadio
+          {...rest}
+          onSelect={handleInputChange(onSelect)}
+          checked={selectedValue === value}
+        />
+      )}
 
-        {isCustomRadio && children({ htmlFor: value })}
-      </div>
+      {isCustomRadio && children({ htmlFor: value })}
+      {/* </div> */}
     </>
   );
 };
