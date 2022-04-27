@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Text } from "@/components/Text";
+import React, { useState } from "react";
+import { Text } from "@saleor/ui-kit";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
 import { SummaryItem } from "./SummaryItem";
 import { Divider } from "@/components/Divider";

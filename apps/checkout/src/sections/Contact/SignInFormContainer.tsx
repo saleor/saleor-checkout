@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { Text } from "@/components/Text";
+import { Text } from "@saleor/ui-kit";
 import { Button } from "@/components/Button";
 import { Title } from "@/components/Title";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";

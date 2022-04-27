@@ -4,7 +4,7 @@ import {
   SignInFormContainer,
   SignInFormContainerProps,
 } from "./SignInFormContainer";
-import { Text } from "@/components/Text";
+import { Text } from "@saleor/ui-kit";
 import { useAuth, useAuthState } from "@saleor/sdk";
 import { Button } from "@/components/Button";
 import { useCheckoutCustomerDetachMutation } from "@/graphql";

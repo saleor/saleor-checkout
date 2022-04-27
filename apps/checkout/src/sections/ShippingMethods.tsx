@@ -1,5 +1,5 @@
 import { Title } from "@/components/Title";
-import { Text } from "@/components/Text";
+import { Text } from "@saleor/ui-kit";
 import {
   ShippingMethod,
   useCheckoutDeliveryMethodUpdateMutation,
