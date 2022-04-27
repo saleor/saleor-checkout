@@ -1,5 +1,6 @@
 import { reduce } from "lodash-es";
 import queryString from "query-string";
+import { ChangeEvent } from "react";
 import { OperationResult } from "urql";
 import { envVars } from "./environment";
 
@@ -66,3 +67,8 @@ export const extractMutationErrors = <TData extends Object, TVars = any>(
 
   return [errors.length > 0, errors];
 };
+
+export const handleBoolChange =
+  (callback: (value: boolean) => void) =>
+  (event: ChangeEvent<HTMLInputElement>) =>
+    callback(event.target.value as unknown as boolean);
