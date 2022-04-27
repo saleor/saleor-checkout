@@ -14,7 +14,6 @@ export const Primary = Template.bind({});
 Primary.args = {
   label: "Button",
   variant: "primary",
-  className: "w-full",
 };
 
 export const Secondary = Template.bind({});
