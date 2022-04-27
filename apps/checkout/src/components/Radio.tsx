@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { Text } from "@saleor/ui-kit";
 import clsx from "clsx";
+import { Label } from "./Label";
 
 export interface RadioOptionBase {
   onSelect: (value: string) => void;
@@ -76,12 +77,12 @@ export const Radio: React.FC<SimpleRadioOption | CustomRadioOption> = ({
           <span className="radio-input-icon" />
         </div>
         {isSimpleRadio && (
-          <label htmlFor={value} className="radio-label">
+          <Label htmlFor={value} className="radio-label">
             <Text className={clsx(disabled && "text-text-secondary")}>
               {title}
             </Text>
             {subtitle && <Text>{subtitle}</Text>}
-          </label>
+          </Label>
         )}
 
         {isCustomRadio && children({ htmlFor: value })}

@@ -7,6 +7,7 @@ import { AddressField } from "@/lib/globalTypes";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
 import { getSortedAddressFieldsFromAddress } from "@/lib/utils";
 import { pull } from "lodash-es";
+import { Label } from "@/components/Label";
 
 interface AddressBoxContentProps extends RadioOptionChildrenProps {
   address: Partial<Record<AddressField, any>>;
@@ -26,7 +27,7 @@ export const AddressBoxContent: React.FC<AddressBoxContentProps> = ({
   return (
     <div className="flex flex-row justify-between w-full">
       <div className="flex flex-col">
-        <label htmlFor={htmlFor}>
+        <Label htmlFor={htmlFor}>
           <Text weight="semibold">{name}</Text>
           {pull(
             getSortedAddressFieldsFromAddress(address),
@@ -35,7 +36,7 @@ export const AddressBoxContent: React.FC<AddressBoxContentProps> = ({
           ).map((field: AddressField) => (
             <Text key={field}>{address[field] as string}</Text>
           ))}
-        </label>
+        </Label>
       </div>
       <div>
         <IconButton

@@ -16,6 +16,7 @@ import {
   useWatch,
 } from "react-hook-form";
 import { ControlFormData } from "@/hooks/useGetInputProps";
+import { Label } from "./Label";
 
 export interface TextInputProps<
   TControl extends Control<any, any>,
@@ -99,9 +100,9 @@ const TextInputComponent = <
         aria-label={name}
         aria-describedby={errorId}
       />
-      <label htmlFor={id} className={labelClasses}>
+      <Label htmlFor={id} className={labelClasses}>
         {optional ? label : `${label}*`}
-      </label>
+      </Label>
       {error && (
         <span id={errorId} className="text-xs text-text-error">
           {/* react-hook-form has this typed badly */}
