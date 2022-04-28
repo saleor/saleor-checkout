@@ -24,10 +24,7 @@ export const Radio: FC<RadioProps> = ({
 
   return (
     <div className={clsx(styles.radio, classNames?.container)}>
-      <div
-        className={clsx(styles["box"], {
-          [styles["box-static"]]: !label,
-        })}>
+      <div className={clsx(styles["box"])}>
         <input
           type='radio'
           value={value}
@@ -39,9 +36,7 @@ export const Radio: FC<RadioProps> = ({
         <div className={clsx(styles["radio-input"], classNames?.radio)} />
       </div>
       {label && (
-        <Label
-          className={clsx(styles["radio-label"], classNames?.label)}
-          htmlFor={id}>
+        <Label className={clsx(classNames?.label)} htmlFor={id}>
           {label}
         </Label>
       )}

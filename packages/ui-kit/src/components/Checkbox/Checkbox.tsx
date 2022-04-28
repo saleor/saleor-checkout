@@ -42,9 +42,7 @@ export const Checkbox: FC<CheckboxProps> = ({
         </div>
       </div>
       {label && (
-        <Label
-          className={clsx(styles["checkbox-label"], classNames?.label)}
-          htmlFor={id}>
+        <Label className={clsx(classNames?.label)} htmlFor={id}>
           {label}
         </Label>
       )}
