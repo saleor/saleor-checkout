@@ -2,15 +2,20 @@ import { CheckoutLine } from "@/graphql";
 import React from "react";
 import { Text } from "@/components/Text";
 import { SummaryItemMoneySection } from "./SummaryItemMoneySection";
+import { SummaryItemMoneyEditableSection } from "./SummaryItemMoneyEditableSection";
 import { SummaryItemDelete } from "./SummaryItemDelete";
 import { PhotoIcon } from "@/icons";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
 
 interface LineItemProps {
   line: CheckoutLine;
+  readOnly?: boolean;
 }
 
-export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
+export const SummaryItem: React.FC<LineItemProps> = ({
+  line,
+  readOnly = false,
+}) => {
   const {
     variant: {
       name: variantName,
@@ -26,7 +31,7 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
   return (
     <li className="flex flex-row px-6 mb-6">
       <div className="relative flex flex-row">
-        <SummaryItemDelete line={line} />
+        {!readOnly && <SummaryItemDelete line={line} />}
         <div className="summary-item-image mr-4 z-1">
           {productImage ? (
             <img
@@ -56,7 +61,11 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
             {variantName}
           </Text>
         </div>
-        <SummaryItemMoneySection line={line} />
+        {readOnly ? (
+          <SummaryItemMoneySection line={line} />
+        ) : (
+          <SummaryItemMoneyEditableSection line={line} />
+        )}
       </div>
     </li>
   );
