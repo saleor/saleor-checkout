@@ -5,7 +5,7 @@ import { ForwardedRef, useState } from "react";
 import { forwardRef } from "react";
 import { Control } from "react-hook-form";
 import { IconButton } from "./IconButton";
-import { TextInput, TextInputProps } from "./TextInput";
+import { TextInput, TextInputProps } from "@saleor/ui-kit";
 
 export const PasswordInputComponent = <
   TControl extends Control<any, any>,
@@ -24,6 +24,7 @@ export const PasswordInputComponent = <
       ref={ref}
       icon={
         <IconButton
+          variant="bare"
           ariaLabel={formatMessage("passwordVisibilityLabel")}
           onClick={() => setPasswordVisible(!passwordVisible)}
           icon={<img src={passwordVisible ? EyeIcon : EyeHiddenIcon} alt="" />}
