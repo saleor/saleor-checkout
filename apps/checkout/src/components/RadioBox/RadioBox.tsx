@@ -5,6 +5,7 @@ import {
   RadioProps as UiKitRadioProps,
 } from "@saleor/ui-kit";
 import { getRadioPropsFromRadioBoxProps } from "./utils";
+import clsx from "clsx";
 
 export interface RadioBoxProps extends Omit<UiKitRadioProps, "onSelect"> {
   onSelect: (value: string) => void;
@@ -13,9 +14,11 @@ export interface RadioBoxProps extends Omit<UiKitRadioProps, "onSelect"> {
 }
 
 export const RadioBox: React.FC<RadioBoxProps> = ({ subtitle, ...rest }) => {
+  const radioProps = getRadioPropsFromRadioBoxProps(rest);
+
   return (
-    <div className="radio-box">
-      <UiKitRadio {...getRadioPropsFromRadioBoxProps(rest)} />
+    <div className={clsx("radio-box", radioProps.checked && "selected")}>
+      <UiKitRadio {...radioProps} classNames={{ container: "!mb-0" }} />
       {subtitle && <Text>{subtitle}</Text>}
     </div>
   );

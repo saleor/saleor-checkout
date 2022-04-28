@@ -11,16 +11,6 @@ html {
 }
 
 @layer components {
-  /* Icon class to keep icon sizes unified */
-  .icon {
-    @apply h-5 w-5;
-  }
-
-  /* Icon Button
-  .icon-button {
-    @apply icon outline-none focus:outline-none active:outline-none;
-  } */
-
   /* Checkbox */
   .checkbox {
     @apply flex flex-row mb-4;
@@ -102,12 +92,20 @@ html {
     @apply w-full;
   }
 
-  .radio-box-group div.radio-box:last-of-type {
+  .radio-box-group .radio-box:last-of-type {
     @apply border-b border-border-primary;
   }
 
   .radio-box {
     @apply box-content py-6 px-6 flex flex-row items-start border-x border-t border-border-primary;
+  }
+
+  .radio-box-group div.radio-box.selected {
+    @apply border border-border-active;
+  }
+
+  div.radio-box.selected + div.radio-box {
+    @apply border-t-0;
   }
 
   .address-radio-box {
