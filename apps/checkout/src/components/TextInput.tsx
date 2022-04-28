@@ -1,13 +1,6 @@
-import clsx from "clsx";
-import React, {
-  AllHTMLAttributes,
-  ForwardedRef,
-  forwardRef,
-  useEffect,
-  useId,
-  useState,
-} from "react";
+import React, { AllHTMLAttributes } from "react";
 import { Classes } from "@/lib/globalTypes";
+import { TextInput as UiKitTextInput } from "@saleor/ui-kit";
 import {
   Control,
   FieldPath,
@@ -16,7 +9,6 @@ import {
   useWatch,
 } from "react-hook-form";
 import { ControlFormData } from "@/hooks/useGetInputProps";
-import { Label } from "./Label";
 
 export interface TextInputProps<
   TControl extends Control<any, any>,
@@ -35,90 +27,20 @@ export interface TextInputProps<
   icon?: React.ReactNode;
 }
 
-const TextInputComponent = <
+export const TextInput = <
   TControl extends Control<any, any>,
   TFormData extends ControlFormData<TControl>
 >(
-  props: TextInputProps<TControl, TFormData>,
-  ref: ForwardedRef<HTMLInputElement>
+  props: TextInputProps<TControl, TFormData>
 ) => {
-  const {
-    label,
-    optional = false,
-    errors,
-    className,
-    onChange,
-    onBlur,
-    name,
-    control,
-    icon,
-    type,
-  } = props;
-
-  const id = useId();
-
-  const [labelFixed, setLabelFixed] = useState(false);
-
-  const error = errors[name as keyof typeof errors];
+  const { name, control, optional, errors, ...rest } = props;
 
   const value = useWatch({
     control,
     name,
   });
 
-  useEffect(() => {
-    if (!labelFixed && value) {
-      setLabelFixed(true);
-    }
-  }, [value, labelFixed]);
-
-  const inputClasses = clsx("text-input", {
-    "text-input-error": !!error,
-  });
-
-  const labelClasses = clsx("text-input-label", {
-    "text-input-filled-label": labelFixed,
-  });
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLabelFixed(!!event.target.value);
-    onChange(event);
-  };
-
-  const errorId = `${id} ${name} error`;
-
   return (
-    <div className={clsx("text-input-container", className)}>
-      <input
-        type={type}
-        id={id}
-        name={name}
-        ref={ref}
-        className={inputClasses}
-        onBlur={onBlur}
-        onChange={handleChange}
-        aria-label={name}
-        aria-describedby={errorId}
-      />
-      <Label htmlFor={id} className={labelClasses}>
-        {optional ? label : `${label}*`}
-      </Label>
-      {error && (
-        <span id={errorId} className="text-xs text-text-error">
-          {/* react-hook-form has this typed badly */}
-          {(error as any).message}
-        </span>
-      )}
-      <div className="absolute top-0 right-0">{icon}</div>
-    </div>
+    <UiKitTextInput {...rest} name={name} value={value} required={!optional} />
   );
 };
-
-export const TextInput = forwardRef(TextInputComponent) as <
-  TControl extends Control<any, any>,
-  TFormData extends ControlFormData<TControl>
->(
-  props: TextInputProps<TControl, TFormData> & {
-    ref?: ForwardedRef<HTMLInputElement>;
-  }
-) => ReturnType<typeof TextInputComponent>;

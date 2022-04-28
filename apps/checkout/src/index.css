@@ -11,74 +11,10 @@ html {
 }
 
 @layer components {
-  /* Checkbox */
-  .checkbox {
-    @apply flex flex-row mb-4;
-  }
+  /* Password Input */
 
-  .checkbox [type="checkbox"] {
-    @apply opacity-0 absolute z-10;
-  }
-
-  .checkbox [type="checkbox"]:checked + .checkbox-input {
-    @apply border-border-active;
-  }
-
-  .checkbox .checkbox-input:hover {
-    @apply border-border-active;
-  }
-
-  .checkbox [type="checkbox"]:checked + .checkbox-input img {
-    @apply opacity-100;
-  }
-
-  .checkbox .checkbox-input {
-    @apply icon border border-border-primary absolute top-0 left-0 z-50;
-  }
-
-  .checkbox .checkbox-input img {
-    @apply opacity-0;
-  }
-
-  /* Test Input */
-
-  .text-input-container {
-    @apply relative mb-4;
-  }
-
-  .text-input {
-    transition: border 0.2s ease-in-out;
-    height: 56px;
-    padding-left: 11px;
-    @apply input text-text-primary text-base border border-border-primary appearance-none w-full focus:border-border-active focus:outline-none active:outline-none active:border-border-primary pb-1 pt-5;
-  }
-
-  .text-input-error {
-    @apply border-border-error mb-2;
-  }
-
-  .input:focus.text-input-error {
-    @apply border-border-error mb-2;
-  }
-
-  .text-input-label {
-    transition: all 0.2s ease-out;
-    @apply absolute top-4 left-0 text-text-secondary text-base ml-3;
-  }
-
-  .text-input-filled-label {
-    transition: all 0.2s ease-out;
-    top: 0.6rem;
-    @apply text-sm;
-  }
-
-  .input:focus + .text-input-label,
-  .input:active + .text-input-label {
-    @apply text-input-filled-label;
-  }
-
-  .text-input-container .icon {
-    @apply absolute right-0 top-4 right-4 h-full;
+  .password-input-icon {
+    @apply absolute top-0 right-0 h-14 pr-4 flex justify-center items-center;
   }
 
   /* Divider */
