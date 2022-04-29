@@ -60,6 +60,7 @@
   "dependencies": {
     "@headlessui/react": "1.6.0",
     "clsx": "^1.1.1",
-    "rollup": "^2.70.2"
+    "rollup": "^2.70.2",
+    "tslib": "^2.4.0"
   }
 }
