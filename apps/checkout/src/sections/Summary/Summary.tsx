@@ -11,6 +11,8 @@ import clsx from "clsx";
 import { useCheckout } from "@/hooks/useCheckout";
 import { compact } from "lodash-es";
 
+import { getTaxPercentage } from "./utils";
+
 export const Summary = () => {
   const [isOpen, setOpen] = useState(true);
   const { checkout } = useCheckout();
@@ -19,14 +21,7 @@ export const Summary = () => {
 
   const totalPrice = checkout?.totalPrice?.gross;
   const taxCost = checkout?.totalPrice?.tax;
-
-  const getTaxPercentage = (): number => {
-    if (!totalPrice || !taxCost) {
-      return 0;
-    }
-
-    return taxCost?.amount / totalPrice?.amount;
-  };
+  const taxPercentage = getTaxPercentage(taxCost, totalPrice);
 
   return (
     <div className="summary">
@@ -73,7 +68,7 @@ export const Summary = () => {
           <div className="summary-row">
             <Text color="secondary">
               {formatMessage("taxCost", {
-                taxPercentage: getTaxPercentage(),
+                taxPercentage,
               })}
             </Text>
             <Money color="secondary" money={taxCost} />

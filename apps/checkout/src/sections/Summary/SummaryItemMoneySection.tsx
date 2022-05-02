@@ -48,7 +48,9 @@ export const SummaryItemMoneySection: React.FC<
           })}
         />
       </div>
-      <Text>qty: {line.quantity}</Text>
+      <Text>
+        qty: <b>{line.quantity}</b>
+      </Text>
       {multiplePieces && (
         <Text
           ariaLabel={formatMessage("singlePiecePriceLabel")}

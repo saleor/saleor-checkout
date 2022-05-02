@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { Text } from "@/components/Text";
-import { useOrder } from "@/hooks/useOrder";
 import {
   AddressFragment,
   OrderFragment,
@@ -29,19 +28,16 @@ const PaymentSection = ({
     if (["CANCELLED", "NOT_CHARGED", "REFUSED"].includes(paymentStatus)) {
       return (
         <>
-          <Text color="success">We've received your payment</Text>
-          <Text color="secondary">Paid with credit card</Text>
+          <Text color="error">
+            The order has not been paid for. If you ordered a payment - check
+            for the confirmation
+          </Text>
         </>
       );
     }
 
     if (isPaid || ["FULLY_CHARGED", "PENDING"].includes(paymentStatus)) {
-      return (
-        <>
-          <Text color="success">We've received your payment</Text>
-          <Text color="secondary">Paid with credit card</Text>
-        </>
-      );
+      return <Text color="success">We've received your payment</Text>;
     }
 
     // TODO: Add support for partial payments
@@ -108,12 +104,13 @@ const DeliverySection = ({
   );
 };
 
-export const OrderDataSummary = () => {
-  const { order } = useOrder();
-
+export const OrderDataSummary = ({ order }: { order: OrderFragment }) => {
   return (
     <section className="flex-grow">
-      <PaymentSection />
+      <PaymentSection
+        isPaid={order.isPaid}
+        paymentStatus={order.paymentStatus}
+      />
       <DeliverySection deliveryMethod={order.deliveryMethod} />
       <Section>
         <SectionTitle>Shipping address</SectionTitle>
