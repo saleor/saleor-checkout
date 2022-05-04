@@ -42,6 +42,7 @@ export const Root = () => {
           <AppConfigProvider>
             <ErrorsProvider>
               <div className="app">
+                {/* @ts-ignore */}
                 <ErrorBoundary FallbackComponent={PageNotFound}>
                   {orderToken ? (
                     <OrderConfirmed orderToken={orderToken} />
