@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Text } from "@/components/Text";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
 import { SummaryItem } from "./SummaryItem";
-import { CheckoutLine } from "@/graphql";
 import { Divider } from "@/components/Divider";
 import { Money } from "@/components/Money";
 import { ChevronDownIcon } from "@/icons";
@@ -30,7 +29,6 @@ export const Summary = () => {
           <Text size="lg" weight="bold">
             {formatMessage("summary")}
           </Text>
-
           <img
             src={ChevronDownIcon}
             alt="chevron-down"
@@ -52,7 +50,7 @@ export const Summary = () => {
         <div className="w-full h-12" />
         <ul className="summary-items">
           {compact(checkout?.lines)?.map((line) => (
-            <SummaryItem line={line as CheckoutLine} key={line?.id} />
+            <SummaryItem line={line} key={line?.id} />
           ))}
         </ul>
         <div className="summary-recap">

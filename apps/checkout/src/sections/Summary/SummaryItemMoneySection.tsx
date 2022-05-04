@@ -1,22 +1,20 @@
 import { Text } from "@/components/Text";
-import { OrderLine } from "@/graphql";
+import { OrderLineFragment } from "@/graphql";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
 import { useFormattedMoney } from "@/hooks/useFormattedMoney";
 import { Money } from "@/components/Money";
 import clsx from "clsx";
 
 interface LineItemQuantitySelectorProps {
-  line: OrderLine;
+  line: OrderLineFragment;
 }
 
 export const SummaryItemMoneySection: React.FC<
   LineItemQuantitySelectorProps
 > = ({ line }) => {
-  const {
-    variant: { id: variantId, pricing },
-  } = line;
-
-  const piecePrice = pricing?.price?.gross;
+  const onSale =
+    line.undiscountedUnitPrice.gross.amount !== line.unitPrice.gross.amount;
+  const piecePrice = line.unitPrice.gross;
   const formatMessage = useFormattedMessages();
   const formattedPiecePrice = useFormattedMoney(piecePrice);
 
@@ -25,13 +23,13 @@ export const SummaryItemMoneySection: React.FC<
   return (
     <div className="flex flex-col items-end">
       <div className="flex flex-row justify-end">
-        {pricing?.onSale && (
+        {onSale && (
           <Money
             ariaLabel={formatMessage("undiscountedPriceLabel")}
             money={{
-              currency: pricing?.priceUndiscounted?.gross.currency as string,
+              currency: line.undiscountedUnitPrice.gross.currency as string,
               amount:
-                (pricing?.priceUndiscounted?.gross.amount || 0) * line.quantity,
+                (line.undiscountedUnitPrice.gross.amount || 0) * line.quantity,
             }}
             className="line-through mr-1"
           />
@@ -44,7 +42,7 @@ export const SummaryItemMoneySection: React.FC<
           }}
           weight="bold"
           className={clsx({
-            "text-text-error": pricing?.onSale,
+            "text-text-error": onSale,
           })}
         />
       </div>

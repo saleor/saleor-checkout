@@ -1,7 +1,7 @@
 import { Text } from "@/components/Text";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
 import { SummaryItem } from "./SummaryItem";
-import { OrderFragment, OrderLine } from "@/graphql";
+import { OrderFragment } from "@/graphql";
 import { Divider } from "@/components/Divider";
 import { Money } from "@/components/Money";
 
@@ -27,7 +27,7 @@ export const FinalizedSummary = ({ order }: { order: OrderFragment }) => {
       <div className="w-full h-12" />
       <ul className="summary-items">
         {order.lines.map((line) => (
-          <SummaryItem key={line.id} line={line as OrderLine} readOnly />
+          <SummaryItem key={line.id} line={line} />
         ))}
       </ul>
       <div className="summary-recap">

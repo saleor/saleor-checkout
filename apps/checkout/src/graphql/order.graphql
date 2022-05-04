@@ -11,30 +11,21 @@ fragment OrderLineFragment on OrderLine {
       ...Money
     }
   }
-  variant {
-    id
-    pricing {
-      onSale
-      price {
-        gross {
-          ...Money
-        }
-      }
-      priceUndiscounted {
-        gross {
-          ...Money
-        }
-      }
+  undiscountedUnitPrice {
+    gross {
+      ...Money
     }
-    name
-    product {
-      name
+  }
+  unitPrice {
+    gross {
+      ...Money
     }
-    media {
-      alt
-      type
-      url(size: 72)
-    }
+  }
+  productName
+  variantName
+  thumbnail {
+    alt
+    url
   }
 }
 

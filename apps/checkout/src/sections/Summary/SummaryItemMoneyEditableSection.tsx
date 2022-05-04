@@ -1,22 +1,22 @@
+import clsx from "clsx";
+import { debounce } from "lodash-es";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+
 import { IconButton } from "@/components/IconButton";
 import { MinusIcon, PlusIcon } from "@/icons";
 import { Text } from "@/components/Text";
-
-import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
-  CheckoutLine,
+  CheckoutLineFragment,
   CheckoutLinesUpdateMutationVariables,
   useCheckoutLinesUpdateMutation,
 } from "@/graphql";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
 import { useFormattedMoney } from "@/hooks/useFormattedMoney";
 import { Money } from "@/components/Money";
-import clsx from "clsx";
 import { getDataWithToken } from "@/lib/utils";
-import { debounce } from "lodash-es";
 
 interface LineItemQuantitySelectorProps {
-  line: CheckoutLine;
+  line: CheckoutLineFragment;
 }
 
 export const SummaryItemMoneyEditableSection: React.FC<

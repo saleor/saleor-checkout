@@ -1,4 +1,4 @@
-import { CheckoutLine } from "@/graphql";
+import { CheckoutLineFragment, OrderLineFragment } from "@/graphql";
 import React from "react";
 import { Text } from "@/components/Text";
 import { SummaryItemMoneySection } from "./SummaryItemMoneySection";
@@ -6,27 +6,27 @@ import { SummaryItemMoneyEditableSection } from "./SummaryItemMoneyEditableSecti
 import { SummaryItemDelete } from "./SummaryItemDelete";
 import { PhotoIcon } from "@/icons";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
+import { isCheckoutLine } from "./utils";
 
 interface LineItemProps {
-  line: CheckoutLine;
-  readOnly?: boolean;
+  line: CheckoutLineFragment | OrderLineFragment;
 }
 
-export const SummaryItem: React.FC<LineItemProps> = ({
-  line,
-  readOnly = false,
-}) => {
-  const {
-    variant: {
-      name: variantName,
-      product: { name: productName },
-      media,
-    },
-  } = line;
+export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
+  const readOnly = !isCheckoutLine(line);
+  const { variantName, productName, productImage } = !readOnly
+    ? {
+        variantName: line.variant.name,
+        productName: line.variant.product.name,
+        productImage: line.variant.media?.find(({ type }) => type === "IMAGE"),
+      }
+    : {
+        variantName: line.variantName,
+        productName: line.productName,
+        productImage: line.thumbnail,
+      };
 
   const formatMessage = useFormattedMessages();
-
-  const productImage = media?.find(({ type }) => type === "IMAGE");
 
   return (
     <li className="flex flex-row px-6 mb-6">
@@ -36,7 +36,7 @@ export const SummaryItem: React.FC<LineItemProps> = ({
           {productImage ? (
             <img
               className="object-contain"
-              alt={productImage?.alt}
+              alt={productImage?.alt || undefined}
               src={productImage?.url}
             />
           ) : (
