@@ -6,7 +6,7 @@ import { DeliverySection } from "./DeliverySection";
 import { PaymentSection } from "./PaymentSection";
 import { Section, SectionTitle } from "./Section";
 
-export const OrderDataSummary = ({ order }: { order: OrderFragment }) => {
+export const OrderInfo = ({ order }: { order: OrderFragment }) => {
   const formatMessage = useFormattedMessages();
 
   return (

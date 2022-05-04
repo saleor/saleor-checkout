@@ -2,7 +2,7 @@ import { Suspense } from "react";
 
 import PageHeader from "@/sections/PageHeader";
 import { FinalizedSummary } from "@/sections/Summary";
-import { OrderDataSummary } from "@/sections/OrderDataSummary";
+import { OrderInfo } from "@/sections/OrderInfo";
 import { SummaryPlaceholder } from "@/sections/Summary/SummaryPlaceholder";
 import { Title } from "@/components/Title";
 import { Text } from "@/components/Text";
@@ -28,7 +28,7 @@ export const OrderConfirmation = ({ orderToken }: { orderToken: string }) => {
       </header>
       <div className="divider" />
       <main className="order-content overflow-hidden">
-        <OrderDataSummary order={order} />
+        <OrderInfo order={order} />
         <div className="order-divider" />
         <Suspense fallback={<SummaryPlaceholder />}>
           <FinalizedSummary order={order} />
