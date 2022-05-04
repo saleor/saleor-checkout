@@ -7,19 +7,23 @@ import { SummaryPlaceholder } from "@/sections/Summary/SummaryPlaceholder";
 import { Title } from "@/components/Title";
 import { Text } from "@/components/Text";
 import { useOrder } from "@/hooks/useOrder";
+import { useFormattedMessages } from "@/hooks/useFormattedMessages";
 
-export const OrderConfirmed = ({ orderToken }: { orderToken: string }) => {
+export const OrderConfirmation = ({ orderToken }: { orderToken: string }) => {
   const { order } = useOrder(orderToken);
+  const formatMessage = useFormattedMessages();
 
   return (
     <div className="page">
       <header className="order-header">
         <PageHeader />
-        <Title>Order #{order.number} confirmed</Title>
+        <Title>
+          {formatMessage("orderConfirmationTitle", { number: order.number })}
+        </Title>
         <Text size="md" className="max-w-[692px]">
-          Thank you for placing your order. We’ve received it and we will
-          contact you as soon as your package is shipped. A confirmation email
-          has been sent to {order.userEmail}
+          {formatMessage("orderConfirmationSubtitle", {
+            email: order.userEmail!,
+          })}
         </Text>
       </header>
       <div className="divider" />
