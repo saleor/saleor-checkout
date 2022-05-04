@@ -1,4 +1,4 @@
-import React, { AllHTMLAttributes } from "react";
+import React, { AllHTMLAttributes, ForwardedRef, forwardRef } from "react";
 import { Classes } from "@/lib/globalTypes";
 import { TextInput as UiKitTextInput } from "@saleor/ui-kit";
 import {
@@ -27,7 +27,7 @@ export interface TextInputProps<
   icon?: React.ReactNode;
 }
 
-export const TextInput = <
+const TextInputComponent = <
   TControl extends Control<any, any>,
   TFormData extends ControlFormData<TControl>
 >(
@@ -44,3 +44,12 @@ export const TextInput = <
     <UiKitTextInput {...rest} name={name} value={value} required={!optional} />
   );
 };
+
+export const TextInput = forwardRef(TextInputComponent) as <
+  TControl extends Control<any, any>,
+  TFormData extends ControlFormData<TControl>
+>(
+  props: TextInputProps<TControl, TFormData> & {
+    ref?: ForwardedRef<HTMLInputElement>;
+  }
+) => ReturnType<typeof TextInputComponent>;
