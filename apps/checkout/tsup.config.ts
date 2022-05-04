@@ -23,12 +23,11 @@ const handleStyleInjection = (css: string, digest: string) => {
 
 export default defineConfig({
   entry: ["src/Checkout.tsx"],
-  format: ["cjs", "esm"],
-  // external: ["react", "graphql", "lodash-es"],
-  external: ["react"],
+  format: ["esm"],
+  noExternal: ["react", "react-dom", "@saleor/sdk"],
   dts: true,
   inject: ["./react-import.ts"],
-  // esbuildPlugins: [envLoadPlugin()],
+  replaceNodeEnv: true,
   esbuildPlugins: [
     cssModulesPlugin({
       inject: handleStyleInjection,

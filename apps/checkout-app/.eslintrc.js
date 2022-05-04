@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ["../../packages/config/eslint-preset", "next"],
+  extends: ["next/babel", "../../packages/config/eslint-preset", "next"],
 };

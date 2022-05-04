@@ -23,7 +23,8 @@ module.exports = withTM({
   },
   experimental: {
     // esmExternals: false,
-    esmExternals: "loose",
+    // esmExternals: "loose",
+    esmExternals: true,
   },
   webpack: (config, options) => {
     config.resolve = {

@@ -2,7 +2,7 @@ import "@/index.css";
 import PageHeader from "@/sections/PageHeader";
 import { Summary } from "@/sections/Summary";
 import { CheckoutForm } from "@/sections/CheckoutForm";
-import { Suspense, useMemo } from "react";
+import { Suspense, useEffect, useMemo, useRef } from "react";
 import { SummaryPlaceholder } from "@/sections/Summary/SummaryPlaceholder";
 import { PageNotFound } from "@/sections/PageNotFound";
 import { ErrorBoundary } from "react-error-boundary";
@@ -13,6 +13,7 @@ import { ErrorsProvider } from "@/providers/ErrorsProvider";
 import { createSaleorClient, SaleorProvider } from "@saleor/sdk";
 import { EnvVars, envVars as configEnvVars } from "@/lib/utils";
 import { EnvProvider } from "./providers/EnvProvider";
+import { createRoot } from "react-dom/client";
 
 interface CheckoutProps {
   envVars?: EnvVars;
@@ -70,4 +71,12 @@ export const Checkout: React.FC<CheckoutProps> = ({
       </SaleorProvider>
     </EnvProvider>
   );
+};
+
+export const renderCheckout = (
+  container: Element | DocumentFragment,
+  props: CheckoutProps
+) => {
+  const root = createRoot(container);
+  root.render(<Checkout {...props} />);
 };

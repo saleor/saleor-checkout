@@ -24,8 +24,9 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { MetadataErrorFragment } from "@/graphql";
 import { getMetadataErrorMessage } from "@/frontend/misc/errors";
 import ErrorAlert from "../../elements/ErrorAlert";
-import { Checkout } from "checkout/dist/Checkout";
+import { renderCheckout } from "checkout/dist/Checkout";
 import { API_URL, APP_URL } from "@/constants";
+import { useEffect, useRef } from "react";
 
 interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
@@ -46,6 +47,21 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
 }) => {
   const classes = useStyles();
   const { control, handleSubmit: handleSubmitForm, formState } = useForm();
+  const checkoutRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (checkoutRef.current && typeof location !== "undefined") {
+      renderCheckout(checkoutRef.current, {
+        location,
+        envVars: {
+          apiUrl: API_URL,
+          checkoutAppUrl: APP_URL,
+          configAppUrl: `${APP_URL}/api`,
+          devCheckoutToken: process.env.SALEOR_APP_TOKEN!,
+        },
+      });
+    }
+  }, [checkoutRef, typeof location !== "undefined"]);
 
   const handleSubmit = (flattenedSettings: Record<string, string>) => {
     onSubmit(
@@ -119,17 +135,7 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
           <div className={classes.designPreview}>
             Customization
             <br />
-            {typeof location !== "undefined" && (
-              <Checkout
-                location={location}
-                envVars={{
-                  apiUrl: API_URL,
-                  checkoutAppUrl: APP_URL,
-                  configAppUrl: APP_URL,
-                  devCheckoutToken: process.env.SALEOR_APP_TOKEN!,
-                }}
-              />
-            )}
+            <div ref={checkoutRef} />
           </div>
         </div>
       </div>

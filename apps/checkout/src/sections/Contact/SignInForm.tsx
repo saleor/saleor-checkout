@@ -20,6 +20,7 @@ import { useGetInputProps } from "@/hooks/useGetInputProps";
 import { object, string, ValidationError } from "yup";
 import { useErrorMessages } from "@/hooks/useErrorMessages";
 import { useEffect } from "react";
+import { useEnvContext } from "@/providers/EnvProvider";
 
 type SignInFormProps = Pick<SignInFormContainerProps, "onSectionChange">;
 
@@ -38,6 +39,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
     setValue: setContextValue,
     ...contextPropsRest
   } = useFormContext();
+  const envContext = useEnvContext();
 
   const schema = object({
     password: string().required(errorMessages.requiredValue),
@@ -71,7 +73,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
 
       requestPasswordReset({
         email,
-        redirectUrl: getCurrentHref(),
+        redirectUrl: getCurrentHref(envContext.location),
       });
     } catch (error) {
       const { path, type, message } = extractValidationError(

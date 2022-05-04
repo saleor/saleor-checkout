@@ -4,6 +4,7 @@ import { useErrorMessages } from "@/hooks/useErrorMessages";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
 import { useGetInputProps } from "@/hooks/useGetInputProps";
 import { getQueryVariables, useValidationResolver } from "@/lib/utils";
+import { useEnvContext } from "@/providers/EnvProvider";
 import { useAuth } from "@saleor/sdk";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -25,6 +26,7 @@ export const ResetPassword: React.FC<ResetPasswordProps> = ({
   const formatMessage = useFormattedMessages();
   const { errorMessages } = useErrorMessages();
   const { setPassword } = useAuth();
+  const envContext = useEnvContext();
 
   const schema = object({
     password: string().required(errorMessages.requiredValue),
@@ -35,7 +37,9 @@ export const ResetPassword: React.FC<ResetPasswordProps> = ({
   const getInputProps = useGetInputProps(rest);
 
   const onSubmit = ({ password }: FormData) => {
-    const { email, passwordResetToken } = getQueryVariables();
+    const { email, passwordResetToken } = getQueryVariables(
+      envContext.location
+    );
 
     setPassword({
       password,
