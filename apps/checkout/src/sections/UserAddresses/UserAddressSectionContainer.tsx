@@ -30,7 +30,11 @@ export const UserAddressSectionContainer: React.FC<
             }}
           >
             {countries.map(({ name, code }) => (
-              <option value={code} selected={selectedCountryCode === code}>
+              <option
+                key={code}
+                value={code}
+                selected={selectedCountryCode === code}
+              >
                 {name}
               </option>
             ))}
