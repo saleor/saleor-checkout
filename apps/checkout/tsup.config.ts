@@ -26,7 +26,6 @@ export default defineConfig({
   format: ["esm"],
   noExternal: ["react", "react-dom", "@saleor/sdk"],
   dts: true,
-  inject: ["./react-import.ts"],
   replaceNodeEnv: true,
   esbuildPlugins: [
     cssModulesPlugin({
