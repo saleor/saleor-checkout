@@ -31,7 +31,8 @@ const TextInputComponent = <
   TControl extends Control<any, any>,
   TFormData extends ControlFormData<TControl>
 >(
-  props: TextInputProps<TControl, TFormData>
+  props: TextInputProps<TControl, TFormData>,
+  ref: ForwardedRef<HTMLInputElement>
 ) => {
   const { name, control, optional, errors, ...rest } = props;
 
@@ -41,7 +42,13 @@ const TextInputComponent = <
   });
 
   return (
-    <UiKitTextInput {...rest} name={name} value={value} required={!optional} />
+    <UiKitTextInput
+      ref={ref}
+      {...rest}
+      name={name}
+      value={value}
+      required={!optional}
+    />
   );
 };
 
