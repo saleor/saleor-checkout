@@ -11,6 +11,15 @@ html {
 }
 
 @layer components {
+  /* Skeleton */
+  .skeleton {
+    @apply min-h-3 w-full bg-skeleton mb-2;
+  }
+
+  .skeleton-box {
+    @apply border border-skeleton pt-6 pb-4 px-6;
+  }
+
   /* Password Input */
 
   .password-input-icon {
