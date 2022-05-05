@@ -1,4 +1,11 @@
-import { Ref, ReactNode, InputHTMLAttributes, useId, forwardRef } from "react";
+import {
+  Ref,
+  ReactNode,
+  InputHTMLAttributes,
+  useId,
+  forwardRef,
+  MouseEvent,
+} from "react";
 import clsx from "clsx";
 
 import styles from "./Checkbox.module.css";
@@ -7,7 +14,11 @@ import { Label } from "../Label";
 import { ClassNames } from "@lib/globalTypes";
 
 export interface CheckboxProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "className"> {
+  extends Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    "className" | "onChange"
+  > {
+  onChange: (event: MouseEvent<HTMLDivElement>) => void;
   label?: string | ReactNode;
   classNames?: ClassNames<
     "container" | "inputContainer" | "input" | "checkbox" | "label"
@@ -16,25 +27,22 @@ export interface CheckboxProps
 
 export const Checkbox = forwardRef(
   (
-    { label, checked, value, classNames, ...rest }: CheckboxProps,
+    { label, checked, value, classNames, onChange, ...rest }: CheckboxProps,
     ref: Ref<HTMLInputElement>
   ) => {
     const id = rest?.id || useId();
 
     return (
       <div className={clsx(styles.checkbox, classNames?.container)}>
-        <div
-          className={clsx(styles["box"], {
-            [styles["box-static"]]: !label,
-          })}>
+        <div className={clsx(styles["box"], "select-none")} onClick={onChange}>
           <input
             ref={ref}
-            type='checkbox'
+            {...rest}
+            type="checkbox"
             value={value}
-            checked={checked}
+            checked={!!checked}
             id={id}
             className={classNames?.input}
-            {...rest}
           />
           <div className={clsx(styles["checkbox-input"], classNames?.checkbox)}>
             <CheckIcon />
