@@ -24,9 +24,18 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { MetadataErrorFragment } from "@/graphql";
 import { getMetadataErrorMessage } from "@/frontend/misc/errors";
 import ErrorAlert from "../../elements/ErrorAlert";
-import { renderCheckout } from "checkout/dist/Checkout";
+import { Checkout, renderCheckout } from "@checkout";
 import { API_URL, APP_URL } from "@/constants";
 import { useEffect, useRef } from "react";
+import React from "react";
+import { createSaleorClient, SaleorProvider } from "@saleor/sdk";
+
+// temporarily need to use @apollo/client because saleor sdk
+// is based on apollo. to be changed
+const saleorClient = createSaleorClient({
+  apiUrl: API_URL,
+  channel: "default-channel",
+});
 
 interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
@@ -51,15 +60,34 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
 
   useEffect(() => {
     if (checkoutRef.current && typeof location !== "undefined") {
-      renderCheckout(checkoutRef.current, {
-        location,
-        envVars: {
-          apiUrl: API_URL,
-          checkoutAppUrl: APP_URL,
-          configAppUrl: `${APP_URL}/api`,
-          devCheckoutToken: process.env.SALEOR_APP_TOKEN!,
-        },
-      });
+      let shadowRoot = checkoutRef.current.shadowRoot;
+      if (!shadowRoot) {
+        shadowRoot = checkoutRef.current.attachShadow({ mode: "open" });
+      }
+      // renderCheckoutComponent(shadowRoot, {
+      //   location,
+      //   envVars: {
+      //     apiUrl: API_URL,
+      //     checkoutAppUrl: APP_URL,
+      //     configAppUrl: `${APP_URL}/api`,
+      //     devCheckoutToken: process.env.SALEOR_APP_TOKEN!,
+      //   },
+      // });
+      renderCheckout(
+        shadowRoot,
+        /* @ts-ignore because saleor provider still uses react types 17 where children are part of FC type */
+        <SaleorProvider client={saleorClient}>
+          <Checkout
+            location={location}
+            envVars={{
+              apiUrl: API_URL,
+              checkoutAppUrl: APP_URL,
+              configAppUrl: `${APP_URL}/api`,
+              devCheckoutToken: process.env.SALEOR_APP_TOKEN!,
+            }}
+          />
+        </SaleorProvider>
+      );
     }
   }, [checkoutRef, typeof location !== "undefined"]);
 
