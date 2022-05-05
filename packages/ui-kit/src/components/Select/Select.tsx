@@ -13,7 +13,7 @@ export interface Option<TData extends string = string> {
   [key: string]: unknown;
 }
 
-export type SelectOnChangeHandler = <TData extends string = string>(
+export type SelectOnChangeHandler<TData extends string = string> = (
   value: TData
 ) => void;
 
@@ -31,7 +31,7 @@ export interface SelectProps<TData extends string = string> {
     | "optionIcon"
     | "option"
   >;
-  onChange: SelectOnChangeHandler;
+  onChange: SelectOnChangeHandler<TData>;
 }
 
 export const Select = <TData extends string = string>({

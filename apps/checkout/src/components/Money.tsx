@@ -16,6 +16,7 @@ export interface MoneyProps<TMoney extends MoneyType>
 export const Money = <TMoney extends MoneyType>({
   money,
   className,
+  ariaLabel,
   ...textProps
 }: MoneyProps<TMoney>) => {
   const formattedMoney = useFormattedMoney(money);
@@ -25,7 +26,11 @@ export const Money = <TMoney extends MoneyType>({
   }
 
   return (
-    <Text {...textProps} className={clsx("money", className)}>
+    <Text
+      {...textProps}
+      aria-label={ariaLabel}
+      className={clsx("money", className)}
+    >
       {formattedMoney}
     </Text>
   );

@@ -52,12 +52,12 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
         <div className="flex flex-col">
           <Text
             weight="bold"
-            ariaLabel={formatMessage("itemNameLabel")}
+            aria-label={formatMessage("itemNameLabel")}
             className="mb-2"
           >
             {productName}
           </Text>
-          <Text ariaLabel={formatMessage("variantNameLabel")}>
+          <Text aria-label={formatMessage("variantNameLabel")}>
             {variantName}
           </Text>
         </div>

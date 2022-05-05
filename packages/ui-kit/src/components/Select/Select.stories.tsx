@@ -1,22 +1,18 @@
 import { useState, useEffect } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { SelectProps, Select, Option } from "./Select";
+import { Select } from "./Select";
 
 export default {
   title: "Components/Select",
   component: Select,
 } as ComponentMeta<typeof Select>;
 
-type CountryCode = "LOL" | "NOM" | "FOO";
-
-const Template = ({
+const Template: ComponentStory<typeof Select> = ({
   selectedValue: propsSelectedValue,
   ...args
-}: SelectProps<CountryCode>) => {
-  const [selectedValue, setSelectedValue] = useState<CountryCode>(
-    propsSelectedValue as CountryCode
-  );
+}) => {
+  const [selectedValue, setSelectedValue] = useState(propsSelectedValue);
 
   useEffect(() => {
     setSelectedValue(selectedValue);
@@ -25,25 +21,13 @@ const Template = ({
   return (
     <div className="w-[440px]">
       <Select
-        classNames={{ container: "border border-border-active" }}
-        options={lols}
+        {...args}
         selectedValue={selectedValue}
         onChange={setSelectedValue}
       />
     </div>
   );
 };
-
-const lols: Option<CountryCode>[] = [
-  {
-    label: "lol",
-    value: "LOL",
-  },
-  {
-    label: "nom",
-    value: "NOM",
-  },
-];
 
 const users = [
   { label: "Durward Reynolds", value: "Durward Reynolds", id: "1" },
