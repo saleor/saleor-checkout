@@ -1,7 +1,10 @@
 import { Divider } from "@/components/Divider";
 import { useCheckout } from "@/hooks/useCheckout";
 import { Contact, ContactSkeleton } from "@/sections/Contact";
-import { ShippingMethods } from "@/sections/ShippingMethods";
+import {
+  ShippingMethods,
+  ShippingMethodsSkeleton,
+} from "@/sections/ShippingMethods";
 import { Addresses, AddressesSkeleton } from "@/sections/Addresses";
 import { useErrorMessages } from "@/hooks/useErrorMessages";
 import { useValidationResolver } from "@/lib/utils";
@@ -17,14 +20,9 @@ import { useAuthState } from "@saleor/sdk";
 export const CheckoutForm = () => {
   const formatMessage = useFormattedMessages();
   const { errorMessages } = useErrorMessages();
-<<<<<<< HEAD
-  const { checkout } = useCheckout();
-  const { checkoutFinalize, submitting } = useCheckoutFinalize();
-=======
   const { checkout, loading } = useCheckout();
   const { authenticating } = useAuthState();
-  const { checkoutFinalize } = useCheckoutFinalize();
->>>>>>> Add contact skeleton
+  const { checkoutFinalize, submitting } = useCheckoutFinalize();
 
   const isLoading = loading || authenticating;
 
@@ -66,21 +64,24 @@ export const CheckoutForm = () => {
       <Suspense fallback={<AddressesSkeleton />}>
         <Addresses />
       </Suspense>
-      <Suspense fallback="loading...">
-        <ShippingMethods />
+      <Suspense fallback={<ShippingMethodsSkeleton />}>
+        {isLoading ? <ShippingMethodsSkeleton /> : <ShippingMethods />}
       </Suspense>
       {/* TMP */}
       {/* <PaymentProviders
             onSelect={setSelectedPaymentProvider}
             selectedValue={selectedPaymentProvider}
           /> */}
-      <Button
-        ariaLabel={formatMessage("finalizeCheckoutLabel")}
-        label="Pay"
-        onClick={handleSubmit}
-        disabled={payButtonDisabled}
-        className="min-w-28 mb-14"
-      />
+      {isLoading ? (
+        <Button ariaLabel={formatMessage("finalizeCheckoutLabel")} label="" />
+      ) : (
+        <Button
+          ariaLabel={formatMessage("finalizeCheckoutLabel")}
+          label="Pay"
+          onClick={handleSubmit}
+          className="min-w-28"
+        />
+      )}
     </div>
   );
 };

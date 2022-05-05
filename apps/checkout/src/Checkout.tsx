@@ -6,13 +6,16 @@ import { SummarySkeleton } from "@/sections/Summary/SummarySkeleton";
 import { PageNotFound } from "@/sections/PageNotFound";
 import { ErrorBoundary } from "react-error-boundary";
 import { useCheckout } from "./hooks/useCheckout";
+import { useAuthState } from "@saleor/sdk";
 
 export const Checkout = () => {
   const { checkout, loading } = useCheckout();
+  const { authenticating } = useAuthState();
 
-  const isCheckoutInvalid = !loading && !checkout;
+  const isCheckoutInvalid = !loading && !checkout && !authenticating;
 
-  console.log({ isCheckoutInvalid });
+  const isLoading = loading || authenticating;
+
   return (
     <div className="app">
       {isCheckoutInvalid ? (
@@ -26,7 +29,7 @@ export const Checkout = () => {
               <CheckoutForm />
               <div className="page-divider" />
               <Suspense fallback={<SummarySkeleton />}>
-                <Summary />
+                {isLoading ? <SummarySkeleton /> : <Summary />}
               </Suspense>
             </div>
           </div>
