@@ -24,8 +24,8 @@ import { defineConfig } from "tsup";
 export default defineConfig({
   entry: ["src/Checkout.tsx"],
   format: ["esm"],
-  external: ["@saleor/sdk", "urql"],
-  noExternal: ["react", "react-dom"],
+  external: ["urql"],
+  noExternal: ["react", "react-dom", "@saleor/sdk"],
   dts: true,
   replaceNodeEnv: true,
   clean: true,
