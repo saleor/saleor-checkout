@@ -12,6 +12,7 @@ export const Checkout = () => {
 
   const isCheckoutInvalid = !loading && !checkout;
 
+  console.log({ isCheckoutInvalid });
   return (
     <div className="app">
       {isCheckoutInvalid ? (

@@ -1,9 +1,8 @@
 import { Divider } from "@/components/Divider";
 import { useCheckout } from "@/hooks/useCheckout";
-import { Contact } from "@/sections/Contact";
+import { Contact, ContactSkeleton } from "@/sections/Contact";
 import { ShippingMethods } from "@/sections/ShippingMethods";
-import { Addresses } from "@/sections/Addresses";
-import { AddressesSkeleton } from "@/sections/Addresses/AddressesSkeleton";
+import { Addresses, AddressesSkeleton } from "@/sections/Addresses";
 import { useErrorMessages } from "@/hooks/useErrorMessages";
 import { useValidationResolver } from "@/lib/utils";
 import { Suspense } from "react";
@@ -13,12 +12,21 @@ import { Button } from "@/components/Button";
 import { useCheckoutFinalize } from "./useCheckoutFinalize";
 import { FormData } from "./types";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
+import { useAuthState } from "@saleor/sdk";
 
 export const CheckoutForm = () => {
   const formatMessage = useFormattedMessages();
   const { errorMessages } = useErrorMessages();
+<<<<<<< HEAD
   const { checkout } = useCheckout();
   const { checkoutFinalize, submitting } = useCheckoutFinalize();
+=======
+  const { checkout, loading } = useCheckout();
+  const { authenticating } = useAuthState();
+  const { checkoutFinalize } = useCheckoutFinalize();
+>>>>>>> Add contact skeleton
+
+  const isLoading = loading || authenticating;
 
   // TMP
   // const [selectedPaymentProvider, setSelectedPaymentProvider] =
@@ -52,11 +60,11 @@ export const CheckoutForm = () => {
   return (
     <div className="checkout-form">
       <FormProvider {...methods}>
-        <Contact />
+        {isLoading ? <ContactSkeleton /> : <Contact />}
       </FormProvider>
       <Divider className="mt-4" />
-      <Suspense fallback="loading...">
-        <AddressesSkeleton />
+      <Suspense fallback={<AddressesSkeleton />}>
+        <Addresses />
       </Suspense>
       <Suspense fallback="loading...">
         <ShippingMethods />
