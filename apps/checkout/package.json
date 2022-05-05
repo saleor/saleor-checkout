@@ -10,6 +10,7 @@
     "@react-aria/i18n": "^3.3.4",
     "@react-types/button": "^3.4.1",
     "@saleor/sdk": "^0.4.3",
+    "@saleor/ui-kit": "workspace:*",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",

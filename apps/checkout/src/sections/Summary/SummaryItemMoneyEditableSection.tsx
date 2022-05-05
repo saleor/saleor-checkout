@@ -95,9 +95,8 @@ export const SummaryItemMoneyEditableSection: React.FC<
           onClick={() => {
             setQuantity(quantity - 1);
           }}
-        >
-          <img src={MinusIcon} alt="remove" />
-        </IconButton>
+          icon={<img src={MinusIcon} alt="remove" />}
+        />
         <Text weight="bold" className="mx-3">
           {quantity}
         </Text>
@@ -106,9 +105,8 @@ export const SummaryItemMoneyEditableSection: React.FC<
           onClick={() => {
             setQuantity(quantity + 1);
           }}
-        >
-          <img src={PlusIcon} alt="add" />
-        </IconButton>
+          icon={<img src={PlusIcon} alt="add" />}
+        />
       </div>
       <div className="flex flex-row justify-end">
         {pricing?.onSale && (
@@ -136,7 +134,7 @@ export const SummaryItemMoneyEditableSection: React.FC<
       </div>
       {multiplePieces && (
         <Text
-          ariaLabel={formatMessage("singlePiecePriceLabel")}
+          aria-label={formatMessage("singlePiecePriceLabel")}
           size="sm"
           color="secondary"
           className="ml-4"
