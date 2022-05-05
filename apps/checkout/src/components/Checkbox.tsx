@@ -11,11 +11,5 @@ interface CheckboxProps extends Omit<UiKitCheckboxProps, "onChange"> {
 export const Checkbox: React.FC<CheckboxProps> = ({ onChange, ...rest }) => {
   const { checked } = rest;
 
-  console.log({ ...rest });
-  const handleChange = () => {
-    console.log("CHECKIN");
-    onChange(!checked);
-  };
-
-  return <UiKitCheckbox onChange={handleChange} {...rest} />;
+  return <UiKitCheckbox onChange={() => onChange(!checked)} {...rest} />;
 };
