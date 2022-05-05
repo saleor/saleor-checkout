@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { IconButton } from "@/components/IconButton";
 import { MinusIcon, PlusIcon } from "@/icons";
-import { Text } from "@/components/Text";
+import { Text } from "@saleor/ui-kit";
 import {
   CheckoutLineFragment,
   CheckoutLinesUpdateMutationVariables,
