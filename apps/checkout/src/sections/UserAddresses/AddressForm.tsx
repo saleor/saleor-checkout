@@ -1,5 +1,5 @@
 import { Button } from "@/components/Button";
-import { TextInput } from "@saleor/ui-kitInput";
+import { TextInput } from "@saleor/ui-kit";
 import { CountryCode, useAddressValidationRulesQuery } from "@/graphql";
 import { useErrorMessages } from "@/hooks/useErrorMessages";
 import { MessageKey, useFormattedMessages } from "@/hooks/useFormattedMessages";

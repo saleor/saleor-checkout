@@ -2,7 +2,7 @@ import { useCheckoutEmailUpdateMutation } from "@/graphql";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
 import { getDataWithToken, useValidationResolver } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
-import { TextInput } from "@saleor/ui-kitInput";
+import { TextInput } from "@saleor/ui-kit";
 import { PasswordInput } from "@/components/PasswordInput";
 import {
   SignInFormContainer,
