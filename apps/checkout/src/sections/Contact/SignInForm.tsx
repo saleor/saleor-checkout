@@ -1,6 +1,6 @@
 import { Button } from "@/components/Button";
 import { PasswordInput } from "@/components/PasswordInput";
-import { TextInput } from "@/components/TextInput";
+import { TextInput } from "@saleor/ui-kitInput";
 import { Text } from "@saleor/ui-kit";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
 import { useAuth } from "@saleor/sdk";
