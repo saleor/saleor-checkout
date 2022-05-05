@@ -3,6 +3,7 @@ import { useCheckout } from "@/hooks/useCheckout";
 import { Contact } from "@/sections/Contact";
 import { ShippingMethods } from "@/sections/ShippingMethods";
 import { Addresses } from "@/sections/Addresses";
+import { AddressesSkeleton } from "@/sections/Addresses/AddressesSkeleton";
 import { useErrorMessages } from "@/hooks/useErrorMessages";
 import { useValidationResolver } from "@/lib/utils";
 import { Suspense } from "react";
@@ -55,7 +56,7 @@ export const CheckoutForm = () => {
       </FormProvider>
       <Divider className="mt-4" />
       <Suspense fallback="loading...">
-        <Addresses />
+        <AddressesSkeleton />
       </Suspense>
       <Suspense fallback="loading...">
         <ShippingMethods />
