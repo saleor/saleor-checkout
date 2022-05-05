@@ -5,7 +5,7 @@ module.exports = {
   env: {
     node: true,
   },
-  rules: {
-    "no-require-imports": true,
-  },
+  // rules: {
+  //   "no-require-imports": true,
+  // },
 };
