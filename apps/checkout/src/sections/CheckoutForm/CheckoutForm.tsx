@@ -1,7 +1,10 @@
 import { Divider } from "@/components/Divider";
 import { useCheckout } from "@/hooks/useCheckout";
 import { Contact, ContactSkeleton } from "@/sections/Contact";
-import { ShippingMethods } from "@/sections/ShippingMethods";
+import {
+  ShippingMethods,
+  ShippingMethodsSkeleton,
+} from "@/sections/ShippingMethods";
 import { Addresses, AddressesSkeleton } from "@/sections/Addresses";
 import { useErrorMessages } from "@/hooks/useErrorMessages";
 import { useValidationResolver } from "@/lib/utils";
@@ -56,20 +59,24 @@ export const CheckoutForm = () => {
       <Suspense fallback={<AddressesSkeleton />}>
         <Addresses />
       </Suspense>
-      <Suspense fallback="loading...">
-        <ShippingMethods />
+      <Suspense fallback={<ShippingMethodsSkeleton />}>
+        {isLoading ? <ShippingMethodsSkeleton /> : <ShippingMethods />}
       </Suspense>
       {/* TMP */}
       {/* <PaymentProviders
             onSelect={setSelectedPaymentProvider}
             selectedValue={selectedPaymentProvider}
           /> */}
-      <Button
-        ariaLabel={formatMessage("finalizeCheckoutLabel")}
-        label="Pay"
-        onClick={handleSubmit}
-        className="min-w-28"
-      />
+      {isLoading ? (
+        <Button ariaLabel={formatMessage("finalizeCheckoutLabel")} label="" />
+      ) : (
+        <Button
+          ariaLabel={formatMessage("finalizeCheckoutLabel")}
+          label="Pay"
+          onClick={handleSubmit}
+          className="min-w-28"
+        />
+      )}
     </div>
   );
 };

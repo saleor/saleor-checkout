@@ -13,7 +13,11 @@ html {
 @layer components {
   /* Skeleton */
   .skeleton {
-    @apply min-h-3 w-full bg-skeleton mb-2;
+    @apply min-h-3 bg-skeleton mb-2;
+  }
+
+  .skeleton-horiznontal-spacer {
+    @apply max-w-full;
   }
 
   .skeleton-box {
