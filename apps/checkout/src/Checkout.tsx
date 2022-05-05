@@ -2,7 +2,7 @@ import PageHeader from "@/sections/PageHeader";
 import { Summary } from "@/sections/Summary";
 import { CheckoutForm } from "@/sections/CheckoutForm";
 import { Suspense } from "react";
-import { SummaryPlaceholder } from "@/sections/Summary/SummaryPlaceholder";
+import { SummarySkeleton } from "@/sections/Summary/SummarySkeleton";
 import { PageNotFound } from "@/sections/PageNotFound";
 import { ErrorBoundary } from "react-error-boundary";
 import { useCheckout } from "./hooks/useCheckout";
@@ -23,7 +23,7 @@ export const Checkout = () => {
             <div className="page-content">
               <CheckoutForm />
               <div className="page-divider" />
-              <Suspense fallback={<SummaryPlaceholder />}>
+              <Suspense fallback={<SummarySkeleton />}>
                 <Summary />
               </Suspense>
             </div>

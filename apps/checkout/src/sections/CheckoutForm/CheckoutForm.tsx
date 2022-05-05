@@ -2,7 +2,7 @@ import { Divider } from "@/components/Divider";
 import { useCheckout } from "@/hooks/useCheckout";
 import { Contact } from "@/sections/Contact";
 import { ShippingMethods } from "@/sections/ShippingMethods";
-import { UserAddresses } from "@/sections/UserAddresses";
+import { Addresses } from "@/sections/Addresses";
 import { useErrorMessages } from "@/hooks/useErrorMessages";
 import { useValidationResolver } from "@/lib/utils";
 import { Suspense } from "react";
@@ -50,7 +50,7 @@ export const CheckoutForm = () => {
       </FormProvider>
       <Divider className="mt-4" />
       <Suspense fallback="loading...">
-        <UserAddresses />
+        <Addresses />
       </Suspense>
       <Suspense fallback="loading...">
         <ShippingMethods />

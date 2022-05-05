@@ -9,7 +9,7 @@ import { UserAddressFormData } from "./types";
 import { useCheckoutAddressUpdate } from "./useCheckoutAddressUpdate";
 import { UserAddressSection } from "./UserAddressSection";
 
-export const UserAddresses: React.FC = () => {
+export const Addresses: React.FC = () => {
   const formatMessage = useFormattedMessages();
   const { user: authUser } = useAuthState();
   const { checkout } = useCheckout();
