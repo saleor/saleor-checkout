@@ -49,6 +49,7 @@ export interface PaymentProviderSettings<P extends PaymentProviderID> {
   label: string;
   type: SettingType;
   value?: string;
+  isPublic: boolean;
 }
 export interface PaymentProvider<P extends PaymentProviderID> {
   id: P;

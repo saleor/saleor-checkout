@@ -95,6 +95,10 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
     } as PaymentProviderSettingsValues);
   };
 
+  const containsPrivateSettings = selectedPaymentProvider.settings.some(
+    ({ isPublic }) => !isPublic
+  );
+
   return (
     <form>
       <AppLayout
@@ -121,7 +125,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
             <VerticalSpacer />
             <div className={classes.settings}>
               {selectedPaymentProvider.settings.map(
-                ({ id, type, label, value }) =>
+                ({ id, type, label, value, isPublic }) =>
                   loading ? (
                     <Skeleton key={id} />
                   ) : (
@@ -134,7 +138,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
                         <Setting
                           name={field.name}
                           type={type}
-                          label={label}
+                          label={isPublic ? label : `${label}*`}
                           value={field.value}
                           onChange={field.onChange}
                           onBlur={field.onBlur}
@@ -144,6 +148,14 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
                   )
               )}
             </div>
+            {containsPrivateSettings && (
+              <>
+                <VerticalSpacer />
+                <Typography variant="caption">
+                  <FormattedMessage {...messages.privateSettingNotice} />
+                </Typography>
+              </>
+            )}
           </CardContent>
         </Card>
       </AppLayout>

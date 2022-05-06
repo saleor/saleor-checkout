@@ -35,7 +35,8 @@ const Channel = () => {
 
   const settingsValues = mapMetadataToSettings(
     metadataQuery.data?.app?.metadata || [],
-    "public"
+    "public",
+    true
   );
 
   const [channelsQuery] = useChannelsQuery({

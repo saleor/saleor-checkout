@@ -14,6 +14,7 @@ import {
 } from "@/types/common";
 import reduce from "lodash-es/reduce";
 import { CombinedError } from "urql";
+import { getSettingsPublicAccess } from "@/config/fields";
 
 export function parseJwt(token: string) {
   var base64Url = token.split(".")[1];
@@ -57,28 +58,71 @@ export const unflattenSettings = <T, S extends Node>(
   return unflattenedSettings;
 };
 
+const isSettingPublic = (
+  settingKey: string,
+  subSettingKey: string,
+  settingsPublicAccess?: Record<string, Record<string, boolean> | undefined>
+) => {
+  if (settingsPublicAccess) {
+    return settingsPublicAccess[settingKey]?.[subSettingKey];
+  }
+  return true;
+};
+
+const getPublicSettingsValues = (
+  settingKey: string,
+  subSettings: Record<string, string>,
+  settingsPublicAccess?: Record<string, Record<string, boolean>>
+) => {
+  return reduce(
+    subSettings,
+    (subSettings, subSetting, subSettingKey) => {
+      if (isSettingPublic(settingKey, subSettingKey, settingsPublicAccess)) {
+        return {
+          ...subSettings,
+          [subSettingKey]: subSetting,
+        };
+      }
+      return subSettings;
+    },
+    {} as Record<string, string>
+  );
+};
+
 /**
  * Merges settings. To be used when default and saved settings may differ (e.g. after app update).
- * @param defaultSettings
- * @param savedSettings
+ * @param defaultSettings default settings
+ * @param savedSettings saved settings
+ * @param groupSettingsKey current settings key
+ * @param onlyPublic only return public settings
  * @returns Returns either previously saved settings values or default settings values. If settings values are present in default and saved at the same time, then saved value is returned.
  */
 export const mergeSettingsValues = (
   defaultSettings: UnknownSettingsValues,
-  savedSettings: UnknownSettingsValues
+  savedSettings: UnknownSettingsValues,
+  groupSettingsKey?: SettingID[number],
+  includeSecretSettings?: boolean
 ) => {
   return reduce(
     defaultSettings,
     (result, defaultSetting, settingKey) => {
+      const settingsPublicAccess = getSettingsPublicAccess(groupSettingsKey);
+
       const savedSetting = savedSettings[settingKey];
       const hasSettingInBothSettings = !!savedSetting;
       const udpatedSetting = hasSettingInBothSettings
         ? { ...defaultSetting, ...savedSetting }
         : defaultSetting;
-
+      const setting = includeSecretSettings
+        ? udpatedSetting
+        : getPublicSettingsValues(
+            settingKey,
+            udpatedSetting,
+            settingsPublicAccess
+          );
       return {
         ...result,
-        [settingKey]: udpatedSetting,
+        [settingKey]: setting,
       };
     },
     savedSettings
@@ -87,7 +131,8 @@ export const mergeSettingsValues = (
 
 export const mapMetadataToSettings = <T extends SettingsType>(
   metadata: (MetadataItemFragment | null)[],
-  type: T
+  type: T,
+  includeSecretSettings?: boolean
 ): SettingsValues<T> => {
   const defaultSettings =
     type === "public" ? defaultPublicSettings : defaultPrivateSettings;
@@ -105,7 +150,9 @@ export const mapMetadataToSettings = <T extends SettingsType>(
         ...settings,
         [settingsKey]: mergeSettingsValues(
           settings[settingsKey],
-          metadataItemSettings
+          metadataItemSettings,
+          settingsKey as SettingID[number],
+          includeSecretSettings
         ),
       };
     } catch (e) {

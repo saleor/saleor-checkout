@@ -18,7 +18,7 @@ import { defaultActiveChannelPaymentProviders } from "config/defaults";
 import { mergeChannelsWithPaymentProvidersSettings } from "./utils";
 import { serverEnvVars } from "@/constants";
 
-export const getPrivateSettings = async () => {
+export const getPrivateSettings = async (includeSecretSettings?: boolean) => {
   const { data, error } = await client
     .query<PrivateMetadataQuery, PrivateMetadataQueryVariables>(
       PrivateMetadataDocument,
@@ -36,13 +36,14 @@ export const getPrivateSettings = async () => {
 
   const settingsValues = mapMetadataToSettings(
     data?.app?.privateMetadata || [],
-    "private"
+    "private",
+    includeSecretSettings
   );
 
   return settingsValues;
 };
 
-export const getPublicSettings = async () => {
+export const getPublicSettings = async (includeSecretSettings?: boolean) => {
   const { data, error } = await client
     .query<PublicMetadataQuery, PublicMetadataQueryVariables>(
       PublicMetadataDocument,
@@ -60,14 +61,15 @@ export const getPublicSettings = async () => {
 
   const settingsValues = mapMetadataToSettings(
     data?.app?.metadata || [],
-    "public"
+    "public",
+    includeSecretSettings
   );
 
   return settingsValues;
 };
 
 export const getActivePaymentProvidersSettings = async () => {
-  const settings = await getPublicSettings();
+  const settings = await getPublicSettings(false);
 
   const { data, error } = await client
     .query<ChannelsQuery, ChannelsQueryVariables>(ChannelsDocument)
@@ -88,7 +90,7 @@ export const getActivePaymentProvidersSettings = async () => {
 export const getChannelActivePaymentProvidersSettings = async (
   channelId: string
 ) => {
-  const settings = await getPublicSettings();
+  const settings = await getPublicSettings(false);
 
   const { data, error } = await client
     .query<ChannelQuery, ChannelQueryVariables>(ChannelDocument, {

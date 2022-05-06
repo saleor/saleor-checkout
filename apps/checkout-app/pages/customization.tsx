@@ -28,7 +28,8 @@ const Customization = () => {
 
   const settingsValues = mapMetadataToSettings(
     metadataQuery.data?.app?.metadata || [],
-    "public"
+    "public",
+    true
   );
   const customizationSettings = useCustomizationSettings(
     settingsValues.customizations

@@ -64,3 +64,9 @@ export type PrivateSettingsValues = {
 export type SettingsValues<T extends SettingsType> = T extends "public"
   ? PublicSettingsValues
   : PrivateSettingsValues;
+
+export type PaymentProviderSettingsPublicAccess = {
+  [P in PaymentProviderID]: {
+    [K in PaymentProviderSettingID<P>]: boolean;
+  };
+};

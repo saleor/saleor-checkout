@@ -173,9 +173,10 @@ importers:
       '@urql/exchange-auth': 0.1.7_graphql@16.3.0
       clsx: 1.1.1
       eslint-plugin-react: 7.29.4_eslint@7.32.0
-      eslint-plugin-react-hooks: 4.4.0_eslint@7.32.0
-      graphql: 16.3.0
-      graphql-tag: 2.12.6_graphql@16.3.0
+      eslint-plugin-react-hooks: 4.5.0_eslint@7.32.0
+      graphql: 16.4.0
+      graphql-tag: 2.12.6_graphql@16.4.0
+      json-easy-strip: 1.0.6
       next: 12.1.6_react-dom@17.0.2+react@17.0.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
