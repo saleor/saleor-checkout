@@ -8,6 +8,7 @@ const handler = (_req: NextApiRequest, res: NextApiResponse) => {
     version: version,
     name: APP_NAME,
     permissions: ["MANAGE_APPS"],
+    dashboardPermissions: [],
     appUrl: `${APP_URL}/channels`,
     configurationUrl: `${APP_URL}/channels`,
     tokenTargetUrl: `${APP_URL}/api/register`,

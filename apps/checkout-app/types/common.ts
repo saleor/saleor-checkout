@@ -1,9 +1,12 @@
-export const allSettingID = [
-  "customizations",
+export type SettingsType = "public" | "private";
+export const allPublicSettingID = ["customizations"] as const;
+export const allPrivateSettingID = [
   "paymentProviders",
   "channelActivePaymentProviders",
 ] as const;
-export type SettingID = typeof allSettingID;
+export const allSettingID = [...allPublicSettingID, ...allPrivateSettingID];
+export type PublicSettingID = typeof allPublicSettingID;
+export type PrivateSettingID = typeof allPrivateSettingID;
 export type SettingType = "string" | "color" | "image";
 
 /**

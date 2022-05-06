@@ -9,12 +9,15 @@ import {
   PrivateMetadataDocument,
   PrivateMetadataQuery,
   PrivateMetadataQueryVariables,
+  PublicMetadataDocument,
+  PublicMetadataQuery,
+  PublicMetadataQueryVariables,
 } from "@/graphql";
 import { client } from "@/backend/client";
 import { defaultActiveChannelPaymentProviders } from "config/defaults";
 import { mergeChannelsWithPaymentProvidersSettings } from "./utils";
 
-export const getSettings = async (includeSecretSettings?: boolean) => {
+export const getPrivateSettings = async (includeSecretSettings?: boolean) => {
   const { data, error } = await client
     .query<PrivateMetadataQuery, PrivateMetadataQueryVariables>(
       PrivateMetadataDocument,
@@ -30,16 +33,42 @@ export const getSettings = async (includeSecretSettings?: boolean) => {
 
   console.log(data?.app?.privateMetadata); // for deployment debug pusposes
 
-  const settingsValues = mapMetadataToSettings(
-    data?.app?.privateMetadata || [],
-    includeSecretSettings
-  );
+  const settingsValues = mapMetadataToSettings({
+    metadata: data?.app?.privateMetadata || [],
+    type: "private",
+    includeSecretSettings,
+  });
+
+  return settingsValues;
+};
+
+export const getPublicSettings = async (includeSecretSettings?: boolean) => {
+  const { data, error } = await client
+    .query<PublicMetadataQuery, PublicMetadataQueryVariables>(
+      PublicMetadataDocument,
+      { id: process.env.SALEOR_APP_ID! }
+    )
+    .toPromise();
+
+  console.log(data, error); // for deployment debug pusposes
+
+  if (error) {
+    throw error;
+  }
+
+  console.log(data?.app?.metadata); // for deployment debug pusposes
+
+  const settingsValues = mapMetadataToSettings({
+    metadata: data?.app?.metadata || [],
+    type: "public",
+    includeSecretSettings,
+  });
 
   return settingsValues;
 };
 
 export const getActivePaymentProvidersSettings = async () => {
-  const settings = await getSettings();
+  const settings = await getPrivateSettings();
 
   const { data, error } = await client
     .query<ChannelsQuery, ChannelsQueryVariables>(ChannelsDocument)
@@ -60,7 +89,7 @@ export const getActivePaymentProvidersSettings = async () => {
 export const getChannelActivePaymentProvidersSettings = async (
   channelId: string
 ) => {
-  const settings = await getSettings();
+  const settings = await getPrivateSettings();
 
   const { data, error } = await client
     .query<ChannelQuery, ChannelQueryVariables>(ChannelDocument, {

@@ -1,7 +1,23 @@
 import { MetadataItemFragment } from "@/graphql";
-import settingsValues from "@/config/defaults";
-import { SettingsValues, UnknownSettingsValues } from "@/types/api";
-import { allSettingID, Item, NamedNode, Node, SettingID } from "@/types/common";
+import {
+  defaultPrivateSettings,
+  defaultPublicSettings,
+} from "@/config/defaults";
+import {
+  PublicSettingsValues,
+  PrivateSettingsValues,
+  UnknownSettingsValues,
+  SettingsValues,
+} from "@/types/api";
+import {
+  allSettingID,
+  Item,
+  NamedNode,
+  Node,
+  PrivateSettingID,
+  PublicSettingID,
+  SettingsType,
+} from "@/types/common";
 import reduce from "lodash-es/reduce";
 import { CombinedError } from "urql";
 import { getSettingsPublicAccess } from "@/config/fields";
@@ -90,7 +106,7 @@ const getPublicSettingsValues = (
 export const mergeSettingsValues = (
   defaultSettings: UnknownSettingsValues,
   savedSettings: UnknownSettingsValues,
-  groupSettingsKey?: SettingID[number],
+  groupSettingsKey?: PublicSettingID[number] | PrivateSettingID[number],
   includeSecretSettings?: boolean
 ) => {
   return reduce(
@@ -119,49 +135,55 @@ export const mergeSettingsValues = (
   );
 };
 
-export const mapMetadataToSettings = (
-  metadata: (MetadataItemFragment | null)[],
-  includeSecretSettings?: boolean
-): SettingsValues => {
-  const settings = metadata.reduce((settings, metadataItem) => {
-    const settingsKey = metadataItem?.key;
+export const mapMetadataToSettings = <T extends SettingsType>({
+  metadata,
+  type,
+  includeSecretSettings,
+}: {
+  metadata: (MetadataItemFragment | null)[];
+  type: T;
+  includeSecretSettings?: boolean;
+}): SettingsValues<T> => {
+  const defaultSettings =
+    type === "public" ? defaultPublicSettings : defaultPrivateSettings;
 
-    if (
-      !settingsKey ||
-      !allSettingID.includes(settingsKey as SettingID[number])
-    ) {
+  const settings = metadata.reduce((settings, metadataItem) => {
+    const settingsKey = metadataItem?.key as keyof typeof settings;
+
+    if (!settingsKey || !allSettingID.includes(settingsKey)) {
       return settings;
     }
 
     try {
-      const metadataItemSettings = JSON.parse(metadataItem?.value);
+      const metadataItemSettings = JSON.parse(metadataItem?.value || "");
       return {
         ...settings,
         [settingsKey]: mergeSettingsValues(
-          settings[settingsKey as SettingID[number]],
+          settings[settingsKey],
           metadataItemSettings,
-          settingsKey as SettingID[number],
+          settingsKey,
           includeSecretSettings
         ),
       };
     } catch (e) {
       return {
         ...settings,
-        [settingsKey]: settings[settingsKey as SettingID[number]] || {},
+        [settingsKey]: settings[settingsKey] || {},
       };
     }
-  }, settingsValues);
+  }, defaultSettings);
 
-  return settings;
+  return settings as SettingsValues<T>;
 };
 
-export const mapSettingsToMetadata = (
-  settingsValues: Partial<SettingsValues>
+export const mapSettingsToMetadata = <
+  T extends PublicSettingsValues | PrivateSettingsValues
+>(
+  settingsValues: Partial<T>
 ) => {
   return Object.keys(settingsValues).reduce(
     (metadata, settingsValuesKey) => {
-      const settingsValuesObject =
-        settingsValues[settingsValuesKey as keyof SettingsValues];
+      const settingsValuesObject = settingsValues[settingsValuesKey as keyof T];
       const settingsValuesValue = JSON.stringify(settingsValuesObject);
 
       return [
