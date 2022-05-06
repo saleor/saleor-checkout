@@ -17,6 +17,7 @@ export const Checkout = () => {
       {isCheckoutInvalid ? (
         <PageNotFound />
       ) : (
+        /* @ts-ignore React 17 <-> 18 type mismatch */
         <ErrorBoundary FallbackComponent={PageNotFound}>
           <div className="page">
             <PageHeader />
