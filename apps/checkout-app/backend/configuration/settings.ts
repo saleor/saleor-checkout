@@ -14,7 +14,7 @@ import { client } from "@/backend/client";
 import { defaultActiveChannelPaymentProviders } from "config/defaults";
 import { mergeChannelsWithPaymentProvidersSettings } from "./utils";
 
-export const getSettings = async () => {
+export const getSettings = async (includeSecretSettings?: boolean) => {
   const { data, error } = await client
     .query<PrivateMetadataQuery, PrivateMetadataQueryVariables>(
       PrivateMetadataDocument,
@@ -31,7 +31,8 @@ export const getSettings = async () => {
   console.log(data?.app?.privateMetadata); // for deployment debug pusposes
 
   const settingsValues = mapMetadataToSettings(
-    data?.app?.privateMetadata || []
+    data?.app?.privateMetadata || [],
+    includeSecretSettings
   );
 
   return settingsValues;

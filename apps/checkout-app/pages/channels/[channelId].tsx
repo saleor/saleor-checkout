@@ -33,7 +33,8 @@ const Channel = () => {
     useUpdatePrivateMetadataMutation();
 
   const settingsValues = mapMetadataToSettings(
-    metadataQuery.data?.app?.privateMetadata || []
+    metadataQuery.data?.app?.privateMetadata || [],
+    true
   );
 
   const [channelsQuery] = useChannelsQuery({

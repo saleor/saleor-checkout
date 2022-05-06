@@ -1,5 +1,13 @@
+import { PaymentProviderSettingsPublicAccess } from "@/types/api";
 import { IntlShape, useIntl } from "react-intl";
-import { Customization, PaymentMethod, PaymentProvider } from "types/common";
+import {
+  Customization,
+  PaymentMethod,
+  PaymentProvider,
+  PaymentProviderID,
+  PaymentProviderSettingID,
+  SettingID,
+} from "types/common";
 import {
   brandingCustomizationMessages,
   customizationMessages,
@@ -29,8 +37,31 @@ export const usePaymentMethods = (): PaymentMethod[] => {
   ]);
 };
 
+export const paymentProviderSettingsPublicAccess: PaymentProviderSettingsPublicAccess =
+  {
+    mollie: {
+      partnerId: false,
+      liveApiKey: false,
+      testApiKey: false,
+    },
+    adyen: {
+      merchantAccount: false,
+      clientKey: false,
+      supportedCurrencies: true,
+    },
+  };
+
+export const getSettingsPublicAccess = (
+  groupSettingsKey?: SettingID[number]
+) => {
+  if (groupSettingsKey === "paymentProviders") {
+    return paymentProviderSettingsPublicAccess;
+  }
+};
+
 export const useMolliePaymentProvider = (): PaymentProvider<"mollie"> => {
   const intl = useIntl();
+  const settingsPublicAccess = paymentProviderSettingsPublicAccess.mollie;
 
   return {
     id: "mollie",
@@ -39,14 +70,17 @@ export const useMolliePaymentProvider = (): PaymentProvider<"mollie"> => {
       {
         id: "partnerId",
         type: "string",
+        isPublic: settingsPublicAccess.partnerId,
       },
       {
         id: "liveApiKey",
         type: "string",
+        isPublic: settingsPublicAccess.liveApiKey,
       },
       {
         id: "testApiKey",
         type: "string",
+        isPublic: settingsPublicAccess.testApiKey,
       },
     ]),
   };
@@ -54,6 +88,7 @@ export const useMolliePaymentProvider = (): PaymentProvider<"mollie"> => {
 
 export const useAdyenPaymentProvider = (): PaymentProvider<"adyen"> => {
   const intl = useIntl();
+  const settingsPublicAccess = paymentProviderSettingsPublicAccess.adyen;
 
   return {
     id: "adyen",
@@ -62,14 +97,17 @@ export const useAdyenPaymentProvider = (): PaymentProvider<"adyen"> => {
       {
         id: "merchantAccount",
         type: "string",
+        isPublic: settingsPublicAccess.merchantAccount,
       },
       {
         id: "clientKey",
         type: "string",
+        isPublic: settingsPublicAccess.clientKey,
       },
       {
         id: "supportedCurrencies",
         type: "string",
+        isPublic: settingsPublicAccess.supportedCurrencies,
       },
     ]),
   };

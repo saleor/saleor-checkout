@@ -55,3 +55,9 @@ export type SettingsValues = {
     ? ChannelActivePaymentProviders
     : UnknownSettingsValues;
 };
+
+export type PaymentProviderSettingsPublicAccess = {
+  [P in PaymentProviderID]: {
+    [K in PaymentProviderSettingID<P>]: boolean;
+  };
+};

@@ -1,4 +1,5 @@
 import { mergeSettingsValues } from "@/frontend/utils";
+import { PaymentProviderSettingsValues } from "@/types/api";
 
 describe("/utils/frontend/mergeSettingsValues", () => {
   it("overrides default values", async () => {
@@ -146,6 +147,84 @@ describe("/utils/frontend/mergeSettingsValues", () => {
         jpg: "890",
         png: "912",
       },
+    };
+
+    expect(mergedSettings).toEqual(expectedSettings);
+  });
+
+  it("merges payment provider values and returns public and secret values", async () => {
+    const defaultSettings: PaymentProviderSettingsValues = {
+      adyen: {
+        clientKey: "",
+        merchantAccount: "",
+        supportedCurrencies: "",
+      },
+      mollie: {
+        partnerId: "",
+        liveApiKey: "",
+        testApiKey: "",
+      },
+    };
+    const savedSettings: PaymentProviderSettingsValues = {
+      adyen: {
+        clientKey: "123",
+        merchantAccount: "456",
+        supportedCurrencies: "USD,PLN",
+      },
+      mollie: {
+        partnerId: "abc",
+        liveApiKey: "def",
+        testApiKey: "ghi",
+      },
+    };
+
+    const mergedSettings = mergeSettingsValues(
+      defaultSettings,
+      savedSettings,
+      "paymentProviders",
+      true
+    );
+
+    expect(mergedSettings).toEqual(savedSettings);
+  });
+
+  it("merges payment provider values and returns only public values", async () => {
+    const defaultSettings: PaymentProviderSettingsValues = {
+      adyen: {
+        clientKey: "",
+        merchantAccount: "",
+        supportedCurrencies: "",
+      },
+      mollie: {
+        partnerId: "",
+        liveApiKey: "",
+        testApiKey: "",
+      },
+    };
+    const savedSettings: PaymentProviderSettingsValues = {
+      adyen: {
+        clientKey: "123",
+        merchantAccount: "456",
+        supportedCurrencies: "USD,PLN",
+      },
+      mollie: {
+        partnerId: "abc",
+        liveApiKey: "def",
+        testApiKey: "ghi",
+      },
+    };
+
+    const mergedSettings = mergeSettingsValues(
+      defaultSettings,
+      savedSettings,
+      "paymentProviders"
+    );
+
+    const expectedSettings = {
+      adyen: {
+        supportedCurrencies: "USD,PLN",
+      },
+      mollie: {},
     };
 
     expect(mergedSettings).toEqual(expectedSettings);

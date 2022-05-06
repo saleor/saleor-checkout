@@ -32,7 +32,8 @@ const PaymentProvider = () => {
     useUpdatePrivateMetadataMutation();
 
   const settingsValues = mapMetadataToSettings(
-    metadataQuery.data?.app?.privateMetadata || []
+    metadataQuery.data?.app?.privateMetadata || [],
+    true
   );
   const paymentProviders = usePaymentProviderSettings(
     settingsValues.paymentProviders

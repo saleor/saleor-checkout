@@ -26,7 +26,8 @@ const Customization = () => {
     useUpdatePrivateMetadataMutation();
 
   const settingsValues = mapMetadataToSettings(
-    metadataQuery.data?.app?.privateMetadata || []
+    metadataQuery.data?.app?.privateMetadata || [],
+    true
   );
   const customizationSettings = useCustomizationSettings(
     settingsValues.customizations
