@@ -2,6 +2,7 @@ import { Client, CheckoutAPI, Types } from "@adyen/api-library";
 
 import { OrderFragment, TransactionCreateMutationVariables } from "@/graphql";
 import { APP_URL } from "@/constants";
+import { formatRedirectUrl } from "@/backend/payments/utils";
 
 import {
   getAdyenAmountFromSaleor,
@@ -17,14 +18,17 @@ const client = new Client({
 
 const checkout = new CheckoutAPI(client);
 
-export const createAdyenPayment = async (data: OrderFragment) => {
+export const createAdyenPayment = async (
+  data: OrderFragment,
+  redirectUrl: string
+) => {
   const { url } = await checkout.paymentLinks({
     amount: {
       currency: data.total.gross.currency,
       value: getAdyenAmountFromSaleor(data.total.gross.amount),
     },
     reference: data.number || data.id,
-    returnUrl: `${process.env.REDIRECT_URL}/${data.token}`,
+    returnUrl: formatRedirectUrl(redirectUrl, data.token),
     merchantAccount: "SaleorECOM",
     countryCode: data.billingAddress?.country.code,
     metadata: {
@@ -56,14 +60,6 @@ export const createAdyenPayment = async (data: OrderFragment) => {
         }
       : undefined,
   });
-
-  // const { id, sessionData } = await checkout.sessions({
-  //   amount: { currency: "EUR", value: 1000 },
-  //   reference: "YOUR_PAYMENT_REFERENCE",
-  //   returnUrl: "https://your-company.com/checkout?shopperOrder=12xy..",
-  //   merchantAccount: "SaleorECOM",
-  //   countryCode: "PL",
-  // });
 
   return url;
 };

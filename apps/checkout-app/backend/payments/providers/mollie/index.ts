@@ -2,6 +2,7 @@ import createMollieClient, { OrderStatus } from "@mollie/api-client";
 
 import { OrderFragment, TransactionCreateMutationVariables } from "@/graphql";
 import { APP_URL } from "@/constants";
+import { formatRedirectUrl } from "@/backend/payments/utils";
 
 import {
   getDiscountLines,
@@ -21,14 +22,12 @@ export const createMolliePayment = async (
   const discountLines = getDiscountLines(data.discounts);
   const shippingLines = getShippingLines(data);
   const lines = getLines(data.lines);
-  const url = new URL(redirectUrl);
-  url.searchParams.set("order", data.token);
 
   const mollieData = await mollieClient.orders.create({
     orderNumber: data.number!,
     webhookUrl: `${APP_URL}/api/webhooks/mollie`,
     locale: "en_US",
-    redirectUrl: url.toString(),
+    redirectUrl: formatRedirectUrl(redirectUrl, data.token),
     metadata: {
       orderId: data.id,
     },

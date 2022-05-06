@@ -87,7 +87,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
   } else if (body.provider === "adyen") {
     console.log("getting paymentUrl");
-    const paymentUrl = await createAdyenPayment(order.data);
+    const paymentUrl = await createAdyenPayment(order.data, body.redirectUrl);
 
     if (paymentUrl) {
       response = {

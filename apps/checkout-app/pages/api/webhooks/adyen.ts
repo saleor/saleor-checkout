@@ -29,9 +29,7 @@ const validateNotificationItems = (
 const notificationHandler = async (
   notification: Types.notification.NotificationRequestItem
 ) => {
-  console.log(notification);
   const data = await verifyPayment(notification);
-  console.log("verifyPayment data:", data);
 
   if (!data) {
     return;
