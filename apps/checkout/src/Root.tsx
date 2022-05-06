@@ -30,7 +30,7 @@ const saleorClient = createSaleorClient({
 });
 
 export const Root = () => {
-  const orderToken = getQueryVariables().order;
+  const orderToken = getQueryVariables().orderToken;
 
   return (
     // @ts-ignore React 17 <-> 18 type mismatch
