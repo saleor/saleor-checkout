@@ -16,7 +16,7 @@ export const getDataWithToken = <TData extends {} = {}>(
 });
 
 export type QueryVariables = Record<
-  "checkoutToken" | "passwordResetToken" | "email" | "orderToken",
+  "checkoutToken" | "passwordResetToken" | "email" | "order" | "redirectUrl",
   string
 >;
 
