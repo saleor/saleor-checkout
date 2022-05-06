@@ -14319,22 +14319,7 @@ export const ChannelsDocument = gql`
 export function useChannelsQuery(options?: Omit<Urql.UseQueryArgs<ChannelsQueryVariables>, 'query'>) {
   return Urql.useQuery<ChannelsQuery>({ query: ChannelsDocument, ...options });
 };
-export const CheckoutDocument = gql`
-    query Checkout($token: UUID!) {
-  checkout(token: $token) {
-    id
-    totalPrice {
-      gross {
-        amount
-      }
-    }
-  }
-}
-    `;
 
-export function useCheckoutQuery(options: Omit<Urql.UseQueryArgs<CheckoutQueryVariables>, 'query'>) {
-  return Urql.useQuery<CheckoutQuery>({ query: CheckoutDocument, ...options });
-};
 export const PrivateMetadataDocument = gql`
     query PrivateMetadata($id: ID!) {
   app(id: $id) {

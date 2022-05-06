@@ -3,7 +3,7 @@ import { ChannelFragment } from "@/graphql";
 import { ChannelActivePaymentProviders, SettingsValues } from "@/types/api";
 
 export const mergeChannelsWithPaymentProvidersSettings = (
-  settings: SettingsValues,
+  settings: SettingsValues<"private">,
   channels?: ChannelFragment[] | null
 ): ChannelActivePaymentProviders =>
   channels?.reduce((assignedSettings, channel) => {
