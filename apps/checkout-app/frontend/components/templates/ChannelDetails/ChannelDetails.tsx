@@ -40,6 +40,7 @@ import { ChannelFragment, MetadataErrorFragment } from "@/graphql";
 import { getMetadataErrorMessage } from "@/frontend/misc/errors";
 import ErrorAlert from "../../elements/ErrorAlert";
 import { usePaymentProviders } from "@/config/fields";
+import Image from "next/image";
 
 interface ChannelDetailsProps {
   channelPaymentOptions: ChannelPaymentOptions;
@@ -140,7 +141,11 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
                   expandIcon={<ExpandMoreIcon />}
                   className={classes.paymentOptionExpander}
                 >
-                  <div className={classes.paymentOptionIcon}></div>
+                  {paymentOption.method.logo && (
+                    <div className={classes.paymentOptionLogo}>
+                      <paymentOption.method.logo />
+                    </div>
+                  )}
                   <Typography variant="subtitle2">
                     {paymentOption.method.name}
                   </Typography>
@@ -160,7 +165,18 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
                               className={classes.paymentMethod}
                             >
                               <OffsettedListItemCell>
-                                {provider.label}
+                                {provider.logo ? (
+                                  <div className={classes.paymentMethodLogo}>
+                                    <Image
+                                      src={provider.logo.dark} // TODO: choose conditionally when dashboard theme will be supported
+                                      alt={provider.label}
+                                      layout="fill"
+                                      objectFit="contain"
+                                    />
+                                  </div>
+                                ) : (
+                                  provider.label
+                                )}
                               </OffsettedListItemCell>
                               <OffsettedListItemCell padding="action">
                                 <Switch
