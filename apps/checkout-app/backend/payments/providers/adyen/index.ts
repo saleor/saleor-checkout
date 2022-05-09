@@ -22,10 +22,12 @@ export const createAdyenPayment = async (
   data: OrderFragment,
   redirectUrl: string
 ) => {
+  const total = data.total.gross;
+
   const { url } = await checkout.paymentLinks({
     amount: {
-      currency: data.total.gross.currency,
-      value: getAdyenAmountFromSaleor(data.total.gross.amount),
+      currency: total.currency,
+      value: getAdyenAmountFromSaleor(total.amount),
     },
     reference: data.number || data.id,
     returnUrl: formatRedirectUrl(redirectUrl, data.token),
@@ -108,7 +110,7 @@ export const verifyPayment = async (
 
   if (
     eventCode ===
-    Types.notification.NotificationRequestItem.EventCodeEnum.Authorisation
+    Types.notification.NotificationRequestItem.EventCodeEnum.Capture
   ) {
     return {
       id: metadata.orderId,
