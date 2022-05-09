@@ -91,4 +91,5 @@ export interface NamedNode extends Node {
 export interface Item {
   id: string;
   label: string;
+  logo?: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
 }

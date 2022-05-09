@@ -15,8 +15,8 @@ import { withLabels, withNames } from "./utils";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import AppleIcon from "@material-ui/icons/Apple";
 import PayPalIcon from "./icons/PayPal";
-import MollieLogo from "./icons/Mollie";
-import AdyenLogo from "./icons/Adyen";
+import MollieIcon from "./icons/Mollie";
+import AdyenIcon from "./icons/Adyen";
 
 export const usePaymentMethods = (): PaymentMethod[] => {
   const intl = useIntl();
@@ -43,7 +43,7 @@ export const useMolliePaymentProvider = (): PaymentProvider<"mollie"> => {
   return {
     id: "mollie",
     label: intl.formatMessage(paymentProvidersMessages.mollie),
-    logo: MollieLogo,
+    logo: MollieIcon,
     settings: withLabels(intl, molliePaymentProviderMessages, [
       {
         id: "partnerId",
@@ -67,7 +67,7 @@ export const useAdyenPaymentProvider = (): PaymentProvider<"adyen"> => {
   return {
     id: "adyen",
     label: intl.formatMessage(paymentProvidersMessages.adyen),
-    logo: AdyenLogo,
+    logo: AdyenIcon,
     settings: withLabels(intl, adyenPaymentProviderMessages, [
       {
         id: "merchantAccount",
