@@ -1,8 +1,10 @@
 import { OrderFragment, TransactionActionEnum } from "@/graphql";
 import { Types } from "@adyen/api-library";
 
-export const getAdyenAmountFromSaleor = (float: number) => float * 100;
-export const getSaleorAmountFromAdyen = (integer: number) => integer / 100;
+export const getAdyenAmountFromSaleor = (float: number) =>
+  parseInt((float * 100).toFixed(0), 10);
+export const getSaleorAmountFromAdyen = (integer: number) =>
+  parseFloat((integer / 100).toFixed(2));
 
 export const mapAvailableActions = (
   operations: Types.notification.NotificationRequestItem.OperationsEnum[]
@@ -38,7 +40,7 @@ export const getLineItems = (
   lines.map((line) => ({
     description: line.productName + " - " + line.variantName,
     quantity: line.quantity,
-    taxPercentage: line.taxRate,
+    taxPercentage: line.taxRate * 100,
     taxAmount: getAdyenAmountFromSaleor(line.totalPrice.tax.amount),
     amountExcludingTax: getAdyenAmountFromSaleor(line.totalPrice.tax.amount),
     amountIncludingTax: getAdyenAmountFromSaleor(line.totalPrice.gross.amount),
