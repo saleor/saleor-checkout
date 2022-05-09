@@ -65,9 +65,8 @@ export const useStyles = makeStyles(
       height: "70px",
     },
     paymentMethodLogo: {
-      width: "60px",
-      height: "30px",
-      position: "relative",
+      width: "2.4em",
+      height: "2.2em",
     },
     skeleton: {
       margin: theme.spacing(2, 0),

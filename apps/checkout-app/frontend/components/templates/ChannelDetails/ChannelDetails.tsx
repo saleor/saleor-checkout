@@ -166,14 +166,9 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({
                             >
                               <OffsettedListItemCell>
                                 {provider.logo ? (
-                                  <div className={classes.paymentMethodLogo}>
-                                    <Image
-                                      src={provider.logo.dark} // TODO: choose conditionally when dashboard theme will be supported
-                                      alt={provider.label}
-                                      layout="fill"
-                                      objectFit="contain"
-                                    />
-                                  </div>
+                                  <provider.logo
+                                    className={classes.paymentMethodLogo}
+                                  />
                                 ) : (
                                   provider.label
                                 )}

@@ -10,11 +10,6 @@ export const allSettingID = [
 export type SettingID = typeof allSettingID;
 export type SettingType = "string" | "color" | "image";
 
-export interface ThemeImage {
-  light: StaticImageData;
-  dark: StaticImageData;
-}
-
 /**
  * Payment types
  */
@@ -47,7 +42,7 @@ export interface PaymentProviderSettings<P extends PaymentProviderID> {
 export interface PaymentProvider<P extends PaymentProviderID> {
   id: P;
   label: string;
-  logo?: ThemeImage;
+  logo?: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
   settings: PaymentProviderSettings<P>[];
 }
 
