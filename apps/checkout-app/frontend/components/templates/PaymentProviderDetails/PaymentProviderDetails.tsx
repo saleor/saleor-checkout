@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Card, CardContent, Divider, Typography } from "@material-ui/core";
 import { Item, PaymentProvider, PaymentProviderID } from "types/common";
 import VerticalSpacer from "@/frontend/components/elements/VerticalSpacer";
 import { channelListPath, channelPath, paymentProviderPath } from "routes";
@@ -95,8 +95,11 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
     } as PaymentProviderSettingsValues);
   };
 
-  const containsPrivateSettings = selectedPaymentProvider.settings.some(
+  const secretSettings = selectedPaymentProvider.settings.filter(
     ({ isPublic }) => !isPublic
+  );
+  const publicSettings = selectedPaymentProvider.settings.filter(
+    ({ isPublic }) => isPublic
   );
 
   return (
@@ -118,45 +121,85 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
           }
         />
         <Card>
-          <CardContent>
-            <Typography variant="body1">
-              <FormattedMessage {...messages.paymentProviderSettings} />
-            </Typography>
-            <VerticalSpacer />
-            <div className={classes.settings}>
-              {selectedPaymentProvider.settings.map(
-                ({ id, type, label, value, isPublic }) =>
-                  loading ? (
-                    <Skeleton key={id} />
-                  ) : (
-                    <Controller
-                      key={id}
-                      name={id}
-                      control={control}
-                      defaultValue={value}
-                      render={({ field }) => (
-                        <Setting
-                          name={field.name}
-                          type={type}
-                          label={isPublic ? label : `${label}*`}
-                          value={field.value}
-                          onChange={field.onChange}
-                          onBlur={field.onBlur}
-                        />
-                      )}
-                    />
-                  )
-              )}
-            </div>
-            {containsPrivateSettings && (
-              <>
-                <VerticalSpacer />
-                <Typography variant="caption">
-                  <FormattedMessage {...messages.privateSettingNotice} />
+          {secretSettings.length > 0 && (
+            <>
+              <CardContent>
+                <Typography variant="body1">
+                  <FormattedMessage {...messages.paymentProviderSettings} />
                 </Typography>
-              </>
-            )}
-          </CardContent>
+                <VerticalSpacer />
+                <div className={classes.settings}>
+                  <Typography
+                    variant="body2"
+                    className={classes.settingsDescription}
+                  >
+                    <FormattedMessage {...messages.secretSettingNotice} />
+                  </Typography>
+                  <VerticalSpacer />
+                  {secretSettings.map(({ id, type, label, value }) =>
+                    loading ? (
+                      <Skeleton key={id} />
+                    ) : (
+                      <Controller
+                        key={id}
+                        name={id}
+                        control={control}
+                        defaultValue={value}
+                        render={({ field }) => (
+                          <Setting
+                            name={field.name}
+                            type={type}
+                            label={label}
+                            value={field.value}
+                            onChange={field.onChange}
+                            onBlur={field.onBlur}
+                          />
+                        )}
+                      />
+                    )
+                  )}
+                </div>
+              </CardContent>
+            </>
+          )}
+          {publicSettings.length > 0 && (
+            <>
+              {secretSettings.length > 0 && <Divider />}
+              <CardContent>
+                <div className={classes.settings}>
+                  <Typography
+                    variant="body2"
+                    className={classes.settingsDescription}
+                  >
+                    <FormattedMessage {...messages.publicSettingNotice} />
+                  </Typography>
+                  <VerticalSpacer />
+                  {publicSettings.map(({ id, type, label, value }) =>
+                    loading ? (
+                      <Skeleton key={id} />
+                    ) : (
+                      <Controller
+                        key={id}
+                        name={id}
+                        control={control}
+                        defaultValue={value}
+                        render={({ field }) => (
+                          <Setting
+                            name={field.name}
+                            type={type}
+                            label={label}
+                            value={field.value}
+                            onChange={field.onChange}
+                            onBlur={field.onBlur}
+                          />
+                        )}
+                      />
+                    )
+                  )}
+                </div>
+              </CardContent>
+            </>
+          )}
         </Card>
       </AppLayout>
       <AppSavebar

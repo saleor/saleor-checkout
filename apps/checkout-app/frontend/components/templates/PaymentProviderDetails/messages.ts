@@ -5,8 +5,12 @@ export const messages = defineMessages({
     defaultMessage: "Payment provider settings",
     description: "section title",
   },
-  privateSettingNotice: {
-    defaultMessage: "* Private setting, should not be published to users.",
+  secretSettingNotice: {
+    defaultMessage: "These information will not be published to users",
+    description: "notice for private settings",
+  },
+  publicSettingNotice: {
+    defaultMessage: "These information will be accessible on checkout frontend",
     description: "notice for private settings",
   },
 });

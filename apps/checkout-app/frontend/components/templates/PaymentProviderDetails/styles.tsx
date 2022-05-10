@@ -8,6 +8,9 @@ export const useStyles = makeStyles(
       flexWrap: "wrap",
       gap: theme.spacing(2),
     },
+    settingsDescription: {
+      color: theme.palette.text.hint,
+    },
   }),
   { name: "PaymentProviderDetails" }
 );
