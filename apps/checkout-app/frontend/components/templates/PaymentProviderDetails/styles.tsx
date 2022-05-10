@@ -11,6 +11,9 @@ export const useStyles = makeStyles(
     settingsDescription: {
       color: theme.palette.text.hint,
     },
+    skeleton: {
+      width: "100%",
+    },
   }),
   { name: "PaymentProviderDetails" }
 );
