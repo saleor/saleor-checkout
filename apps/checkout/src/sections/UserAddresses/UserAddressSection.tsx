@@ -48,6 +48,10 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
   const onSelectAddress = (id: string) => setSelectedAddressId(id);
 
   useEffect(() => {
+    setSelectedCountryCode(selectedAddress?.country.code as CountryCode);
+  }, [selectedAddress]);
+
+  useEffect(() => {
     if (!!selectedAddress) {
       onAddressSelect(selectedAddress as unknown as UserAddressFormData);
     }
