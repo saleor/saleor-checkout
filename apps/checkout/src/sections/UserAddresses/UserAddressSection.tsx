@@ -19,6 +19,8 @@ export interface UserAddressSectionProps {
   type: AddressTypeEnum;
 }
 
+const defaultCountryCode: CountryCode = "PL";
+
 export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
   defaultAddress,
   addresses = [],
@@ -37,7 +39,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
   const displayAddressList = !displayAddressEdit && !displayAddressCreate;
 
   const [selectedCountryCode, setSelectedCountryCode] =
-    useState<CountryCode>("PL");
+    useState<CountryCode>(defaultCountryCode);
 
   const [selectedAddressId, setSelectedAddressId] = useState(
     defaultAddress?.id
@@ -48,7 +50,9 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
   const onSelectAddress = (id: string) => setSelectedAddressId(id);
 
   useEffect(() => {
-    setSelectedCountryCode(selectedAddress?.country.code as CountryCode);
+    setSelectedCountryCode(
+      (selectedAddress?.country.code as CountryCode) || defaultCountryCode
+    );
   }, [selectedAddress]);
 
   useEffect(() => {

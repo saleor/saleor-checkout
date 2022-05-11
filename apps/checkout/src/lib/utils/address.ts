@@ -1,15 +1,15 @@
-import { uniq } from "lodash-es";
+import { intersection, uniq } from "lodash-es";
 import { AddressField, ApiAddressField } from "../globalTypes";
 
-const addressFieldsOrder: AddressField[] = [
-  "firstName",
-  "lastName",
+export type AddressFieldsOrder = Array<AddressField | AddressField[]>;
+
+const addressFieldsOrder: AddressFieldsOrder = [
+  ["firstName", "lastName"],
   "companyName",
   "phone",
   "streetAddress1",
   "streetAddress2",
-  "city",
-  "postalCode",
+  ["city", "postalCode"],
   "cityArea",
   "countryArea",
 ];
@@ -31,12 +31,18 @@ export const getSortedAddressFields = (addressFields: AddressField[] = []) => {
   const filteredAddressFields = getFilteredAddressFields(addressFields);
 
   return addressFieldsOrder.reduce((result, orderedAddressField) => {
-    if (!filteredAddressFields.includes(orderedAddressField)) {
-      return result;
+    const isFieldRow = Array.isArray(orderedAddressField);
+
+    const shouldIncludeAddressField = isFieldRow
+      ? !!intersection(filteredAddressFields, orderedAddressField).length
+      : filteredAddressFields.includes(orderedAddressField as AddressField);
+
+    if (shouldIncludeAddressField) {
+      return [...result, orderedAddressField];
     }
 
-    return [...result, orderedAddressField];
-  }, [] as AddressField[]);
+    return result;
+  }, [] as AddressFieldsOrder);
 };
 
 export const getSortedAddressFieldsFromAddress = (

@@ -12,7 +12,7 @@ import {
 } from "@/lib/utils";
 import { UseErrorsProps } from "@/providers/ErrorsProvider";
 import { forEach } from "lodash-es";
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import {
   DefaultValues,
   FieldError,
@@ -109,11 +109,24 @@ export const AddressForm = <TFormData extends AddressFormData>({
     onSave(address);
   };
 
+  const mapAddressFields = (renderFn: (field: AddressField) => ReactNode) =>
+    getSortedAddressFields(
+      validationRules?.allowedFields! as AddressField[]
+    )?.map((fields: AddressField | AddressField[]) => {
+      if (Array.isArray(fields)) {
+        return (
+          <div className="w-full flex flex-row gap-3 justify-between">
+            {fields.map(renderFn)}
+          </div>
+        );
+      }
+
+      return renderFn(fields as AddressField);
+    });
+
   return (
     <div>
-      {getSortedAddressFields(
-        validationRules?.allowedFields! as AddressField[]
-      )?.map((field: AddressField) => (
+      {mapAddressFields((field: AddressField) => (
         <TextInput
           key={field}
           label={formatMessage(field as MessageKey)}
