@@ -115,6 +115,7 @@ importers:
 
   apps/checkout-app:
     specifiers:
+      '@adyen/api-library': ^10.2.0
       '@babel/eslint-parser': ^7.17.0
       '@formatjs/cli': ^4.8.2
       '@graphql-codegen/add': ^3.1.1
@@ -159,6 +160,7 @@ importers:
       typescript: ^4.5.3
       urql: ^2.2.0
     dependencies:
+      '@adyen/api-library': 10.3.0
       '@babel/eslint-parser': 7.17.0_eslint@7.32.0
       '@material-ui/core': 4.12.4_5539cae010396b202b015f3568914e95
       '@material-ui/icons': 4.11.3_6b1dc0c9d553a2d02b19272f2ed5c6ad
@@ -293,6 +295,17 @@ importers:
       typescript: 4.6.3
 
 packages:
+
+  /@adyen/api-library/10.3.0:
+    resolution: {integrity: sha512-SibndC1ttEWcnYeX26+EJI7EXspBH5fStA3/v6qD5DrD48fIgdu9oiKR3GCj51M3WR/xUHk5C59d2TKUgM8W6Q==}
+    engines: {node: '>=10'}
+    dependencies:
+      https-proxy-agent: 5.0.1
+    optionalDependencies:
+      '@types/node': 14.0.9
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /@ampproject/remapping/2.1.2:
     resolution: {integrity: sha512-hoyByceqwKirw7w3Z7gnIIZC3Wx3J484Y3L/cMpXFbr7d9ZQj2mODrirNzcJa+SM3UlpWXYvKV4RlRpFXlWgXg==}
@@ -6371,6 +6384,12 @@ packages:
       '@types/node': 17.0.25
       form-data: 3.0.1
     dev: true
+
+  /@types/node/14.0.9:
+    resolution: {integrity: sha512-0sCTiXKXELOBxvZLN4krQ0FPOAA7ij+6WwvD0k/PHd9/KAkr4dXel5J9fh6F4x1FwAQILqAWkmpeuS6mjf1iKA==}
+    requiresBuild: true
+    dev: false
+    optional: true
 
   /@types/node/14.18.13:
     resolution: {integrity: sha512-Z6/KzgyWOga3pJNS42A+zayjhPbf2zM3hegRQaOPnLOzEi86VV++6FLDWgR1LGrVCRufP/ph2daa3tEa5br1zA==}
