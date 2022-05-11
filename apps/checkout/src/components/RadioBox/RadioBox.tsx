@@ -18,7 +18,11 @@ export const RadioBox: React.FC<RadioBoxProps> = ({ subtitle, ...rest }) => {
 
   return (
     <div className={clsx("radio-box", radioProps.checked && "selected")}>
-      <UiKitRadio {...radioProps} classNames={{ container: "!mb-0" }} />
+      <UiKitRadio
+        {...radioProps}
+        label={radioProps.value}
+        classNames={{ container: "!mb-0" }}
+      />
       {subtitle && <Text>{subtitle}</Text>}
     </div>
   );

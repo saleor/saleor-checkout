@@ -69,7 +69,10 @@ export const ShippingMethods: React.FC<ShippingMethodsProps> = ({}) => {
               title={`${name} - ${getFormattedMoney(price)}`}
               subtitle={getSubtitle({ min, max })}
               selectedValue={selectedMethodId}
-              onSelect={setSelectedMethodId}
+              onSelect={(lol) => {
+                console.log(666, lol);
+                setSelectedMethodId(lol);
+              }}
             />
           )
         )}
