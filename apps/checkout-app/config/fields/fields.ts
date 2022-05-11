@@ -1,12 +1,11 @@
 import { PaymentProviderSettingsPublicAccess } from "@/types/api";
-import { IntlShape, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import {
   Customization,
   PaymentMethod,
   PaymentProvider,
-  PaymentProviderID,
-  PaymentProviderSettingID,
-  SettingID,
+  PublicSettingID,
+  PrivateSettingID,
 } from "types/common";
 import {
   brandingCustomizationMessages,
@@ -60,7 +59,7 @@ export const paymentProviderSettingsPublicAccess: PaymentProviderSettingsPublicA
   };
 
 export const getSettingsPublicAccess = (
-  groupSettingsKey?: SettingID[number]
+  groupSettingsKey?: PublicSettingID[number] | PrivateSettingID[number]
 ) => {
   if (groupSettingsKey === "paymentProviders") {
     return paymentProviderSettingsPublicAccess;

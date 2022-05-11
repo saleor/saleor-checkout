@@ -26,11 +26,11 @@ const Customization = () => {
   const [metadataMutation, setPublicMetadata] =
     useUpdatePublicMetadataMutation();
 
-  const settingsValues = mapMetadataToSettings(
-    metadataQuery.data?.app?.metadata || [],
-    "public",
-    true
-  );
+  const settingsValues = mapMetadataToSettings({
+    metadata: metadataQuery.data?.app?.metadata || [],
+    type: "public",
+    includeSecretSettings: true,
+  });
   const customizationSettings = useCustomizationSettings(
     settingsValues.customizations
   );

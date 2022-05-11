@@ -4,7 +4,6 @@ import {
   PaymentProviderSettingsValues,
   PrivateSettingsValues,
   PublicSettingsValues,
-  SettingsValues,
 } from "types/api";
 
 export const defaultActiveChannelPaymentProviders: ChannelActivePaymentProvidersByChannel =

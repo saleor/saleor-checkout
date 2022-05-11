@@ -1,6 +1,5 @@
 import { SvgIconTypeMap } from "@material-ui/core";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
-import { StaticImageData } from "next/image";
 
 export type SettingsType = "public" | "private";
 export const allPublicSettingID = [

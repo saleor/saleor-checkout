@@ -3,13 +3,19 @@ import {
   defaultPrivateSettings,
   defaultPublicSettings,
 } from "@/config/defaults";
-import { SettingsValues, UnknownSettingsValues } from "@/types/api";
+import {
+  PublicSettingsValues,
+  PrivateSettingsValues,
+  UnknownSettingsValues,
+  SettingsValues,
+} from "@/types/api";
 import {
   allSettingID,
   Item,
   NamedNode,
   Node,
-  SettingID,
+  PrivateSettingID,
+  PublicSettingID,
   SettingsType,
 } from "@/types/common";
 import reduce from "lodash-es/reduce";
@@ -84,7 +90,7 @@ const getPublicSettingsValues = (
 export const mergeSettingsValues = (
   defaultSettings: UnknownSettingsValues,
   savedSettings: UnknownSettingsValues,
-  groupSettingsKey?: SettingID[number],
+  groupSettingsKey?: PublicSettingID[number] | PrivateSettingID[number],
   includeSecretSettings?: boolean
 ) => {
   return reduce(
@@ -113,11 +119,15 @@ export const mergeSettingsValues = (
   );
 };
 
-export const mapMetadataToSettings = <T extends SettingsType>(
-  metadata: (MetadataItemFragment | null)[],
-  type: T,
-  includeSecretSettings?: boolean
-): SettingsValues<T> => {
+export const mapMetadataToSettings = <T extends SettingsType>({
+  metadata,
+  type,
+  includeSecretSettings,
+}: {
+  metadata: (MetadataItemFragment | null)[];
+  type: T;
+  includeSecretSettings?: boolean;
+}): SettingsValues<T> => {
   const defaultSettings =
     type === "public" ? defaultPublicSettings : defaultPrivateSettings;
 
@@ -135,7 +145,7 @@ export const mapMetadataToSettings = <T extends SettingsType>(
         [settingsKey]: mergeSettingsValues(
           settings[settingsKey],
           metadataItemSettings,
-          settingsKey as SettingID[number],
+          settingsKey,
           includeSecretSettings
         ),
       };
@@ -150,13 +160,14 @@ export const mapMetadataToSettings = <T extends SettingsType>(
   return settings as SettingsValues<T>;
 };
 
-export const mapSettingsToMetadata = <T extends SettingsType>(
-  settingsValues: Partial<SettingsValues<T>>
+export const mapSettingsToMetadata = <
+  T extends PublicSettingsValues | PrivateSettingsValues
+>(
+  settingsValues: Partial<T>
 ) => {
   return Object.keys(settingsValues).reduce(
     (metadata, settingsValuesKey) => {
-      const settingsValuesObject =
-        settingsValues[settingsValuesKey as keyof SettingsValues<T>];
+      const settingsValuesObject = settingsValues[settingsValuesKey as keyof T];
       const settingsValuesValue = JSON.stringify(settingsValuesObject);
 
       return [

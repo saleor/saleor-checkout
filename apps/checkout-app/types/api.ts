@@ -9,7 +9,6 @@ import {
   PaymentProviderSettingID,
   PrivateSettingID,
   PublicSettingID,
-  SettingID,
   SettingsType,
 } from "./common";
 

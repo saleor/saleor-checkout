@@ -34,11 +34,11 @@ export const getPrivateSettings = async (includeSecretSettings?: boolean) => {
 
   console.log(data?.app?.privateMetadata); // for deployment debug pusposes
 
-  const settingsValues = mapMetadataToSettings(
-    data?.app?.privateMetadata || [],
-    "private",
-    includeSecretSettings
-  );
+  const settingsValues = mapMetadataToSettings({
+    metadata: data?.app?.privateMetadata || [],
+    type: "private",
+    includeSecretSettings,
+  });
 
   return settingsValues;
 };
@@ -59,11 +59,11 @@ export const getPublicSettings = async (includeSecretSettings?: boolean) => {
 
   console.log(data?.app?.metadata); // for deployment debug pusposes
 
-  const settingsValues = mapMetadataToSettings(
-    data?.app?.metadata || [],
-    "public",
-    includeSecretSettings
-  );
+  const settingsValues = mapMetadataToSettings({
+    metadata: data?.app?.metadata || [],
+    type: "public",
+    includeSecretSettings,
+  });
 
   return settingsValues;
 };
