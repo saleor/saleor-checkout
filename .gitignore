@@ -33,6 +33,7 @@ npm-debug.log*
 
 # build
 dist
+storybook-static
 
 #editor
 .vscode
