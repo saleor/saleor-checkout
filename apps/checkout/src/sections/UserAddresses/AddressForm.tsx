@@ -24,6 +24,11 @@ import {
 } from "react-hook-form";
 import { object, string } from "yup";
 import { AddressFormData } from "./types";
+import {
+  AddressFormLayoutField,
+  getAddressFormLayout,
+  isAddressFieldRow,
+} from "./utils";
 
 export interface AddressFormProps<TFormData extends AddressFormData>
   extends Pick<
@@ -109,19 +114,21 @@ export const AddressForm = <TFormData extends AddressFormData>({
     onSave(address);
   };
 
+  const addressFormLayout = getAddressFormLayout(
+    getSortedAddressFields(validationRules?.allowedFields! as AddressField[])
+  );
+
   const mapAddressFields = (renderFn: (field: AddressField) => ReactNode) =>
-    getSortedAddressFields(
-      validationRules?.allowedFields! as AddressField[]
-    )?.map((fields: AddressField | AddressField[]) => {
-      if (Array.isArray(fields)) {
+    addressFormLayout.map((layoutField: AddressFormLayoutField) => {
+      if (isAddressFieldRow(layoutField)) {
         return (
           <div className="w-full flex flex-row gap-3 justify-between">
-            {fields.map(renderFn)}
+            {(layoutField as AddressField[]).map(renderFn)}
           </div>
         );
       }
 
-      return renderFn(fields as AddressField);
+      return renderFn(layoutField as AddressField);
     });
 
   return (

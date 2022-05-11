@@ -21,7 +21,7 @@ export const countries: Countries = [
     name: "United States",
   },
   {
-    code: "NLD",
+    code: "NL",
     name: "Netherlands",
   },
 ];
