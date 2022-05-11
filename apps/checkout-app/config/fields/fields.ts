@@ -1,11 +1,10 @@
-import { PaymentProviderSettingsPublicAccess } from "@/types/api";
 import { useIntl } from "react-intl";
 import {
   Customization,
   PaymentMethod,
   PaymentProvider,
-  PublicSettingID,
-  PrivateSettingID,
+  PaymentProviderSettings,
+  CustomizationSettings,
 } from "types/common";
 import {
   brandingCustomizationMessages,
@@ -25,100 +24,144 @@ import PayPalIcon from "./icons/PayPal";
 import MollieIcon from "./icons/Mollie";
 import AdyenIcon from "./icons/Adyen";
 
+const paymentMethods: Omit<PaymentMethod, "name">[] = [
+  {
+    id: "creditCard",
+    logo: CreditCardIcon,
+  },
+  {
+    id: "applePay",
+    logo: AppleIcon,
+  },
+  {
+    id: "paypal",
+    logo: PayPalIcon,
+  },
+];
+
+const molliePaymentProviderSettings: Omit<
+  PaymentProviderSettings<"mollie">,
+  "label"
+>[] = [
+  {
+    id: "partnerId",
+    type: "string",
+    isPublic: false,
+  },
+  {
+    id: "liveApiKey",
+    type: "string",
+    isPublic: false,
+  },
+  {
+    id: "testApiKey",
+    type: "string",
+    isPublic: false,
+  },
+];
+
+const adyenPaymentProviderSettings: Omit<
+  PaymentProviderSettings<"adyen">,
+  "label"
+>[] = [
+  {
+    id: "merchantAccount",
+    type: "string",
+    isPublic: false,
+  },
+  {
+    id: "clientKey",
+    type: "string",
+    isPublic: false,
+  },
+  {
+    id: "supportedCurrencies",
+    type: "string",
+    isPublic: true,
+  },
+];
+
+const brandingCustomizationSettings: Omit<
+  CustomizationSettings<"branding">,
+  "label"
+>[] = [
+  {
+    id: "buttonBgColorPrimary",
+    type: "color",
+  },
+  {
+    id: "buttonBgColorHover",
+    type: "color",
+  },
+  {
+    id: "borderColorPrimary",
+    type: "color",
+  },
+  {
+    id: "errorColor",
+    type: "color",
+  },
+  {
+    id: "successColor",
+    type: "color",
+  },
+  {
+    id: "buttonTextColor",
+    type: "color",
+  },
+  {
+    id: "textColor",
+    type: "color",
+  },
+  {
+    id: "logoUrl",
+    type: "image",
+  },
+];
+
+const sectionsCustomizationSettings: Omit<
+  CustomizationSettings<"productSettings">,
+  "label"
+>[] = [
+  {
+    id: "lowStockThreshold",
+    type: "string",
+  },
+];
+
 export const usePaymentMethods = (): PaymentMethod[] => {
   const intl = useIntl();
 
-  return withNames(intl, paymentMethodsMessages, [
-    {
-      id: "creditCard",
-      logo: CreditCardIcon,
-    },
-    {
-      id: "applePay",
-      logo: AppleIcon,
-    },
-    {
-      id: "paypal",
-      logo: PayPalIcon,
-    },
-  ]);
-};
-
-export const paymentProviderSettingsPublicAccess: PaymentProviderSettingsPublicAccess =
-  {
-    mollie: {
-      partnerId: false,
-      liveApiKey: false,
-      testApiKey: false,
-    },
-    adyen: {
-      merchantAccount: false,
-      clientKey: false,
-      supportedCurrencies: true,
-    },
-  };
-
-export const getSettingsPublicAccess = (
-  groupSettingsKey?: PublicSettingID[number] | PrivateSettingID[number]
-) => {
-  if (groupSettingsKey === "paymentProviders") {
-    return paymentProviderSettingsPublicAccess;
-  }
+  return withNames(intl, paymentMethodsMessages, paymentMethods);
 };
 
 export const useMolliePaymentProvider = (): PaymentProvider<"mollie"> => {
   const intl = useIntl();
-  const settingsPublicAccess = paymentProviderSettingsPublicAccess.mollie;
 
   return {
     id: "mollie",
     label: intl.formatMessage(paymentProvidersMessages.mollie),
     logo: MollieIcon,
-    settings: withLabels(intl, molliePaymentProviderMessages, [
-      {
-        id: "partnerId",
-        type: "string",
-        isPublic: settingsPublicAccess.partnerId,
-      },
-      {
-        id: "liveApiKey",
-        type: "string",
-        isPublic: settingsPublicAccess.liveApiKey,
-      },
-      {
-        id: "testApiKey",
-        type: "string",
-        isPublic: settingsPublicAccess.testApiKey,
-      },
-    ]),
+    settings: withLabels(
+      intl,
+      molliePaymentProviderMessages,
+      molliePaymentProviderSettings
+    ),
   };
 };
 
 export const useAdyenPaymentProvider = (): PaymentProvider<"adyen"> => {
   const intl = useIntl();
-  const settingsPublicAccess = paymentProviderSettingsPublicAccess.adyen;
 
   return {
     id: "adyen",
     label: intl.formatMessage(paymentProvidersMessages.adyen),
     logo: AdyenIcon,
-    settings: withLabels(intl, adyenPaymentProviderMessages, [
-      {
-        id: "merchantAccount",
-        type: "string",
-        isPublic: settingsPublicAccess.merchantAccount,
-      },
-      {
-        id: "clientKey",
-        type: "string",
-        isPublic: settingsPublicAccess.clientKey,
-      },
-      {
-        id: "supportedCurrencies",
-        type: "string",
-        isPublic: settingsPublicAccess.supportedCurrencies,
-      },
-    ]),
+    settings: withLabels(
+      intl,
+      adyenPaymentProviderMessages,
+      adyenPaymentProviderSettings
+    ),
   };
 };
 
@@ -133,40 +176,11 @@ export const useBrandingCustomization = (): Customization<"branding"> => {
   return {
     id: "branding",
     label: intl.formatMessage(customizationMessages.branding),
-    settings: withLabels(intl, brandingCustomizationMessages, [
-      {
-        id: "buttonBgColorPrimary",
-        type: "color",
-      },
-      {
-        id: "buttonBgColorHover",
-        type: "color",
-      },
-      {
-        id: "borderColorPrimary",
-        type: "color",
-      },
-      {
-        id: "errorColor",
-        type: "color",
-      },
-      {
-        id: "successColor",
-        type: "color",
-      },
-      {
-        id: "buttonTextColor",
-        type: "color",
-      },
-      {
-        id: "textColor",
-        type: "color",
-      },
-      {
-        id: "logoUrl",
-        type: "image",
-      },
-    ]),
+    settings: withLabels(
+      intl,
+      brandingCustomizationMessages,
+      brandingCustomizationSettings
+    ),
   };
 };
 
@@ -177,12 +191,11 @@ export const useSectionsCustomization =
     return {
       id: "productSettings",
       label: intl.formatMessage(customizationMessages.productSettings),
-      settings: withLabels(intl, sectionsCustomizationMessages, [
-        {
-          id: "lowStockThreshold",
-          type: "string",
-        },
-      ]),
+      settings: withLabels(
+        intl,
+        sectionsCustomizationMessages,
+        sectionsCustomizationSettings
+      ),
     };
   };
 
