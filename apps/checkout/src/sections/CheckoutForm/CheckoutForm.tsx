@@ -69,8 +69,8 @@ export const CheckoutForm = () => {
         ariaLabel={formatMessage("finalizeCheckoutLabel")}
         label="Pay"
         onClick={handleSubmit}
-        className="min-w-28"
         disabled={payButtonDisabled}
+        className="min-w-28 mb-14"
       />
     </div>
   );
