@@ -11,6 +11,15 @@ const handler = (_req: NextApiRequest, res: NextApiResponse) => {
     appUrl: `${APP_URL}/channels`,
     configurationUrl: `${APP_URL}/channels`,
     tokenTargetUrl: `${APP_URL}/api/register`,
+    extensions: [
+      {
+        label: "Open order confirmation page",
+        mount: "ORDER_DETAILS_MORE_ACTIONS",
+        target: "POPUP",
+        permissions: [],
+        url: `${APP_URL}/order-confirmation-redirect`,
+      },
+    ],
   };
   res.end(JSON.stringify(manifest));
 };
