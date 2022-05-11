@@ -1,0 +1,38 @@
+name: UI Kit checks
+
+on:
+  push:
+    paths:
+      - "packages/ui-kit/**"
+      - ".github/workflows/ui-kit.yaml"
+
+jobs:
+  tsc-and-linters:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Turbo Cache
+        id: turbo-cache
+        uses: actions/cache@v2
+        with:
+          path: .turbo
+          key: turbo-${{ github.job }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ github.job }}-${{ github.ref_name }}-
+
+      - name: Install deps
+        working-directory: ./packages/ui-kit
+        run: |
+          npm install -g pnpm
+          pnpm i
+
+      - name: Run lint
+        working-directory: ./packages/ui-kit
+        run: |
+          pnpm lint
+
+      - name: Run build
+        working-directory: ./packages/ui-kit
+        run: |
+          pnpm build
