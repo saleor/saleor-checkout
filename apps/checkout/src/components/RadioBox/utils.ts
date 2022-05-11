@@ -5,9 +5,10 @@ import { RadioBoxProps } from "./RadioBox";
 export const getRadioPropsFromRadioBoxProps = ({
   title,
   onSelect,
+  selectedValue,
   ...rest
 }: RadioBoxProps): RadioProps => {
-  const { value, selectedValue } = rest;
+  const { value } = rest;
 
   return {
     ...rest,

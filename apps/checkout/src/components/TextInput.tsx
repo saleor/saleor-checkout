@@ -3,12 +3,17 @@ import { Classes } from "@/lib/globalTypes";
 import { TextInput as UiKitTextInput } from "@saleor/ui-kit";
 import {
   Control,
+  FieldElement,
+  FieldError,
+  FieldErrors,
   FieldPath,
   FormState,
+  Path,
   UseFormRegisterReturn,
   useWatch,
 } from "react-hook-form";
 import { ControlFormData } from "@/hooks/useGetInputProps";
+import { Errors } from "@/providers/ErrorsProvider";
 
 export interface TextInputProps<
   TControl extends Control<any, any>,
@@ -17,9 +22,9 @@ export interface TextInputProps<
       AllHTMLAttributes<HTMLInputElement>,
       "onBlur" | "onChange" | "name" | "ref"
     >,
-    Pick<FormState<TFormData>, "errors">,
     Omit<UseFormRegisterReturn, "ref">,
     Classes {
+  errors: Errors<TFormData>;
   control: TControl;
   name: FieldPath<TFormData>;
   label: string;
@@ -41,10 +46,13 @@ const TextInputComponent = <
     name,
   });
 
+  const error = errors[name as keyof typeof errors];
+
   return (
     <UiKitTextInput
-      ref={ref}
       {...rest}
+      error={(error as any)?.message}
+      ref={ref}
       name={name}
       value={value}
       required={!optional}

@@ -7,7 +7,8 @@ import {
 import { getRadioPropsFromRadioBoxProps } from "./utils";
 import clsx from "clsx";
 
-export interface RadioBoxProps extends Omit<UiKitRadioProps, "onSelect"> {
+export interface RadioBoxProps
+  extends Omit<UiKitRadioProps, "onSelect" | "label"> {
   onSelect: (value: string) => void;
   selectedValue: string | undefined;
   subtitle?: string;
@@ -18,11 +19,7 @@ export const RadioBox: React.FC<RadioBoxProps> = ({ subtitle, ...rest }) => {
 
   return (
     <div className={clsx("radio-box", radioProps.checked && "selected")}>
-      <UiKitRadio
-        {...radioProps}
-        label={radioProps.value}
-        classNames={{ container: "!mb-0" }}
-      />
+      <UiKitRadio {...radioProps} classNames={{ container: "!mb-0" }} />
       {subtitle && <Text>{subtitle}</Text>}
     </div>
   );

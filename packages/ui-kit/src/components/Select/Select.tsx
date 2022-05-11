@@ -42,9 +42,7 @@ export const Select = <TData extends string = string>({
   classNames,
   onChange,
 }: SelectProps<TData>) => {
-  const selectedOption: Option<TData> | undefined = options.find(
-    ({ value }) => value === selectedValue
-  );
+  const selectedOption = options.find(({ value }) => value === selectedValue);
 
   return (
     <div className={clsx(styles.container, classNames?.container)}>

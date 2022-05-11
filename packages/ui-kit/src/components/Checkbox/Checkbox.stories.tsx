@@ -18,7 +18,7 @@ const Template: ComponentStory<typeof Checkbox> = ({
     <Checkbox
       {...args}
       checked={enabled}
-      onChange={() => setEnabled(!enabled)}
+      onChange={(event) => setEnabled(event.target.checked)}
     />
   );
 };

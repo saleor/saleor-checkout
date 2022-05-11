@@ -26,40 +26,42 @@ export const AddressRadioBox: React.FC<AddressRadioBoxProps> = ({
 }) => {
   const formatMessage = useFormattedMessages();
   const name = `${address.firstName} ${address.lastName}`;
-  const id = useRef(useId());
 
   return (
     <div className="radio-box address-radio-box">
-      <Radio {...getRadioPropsFromRadioBoxProps(rest)} id={id.current} />
-      <div className="flex flex-row justify-between w-full">
-        <div className="flex flex-col">
-          <Label htmlFor={id.current}>
-            <Text weight="semibold">{name}</Text>
-            {pull(
-              getSortedAddressFieldsFromAddress(address),
-              "firstName",
-              "lastName"
-            ).map((field: AddressField) => (
-              <Text key={field}>{address[field] as string}</Text>
-            ))}
-          </Label>
-        </div>
-        <div>
-          <IconButton
-            variant="bare"
-            icon={<img src={PenIcon} />}
-            onClick={onEdit}
-            ariaLabel={formatMessage("editAddressLabel")}
-            className="mr-2"
-          />
-          <IconButton
-            variant="bare"
-            onClick={onDelete}
-            ariaLabel={formatMessage("deleteAddressLabel")}
-            icon={<img src={TrashIcon} />}
-          />
-        </div>
-      </div>
+      <Radio
+        {...getRadioPropsFromRadioBoxProps(rest)}
+        classNames={{ label: "w-full" }}
+        label={
+          <div className="w-full flex flex-row justify-between w-full">
+            <div className="flex flex-col">
+              <Text weight="semibold">{name}</Text>
+              {pull(
+                getSortedAddressFieldsFromAddress(address),
+                "firstName",
+                "lastName"
+              ).map((field: AddressField) => (
+                <Text key={field}>{address[field] as string}</Text>
+              ))}
+            </div>
+            <div>
+              <IconButton
+                variant="bare"
+                icon={<img src={PenIcon} />}
+                onClick={onEdit}
+                ariaLabel={formatMessage("editAddressLabel")}
+                className="mr-2"
+              />
+              <IconButton
+                variant="bare"
+                onClick={onDelete}
+                ariaLabel={formatMessage("deleteAddressLabel")}
+                icon={<img src={TrashIcon} />}
+              />
+            </div>
+          </div>
+        }
+      />
     </div>
   );
 };

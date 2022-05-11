@@ -65,14 +65,12 @@ export const ShippingMethods: React.FC<ShippingMethodsProps> = ({}) => {
             maximumDeliveryDays: max,
           }) => (
             <RadioBox
+              key={id}
               value={id}
               title={`${name} - ${getFormattedMoney(price)}`}
               subtitle={getSubtitle({ min, max })}
               selectedValue={selectedMethodId}
-              onSelect={(lol) => {
-                console.log(666, lol);
-                setSelectedMethodId(lol);
-              }}
+              onSelect={setSelectedMethodId}
             />
           )
         )}
