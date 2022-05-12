@@ -73,14 +73,18 @@ export const CheckoutForm = () => {
             selectedValue={selectedPaymentProvider}
           /> */}
       {isLoading ? (
-        <Button ariaLabel={formatMessage("finalizeCheckoutLabel")} label="" />
+        <Button
+          ariaLabel={formatMessage("finalizeCheckoutLabel")}
+          label=""
+          className="pay-button"
+        />
       ) : (
         <Button
           disabled={payButtonDisabled}
           ariaLabel={formatMessage("finalizeCheckoutLabel")}
           label="Pay"
           onClick={handleSubmit}
-          className="min-w-28"
+          className="pay-button"
         />
       )}
     </div>
