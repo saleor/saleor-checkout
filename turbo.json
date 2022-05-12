@@ -8,7 +8,7 @@
       "outputs": []
     },
     "check-types": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["@saleor/ui-kit#build"]
     },
     "test": {},
     "dev": {
