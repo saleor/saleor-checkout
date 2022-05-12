@@ -51,5 +51,15 @@ export const createOrder = async (
     };
   }
 
+  // demo.saleor.io
+  if (process.env.DEMO_MODE === "true") {
+    return {
+      data: {
+        ...data.orderCreateFromCheckout.order,
+        userEmail: "checkout@example.com",
+      },
+    };
+  }
+
   return { data: data.orderCreateFromCheckout.order };
 };
