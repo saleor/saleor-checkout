@@ -45,15 +45,20 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
     defaultAddress?.id
   );
 
+  const editedAddress = addresses.find(getById(editedAddressId as string));
+
   const selectedAddress = addresses.find(getById(selectedAddressId));
 
   const onSelectAddress = (id: string) => setSelectedAddressId(id);
 
-  useEffect(() => {
+  const handleSelectCountry = (address?: AddressFragment) => () =>
     setSelectedCountryCode(
-      (selectedAddress?.country.code as CountryCode) || defaultCountryCode
+      (address?.country.code as CountryCode) || defaultCountryCode
     );
-  }, [selectedAddress]);
+
+  useEffect(handleSelectCountry(selectedAddress), [selectedAddress]);
+
+  useEffect(handleSelectCountry(editedAddress), [editedAddress]);
 
   useEffect(() => {
     if (!!selectedAddress) {
@@ -80,9 +85,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
           show={displayAddressEdit}
           countryCode={selectedCountryCode}
           onClose={() => setEditedAddressId(null)}
-          defaultValues={getAddressFormDataFromAddress(
-            addresses.find(getById(editedAddressId as string))
-          )}
+          defaultValues={getAddressFormDataFromAddress(editedAddress)}
         />
 
         {displayAddressList && (

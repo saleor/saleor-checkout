@@ -55,7 +55,10 @@ export const CheckoutForm = () => {
       </FormProvider>
       <Divider className="mt-4" />
       <Suspense fallback="loading...">
-        <UserAddresses />
+        <>
+          <UserAddresses />
+          <Divider className="my-4" />
+        </>
       </Suspense>
       <Suspense fallback="loading...">
         <ShippingMethods />
