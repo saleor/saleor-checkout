@@ -29,7 +29,7 @@ export const BillingAddressSection: React.FC<BillingAddressSectionProps> = ({
 
   const defaultAddress = checkout?.shippingAddress || defaultBillingAddress;
 
-  if (useShippingAsBillingAddress) {
+  if (checkout?.isShippingRequired && useShippingAsBillingAddress) {
     return null;
   }
 

@@ -47,8 +47,12 @@ export const ShippingMethods: React.FC<ShippingMethodsProps> = ({}) => {
     });
   };
 
+  if (!checkout?.isShippingRequired) {
+    return null;
+  }
+
   return (
-    <div className="my-6">
+    <div className="mt-6">
       <Title>{formatMessage("deliveryMethod")}</Title>
       {!checkout?.shippingAddress && (
         <Text>
