@@ -52,8 +52,8 @@ export const CheckoutForm = () => {
 
   const payButtonDisabled =
     submitting ||
-    (checkout.isShippingRequired && !checkout.shippingAddress) ||
-    !checkout.billingAddress;
+    (checkout?.isShippingRequired && !checkout?.shippingAddress) ||
+    !checkout?.billingAddress;
 
   return (
     <div className="checkout-form">
@@ -76,6 +76,7 @@ export const CheckoutForm = () => {
         <Button ariaLabel={formatMessage("finalizeCheckoutLabel")} label="" />
       ) : (
         <Button
+          disabled={payButtonDisabled}
           ariaLabel={formatMessage("finalizeCheckoutLabel")}
           label="Pay"
           onClick={handleSubmit}
