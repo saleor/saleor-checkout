@@ -1,3 +1,4 @@
+import { ThemeVariant } from "@/types/common";
 import { createSvgIcon, SvgIconProps } from "@material-ui/core";
 import React from "react";
 
@@ -24,7 +25,7 @@ const AdyenIconLight = createSvgIcon(
 );
 
 interface AdyenProps extends SvgIconProps {
-  variant?: "dark" | "light";
+  variant?: ThemeVariant;
 }
 
 // TODO: variant should be read from theme when app-bridge will support it
