@@ -12,14 +12,14 @@ import {
 } from "@/frontend/utils";
 import { useCustomizationSettings } from "@/frontend/data";
 import { useAuthData } from "@/frontend/hooks/useAuthData";
-import { envVars } from "@/constants";
+import { serverEnvVars } from "@/constants";
 
 const Customization = () => {
   const router = useRouter();
   const { appId, isAuthorized } = useAuthData();
   const [metadataQuery] = usePrivateMetadataQuery({
     variables: {
-      id: appId || envVars.appId,
+      id: appId || serverEnvVars.appId,
     },
     pause: !isAuthorized,
   });
@@ -43,7 +43,7 @@ const Customization = () => {
     });
 
     setPrivateMetadata({
-      id: appId || envVars.appId,
+      id: appId || serverEnvVars.appId,
       input: metadata,
     });
   };
