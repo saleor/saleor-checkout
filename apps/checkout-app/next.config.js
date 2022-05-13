@@ -19,4 +19,8 @@ module.exports = withTM({
   experimental: {
     esmExternals: false,
   },
+  env: {
+    SALEOR_APP_ID: process.env.SALEOR_APP_ID,
+    SALEOR_APP_TOKEN: process.env.SALEOR_APP_TOKEN,
+  },
 });
