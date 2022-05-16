@@ -44,7 +44,7 @@ const encryptSubSettings = (
         setting
       );
 
-      if (setting?.encrypt) {
+      if (setting?.encrypt && value) {
         return {
           ...result,
           [valueKey]: encryptSetting(value),
