@@ -12,6 +12,10 @@ import {
   SettingsType,
 } from "./common";
 
+export interface Encrypted<T> {
+  encrypted: T;
+}
+
 export interface PaymentOption {
   id: string;
   method: PaymentMethod;
@@ -34,7 +38,7 @@ export type ChannelActivePaymentProvidersByChannel = {
 };
 export type PaymentProviderSettingsValues = {
   [P in PaymentProviderID]: {
-    [K in PaymentProviderSettingID<P>]: string;
+    [K in PaymentProviderSettingID<P>]: string | Encrypted<string>;
   };
 };
 export type CustomizationSettingsValues = {
@@ -42,7 +46,7 @@ export type CustomizationSettingsValues = {
     [K in CustomizationSettingID<P>]: string;
   };
 };
-export type UnknownSettingsValues<T = string> = {
+export type UnknownSettingsValues<T = string | Encrypted<string>> = {
   [P in string]: {
     [K in string]: T;
   };

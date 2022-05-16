@@ -5,6 +5,9 @@ import {
   PaymentProvider,
   PaymentProviderSettings,
   CustomizationSettings,
+  SettingID,
+  CustomizationID,
+  PaymentProviderID,
 } from "types/common";
 import {
   brandingCustomizationMessages,
@@ -39,49 +42,47 @@ const paymentMethods: Omit<PaymentMethod, "name">[] = [
   },
 ];
 
-const molliePaymentProviderSettings: Omit<
+const molliePaymentProvider: Omit<
   PaymentProviderSettings<"mollie">,
   "label"
 >[] = [
   {
     id: "partnerId",
     type: "string",
-    isPublic: false,
+    encrypt: true,
   },
   {
     id: "liveApiKey",
     type: "string",
-    isPublic: false,
+    encrypt: true,
   },
   {
     id: "testApiKey",
     type: "string",
-    isPublic: false,
+    encrypt: true,
   },
 ];
 
-const adyenPaymentProviderSettings: Omit<
-  PaymentProviderSettings<"adyen">,
-  "label"
->[] = [
-  {
-    id: "merchantAccount",
-    type: "string",
-    isPublic: false,
-  },
-  {
-    id: "clientKey",
-    type: "string",
-    isPublic: false,
-  },
-  {
-    id: "supportedCurrencies",
-    type: "string",
-    isPublic: true,
-  },
-];
+const adyenPaymentProvider: Omit<PaymentProviderSettings<"adyen">, "label">[] =
+  [
+    {
+      id: "merchantAccount",
+      type: "string",
+      encrypt: true,
+    },
+    {
+      id: "clientKey",
+      type: "string",
+      encrypt: true,
+    },
+    {
+      id: "supportedCurrencies",
+      type: "string",
+      encrypt: false,
+    },
+  ];
 
-const brandingCustomizationSettings: Omit<
+const brandingCustomization: Omit<
   CustomizationSettings<"branding">,
   "label"
 >[] = [
@@ -119,7 +120,7 @@ const brandingCustomizationSettings: Omit<
   },
 ];
 
-const sectionsCustomizationSettings: Omit<
+const sectionsCustomization: Omit<
   CustomizationSettings<"productSettings">,
   "label"
 >[] = [
@@ -128,6 +129,28 @@ const sectionsCustomizationSettings: Omit<
     type: "string",
   },
 ];
+
+const channelActivePaymentProvidersFields: Record<"anyChannel", any> = {
+  anyChannel: paymentMethods,
+};
+const customizationsFields: Record<CustomizationID, any> = {
+  branding: brandingCustomization,
+  productSettings: sectionsCustomization,
+};
+const paymentProviderFields: Record<PaymentProviderID, any> = {
+  mollie: molliePaymentProvider,
+  adyen: adyenPaymentProvider,
+};
+
+export type CommonField = { id: string } & Record<string, any>;
+export const fields: Record<
+  SettingID[number],
+  Record<string, CommonField[]>
+> = {
+  channelActivePaymentProviders: channelActivePaymentProvidersFields,
+  customizations: customizationsFields,
+  paymentProviders: paymentProviderFields,
+};
 
 export const usePaymentMethods = (): PaymentMethod[] => {
   const intl = useIntl();
@@ -145,7 +168,7 @@ export const useMolliePaymentProvider = (): PaymentProvider<"mollie"> => {
     settings: withLabels(
       intl,
       molliePaymentProviderMessages,
-      molliePaymentProviderSettings
+      molliePaymentProvider
     ),
   };
 };
@@ -160,7 +183,7 @@ export const useAdyenPaymentProvider = (): PaymentProvider<"adyen"> => {
     settings: withLabels(
       intl,
       adyenPaymentProviderMessages,
-      adyenPaymentProviderSettings
+      adyenPaymentProvider
     ),
   };
 };
@@ -179,7 +202,7 @@ export const useBrandingCustomization = (): Customization<"branding"> => {
     settings: withLabels(
       intl,
       brandingCustomizationMessages,
-      brandingCustomizationSettings
+      brandingCustomization
     ),
   };
 };
@@ -194,7 +217,7 @@ export const useSectionsCustomization =
       settings: withLabels(
         intl,
         sectionsCustomizationMessages,
-        sectionsCustomizationSettings
+        sectionsCustomization
       ),
     };
   };

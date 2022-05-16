@@ -1,4 +1,3 @@
-import { mapMetadataToSettings } from "@/frontend/utils";
 import {
   ChannelDocument,
   ChannelQuery,
@@ -17,6 +16,7 @@ import { client } from "@/backend/client";
 import { defaultActiveChannelPaymentProviders } from "config/defaults";
 import { mergeChannelsWithPaymentProvidersSettings } from "./utils";
 import { serverEnvVars } from "@/constants";
+import { mapMetadataToSettings } from "@/frontend/misc/mapMetadataToSettings";
 
 export const getPrivateSettings = async (includeSecretSettings?: boolean) => {
   const { data, error } = await client

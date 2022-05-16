@@ -3,11 +3,9 @@ import ErrorDetails from "@/frontend/components/templates/ErrorDetails";
 import { useChannelPaymentOptions } from "@/frontend/data";
 import { useAuthData } from "@/frontend/hooks/useAuthData";
 import { notFoundMessages } from "@/frontend/misc/errorMessages";
-import {
-  getCommonErrors,
-  mapMetadataToSettings,
-  mapSettingsToMetadata,
-} from "@/frontend/utils";
+import { mapMetadataToSettings } from "@/frontend/misc/mapMetadataToSettings";
+import { mapSettingsToMetadata } from "@/frontend/misc/mapSettingsToMetadata";
+import { getCommonErrors } from "@/frontend/utils";
 import {
   useChannelsQuery,
   usePublicMetadataQuery,

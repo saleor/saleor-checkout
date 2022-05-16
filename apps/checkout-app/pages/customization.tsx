@@ -5,14 +5,12 @@ import {
   usePublicMetadataQuery,
   useUpdatePublicMetadataMutation,
 } from "@/graphql";
-import {
-  getCommonErrors,
-  mapMetadataToSettings,
-  mapSettingsToMetadata,
-} from "@/frontend/utils";
+import { getCommonErrors } from "@/frontend/utils";
 import { useCustomizationSettings } from "@/frontend/data";
 import { useAuthData } from "@/frontend/hooks/useAuthData";
 import { serverEnvVars } from "@/constants";
+import { mapMetadataToSettings } from "@/frontend/misc/mapMetadataToSettings";
+import { mapSettingsToMetadata } from "@/frontend/misc/mapSettingsToMetadata";
 
 const Customization = () => {
   const router = useRouter();

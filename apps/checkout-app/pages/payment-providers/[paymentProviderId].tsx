@@ -6,16 +6,14 @@ import {
   usePrivateMetadataQuery,
   useUpdatePrivateMetadataMutation,
 } from "@/graphql";
-import {
-  getCommonErrors,
-  mapMetadataToSettings,
-  mapSettingsToMetadata,
-} from "@/frontend/utils";
+import { getCommonErrors } from "@/frontend/utils";
 import { usePaymentProviderSettings } from "@/frontend/data";
 import ErrorDetails from "@/frontend/components/templates/ErrorDetails";
 import { useIntl } from "react-intl";
 import { notFoundMessages } from "@/frontend/misc/errorMessages";
 import { serverEnvVars } from "@/constants";
+import { mapMetadataToSettings } from "@/frontend/misc/mapMetadataToSettings";
+import { mapSettingsToMetadata } from "@/frontend/misc/mapSettingsToMetadata";
 
 const PaymentProvider = () => {
   const router = useRouter();
