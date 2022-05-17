@@ -36,7 +36,6 @@ const decryptSettings = (
   return reduce(
     subSettings,
     (subSettings, subSetting, subSettingKey) => {
-      console.log("read subSetting", subSetting);
       const isEncrypted =
         typeof subSetting !== "string" && "encrypted" in subSetting;
 
@@ -77,7 +76,7 @@ export const mergeSettingsValues = (
         ? { ...defaultSetting, ...savedSetting }
         : defaultSetting;
       const setting = decryptSettings(udpatedSetting, includeEncryptedSettings);
-      console.log("read", setting);
+
       return {
         ...result,
         [settingKey]: setting,
@@ -90,11 +89,11 @@ export const mergeSettingsValues = (
 export const mapMetadataToSettings = <T extends SettingsType>({
   metadata,
   type,
-  includeSecretSettings,
+  includeEncryptedSettings,
 }: {
   metadata: (MetadataItemFragment | null)[];
   type: T;
-  includeSecretSettings?: boolean;
+  includeEncryptedSettings?: boolean;
 }): SettingsValues<T> => {
   const defaultSettings =
     type === "public" ? defaultPublicSettings : defaultPrivateSettings;
@@ -113,7 +112,7 @@ export const mapMetadataToSettings = <T extends SettingsType>({
         [settingsKey]: mergeSettingsValues(
           settings[settingsKey],
           metadataItemSettings,
-          includeSecretSettings
+          includeEncryptedSettings
         ),
       };
     } catch (e) {

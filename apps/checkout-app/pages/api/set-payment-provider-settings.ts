@@ -1,39 +1,44 @@
 import {
   getPrivateSettings,
-  isAuthorized,
   setPrivateSettings,
 } from "@/backend/configuration/settings";
-import { allowCors } from "@/backend/utils";
+import { allowCors, requireAuthorization } from "@/backend/utils";
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const authorized = await isAuthorized(req);
-  console.log(authorized ? "JWT check: authorized" : "JWT check: unauthorized");
+  const data = req.body;
 
-  if (!authorized) {
-    return res.status(401).json({ ok: false });
-  }
-
-  const settings = await getPrivateSettings();
-
-  console.log(settings); // for deployment debug pusposes
-
-  const data = req.body?.data;
+  console.log("data:", data); // for deployment debug pusposes
 
   if (!data) {
-    return res.status(400).json({ ok: false });
+    return res.status(400).json({
+      error: {
+        message: "Submitted data is incorrect",
+      },
+    });
   }
 
-  const updatedSettings = await setPrivateSettings(
-    {
-      paymentProviders: {
-        ...settings.paymentProviders,
-        ...data,
-      },
-    },
-    true
-  );
+  try {
+    const settings = await getPrivateSettings(true);
 
-  res.status(200).json(updatedSettings.paymentProviders);
+    console.log(settings); // for deployment debug pusposes
+
+    const updatedSettings = await setPrivateSettings(
+      {
+        ...settings,
+        paymentProviders: {
+          ...settings.paymentProviders,
+          ...JSON.parse(data),
+        },
+      },
+      true
+    );
+
+    return res.status(200).json({
+      data: updatedSettings.paymentProviders,
+    });
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
 }
-export default allowCors(handler);
+export default allowCors(requireAuthorization(handler));

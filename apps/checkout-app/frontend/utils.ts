@@ -35,7 +35,10 @@ export const mapNodeToItem = (node: NamedNode): Item => ({
 export const mapNodesToItems = (nodes?: NamedNode[]): Item[] =>
   nodes?.map(mapNodeToItem) || [];
 
-export const getCommonErrors = (error?: CombinedError) => [
-  ...(error?.graphQLErrors || []),
-  ...((error?.networkError && [error.networkError]) || []),
-];
+export const getCommonErrors = (error?: CombinedError) =>
+  error?.graphQLErrors || error?.networkError
+    ? [
+        ...(error?.graphQLErrors || []),
+        ...(error?.networkError ? [error.networkError] : []),
+      ]
+    : [...(error ? [error] : [])];

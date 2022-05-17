@@ -11,32 +11,27 @@ import { usePaymentProviderSettings } from "@/frontend/data";
 import ErrorDetails from "@/frontend/components/templates/ErrorDetails";
 import { useIntl } from "react-intl";
 import { notFoundMessages } from "@/frontend/misc/errorMessages";
-import { serverEnvVars } from "@/constants";
+import { envVars, serverEnvVars } from "@/constants";
 import { mapMetadataToSettings } from "@/frontend/misc/mapMetadataToSettings";
 import { mapSettingsToMetadata } from "@/frontend/misc/mapSettingsToMetadata";
+import { getAuthHeaders } from "@/frontend/misc/auth";
+import { useGetPaymentProviderSettings } from "@/frontend/hooks/useGetPaymentProviderSettings";
+import { useSetPaymentProviderSettings } from "@/frontend/hooks/useSetPaymentProviderSettings";
 
 const PaymentProvider = () => {
   const router = useRouter();
   const { paymentProviderId, channelId } = router.query;
   const intl = useIntl();
+  const { isAuthorized } = useAuthData();
 
-  const { appId, isAuthorized } = useAuthData();
-  const [metadataQuery] = usePrivateMetadataQuery({
-    variables: {
-      id: appId || serverEnvVars.appId,
-    },
+  const getPaymentProviderSettings = useGetPaymentProviderSettings({
     pause: !isAuthorized,
   });
-  const [metadataMutation, setPrivateMetadata] =
-    useUpdatePrivateMetadataMutation();
+  const [setPaymentProviderSettings, setPaymentProviderSettingsRequest] =
+    useSetPaymentProviderSettings();
 
-  const settingsValues = mapMetadataToSettings({
-    metadata: metadataQuery.data?.app?.privateMetadata || [],
-    type: "private",
-    includeSecretSettings: true,
-  });
   const paymentProviders = usePaymentProviderSettings(
-    settingsValues.paymentProviders
+    getPaymentProviderSettings.data
   );
 
   const paymentProvider = paymentProviders.find(
@@ -48,22 +43,12 @@ const PaymentProvider = () => {
   };
 
   const handleSubmit = (data: PaymentProviderSettingsValues) => {
-    const metadata = mapSettingsToMetadata({
-      paymentProviders: {
-        ...settingsValues.paymentProviders,
-        ...data,
-      },
-    });
-
-    setPrivateMetadata({
-      id: appId || serverEnvVars.appId,
-      input: metadata,
-    });
+    setPaymentProviderSettingsRequest(data);
   };
 
   const errors = [
-    ...(metadataMutation.data?.updatePrivateMetadata?.errors || []),
-    ...getCommonErrors(metadataMutation.error),
+    ...getCommonErrors(getPaymentProviderSettings.error),
+    ...getCommonErrors(setPaymentProviderSettings.error),
   ];
 
   if (!paymentProvider) {
@@ -79,7 +64,10 @@ const PaymentProvider = () => {
       selectedPaymentProvider={paymentProvider}
       channelId={channelId?.toString()}
       saveButtonBarState="default"
-      loading={metadataQuery.fetching || metadataMutation.fetching}
+      loading={
+        getPaymentProviderSettings.fetching ||
+        setPaymentProviderSettings.fetching
+      }
       errors={errors}
       onCancel={handleCancel}
       onSubmit={handleSubmit}

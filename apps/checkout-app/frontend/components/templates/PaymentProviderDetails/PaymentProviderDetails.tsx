@@ -91,14 +91,16 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
     } as PaymentProviderSettingsValues);
   };
 
-  const secretSettings = selectedPaymentProvider.settings.filter(
-    ({ isPublic }) => !isPublic
+  const encryptedSettings = selectedPaymentProvider.settings.filter(
+    ({ encrypt }) => encrypt
   );
   const publicSettings = selectedPaymentProvider.settings.filter(
-    ({ isPublic }) => isPublic
+    ({ encrypt }) => !encrypt
   );
-  const hasSecretSettings = secretSettings.length > 0;
+  const hasEncryptedSettings = encryptedSettings.length > 0;
   const hasPublicSettings = publicSettings.length > 0;
+
+  console.log(errors);
 
   return (
     <form>
@@ -121,26 +123,26 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
         <Card>
           {loading && (
             <PaymentProviderDetailsSettings
-              settings={secretSettings}
+              settings={encryptedSettings}
               showHeader={true}
               loading={true}
             />
           )}
-          {!loading && hasSecretSettings && (
+          {!loading && hasEncryptedSettings && (
             <PaymentProviderDetailsSettings
-              settings={secretSettings}
-              description={intl.formatMessage(messages.secretSettingNotice)}
+              settings={encryptedSettings}
+              description={intl.formatMessage(messages.encryptedSettingNotice)}
               showHeader={true}
               formControl={control}
             />
           )}
           {!loading && hasPublicSettings && (
             <>
-              {hasSecretSettings && <Divider />}
+              {hasEncryptedSettings && <Divider />}
               <PaymentProviderDetailsSettings
                 settings={publicSettings}
                 description={intl.formatMessage(messages.publicSettingNotice)}
-                showHeader={!hasSecretSettings}
+                showHeader={!hasEncryptedSettings}
                 formControl={control}
               />
             </>

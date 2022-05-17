@@ -22,7 +22,7 @@ const encrypt = (salt: any, text: string) => {
 
 const encryptSetting = (settingValue: string): Encrypted<string> => {
   return {
-    encrypted: encrypt(serverEnvVars.settingsEncryptionSecret, settingValue), // TODO: implement encryption
+    encrypted: encrypt(serverEnvVars.settingsEncryptionSecret, settingValue),
   };
 };
 
@@ -35,13 +35,6 @@ const encryptSubSettings = (
     (result, value, valueKey) => {
       const setting = subSettingsFields?.find(
         (setting) => setting.id === valueKey
-      );
-
-      console.log(
-        "encryptedSubSetting - setting",
-        // settingKey,
-        valueKey,
-        setting
       );
 
       if (setting?.encrypt && value) {
@@ -65,8 +58,6 @@ const encryptSettings = <T extends Record<string, any>>(
   settingsValues: T[] | undefined,
   settingsFields: Record<string, CommonField[]>
 ) => {
-  console.log("encryptSettings", settingsValues, settingsFields);
-
   const encrypteSettings = reduce(
     settingsValues,
     (result, defaultSetting, settingKey) => {
@@ -79,11 +70,6 @@ const encryptSettings = <T extends Record<string, any>>(
         subSettingsFields
       );
 
-      console.log(
-        "encrypteSettings - encryptedSubSetting",
-        encryptedSubSetting
-      );
-
       return {
         ...result,
         [settingKey]: encryptedSubSetting,
@@ -91,7 +77,6 @@ const encryptSettings = <T extends Record<string, any>>(
     },
     {} as Record<SettingID[number], T>
   );
-  console.log("encrypteSettings reduce", encrypteSettings);
   return encrypteSettings;
 };
 
@@ -100,12 +85,10 @@ export const mapSettingsToMetadata = <T extends Record<string, any>>(
 ) => {
   return Object.keys(settingsValues).reduce(
     (metadata, settingsValuesKey) => {
-      // const settingsValuesObject = settingsValues[settingsValuesKey as keyof T];
       const settingsValuesObject = encryptSettings(
         settingsValues[settingsValuesKey as keyof T],
         fields[settingsValuesKey as SettingID[number]]
       );
-      console.log("FINAL: settingsValuesObject", settingsValuesObject);
       const settingsValuesValue = JSON.stringify(settingsValuesObject);
 
       return [
