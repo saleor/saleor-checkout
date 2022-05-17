@@ -178,7 +178,6 @@ importers:
       eslint-plugin-react-hooks: 4.4.0_eslint@7.32.0
       graphql: 16.3.0
       graphql-tag: 2.12.6_graphql@16.3.0
-      json-easy-strip: 1.0.6
       jsonwebtoken: 8.5.1
       jwks-rsa: 2.1.2
       next: 12.1.6_react-dom@17.0.2+react@17.0.2
@@ -206,6 +205,7 @@ importers:
       config: link:../../packages/config
       eslint: 7.32.0
       jest: 27.5.1
+      json-easy-strip: 1.0.6
       next-transpile-modules: 9.0.0
       node-mocks-http: 1.11.0
       ts-jest: 27.1.4_9985e1834e803358b7be1e6ce5ca0eea
@@ -13489,7 +13489,7 @@ packages:
 
   /json-easy-strip/1.0.6:
     resolution: {integrity: sha512-hof2dl1Fuzl+VV+bC9PsUDcce+cCa4EiTIDvfKgrq2OxHPzT/+rQhGSNvfs+jnDICdgNThw2jO6HZI9wBz9kIg==}
-    dev: false
+    dev: true
 
   /json-parse-better-errors/1.0.2:
     resolution: {integrity: sha512-mrqyZKfX5EhL7hvqcV6WG1yYjnjeuYDzDhhcAAUrq8Po85NBQBJP+ZDUT75qZQ98IkUoBqdkExkukOU7Ts2wrw==}
