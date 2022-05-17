@@ -2,12 +2,14 @@ import { Client, CheckoutAPI, Types } from "@adyen/api-library";
 
 import { OrderFragment, TransactionCreateMutationVariables } from "@/graphql";
 import { formatRedirectUrl } from "@/backend/payments/utils";
+import { getOrderTransactions } from "@/backend/payments/getOrderTransactions";
 
 import {
   getAdyenAmountFromSaleor,
   getSaleorAmountFromAdyen,
   mapAvailableActions,
   getLineItems,
+  createTransactionUniqueKey,
 } from "./utils";
 
 const client = new Client({
@@ -65,7 +67,38 @@ export const createAdyenPayment = async (
   return url;
 };
 
+export const isNotificationDuplicate = async (
+  orderId: string,
+  notificationItem: Types.notification.NotificationRequestItem
+) => {
+  // get current order transactions
+  const transactions = await getOrderTransactions({ id: orderId });
+  const transactionKeys = transactions.map(createTransactionUniqueKey);
+  const newTransactionKey = createTransactionUniqueKey({
+    reference: notificationItem.pspReference,
+    status: notificationItem.eventCode.toString(),
+  });
+
+  return transactionKeys.includes(newTransactionKey);
+};
+
+export const getOrderId = async (
+  notification: Types.notification.NotificationRequestItem
+) => {
+  const { additionalData } = notification;
+  const paymentLinkId = additionalData?.paymentLinkId;
+
+  if (!paymentLinkId) {
+    return;
+  }
+
+  const { metadata } = await checkout.getPaymentLinks(paymentLinkId);
+
+  return metadata?.orderId;
+};
+
 export const verifyPayment = async (
+  orderId: string,
   notification: Types.notification.NotificationRequestItem
 ): Promise<TransactionCreateMutationVariables | undefined> => {
   const {
@@ -82,18 +115,12 @@ export const verifyPayment = async (
     return;
   }
 
-  const { metadata } = await checkout.getPaymentLinks(paymentLinkId);
-
-  if (!metadata?.orderId) {
-    return;
-  }
-
   if (
     eventCode ===
     Types.notification.NotificationRequestItem.EventCodeEnum.Authorisation
   ) {
     return {
-      id: metadata.orderId,
+      id: orderId,
       transaction: {
         status: eventCode.toString(),
         type: `adyen-${paymentMethod}`,
@@ -112,7 +139,7 @@ export const verifyPayment = async (
     Types.notification.NotificationRequestItem.EventCodeEnum.Capture
   ) {
     return {
-      id: metadata.orderId,
+      id: orderId,
       transaction: {
         status: eventCode.toString(),
         type: `adyen-${paymentMethod}`,

@@ -1,4 +1,8 @@
-import { OrderFragment, TransactionActionEnum } from "@/graphql";
+import {
+  OrderFragment,
+  TransactionActionEnum,
+  TransactionItemFragment,
+} from "@/graphql";
 import { Types } from "@adyen/api-library";
 
 export const getAdyenAmountFromSaleor = (float: number) =>
@@ -48,3 +52,7 @@ export const getLineItems = (
     imageUrl: line.thumbnail?.url,
     itemCategory: line.variant?.product.category?.name,
   }));
+
+export const createTransactionUniqueKey = (
+  transaction: TransactionItemFragment
+) => [transaction.status, transaction.reference].join();
