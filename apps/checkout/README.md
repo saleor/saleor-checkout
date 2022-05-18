@@ -7,7 +7,6 @@ Saleor checkout is a [CRA](https://create-react-app.dev/) for connecting Saleor 
 First, setup necessary environment variables:
 
 ```
-TSC_COMPILE_ON_ERROR=true
 REACT_APP_CHECKOUT_APP_URL=https://your-checkout-app-url.app/api
 REACT_APP_SALEOR_API_URL=https://your-saleor-instance.saleor.cloud/graphql/
 ```
