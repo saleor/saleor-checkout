@@ -20,19 +20,19 @@ export const [useCountrySelect, Provider] =
 export const CountrySelectProvider: React.FC<
   PropsWithChildren<CountrySelectProviderProps>
 > = ({ children, selectedCountryCode }) => {
-  const [countryCode, handleSetCountryCode] = useState<CountryCode>(
+  const [countryCode, setCountryCode] = useState<CountryCode>(
     selectedCountryCode || defaultCountryCode
   );
 
-  const setCountryCode = (code: CountryCode = defaultCountryCode) =>
-    handleSetCountryCode(code);
+  const handleSetCountryCode = (code: CountryCode = defaultCountryCode) =>
+    setCountryCode(code);
 
   const setCountryCodeFromAddress = (address?: AddressFragment | null) =>
     setCountryCode(address?.country?.code as CountryCode);
 
   const providerValues: CountrySelectContextConsumerProps = {
     countryCode,
-    setCountryCode,
+    setCountryCode: handleSetCountryCode,
     setCountryCodeFromAddress,
   };
 
