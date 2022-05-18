@@ -3,6 +3,7 @@ import { decode, verify } from "jsonwebtoken";
 import JwksClient from "jwks-rsa";
 import { NextApiRequest } from "next";
 
+// By default, signing key verification results are cached by the client.
 export const jwksClient = JwksClient({
   jwksUri: `${envVars.saleorUrl}.well-known/jwks.json`,
 });

@@ -1,6 +1,5 @@
 import { SvgIconTypeMap } from "@material-ui/core";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
-import { Encrypted } from "./api";
 
 export type SettingsType = "public" | "private";
 export const allPublicSettingID = [
@@ -48,7 +47,7 @@ export interface PaymentProviderSettings<P extends PaymentProviderID> {
   id: PaymentProviderSettingID<P>;
   label: string;
   type: SettingType;
-  value?: string | Encrypted<string>;
+  value?: string;
   encrypt: boolean;
 }
 export interface PaymentProvider<P extends PaymentProviderID> {

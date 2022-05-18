@@ -33,7 +33,7 @@ export const useCustomizationSettings = (
   }));
 
 export const usePaymentProviderSettings = (
-  settingsValues: UnknownSettingsValues<"encrypted">
+  settingsValues: UnknownSettingsValues<"unencrypted">
 ): PaymentProvider<PaymentProviderID>[] =>
   usePaymentProviders().map((provider) => ({
     ...provider,
