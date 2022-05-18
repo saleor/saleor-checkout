@@ -1,7 +1,8 @@
-import { useUserQuery } from "@/graphql";
+import { CountryCode, useUserQuery } from "@/graphql";
 import { useCheckout } from "@/hooks/useCheckout";
+import { CountrySelectProvider } from "@/providers/CountrySelectProvider";
 import { useAuthState } from "@saleor/sdk";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BillingAddressSection } from "./BillingAddressSection";
 import { ShippingAddressSection } from "./ShippingAddressSection";
 
@@ -22,18 +23,30 @@ export const Addresses: React.FC = () => {
   return (
     <div>
       {checkout.isShippingRequired && (
-        <ShippingAddressSection
-          addresses={userAddresses}
-          defaultShippingAddress={user?.defaultShippingAddress}
-          useShippingAsBillingAddress={useShippingAsBillingAddress}
-          setUseShippingAsBillingAddress={setUseShippingAsBillingAddress}
-        />
+        <CountrySelectProvider
+          selectedCountryCode={
+            checkout?.shippingAddress?.country?.code as CountryCode
+          }
+        >
+          <ShippingAddressSection
+            addresses={userAddresses}
+            defaultShippingAddress={user?.defaultShippingAddress}
+            useShippingAsBillingAddress={useShippingAsBillingAddress}
+            setUseShippingAsBillingAddress={setUseShippingAsBillingAddress}
+          />
+        </CountrySelectProvider>
       )}
-      <BillingAddressSection
-        addresses={userAddresses}
-        defaultBillingAddress={user?.defaultBillingAddress}
-        useShippingAsBillingAddress={useShippingAsBillingAddress}
-      />
+      <CountrySelectProvider
+        selectedCountryCode={
+          checkout?.billingAddress?.country?.code as CountryCode
+        }
+      >
+        <BillingAddressSection
+          addresses={userAddresses}
+          defaultBillingAddress={user?.defaultBillingAddress}
+          useShippingAsBillingAddress={useShippingAsBillingAddress}
+        />
+      </CountrySelectProvider>
     </div>
   );
 };

@@ -1,8 +1,9 @@
 import { AddressFragment } from "@/graphql";
 import { useCheckout } from "@/hooks/useCheckout";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
+import { useCountrySelect } from "@/providers/CountrySelectProvider";
 import { useAuthState } from "@saleor/sdk";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { GuestAddressSection } from "./GuestAddressSection";
 import { UserDefaultAddressFragment } from "./types";
 import { useCheckoutAddressUpdate } from "./useCheckoutAddressUpdate";
@@ -22,12 +23,28 @@ export const BillingAddressSection: React.FC<BillingAddressSectionProps> = ({
   const formatMessage = useFormattedMessages();
   const { user: authUser } = useAuthState();
   const { checkout } = useCheckout();
+  const hasUseShippingAsBillingAddressChanged = useRef(false);
+
+  const { setCountryCodeFromAddress } = useCountrySelect();
 
   const { updateBillingAddress } = useCheckoutAddressUpdate({
     useShippingAsBillingAddress,
   });
 
   const defaultAddress = checkout?.shippingAddress || defaultBillingAddress;
+
+  useEffect(() => {
+    if (
+      useShippingAsBillingAddress ||
+      hasUseShippingAsBillingAddressChanged.current
+    ) {
+      return;
+    }
+
+    setCountryCodeFromAddress(checkout?.shippingAddress);
+
+    hasUseShippingAsBillingAddressChanged.current = true;
+  }, [useShippingAsBillingAddress]);
 
   if (checkout?.isShippingRequired && useShippingAsBillingAddress) {
     return null;
