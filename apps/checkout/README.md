@@ -1,5 +1,7 @@
 # Saleor Checkout
 
+Saleor checkout is a [CRA](https://create-react-app.dev/) for connecting Saleor based storefronts with checkout logic.
+
 ## Local development
 
 First, setup necessary environment variables:
@@ -29,8 +31,6 @@ You'll need checkout token in order to use the checkout. You can generate new ch
 Open [localhost:8001?checkoutToken=yourToken](http://localhost:8001?checkoutToken=) with your browser and add the your token to the url.
 
 ## Project structure
-
-Checkout is a [CRA](https://create-react-app.dev/).
 
 ### Api requests and types
 
