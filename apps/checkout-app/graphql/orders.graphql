@@ -105,15 +105,23 @@ mutation OrderCreate($id: ID!) {
   }
 }
 
-fragment TransactionItem on TransactionItem {
+fragment TransactionEvent on TransactionEvent {
+  name
   reference
-  status
+}
+
+fragment Transaction on TransactionItem {
+  events {
+    ...TransactionEvent
+  }
 }
 
 query OrderTransactions($id: ID!) {
   order(id: $id) {
     transactions {
-      ...TransactionItem
+      id
+      reference
+      ...Transaction
     }
     errors {
       code

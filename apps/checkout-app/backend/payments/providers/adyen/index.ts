@@ -1,6 +1,12 @@
 import { Client, CheckoutAPI, Types } from "@adyen/api-library";
 
-import { OrderFragment, TransactionCreateMutationVariables } from "@/graphql";
+import {
+  OrderFragment,
+  TransactionCreateMutationVariables,
+  TransactionEventInput,
+  TransactionFragment,
+  TransactionUpdateMutationVariables,
+} from "@/graphql";
 import { formatRedirectUrl } from "@/backend/payments/utils";
 import { getOrderTransactions } from "@/backend/payments/getOrderTransactions";
 
@@ -9,7 +15,7 @@ import {
   getSaleorAmountFromAdyen,
   mapAvailableActions,
   getLineItems,
-  createTransactionUniqueKey,
+  createEventUniqueKey,
 } from "./utils";
 
 const client = new Client({
@@ -68,18 +74,18 @@ export const createAdyenPayment = async (
 };
 
 export const isNotificationDuplicate = async (
-  orderId: string,
+  transactions: TransactionFragment[],
   notificationItem: Types.notification.NotificationRequestItem
 ) => {
-  // get current order transactions
-  const transactions = await getOrderTransactions({ id: orderId });
-  const transactionKeys = transactions.map(createTransactionUniqueKey);
-  const newTransactionKey = createTransactionUniqueKey({
+  const eventKeys = transactions
+    .map(({ events }) => events.map(createEventUniqueKey))
+    .flat();
+  const newEventKey = createEventUniqueKey({
     reference: notificationItem.pspReference,
-    status: notificationItem.eventCode.toString(),
+    name: notificationItem.eventCode.toString(),
   });
 
-  return transactionKeys.includes(newTransactionKey);
+  return eventKeys.includes(newEventKey);
 };
 
 export const getOrderId = async (
@@ -97,10 +103,42 @@ export const getOrderId = async (
   return metadata?.orderId;
 };
 
-export const verifyPayment = async (
+export const getUpdatedTransactionData = (
+  transactionId: string,
+  notification: Types.notification.NotificationRequestItem
+): TransactionUpdateMutationVariables => {
+  const { eventCode, amount, pspReference, originalReference, operations } =
+    notification;
+
+  if (!originalReference) {
+    throw "originalReference does not exit on notification";
+  }
+
+  const failureStates = [
+    Types.notification.NotificationRequestItem.EventCodeEnum.CaptureFailed,
+    Types.notification.NotificationRequestItem.EventCodeEnum.RefundFailed,
+  ];
+
+  const transactionEvent: TransactionEventInput = {
+    name: eventCode.toString(),
+    status: failureStates.includes(eventCode) ? "FAILURE" : "SUCCESS",
+    reference: pspReference,
+  };
+
+  return {
+    id: transactionId,
+    transaction: {
+      status: eventCode.toString(),
+      ...(operations && { availableActions: mapAvailableActions(operations) }),
+    },
+    transactionEvent,
+  };
+};
+
+export const getNewTransactionData = (
   orderId: string,
   notification: Types.notification.NotificationRequestItem
-): Promise<TransactionCreateMutationVariables | undefined> => {
+): TransactionCreateMutationVariables | undefined => {
   const {
     eventCode,
     amount,
@@ -111,9 +149,15 @@ export const verifyPayment = async (
   } = notification;
   const paymentLinkId = additionalData?.paymentLinkId;
 
-  if (!paymentLinkId || !operations) {
-    return;
+  if (!paymentLinkId) {
+    throw "Payment link does not exist";
   }
+
+  const transactionEvent: TransactionEventInput = {
+    name: eventCode.toString(),
+    status: "SUCCESS",
+    reference: pspReference,
+  };
 
   if (
     eventCode ===
@@ -121,6 +165,7 @@ export const verifyPayment = async (
   ) {
     return {
       id: orderId,
+      transactionEvent,
       transaction: {
         status: eventCode.toString(),
         type: `adyen-${paymentMethod}`,
@@ -129,7 +174,7 @@ export const verifyPayment = async (
           currency: amount.currency!,
         },
         reference: pspReference,
-        availableActions: mapAvailableActions(operations),
+        availableActions: operations ? mapAvailableActions(operations) : [],
       },
     };
   }
@@ -140,6 +185,7 @@ export const verifyPayment = async (
   ) {
     return {
       id: orderId,
+      transactionEvent,
       transaction: {
         status: eventCode.toString(),
         type: `adyen-${paymentMethod}`,
@@ -148,7 +194,7 @@ export const verifyPayment = async (
           currency: amount.currency!,
         },
         reference: pspReference,
-        availableActions: mapAvailableActions(operations),
+        availableActions: operations ? mapAvailableActions(operations) : [],
       },
     };
   }

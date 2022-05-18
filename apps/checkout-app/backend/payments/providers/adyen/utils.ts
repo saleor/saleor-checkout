@@ -1,7 +1,7 @@
 import {
   OrderFragment,
   TransactionActionEnum,
-  TransactionItemFragment,
+  TransactionEventFragment,
 } from "@/graphql";
 import { Types } from "@adyen/api-library";
 
@@ -53,6 +53,5 @@ export const getLineItems = (
     itemCategory: line.variant?.product.category?.name,
   }));
 
-export const createTransactionUniqueKey = (
-  transaction: TransactionItemFragment
-) => [transaction.status, transaction.reference].join();
+export const createEventUniqueKey = (event: TransactionEventFragment) =>
+  [event.name, event.reference].join();

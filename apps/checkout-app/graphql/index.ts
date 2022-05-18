@@ -20243,6 +20243,7 @@ export type OrderCreateMutationVariables = Exact<{
   id: Scalars["ID"];
 }>;
 
+<<<<<<< HEAD
 export type OrderCreateMutation = {
   __typename?: "Mutation";
   orderCreateFromCheckout?: {
@@ -20340,11 +20341,20 @@ export type TransactionItemFragment = {
   reference: string;
   status: string;
 };
+=======
+
+export type OrderCreateMutation = { __typename?: 'Mutation', orderCreateFromCheckout?: { __typename?: 'OrderCreateFromCheckout', order?: { __typename?: 'Order', id: string, number: string, token: string, userEmail?: string | null, shippingTaxRate: number, shippingMethodName?: string | null, billingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, shippingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, total: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, discounts: Array<{ __typename?: 'OrderDiscount', name?: string | null, amount: { __typename?: 'Money', currency: string, amount: number } }>, shippingPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, net: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, lines: Array<{ __typename?: 'OrderLine', id: string, productName: string, variantName: string, quantity: number, taxRate: number, variant?: { __typename?: 'ProductVariant', product: { __typename?: 'Product', category?: { __typename?: 'Category', name: string } | null, productType: { __typename?: 'ProductType', isDigital: boolean, kind: ProductTypeKindEnum } } } | null, unitPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, totalPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, thumbnail?: { __typename?: 'Image', url: string } | null }> } | null, errors: Array<{ __typename?: 'OrderCreateFromCheckoutError', code: OrderCreateFromCheckoutErrorCode, message?: string | null }> } | null };
+
+export type TransactionEventFragment = { __typename?: 'TransactionEvent', name?: string | null, reference: string };
+
+export type TransactionFragment = { __typename?: 'TransactionItem', events: Array<{ __typename?: 'TransactionEvent', name?: string | null, reference: string }> };
+>>>>>>> 3a6ebe0 (Use transaction events)
 
 export type OrderTransactionsQueryVariables = Exact<{
   id: Scalars["ID"];
 }>;
 
+<<<<<<< HEAD
 export type OrderTransactionsQuery = {
   __typename?: "Query";
   order?: {
@@ -20361,6 +20371,10 @@ export type OrderTransactionsQuery = {
     }>;
   } | null;
 };
+=======
+
+export type OrderTransactionsQuery = { __typename?: 'Query', order?: { __typename?: 'Order', transactions: Array<{ __typename?: 'TransactionItem', id: string, reference: string, events: Array<{ __typename?: 'TransactionEvent', name?: string | null, reference: string }> }>, errors: Array<{ __typename?: 'OrderError', code: OrderErrorCode, message?: string | null }> } | null };
+>>>>>>> 3a6ebe0 (Use transaction events)
 
 export type TransactionCreateMutationVariables = Exact<{
   id: Scalars["ID"];
@@ -20519,6 +20533,7 @@ export const OrderFragmentDoc = gql`
       ...OrderLine
     }
   }
+<<<<<<< HEAD
   ${AddressFragmentDoc}
   ${MoneyFragmentDoc}
   ${OrderLineFragmentDoc}
@@ -20529,6 +20544,30 @@ export const TransactionItemFragmentDoc = gql`
     status
   }
 `;
+=======
+  shippingTaxRate
+  shippingMethodName
+  lines {
+    ...OrderLine
+  }
+}
+    ${AddressFragmentDoc}
+${MoneyFragmentDoc}
+${OrderLineFragmentDoc}`;
+export const TransactionEventFragmentDoc = gql`
+    fragment TransactionEvent on TransactionEvent {
+  name
+  reference
+}
+    `;
+export const TransactionFragmentDoc = gql`
+    fragment Transaction on TransactionItem {
+  events {
+    ...TransactionEvent
+  }
+}
+    ${TransactionEventFragmentDoc}`;
+>>>>>>> 3a6ebe0 (Use transaction events)
 export const AppDocument = gql`
   query App($id: ID) {
     app(id: $id) {
@@ -20678,6 +20717,7 @@ export function useOrderCreateMutation() {
   );
 }
 export const OrderTransactionsDocument = gql`
+<<<<<<< HEAD
   query OrderTransactions($id: ID!) {
     order(id: $id) {
       transactions {
@@ -20687,6 +20727,18 @@ export const OrderTransactionsDocument = gql`
         code
         message
       }
+=======
+    query OrderTransactions($id: ID!) {
+  order(id: $id) {
+    transactions {
+      id
+      reference
+      ...Transaction
+    }
+    errors {
+      code
+      message
+>>>>>>> 3a6ebe0 (Use transaction events)
     }
   }
   ${TransactionItemFragmentDoc}
@@ -20700,6 +20752,14 @@ export function useOrderTransactionsQuery(
     ...options,
   });
 }
+<<<<<<< HEAD
+=======
+    ${TransactionFragmentDoc}`;
+
+export function useOrderTransactionsQuery(options: Omit<Urql.UseQueryArgs<OrderTransactionsQueryVariables>, 'query'>) {
+  return Urql.useQuery<OrderTransactionsQuery>({ query: OrderTransactionsDocument, ...options });
+};
+>>>>>>> 3a6ebe0 (Use transaction events)
 export const TransactionCreateDocument = gql`
   mutation TransactionCreate(
     $id: ID!

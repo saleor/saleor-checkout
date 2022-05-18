@@ -5,10 +5,13 @@ import { hmacValidator, Types } from "@adyen/api-library";
 
 import { createTransaction } from "@/backend/payments/createTransaction";
 import {
+  getNewTransactionData,
   getOrderId,
+  getUpdatedTransactionData,
   isNotificationDuplicate,
-  verifyPayment,
 } from "@/backend/payments/providers/adyen";
+import { getOrderTransactions } from "@/backend/payments/getOrderTransactions";
+import { updateTransaction } from "@/backend/payments/updateTransaction";
 
 const HMAC = process.env.ADYEN_HMAC!;
 
@@ -30,25 +33,44 @@ const validateNotificationItems = ({
 const notificationHandler = async (
   notification: Types.notification.NotificationRequestItem
 ) => {
+  // Get order id from webhook metadata
   const orderId = await getOrderId(notification);
 
   if (!orderId) {
     return;
   }
 
-  const duplicate = await isNotificationDuplicate(orderId, notification);
+  // Get order transactions and run deduplication
+  // https://docs.adyen.com/development-resources/webhooks/best-practices#handling-duplicates
+  const transactions = await getOrderTransactions({ id: orderId });
+  const duplicate = await isNotificationDuplicate(transactions, notification);
 
   if (duplicate) {
     return;
   }
 
-  const data = await verifyPayment(orderId, notification);
+  // Check if originalReference exists, if it does append a new event
+  if (notification.originalReference) {
+    const transactionId = transactions.find(
+      ({ reference }) => reference === notification.originalReference
+    )?.id;
 
-  if (!data) {
-    return;
+    if (!transactionId) {
+      throw "originalReference does not exist in transactions";
+    }
+
+    const data = await getUpdatedTransactionData(transactionId, notification);
+
+    updateTransaction(data);
+  } else {
+    const data = await getNewTransactionData(orderId, notification);
+
+    if (!data) {
+      return;
+    }
+
+    createTransaction(data);
   }
-
-  createTransaction(data);
 };
 
 export default async function handler(
