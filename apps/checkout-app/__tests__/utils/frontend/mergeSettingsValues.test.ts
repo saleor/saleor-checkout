@@ -1,4 +1,4 @@
-import { mergeSettingsValues } from "@/frontend/utils";
+import { mergeSettingsValues } from "@/frontend/misc/mapMetadataToSettings";
 import { PaymentProviderSettingsValues } from "@/types/api";
 
 describe("/utils/frontend/mergeSettingsValues", () => {
@@ -167,21 +167,30 @@ describe("/utils/frontend/mergeSettingsValues", () => {
     };
     const savedSettings: PaymentProviderSettingsValues = {
       adyen: {
-        clientKey: "123",
-        merchantAccount: "456",
+        clientKey: {
+          encrypted: "123",
+        },
+        merchantAccount: {
+          encrypted: "456",
+        },
         supportedCurrencies: "USD,PLN",
       },
       mollie: {
-        partnerId: "abc",
-        liveApiKey: "def",
-        testApiKey: "ghi",
+        partnerId: {
+          encrypted: "abc",
+        },
+        liveApiKey: {
+          encrypted: "def",
+        },
+        testApiKey: {
+          encrypted: "ghi",
+        },
       },
     };
 
     const mergedSettings = mergeSettingsValues(
       defaultSettings,
       savedSettings,
-      "paymentProviders",
       true
     );
 
@@ -203,22 +212,28 @@ describe("/utils/frontend/mergeSettingsValues", () => {
     };
     const savedSettings: PaymentProviderSettingsValues = {
       adyen: {
-        clientKey: "123",
-        merchantAccount: "456",
+        clientKey: {
+          encrypted: "123",
+        },
+        merchantAccount: {
+          encrypted: "456",
+        },
         supportedCurrencies: "USD,PLN",
       },
       mollie: {
-        partnerId: "abc",
-        liveApiKey: "def",
-        testApiKey: "ghi",
+        partnerId: {
+          encrypted: "abc",
+        },
+        liveApiKey: {
+          encrypted: "def",
+        },
+        testApiKey: {
+          encrypted: "ghi",
+        },
       },
     };
 
-    const mergedSettings = mergeSettingsValues(
-      defaultSettings,
-      savedSettings,
-      "paymentProviders"
-    );
+    const mergedSettings = mergeSettingsValues(defaultSettings, savedSettings);
 
     const expectedSettings = {
       adyen: {

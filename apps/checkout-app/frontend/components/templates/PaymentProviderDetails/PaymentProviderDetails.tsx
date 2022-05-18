@@ -100,8 +100,6 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   const hasEncryptedSettings = encryptedSettings.length > 0;
   const hasPublicSettings = publicSettings.length > 0;
 
-  console.log(errors);
-
   return (
     <form>
       <AppLayout

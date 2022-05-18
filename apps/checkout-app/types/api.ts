@@ -43,7 +43,7 @@ export type PaymentProviderSettingsValues = {
 };
 export type CustomizationSettingsValues = {
   [P in CustomizationID]: {
-    [K in CustomizationSettingID<P>]: string;
+    [K in CustomizationSettingID<P>]: string | Encrypted<string>;
   };
 };
 export type UnknownSettingsValues<T = string | Encrypted<string>> = {

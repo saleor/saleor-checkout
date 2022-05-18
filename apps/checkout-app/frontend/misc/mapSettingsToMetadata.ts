@@ -61,8 +61,6 @@ const encryptSettings = <T extends Record<string, any>>(
   const encrypteSettings = reduce(
     settingsValues,
     (result, defaultSetting, settingKey) => {
-      console.log(defaultSetting);
-
       const subSettingsFields = settingsFields[settingKey];
 
       const encryptedSubSetting = encryptSubSettings(
