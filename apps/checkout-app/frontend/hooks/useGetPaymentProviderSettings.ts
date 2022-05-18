@@ -7,11 +7,9 @@ import { usePrivateSettings } from "./usePrivateSettings";
 export const useGetPaymentProviderSettings = (opts?: GetRequestOpts) => {
   const { privateSettings, setPrivateSettings } = usePrivateSettings();
 
-  const getPaymentProviderSettings =
-    useGetRequest<PaymentProviderSettingsValues>(
-      `${envVars.appUrl}/api/payment-provider-settings`,
-      opts
-    );
+  const getPaymentProviderSettings = useGetRequest<
+    PaymentProviderSettingsValues<"unencrypted">
+  >(`${envVars.appUrl}/api/payment-provider-settings`, opts);
 
   useEffect(() => {
     if (getPaymentProviderSettings.data) {

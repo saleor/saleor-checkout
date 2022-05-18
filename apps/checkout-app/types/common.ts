@@ -83,7 +83,7 @@ export interface CustomizationSettings<P extends CustomizationID> {
   id: CustomizationSettingID<P>;
   label: string;
   type: SettingType;
-  value?: string | Encrypted<string>;
+  value?: string;
 }
 export interface Customization<P extends CustomizationID> {
   id: P;

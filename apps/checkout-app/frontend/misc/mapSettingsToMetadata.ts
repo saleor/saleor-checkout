@@ -1,7 +1,14 @@
 import { CommonField, fields } from "@/config/fields";
 import { serverEnvVars } from "@/constants";
-import { Encrypted } from "@/types/api";
-import { SettingID } from "@/types/common";
+import {
+  Encrypted,
+  PrivateSettingsValues,
+  PublicSettingsValues,
+  SettingsField,
+  SettingsValues,
+  UnknownSettingsValues,
+} from "@/types/api";
+import { SettingID, SettingsType } from "@/types/common";
 import reduce from "lodash-es/reduce";
 
 // TODO: use library instead of this function
@@ -27,7 +34,7 @@ const encryptSetting = (settingValue: string): Encrypted<string> => {
 };
 
 const encryptSubSettings = (
-  defaultSetting: Record<string, any>,
+  defaultSetting: SettingsValues<"private" | "public", "unencrypted">,
   subSettingsFields?: CommonField[]
 ) => {
   const encryptedSubSetting = reduce(
@@ -48,13 +55,15 @@ const encryptSubSettings = (
         [valueKey]: value,
       };
     },
-    {} as Record<string, any>
+    {} as SettingsValues<"private" | "public", "unencrypted" | "encrypted">
   );
 
   return encryptedSubSetting;
 };
 
-const encryptSettings = <T extends Record<string, any>>(
+const encryptSettings = <
+  T extends SettingsValues<"private" | "public", "unencrypted">
+>(
   settingsValues: T[] | undefined,
   settingsFields: Record<string, CommonField[]>
 ) => {
@@ -78,13 +87,20 @@ const encryptSettings = <T extends Record<string, any>>(
   return encrypteSettings;
 };
 
-export const mapSettingsToMetadata = <T extends Record<string, any>>(
+export const mapSettingsToMetadata = <
+  T extends SettingsValues<"private" | "public", "unencrypted">
+>(
   settingsValues: Partial<T>
 ) => {
   return Object.keys(settingsValues).reduce(
     (metadata, settingsValuesKey) => {
       const settingsValuesObject = encryptSettings(
-        settingsValues[settingsValuesKey as keyof T],
+        settingsValues[
+          settingsValuesKey as keyof SettingsValues<
+            "private" | "public",
+            "unencrypted"
+          >
+        ],
         fields[settingsValuesKey as SettingID[number]]
       );
       const settingsValuesValue = JSON.stringify(settingsValuesObject);

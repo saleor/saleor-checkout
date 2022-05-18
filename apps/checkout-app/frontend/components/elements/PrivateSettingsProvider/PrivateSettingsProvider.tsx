@@ -5,8 +5,10 @@ import { PrivateSettingsValues } from "@/types/api";
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 
 interface PrivateSettingsProviderContext {
-  privateSettings: PrivateSettingsValues;
-  setPrivateSettings: Dispatch<SetStateAction<PrivateSettingsValues>>;
+  privateSettings: PrivateSettingsValues<"unencrypted">;
+  setPrivateSettings: Dispatch<
+    SetStateAction<PrivateSettingsValues<"unencrypted">>
+  >;
 }
 
 export const PrivateSettingsContext =

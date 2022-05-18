@@ -19,20 +19,22 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-    const settings = await getPrivateSettings(true);
+    const settings = await getPrivateSettings({
+      returnEncryptedSettings: true,
+    });
 
     console.log(settings); // for deployment debug pusposes
 
-    const updatedSettings = await setPrivateSettings(
-      {
+    const updatedSettings = await setPrivateSettings({
+      settings: {
         ...settings,
         paymentProviders: {
           ...settings.paymentProviders,
           ...JSON.parse(data),
         },
       },
-      true
-    );
+      returnEncryptedSettings: true,
+    });
 
     return res.status(200).json({
       data: updatedSettings.paymentProviders,

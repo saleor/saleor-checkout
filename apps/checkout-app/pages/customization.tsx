@@ -27,7 +27,6 @@ const Customization = () => {
   const settingsValues = mapMetadataToSettings({
     metadata: metadataQuery.data?.app?.metadata || [],
     type: "public",
-    includeEncryptedSettings: true,
   });
   const customizationSettings = useCustomizationSettings(
     settingsValues.customizations

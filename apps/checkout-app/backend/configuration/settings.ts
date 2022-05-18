@@ -23,9 +23,11 @@ import { mapMetadataToSettings } from "@/frontend/misc/mapMetadataToSettings";
 import { PrivateSettingsValues } from "@/types/api";
 import { mapSettingsToMetadata } from "@/frontend/misc/mapSettingsToMetadata";
 
-export const getPrivateSettings = async (
-  includeEncryptedSettings?: boolean
-) => {
+export const getPrivateSettings = async ({
+  returnEncryptedSettings,
+}: {
+  returnEncryptedSettings?: boolean;
+}) => {
   const { data, error } = await client
     .query<PrivateMetadataQuery, PrivateMetadataQueryVariables>(
       PrivateMetadataDocument,
@@ -44,13 +46,13 @@ export const getPrivateSettings = async (
   const settingsValues = mapMetadataToSettings({
     metadata: data?.app?.privateMetadata || [],
     type: "private",
-    includeEncryptedSettings,
+    includeEncryptedSettings: returnEncryptedSettings,
   });
 
   return settingsValues;
 };
 
-export const getPublicSettings = async (includeEncryptedSettings?: boolean) => {
+export const getPublicSettings = async () => {
   const { data, error } = await client
     .query<PublicMetadataQuery, PublicMetadataQueryVariables>(
       PublicMetadataDocument,
@@ -69,14 +71,13 @@ export const getPublicSettings = async (includeEncryptedSettings?: boolean) => {
   const settingsValues = mapMetadataToSettings({
     metadata: data?.app?.metadata || [],
     type: "public",
-    includeEncryptedSettings,
   });
 
   return settingsValues;
 };
 
 export const getActivePaymentProvidersSettings = async () => {
-  const settings = await getPublicSettings(false);
+  const settings = await getPublicSettings();
 
   const { data, error } = await client
     .query<ChannelsQuery, ChannelsQueryVariables>(ChannelsDocument)
@@ -97,7 +98,7 @@ export const getActivePaymentProvidersSettings = async () => {
 export const getChannelActivePaymentProvidersSettings = async (
   channelId: string
 ) => {
-  const settings = await getPublicSettings(false);
+  const settings = await getPublicSettings();
 
   const { data, error } = await client
     .query<ChannelQuery, ChannelQueryVariables>(ChannelDocument, {
@@ -118,10 +119,13 @@ export const getChannelActivePaymentProvidersSettings = async (
   return channelActivePaymentProvidersSettings;
 };
 
-export const setPrivateSettings = async (
-  settings: PrivateSettingsValues,
-  includeEncryptedSettings?: boolean
-) => {
+export const setPrivateSettings = async ({
+  settings,
+  returnEncryptedSettings,
+}: {
+  settings: PrivateSettingsValues<"unencrypted">;
+  returnEncryptedSettings?: boolean;
+}) => {
   const metadata = mapSettingsToMetadata(settings);
 
   const { data, error } = await client
@@ -145,7 +149,7 @@ export const setPrivateSettings = async (
   const settingsValues = mapMetadataToSettings({
     metadata: data?.updatePrivateMetadata?.item?.privateMetadata || [],
     type: "private",
-    includeEncryptedSettings,
+    includeEncryptedSettings: returnEncryptedSettings,
   });
 
   return settingsValues;

@@ -25,7 +25,7 @@ interface PaymentProviderDetailsProps {
   loading: boolean;
   errors?: Partial<MetadataErrorFragment>[];
   onCancel: () => void;
-  onSubmit: (data: PaymentProviderSettingsValues) => void;
+  onSubmit: (data: PaymentProviderSettingsValues<"unencrypted">) => void;
 }
 
 const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
@@ -88,7 +88,7 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
   const handleSubmit = (flattedOptions: Record<string, string>) => {
     onSubmit({
       [selectedPaymentProvider.id]: flattedOptions,
-    } as PaymentProviderSettingsValues);
+    } as PaymentProviderSettingsValues<"unencrypted">);
   };
 
   const encryptedSettings = selectedPaymentProvider.settings.filter(

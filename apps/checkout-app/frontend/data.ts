@@ -20,7 +20,7 @@ import {
 } from "types/common";
 
 export const useCustomizationSettings = (
-  settingsValues: UnknownSettingsValues
+  settingsValues: UnknownSettingsValues<"unencrypted">
 ): Customization<CustomizationID>[] =>
   useCustomizations().map((customization) => ({
     ...customization,
@@ -33,7 +33,7 @@ export const useCustomizationSettings = (
   }));
 
 export const usePaymentProviderSettings = (
-  settingsValues: UnknownSettingsValues
+  settingsValues: UnknownSettingsValues<"encrypted">
 ): PaymentProvider<PaymentProviderID>[] =>
   usePaymentProviders().map((provider) => ({
     ...provider,

@@ -1,15 +1,19 @@
-import { UnknownSettingsValues } from "@/types/api";
+import {
+  EncryptionType,
+  SettingsField,
+  UnknownSettingsValues,
+} from "@/types/api";
 import { Item, NamedNode, Node } from "@/types/common";
 import { CombinedError } from "urql";
 
 export const flattenSettingId = (optionIdx: number, settingId: string) =>
   `${optionIdx}-${settingId}`;
 
-export const unflattenSettings = <T, S extends Node>(
-  flattenedSettings: Record<string, T>,
+export const unflattenSettings = <E extends EncryptionType, S extends Node>(
+  flattenedSettings: Record<string, SettingsField<E>>,
   options: S[]
 ) => {
-  const unflattenedSettings: UnknownSettingsValues<T> = {};
+  const unflattenedSettings: UnknownSettingsValues<E> = {};
 
   Object.keys(flattenedSettings).forEach((flattedKey) => {
     const keys = flattedKey.split(/-(.+)/);

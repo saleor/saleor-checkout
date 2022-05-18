@@ -1,7 +1,7 @@
 import { mergeSettingsValues } from "@/frontend/misc/mapMetadataToSettings";
 import { PaymentProviderSettingsValues } from "@/types/api";
 
-describe("/utils/frontend/mergeSettingsValues", () => {
+describe("/utils/frontend/misc/mergeSettingsValues", () => {
   it("overrides default values", async () => {
     const defaultSettings = {
       foo: {
@@ -153,7 +153,7 @@ describe("/utils/frontend/mergeSettingsValues", () => {
   });
 
   it("merges payment provider values and returns public and secret values", async () => {
-    const defaultSettings: PaymentProviderSettingsValues = {
+    const defaultSettings: PaymentProviderSettingsValues<"unencrypted"> = {
       adyen: {
         clientKey: "",
         merchantAccount: "",
@@ -165,7 +165,7 @@ describe("/utils/frontend/mergeSettingsValues", () => {
         testApiKey: "",
       },
     };
-    const savedSettings: PaymentProviderSettingsValues = {
+    const savedSettings: PaymentProviderSettingsValues<"encrypted"> = {
       adyen: {
         clientKey: {
           encrypted: "123",
@@ -194,11 +194,24 @@ describe("/utils/frontend/mergeSettingsValues", () => {
       true
     );
 
-    expect(mergedSettings).toEqual(savedSettings);
+    const expectedSettings: PaymentProviderSettingsValues<"unencrypted"> = {
+      adyen: {
+        clientKey: "Q@",
+        merchantAccount: "\x06E",
+        supportedCurrencies: "USD,PLN",
+      },
+      mollie: {
+        partnerId: "èO",
+        liveApiKey: "\x9DL",
+        testApiKey: "CC",
+      },
+    };
+
+    expect(mergedSettings).toEqual(expectedSettings);
   });
 
   it("merges payment provider values and returns only public values", async () => {
-    const defaultSettings: PaymentProviderSettingsValues = {
+    const defaultSettings: PaymentProviderSettingsValues<"unencrypted"> = {
       adyen: {
         clientKey: "",
         merchantAccount: "",
@@ -210,7 +223,7 @@ describe("/utils/frontend/mergeSettingsValues", () => {
         testApiKey: "",
       },
     };
-    const savedSettings: PaymentProviderSettingsValues = {
+    const savedSettings: PaymentProviderSettingsValues<"encrypted"> = {
       adyen: {
         clientKey: {
           encrypted: "123",

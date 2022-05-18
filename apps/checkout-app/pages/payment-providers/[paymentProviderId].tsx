@@ -2,19 +2,11 @@ import PaymentProviderDetails from "frontend/components/templates/PaymentProvide
 import { PaymentProviderSettingsValues } from "types/api";
 import { useRouter } from "next/router";
 import { useAuthData } from "@/frontend/hooks/useAuthData";
-import {
-  usePrivateMetadataQuery,
-  useUpdatePrivateMetadataMutation,
-} from "@/graphql";
 import { getCommonErrors } from "@/frontend/utils";
 import { usePaymentProviderSettings } from "@/frontend/data";
 import ErrorDetails from "@/frontend/components/templates/ErrorDetails";
 import { useIntl } from "react-intl";
 import { notFoundMessages } from "@/frontend/misc/errorMessages";
-import { envVars, serverEnvVars } from "@/constants";
-import { mapMetadataToSettings } from "@/frontend/misc/mapMetadataToSettings";
-import { mapSettingsToMetadata } from "@/frontend/misc/mapSettingsToMetadata";
-import { getAuthHeaders } from "@/frontend/misc/auth";
 import { useGetPaymentProviderSettings } from "@/frontend/hooks/useGetPaymentProviderSettings";
 import { useSetPaymentProviderSettings } from "@/frontend/hooks/useSetPaymentProviderSettings";
 
@@ -42,7 +34,7 @@ const PaymentProvider = () => {
     router.back();
   };
 
-  const handleSubmit = (data: PaymentProviderSettingsValues) => {
+  const handleSubmit = (data: PaymentProviderSettingsValues<"unencrypted">) => {
     setPaymentProviderSettingsRequest(data);
   };
 

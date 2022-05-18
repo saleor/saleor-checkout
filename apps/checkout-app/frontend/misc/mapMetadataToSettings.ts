@@ -4,7 +4,13 @@ import {
 } from "@/config/defaults";
 import { serverEnvVars } from "@/constants";
 import { MetadataItemFragment } from "@/graphql";
-import { Encrypted, SettingsValues, UnknownSettingsValues } from "@/types/api";
+import {
+  Encrypted,
+  EncryptionType,
+  SettingsField,
+  SettingsValues,
+  UnknownSettingsValues,
+} from "@/types/api";
 import { allSettingID, SettingsType } from "@/types/common";
 import reduce from "lodash-es/reduce";
 
@@ -29,8 +35,8 @@ const decryptSetting = (settingValue: Encrypted<string>) => {
   );
 };
 
-const decryptSettings = (
-  subSettings: Record<string, string | Encrypted<string>>,
+const readSettings = <E extends EncryptionType>(
+  subSettings: Record<string, SettingsField<E>>,
   includeEncryptedSettings?: boolean
 ) => {
   return reduce(
@@ -50,7 +56,7 @@ const decryptSettings = (
           : subSetting,
       };
     },
-    {} as Record<string, string | Encrypted<string>>
+    {} as Record<string, SettingsField<E>>
   );
 };
 
@@ -63,8 +69,8 @@ const decryptSettings = (
  * @returns Returns either previously saved settings values or default settings values. If settings values are present in default and saved at the same time, then saved value is returned.
  */
 export const mergeSettingsValues = (
-  defaultSettings: UnknownSettingsValues,
-  savedSettings: UnknownSettingsValues,
+  defaultSettings: UnknownSettingsValues<"unencrypted">,
+  savedSettings: UnknownSettingsValues<"encrypted" | "unencrypted">,
   includeEncryptedSettings?: boolean
 ) => {
   return reduce(
@@ -75,14 +81,17 @@ export const mergeSettingsValues = (
       const udpatedSetting = hasSettingInBothSettings
         ? { ...defaultSetting, ...savedSetting }
         : defaultSetting;
-      const setting = decryptSettings(udpatedSetting, includeEncryptedSettings);
+      const setting = readSettings(udpatedSetting, includeEncryptedSettings);
 
       return {
         ...result,
         [settingKey]: setting,
       };
     },
-    savedSettings
+    savedSettings as Record<
+      string,
+      Record<string, SettingsField<"encrypted" | "unencrypted">>
+    >
   );
 };
 
@@ -93,8 +102,8 @@ export const mapMetadataToSettings = <T extends SettingsType>({
 }: {
   metadata: (MetadataItemFragment | null)[];
   type: T;
-  includeEncryptedSettings?: boolean;
-}): SettingsValues<T> => {
+  includeEncryptedSettings?: T extends "public" ? false : boolean;
+}): SettingsValues<T, "unencrypted"> => {
   const defaultSettings =
     type === "public" ? defaultPublicSettings : defaultPrivateSettings;
 
@@ -107,6 +116,7 @@ export const mapMetadataToSettings = <T extends SettingsType>({
 
     try {
       const metadataItemSettings = JSON.parse(metadataItem?.value || "");
+
       return {
         ...settings,
         [settingsKey]: mergeSettingsValues(
@@ -123,5 +133,5 @@ export const mapMetadataToSettings = <T extends SettingsType>({
     }
   }, defaultSettings);
 
-  return settings as SettingsValues<T>;
+  return settings as SettingsValues<T, "unencrypted">;
 };

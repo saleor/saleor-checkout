@@ -15,6 +15,10 @@ import {
 export interface Encrypted<T> {
   encrypted: T;
 }
+export type EncryptionType = "encrypted" | "unencrypted";
+export type SettingsField<E extends EncryptionType> = E extends "unencrypted"
+  ? string | undefined
+  : string | Encrypted<string>;
 
 export interface PaymentOption {
   id: string;
@@ -36,20 +40,28 @@ export type ChannelActivePaymentProviders = {
 export type ChannelActivePaymentProvidersByChannel = {
   [P in PaymentMethodID]: PaymentProviderID | "";
 };
-export type PaymentProviderSettingsValues = {
-  [P in PaymentProviderID]: {
-    [K in PaymentProviderSettingID<P>]: string | Encrypted<string>;
-  };
+export type PaymentProviderSettingsValues<E extends EncryptionType> = {
+  [P in PaymentProviderID]: E extends "unencrypted"
+    ? Partial<{
+        [K in PaymentProviderSettingID<P>]: SettingsField<"unencrypted">;
+      }>
+    : {
+        [K in PaymentProviderSettingID<P>]: SettingsField<"encrypted">;
+      };
 };
 export type CustomizationSettingsValues = {
   [P in CustomizationID]: {
-    [K in CustomizationSettingID<P>]: string | Encrypted<string>;
+    [K in CustomizationSettingID<P>]: SettingsField<"unencrypted">;
   };
 };
-export type UnknownSettingsValues<T = string | Encrypted<string>> = {
-  [P in string]: {
-    [K in string]: T;
-  };
+export type UnknownSettingsValues<E extends EncryptionType> = {
+  [P in string]: E extends "unencrypted"
+    ? Partial<{
+        [K in string]: SettingsField<"unencrypted">;
+      }>
+    : {
+        [K in string]: SettingsField<"encrypted">;
+      };
 };
 
 export type PublicSettingsValues = {
@@ -57,13 +69,14 @@ export type PublicSettingsValues = {
     ? CustomizationSettingsValues
     : P extends "channelActivePaymentProviders"
     ? ChannelActivePaymentProviders
-    : UnknownSettingsValues;
+    : UnknownSettingsValues<"unencrypted">;
 };
-export type PrivateSettingsValues = {
+export type PrivateSettingsValues<E extends EncryptionType> = {
   [P in PrivateSettingID[number]]: P extends "paymentProviders"
-    ? PaymentProviderSettingsValues
-    : UnknownSettingsValues;
+    ? PaymentProviderSettingsValues<E>
+    : UnknownSettingsValues<E>;
 };
-export type SettingsValues<T extends SettingsType> = T extends "public"
-  ? PublicSettingsValues
-  : PrivateSettingsValues;
+export type SettingsValues<
+  T extends SettingsType,
+  E extends EncryptionType
+> = T extends "public" ? PublicSettingsValues : PrivateSettingsValues<E>;

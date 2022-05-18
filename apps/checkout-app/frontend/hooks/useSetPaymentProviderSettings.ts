@@ -8,9 +8,10 @@ export const useSetPaymentProviderSettings = () => {
   const { privateSettings, setPrivateSettings } = usePrivateSettings();
 
   const [setPaymentProviderSettings, setPaymentProviderSettingsRequest] =
-    useSetRequest<PaymentProviderSettingsValues, PaymentProviderSettingsValues>(
-      `${envVars.appUrl}/api/set-payment-provider-settings`
-    );
+    useSetRequest<
+      PaymentProviderSettingsValues<"unencrypted">,
+      PaymentProviderSettingsValues<"unencrypted">
+    >(`${envVars.appUrl}/api/set-payment-provider-settings`);
 
   useEffect(() => {
     if (setPaymentProviderSettings.data) {
