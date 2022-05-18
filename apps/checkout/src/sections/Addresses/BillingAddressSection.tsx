@@ -5,48 +5,50 @@ import { useCountrySelect } from "@/providers/CountrySelectProvider";
 import { useAuthState } from "@saleor/sdk";
 import React, { useEffect, useRef } from "react";
 import { GuestAddressSection } from "./GuestAddressSection";
-import { UserDefaultAddressFragment } from "./types";
+import {
+  BillingSameAsShippingAddressProps,
+  UserDefaultAddressFragment,
+} from "./types";
 import { useCheckoutAddressUpdate } from "./useCheckoutAddressUpdate";
 import { UserAddressSection } from "./UserAddressSection";
 
-interface BillingAddressSectionProps {
+interface BillingAddressSectionProps extends BillingSameAsShippingAddressProps {
   addresses?: AddressFragment[] | null;
-  useShippingAsBillingAddress: boolean;
   defaultBillingAddress: UserDefaultAddressFragment;
 }
 
 export const BillingAddressSection: React.FC<BillingAddressSectionProps> = ({
-  useShippingAsBillingAddress,
+  isBillingSameAsShippingAddress,
   defaultBillingAddress,
   addresses = [],
 }) => {
   const formatMessage = useFormattedMessages();
   const { user: authUser } = useAuthState();
   const { checkout } = useCheckout();
-  const hasUseShippingAsBillingAddressChanged = useRef(false);
+  const hasIsBillingSameAsShippingAddressChanged = useRef(false);
 
   const { setCountryCodeFromAddress } = useCountrySelect();
 
   const { updateBillingAddress } = useCheckoutAddressUpdate({
-    useShippingAsBillingAddress,
+    isBillingSameAsShippingAddress,
   });
 
   const defaultAddress = checkout?.shippingAddress || defaultBillingAddress;
 
   useEffect(() => {
     if (
-      useShippingAsBillingAddress ||
-      hasUseShippingAsBillingAddressChanged.current
+      isBillingSameAsShippingAddress ||
+      hasIsBillingSameAsShippingAddressChanged.current
     ) {
       return;
     }
 
     setCountryCodeFromAddress(checkout?.shippingAddress);
 
-    hasUseShippingAsBillingAddressChanged.current = true;
-  }, [useShippingAsBillingAddress]);
+    hasIsBillingSameAsShippingAddressChanged.current = true;
+  }, [isBillingSameAsShippingAddress]);
 
-  if (checkout?.isShippingRequired && useShippingAsBillingAddress) {
+  if (checkout?.isShippingRequired && isBillingSameAsShippingAddress) {
     return null;
   }
 

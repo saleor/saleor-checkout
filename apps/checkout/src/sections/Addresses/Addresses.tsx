@@ -2,15 +2,16 @@ import { CountryCode, useUserQuery } from "@/graphql";
 import { useCheckout } from "@/hooks/useCheckout";
 import { CountrySelectProvider } from "@/providers/CountrySelectProvider";
 import { useAuthState } from "@saleor/sdk";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BillingAddressSection } from "./BillingAddressSection";
 import { ShippingAddressSection } from "./ShippingAddressSection";
+import { BillingSameAsShippingAddressProps } from "./types";
 
 export const Addresses: React.FC = () => {
   const { user: authUser } = useAuthState();
   const { checkout } = useCheckout();
 
-  const [useShippingAsBillingAddress, setUseShippingAsBillingAddress] =
+  const [isBillingSameAsShippingAddress, setIsBillingSameAsShippingAddress] =
     useState(!checkout?.billingAddress);
 
   const [{ data }] = useUserQuery({
@@ -19,6 +20,11 @@ export const Addresses: React.FC = () => {
 
   const user = data?.me;
   const userAddresses = user?.addresses;
+
+  const billingSameAsShippingProps: BillingSameAsShippingAddressProps = {
+    isBillingSameAsShippingAddress,
+    setIsBillingSameAsShippingAddress,
+  };
 
   return (
     <div>
@@ -29,10 +35,9 @@ export const Addresses: React.FC = () => {
           }
         >
           <ShippingAddressSection
+            {...billingSameAsShippingProps}
             addresses={userAddresses}
             defaultShippingAddress={user?.defaultShippingAddress}
-            useShippingAsBillingAddress={useShippingAsBillingAddress}
-            setUseShippingAsBillingAddress={setUseShippingAsBillingAddress}
           />
         </CountrySelectProvider>
       )}
@@ -42,9 +47,9 @@ export const Addresses: React.FC = () => {
         }
       >
         <BillingAddressSection
+          {...billingSameAsShippingProps}
           addresses={userAddresses}
           defaultBillingAddress={user?.defaultBillingAddress}
-          useShippingAsBillingAddress={useShippingAsBillingAddress}
         />
       </CountrySelectProvider>
     </div>

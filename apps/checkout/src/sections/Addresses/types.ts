@@ -17,3 +17,8 @@ export type UserDefaultAddressFragment =
   | null
   | undefined
   | { __typename?: "Address"; id: string };
+
+export interface BillingSameAsShippingAddressProps {
+  isBillingSameAsShippingAddress: boolean;
+  setIsBillingSameAsShippingAddress: (value: boolean) => void;
+}
