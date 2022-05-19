@@ -1,30 +1,39 @@
-import { envVars } from "@/constants";
-import { PaymentProviderSettingsValues } from "@/types/api";
 import { useEffect } from "react";
-import { GetRequestOpts, useGetRequest } from "./useGetRequest";
+import { CombinedError } from "urql";
+import { requestGetPaymentProviderSettings } from "../fetch";
+import { useAuthData } from "./useAuthData";
+import { useFetch, UseFetchOptionalProps } from "./useFetch";
 import { usePrivateSettings } from "./usePrivateSettings";
 
-export const useGetPaymentProviderSettings = (opts?: GetRequestOpts) => {
+export const useGetPaymentProviderSettings = <TArgs>(
+  optionalProps?: UseFetchOptionalProps<TArgs>
+) => {
+  const { isAuthorized } = useAuthData();
   const { privateSettings, setPrivateSettings } = usePrivateSettings();
 
-  const getPaymentProviderSettings = useGetRequest<
-    PaymentProviderSettingsValues<"unencrypted">
-  >(`${envVars.appUrl}/api/payment-provider-settings`, opts);
+  const [{ data, loading, error }] = useFetch(
+    requestGetPaymentProviderSettings,
+    {
+      skip: !isAuthorized,
+      ...optionalProps,
+    }
+  );
 
   useEffect(() => {
-    if (getPaymentProviderSettings.data) {
+    if (data?.data) {
       setPrivateSettings({
         ...privateSettings,
         paymentProviders: {
           ...privateSettings.paymentProviders,
-          ...getPaymentProviderSettings.data,
+          ...data.data,
         },
       });
     }
-  }, [getPaymentProviderSettings.data]);
+  }, [data?.data]);
 
   return {
-    ...getPaymentProviderSettings,
+    loading,
+    error: error as Partial<CombinedError>,
     data: privateSettings.paymentProviders,
   };
 };

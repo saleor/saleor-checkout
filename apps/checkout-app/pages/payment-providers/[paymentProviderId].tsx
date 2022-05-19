@@ -1,7 +1,6 @@
 import PaymentProviderDetails from "frontend/components/templates/PaymentProviderDetails";
 import { PaymentProviderSettingsValues } from "types/api";
 import { useRouter } from "next/router";
-import { useAuthData } from "@/frontend/hooks/useAuthData";
 import { getCommonErrors } from "@/frontend/utils";
 import { usePaymentProviderSettings } from "@/frontend/data";
 import ErrorDetails from "@/frontend/components/templates/ErrorDetails";
@@ -14,11 +13,8 @@ const PaymentProvider = () => {
   const router = useRouter();
   const { paymentProviderId, channelId } = router.query;
   const intl = useIntl();
-  const { isAuthorized } = useAuthData();
 
-  const getPaymentProviderSettings = useGetPaymentProviderSettings({
-    pause: !isAuthorized,
-  });
+  const getPaymentProviderSettings = useGetPaymentProviderSettings();
   const [setPaymentProviderSettings, setPaymentProviderSettingsRequest] =
     useSetPaymentProviderSettings();
 
@@ -57,8 +53,7 @@ const PaymentProvider = () => {
       channelId={channelId?.toString()}
       saveButtonBarState="default"
       loading={
-        getPaymentProviderSettings.fetching ||
-        setPaymentProviderSettings.fetching
+        getPaymentProviderSettings.loading || setPaymentProviderSettings.loading
       }
       errors={errors}
       onCancel={handleCancel}

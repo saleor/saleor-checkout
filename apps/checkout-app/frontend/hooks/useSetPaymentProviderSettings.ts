@@ -1,35 +1,40 @@
-import { envVars } from "@/constants";
-import { PaymentProviderSettingsValues } from "@/types/api";
 import { useEffect } from "react";
+import { CombinedError } from "urql";
+import { requestSetPaymentProviderSettings } from "../fetch";
+import { useFetch, UseFetchOptionalProps } from "./useFetch";
 import { usePrivateSettings } from "./usePrivateSettings";
-import { useSetRequest } from "./useSetRequest";
 
-export const useSetPaymentProviderSettings = () => {
+export const useSetPaymentProviderSettings = <TArgs>(
+  optionalProps?: UseFetchOptionalProps<TArgs>
+) => {
   const { privateSettings, setPrivateSettings } = usePrivateSettings();
 
-  const [setPaymentProviderSettings, setPaymentProviderSettingsRequest] =
-    useSetRequest<
-      PaymentProviderSettingsValues<"unencrypted">,
-      PaymentProviderSettingsValues<"unencrypted">
-    >(`${envVars.appUrl}/api/set-payment-provider-settings`);
+  const [{ data, loading, error }, request] = useFetch(
+    requestSetPaymentProviderSettings,
+    {
+      skip: true,
+      ...optionalProps,
+    }
+  );
 
   useEffect(() => {
-    if (setPaymentProviderSettings.data) {
+    if (data?.data) {
       setPrivateSettings({
         ...privateSettings,
         paymentProviders: {
           ...privateSettings.paymentProviders,
-          ...setPaymentProviderSettings.data,
+          ...data.data,
         },
       });
     }
-  }, [setPaymentProviderSettings.data]);
+  }, [data?.data]);
 
   return [
     {
-      ...setPaymentProviderSettings,
+      loading,
+      error: error as Partial<CombinedError>,
       data: privateSettings.paymentProviders,
     },
-    setPaymentProviderSettingsRequest,
+    request,
   ] as const;
 };
