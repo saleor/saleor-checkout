@@ -1,12 +1,41 @@
-import { envVars } from "@/constants";
 import { decode, verify } from "jsonwebtoken";
 import JwksClient from "jwks-rsa";
 import { NextApiRequest } from "next";
 
-// By default, signing key verification results are cached by the client.
-export const jwksClient = JwksClient({
-  jwksUri: `${envVars.saleorUrl}.well-known/jwks.json`,
-});
+export class JwtVerifier {
+  private static instance: JwtVerifier;
+  private static domain: string;
+
+  public jwksClient: JwksClient.JwksClient;
+
+  private constructor(domain: string) {
+    // By default, signing key verification results are cached by the client.
+    this.jwksClient = JwksClient({
+      jwksUri: `${domain}/.well-known/jwks.json`,
+    });
+  }
+
+  public static getInstance(domain: string): JwtVerifier {
+    if (!JwtVerifier.instance || JwtVerifier.domain !== domain) {
+      JwtVerifier.instance = new JwtVerifier(domain);
+      JwtVerifier.domain = domain;
+    }
+
+    return JwtVerifier.instance;
+  }
+
+  public async verify(token: string): Promise<boolean> {
+    const key = await this.jwksClient.getSigningKey();
+    const publicKey = key.getPublicKey();
+
+    try {
+      verify(token, publicKey);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+}
 
 const getTokenFromRequest = (req: NextApiRequest) => {
   const auth = req.headers.authorization?.split(" ") || [];
@@ -22,15 +51,15 @@ export const isAuthenticated = async (req: NextApiRequest) => {
     return false;
   }
 
-  const key = await jwksClient.getSigningKey();
-  const publicKey = key.getPublicKey();
+  const tokenData = decode(token);
 
-  try {
-    verify(token, publicKey);
-    return true;
-  } catch (err) {
+  if (typeof tokenData === "string" || !tokenData || !tokenData["iss"]) {
     return false;
   }
+
+  const jwtVerifier = JwtVerifier.getInstance(tokenData["iss"]);
+
+  return await jwtVerifier.verify(token);
 };
 
 export const isAuthorized = async (req: NextApiRequest) => {

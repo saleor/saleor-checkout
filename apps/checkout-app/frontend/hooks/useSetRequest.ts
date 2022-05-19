@@ -3,7 +3,7 @@ import { CombinedError } from "urql";
 import { getAuthHeaders } from "../misc/auth";
 
 export const useSetRequest = <T, S>(input: RequestInfo) => {
-  const [error, setError] = useState<CombinedError>();
+  const [error, setError] = useState<Partial<CombinedError>>();
   const [data, setData] = useState<T>();
   const [fetching, setFetching] = useState(false);
 
@@ -16,6 +16,12 @@ export const useSetRequest = <T, S>(input: RequestInfo) => {
       headers: getAuthHeaders(),
       body: JSON.stringify(data),
     });
+
+    if (!res.ok) {
+      setError({ message: res.statusText });
+      setFetching(false);
+    }
+
     const resData = await res.json();
 
     if (resData.error) {

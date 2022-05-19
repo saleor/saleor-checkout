@@ -7,7 +7,7 @@ export interface GetRequestOpts {
 }
 
 export const useGetRequest = <T>(input: RequestInfo, opts?: GetRequestOpts) => {
-  const [error, setError] = useState<CombinedError>();
+  const [error, setError] = useState<Partial<CombinedError>>();
   const [data, setData] = useState<T>();
   const [initialized, setInitialized] = useState(false);
   const [fetching, setFetching] = useState(true);
@@ -20,6 +20,12 @@ export const useGetRequest = <T>(input: RequestInfo, opts?: GetRequestOpts) => {
       method: "GET",
       headers: getAuthHeaders(),
     });
+
+    if (!res.ok) {
+      setError({ message: res.statusText });
+      setFetching(false);
+    }
+
     const resData = await res.json();
 
     if (resData.error) {
