@@ -11,6 +11,8 @@ import { AddressCreateForm } from "./AddressCreateForm";
 import { AddressEditForm } from "./AddressEditForm";
 import { getAddressFormDataFromAddress } from "./utils";
 import { useCountrySelect } from "@/providers/CountrySelectProvider";
+import { useUserAddressSelect } from "./useUserAddressSelect";
+import { AddressesSkeleton } from ".";
 
 export interface UserAddressSectionProps {
   defaultAddress?: Pick<AddressFragment, "id"> | null;
@@ -29,6 +31,13 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
 }) => {
   const formatMessage = useFormattedMessages();
 
+  const { selectedAddress, selectedAddressId, setSelectedAddressId } =
+    useUserAddressSelect({
+      type,
+      defaultAddress,
+      addresses,
+    });
+
   const { setCountryCode } = useCountrySelect();
 
   const [displayAddressCreate, setDisplayAddressCreate] = useState(false);
@@ -39,15 +48,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
 
   const displayAddressList = !displayAddressEdit && !displayAddressCreate;
 
-  const [selectedAddressId, setSelectedAddressId] = useState(
-    defaultAddress?.id
-  );
-
   const editedAddress = addresses.find(getById(editedAddressId as string));
-
-  const selectedAddress = addresses.find(getById(selectedAddressId));
-
-  const onSelectAddress = (id: string) => setSelectedAddressId(id);
 
   const handleSelectCountry = (address?: AddressFragment) => () =>
     setCountryCode(address?.country.code as CountryCode);
@@ -63,7 +64,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
   }, [selectedAddressId]);
 
   return (
-    <Suspense fallback="loading...">
+    <Suspense fallback={<AddressesSkeleton />}>
       <UserAddressSectionContainer
         title={title}
         displayCountrySelect={displayAddressEdit || displayAddressCreate}
@@ -91,7 +92,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
             />
             <UserAddressList
               addresses={addresses as AddressFragment[]}
-              onAddressSelect={onSelectAddress}
+              onAddressSelect={setSelectedAddressId}
               selectedAddressId={selectedAddressId}
               onEditChange={(id: string) => setEditedAddressId(id)}
             />
