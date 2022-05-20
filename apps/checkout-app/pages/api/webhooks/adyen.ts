@@ -51,15 +51,15 @@ const notificationHandler = async (
 
   // Check if originalReference exists, if it does append a new event
   if (notification.originalReference) {
-    const transactionId = transactions.find(
+    const transaction = transactions.find(
       ({ reference }) => reference === notification.originalReference
-    )?.id;
+    );
 
-    if (!transactionId) {
+    if (!transaction) {
       throw "originalReference does not exist in transactions";
     }
 
-    const data = await getUpdatedTransactionData(transactionId, notification);
+    const data = await getUpdatedTransactionData(transaction, notification);
 
     updateTransaction(data);
   } else {

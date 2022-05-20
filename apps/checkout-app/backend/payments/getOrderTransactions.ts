@@ -9,7 +9,7 @@ export const getOrderTransactions = async (
   args: OrderTransactionsQueryVariables
 ) => {
   const { data, error } = await client
-    .mutation<OrderTransactionsQuery, OrderTransactionsQueryVariables>(
+    .query<OrderTransactionsQuery, OrderTransactionsQueryVariables>(
       OrderTransactionsDocument,
       args
     )

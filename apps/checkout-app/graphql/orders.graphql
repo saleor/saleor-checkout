@@ -111,6 +111,20 @@ fragment TransactionEvent on TransactionEvent {
 }
 
 fragment Transaction on TransactionItem {
+  id
+  reference
+  voidedAmount {
+    ...Money
+  }
+  refundedAmount {
+    ...Money
+  }
+  chargedAmount {
+    ...Money
+  }
+  authorizedAmount {
+    ...Money
+  }
   events {
     ...TransactionEvent
   }
@@ -119,8 +133,6 @@ fragment Transaction on TransactionItem {
 query OrderTransactions($id: ID!) {
   order(id: $id) {
     transactions {
-      id
-      reference
       ...Transaction
     }
     errors {

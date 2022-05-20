@@ -5,10 +5,11 @@ import {
   TransactionCreateMutationVariables,
   TransactionEventInput,
   TransactionFragment,
+  TransactionStatus,
+  TransactionUpdateInput,
   TransactionUpdateMutationVariables,
 } from "@/graphql";
 import { formatRedirectUrl } from "@/backend/payments/utils";
-import { getOrderTransactions } from "@/backend/payments/getOrderTransactions";
 
 import {
   getAdyenAmountFromSaleor,
@@ -104,34 +105,108 @@ export const getOrderId = async (
 };
 
 export const getUpdatedTransactionData = (
-  transactionId: string,
+  transaction: TransactionFragment,
   notification: Types.notification.NotificationRequestItem
 ): TransactionUpdateMutationVariables => {
-  const { eventCode, amount, pspReference, originalReference, operations } =
-    notification;
+  const {
+    eventCode,
+    amount,
+    pspReference,
+    originalReference,
+    operations,
+    success,
+  } = notification;
 
   if (!originalReference) {
     throw "originalReference does not exit on notification";
   }
 
-  const failureStates = [
-    Types.notification.NotificationRequestItem.EventCodeEnum.CaptureFailed,
-    Types.notification.NotificationRequestItem.EventCodeEnum.RefundFailed,
-  ];
+  const getStatus = (): TransactionStatus => {
+    const failureStates = [
+      Types.notification.NotificationRequestItem.EventCodeEnum.CaptureFailed,
+      Types.notification.NotificationRequestItem.EventCodeEnum.RefundFailed,
+    ];
 
-  const transactionEvent: TransactionEventInput = {
+    if (
+      failureStates.includes(eventCode) ||
+      success === Types.notification.NotificationRequestItem.SuccessEnum.False
+    ) {
+      return "FAILURE";
+    }
+
+    return "SUCCESS";
+  };
+
+  const getNewAmount = ():
+    | Pick<
+        TransactionUpdateInput,
+        "amountRefunded" | "amountAuthorized" | "amountCharged" | "amountVoided"
+      >
+    | undefined => {
+    if (
+      eventCode ===
+      Types.notification.NotificationRequestItem.EventCodeEnum.Refund
+    ) {
+      if (!amount.currency || !amount.value) {
+        throw "Amount not specified for a refund notification";
+      }
+      const refundAmount = getSaleorAmountFromAdyen(amount.value);
+
+      if (transaction.chargedAmount.amount !== 0) {
+        const chargedAmount = transaction.chargedAmount.amount - refundAmount;
+
+        if (chargedAmount < 0) {
+          throw "Amount after refund cannot be negative";
+        }
+
+        return {
+          amountCharged: {
+            amount: chargedAmount,
+            currency: amount.currency!,
+          },
+          amountRefunded: {
+            amount: refundAmount,
+            currency: amount.currency!,
+          },
+        };
+      } else if (transaction.authorizedAmount.amount !== 0) {
+        const chargedAmount =
+          transaction.authorizedAmount.amount - refundAmount;
+
+        if (chargedAmount < 0) {
+          throw "Amount after refund cannot be negative";
+        }
+
+        return {
+          amountAuthorized: {
+            amount: chargedAmount,
+            currency: amount.currency,
+          },
+          amountVoided: {
+            amount: refundAmount,
+            currency: amount.currency!,
+          },
+        };
+      }
+    }
+  };
+
+  const updatedTransactionEvent: TransactionEventInput = {
     name: eventCode.toString(),
-    status: failureStates.includes(eventCode) ? "FAILURE" : "SUCCESS",
+    status: getStatus(),
     reference: pspReference,
   };
 
+  const updatedTransaction: TransactionUpdateInput = {
+    status: eventCode.toString(),
+    ...getNewAmount(),
+    ...(operations && { availableActions: mapAvailableActions(operations) }),
+  };
+
   return {
-    id: transactionId,
-    transaction: {
-      status: eventCode.toString(),
-      ...(operations && { availableActions: mapAvailableActions(operations) }),
-    },
-    transactionEvent,
+    id: transaction.id,
+    transaction: updatedTransaction,
+    transactionEvent: updatedTransactionEvent,
   };
 };
 
@@ -189,7 +264,7 @@ export const getNewTransactionData = (
       transaction: {
         status: eventCode.toString(),
         type: `adyen-${paymentMethod}`,
-        amountCaptured: {
+        amountCharged: {
           amount: getSaleorAmountFromAdyen(amount.value!),
           currency: amount.currency!,
         },

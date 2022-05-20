@@ -18,7 +18,7 @@ export const mapAvailableActions = (
       operation ===
       Types.notification.NotificationRequestItem.OperationsEnum.Capture
     ) {
-      return "CAPTURE";
+      return "CHARGE";
     }
 
     if (

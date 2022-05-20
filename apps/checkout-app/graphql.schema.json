@@ -2578,7 +2578,7 @@
           },
           {
             "name": "tokens",
-            "description": "Last 4 characters of the tokens.",
+            "description": "Last 4 characters of the tokens.\n\nRequires one of the following permissions: MANAGE_APPS, OWNER.",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -2622,7 +2622,7 @@
           },
           {
             "name": "webhooks",
-            "description": "List of webhooks assigned to this app.",
+            "description": "List of webhooks assigned to this app.\n\nRequires one of the following permissions: MANAGE_APPS, OWNER.",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -2907,29 +2907,6 @@
                   }
                 }
               }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "AppCreated",
-        "description": null,
-        "fields": [
-          {
-            "name": "app",
-            "description": "Look up a app.\n\nAdded in Saleor 3.4.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "App",
-              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4166,6 +4143,29 @@
             "ofType": null
           }
         ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AppInstalled",
+        "description": null,
+        "fields": [
+          {
+            "name": "app",
+            "description": "Look up a app.\n\nAdded in Saleor 3.4.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "App",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -7500,7 +7500,7 @@
           },
           {
             "name": "richText",
-            "description": "Represents the text (JSON) of the attribute value.",
+            "description": "Represents the text of the attribute value, includes formatting.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -7887,7 +7887,7 @@
           },
           {
             "name": "richText",
-            "description": "Represents the text (JSON) of the attribute value.",
+            "description": "Represents the text of the attribute value, includes formatting.\n\nRich text format. For reference see https://editorjs.io/",
             "type": {
               "kind": "SCALAR",
               "name": "JSONString",
@@ -8226,7 +8226,7 @@
           },
           {
             "name": "richText",
-            "description": null,
+            "description": "Attribute value.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -8403,7 +8403,7 @@
           },
           {
             "name": "richText",
-            "description": null,
+            "description": "Attribute value.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -8445,7 +8445,7 @@
           },
           {
             "name": "richText",
-            "description": null,
+            "description": "Translated text.\n\nRich text format. For reference see https://editorjs.io/",
             "type": {
               "kind": "SCALAR",
               "name": "JSONString",
@@ -8587,7 +8587,7 @@
           },
           {
             "name": "richText",
-            "description": "Represents the text (JSON) of the attribute value.",
+            "description": "Represents the text of the attribute value, includes formatting.\n\nRich text format. For reference see https://editorjs.io/",
             "type": {
               "kind": "SCALAR",
               "name": "JSONString",
@@ -9225,7 +9225,7 @@
           },
           {
             "name": "description",
-            "description": null,
+            "description": "Description of the category.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -9237,7 +9237,7 @@
           },
           {
             "name": "descriptionJson",
-            "description": "Description of the category (JSON).",
+            "description": "Description of the category.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -10102,7 +10102,7 @@
           },
           {
             "name": "description",
-            "description": "Category description (JSON).",
+            "description": "Category description.\n\nRich text format. For reference see https://editorjs.io/",
             "type": {
               "kind": "SCALAR",
               "name": "JSONString",
@@ -10256,7 +10256,7 @@
           },
           {
             "name": "description",
-            "description": null,
+            "description": "Description of the category.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -10268,7 +10268,7 @@
           },
           {
             "name": "descriptionJson",
-            "description": "Description of the category (JSON).",
+            "description": "Description of the category.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -10453,7 +10453,7 @@
         "fields": [
           {
             "name": "description",
-            "description": null,
+            "description": "Translated description of the category.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -10465,7 +10465,7 @@
           },
           {
             "name": "descriptionJson",
-            "description": "Translated description of the product (JSON).",
+            "description": "Translated description of the category.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -14577,7 +14577,7 @@
           },
           {
             "name": "description",
-            "description": null,
+            "description": "Description of the collection.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -14589,7 +14589,7 @@
           },
           {
             "name": "descriptionJson",
-            "description": "Description of the collection (JSON).",
+            "description": "Description of the collection.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -15651,7 +15651,7 @@
           },
           {
             "name": "description",
-            "description": "Description of the collection (JSON).",
+            "description": "Description of the collection.\n\nRich text format. For reference see https://editorjs.io/",
             "type": {
               "kind": "SCALAR",
               "name": "JSONString",
@@ -16132,7 +16132,7 @@
           },
           {
             "name": "description",
-            "description": "Description of the collection (JSON).",
+            "description": "Description of the collection.\n\nRich text format. For reference see https://editorjs.io/",
             "type": {
               "kind": "SCALAR",
               "name": "JSONString",
@@ -16487,7 +16487,7 @@
           },
           {
             "name": "description",
-            "description": null,
+            "description": "Description of the collection.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -16499,7 +16499,7 @@
           },
           {
             "name": "descriptionJson",
-            "description": "Description of the collection (JSON).",
+            "description": "Description of the collection.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -16684,7 +16684,7 @@
         "fields": [
           {
             "name": "description",
-            "description": null,
+            "description": "Translated description of the collection.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -16696,7 +16696,7 @@
           },
           {
             "name": "descriptionJson",
-            "description": "Translated description of the product (JSON).",
+            "description": "Translated description of the collection.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -22153,12 +22153,12 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
-            "name": "AppCreated",
+            "name": "AppDeleted",
             "ofType": null
           },
           {
             "kind": "OBJECT",
-            "name": "AppDeleted",
+            "name": "AppInstalled",
             "ofType": null
           },
           {
@@ -22489,6 +22489,21 @@
           {
             "kind": "OBJECT",
             "name": "VoucherUpdated",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "WarehouseCreated",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "WarehouseDeleted",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "WarehouseUpdated",
             "ofType": null
           }
         ]
@@ -51015,7 +51030,7 @@
           },
           {
             "name": "billingAddress",
-            "description": "Billing address. Requires one of the following permissions to view the full data: MANAGE_ORDERS, OWNER.",
+            "description": "Billing address. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -51291,7 +51306,7 @@
           },
           {
             "name": "invoices",
-            "description": "List of order invoices. Requires one of the following permissions: MANAGE_ORDERS, OWNER.",
+            "description": "List of order invoices. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -51687,7 +51702,7 @@
           },
           {
             "name": "shippingAddress",
-            "description": "Shipping address. Requires one of the following permissions to view the full data: MANAGE_ORDERS, OWNER.",
+            "description": "Shipping address. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -51991,7 +52006,7 @@
           },
           {
             "name": "user",
-            "description": "User who placed the order. This field is set only for orders placed by authenticated users. Requires one of the following permissions: MANAGE_USERS, MANAGE_ORDERS, OWNER.",
+            "description": "User who placed the order. This field is set only for orders placed by authenticated users. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_USERS, MANAGE_ORDERS, OWNER.",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -52003,7 +52018,7 @@
           },
           {
             "name": "userEmail",
-            "description": "Email address of the customer. Requires the following permissions to access the full data: MANAGE_ORDERS, OWNER.",
+            "description": "Email address of the customer. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -57367,7 +57382,7 @@
           },
           {
             "name": "content",
-            "description": "Content of the page (JSON).",
+            "description": "Content of the page.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -57379,7 +57394,7 @@
           },
           {
             "name": "contentJson",
-            "description": "Content of the page (JSON).",
+            "description": "Content of the page.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -58252,7 +58267,7 @@
           },
           {
             "name": "content",
-            "description": "Page content in JSON format.",
+            "description": "Page content.\n\nRich text format. For reference see https://editorjs.io/",
             "type": {
               "kind": "SCALAR",
               "name": "JSONString",
@@ -58794,7 +58809,7 @@
           },
           {
             "name": "content",
-            "description": "Page content in JSON format.",
+            "description": "Page content.\n\nRich text format. For reference see https://editorjs.io/",
             "type": {
               "kind": "SCALAR",
               "name": "JSONString",
@@ -59073,7 +59088,7 @@
           },
           {
             "name": "content",
-            "description": null,
+            "description": "Content of the page.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -59085,7 +59100,7 @@
           },
           {
             "name": "contentJson",
-            "description": "Content of the page (JSON).",
+            "description": "Content of the page.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -59282,7 +59297,7 @@
         "fields": [
           {
             "name": "content",
-            "description": null,
+            "description": "Translated content of the page.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -59294,7 +59309,7 @@
           },
           {
             "name": "contentJson",
-            "description": "Translated description of the page (JSON).",
+            "description": "Translated description of the page.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -59392,7 +59407,7 @@
         "inputFields": [
           {
             "name": "content",
-            "description": null,
+            "description": "Translated page content.\n\nRich text format. For reference see https://editorjs.io/",
             "type": {
               "kind": "SCALAR",
               "name": "JSONString",
@@ -62333,6 +62348,12 @@
             "deprecationReason": null
           },
           {
+            "name": "MANAGE_OBSERVABILITY",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "MANAGE_ORDERS",
             "description": null,
             "isDeprecated": false,
@@ -64095,7 +64116,7 @@
           },
           {
             "name": "description",
-            "description": null,
+            "description": "Description of the product.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -64107,7 +64128,7 @@
           },
           {
             "name": "descriptionJson",
-            "description": "Description of the product (JSON).",
+            "description": "Description of the product.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -65936,7 +65957,7 @@
           },
           {
             "name": "description",
-            "description": "Product description (JSON).",
+            "description": "Product description.\n\nRich text format. For reference see https://editorjs.io/",
             "type": {
               "kind": "SCALAR",
               "name": "JSONString",
@@ -66920,7 +66941,7 @@
           },
           {
             "name": "description",
-            "description": "Product description (JSON).",
+            "description": "Product description.\n\nRich text format. For reference see https://editorjs.io/",
             "type": {
               "kind": "SCALAR",
               "name": "JSONString",
@@ -68033,7 +68054,7 @@
           },
           {
             "name": "description",
-            "description": null,
+            "description": "Description of the product.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -68045,7 +68066,7 @@
           },
           {
             "name": "descriptionJson",
-            "description": "Description of the product (JSON).",
+            "description": "Description of the product.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -68242,7 +68263,7 @@
         "fields": [
           {
             "name": "description",
-            "description": null,
+            "description": "Translated description of the product.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -68254,7 +68275,7 @@
           },
           {
             "name": "descriptionJson",
-            "description": "Translated description of the product (JSON).",
+            "description": "Translated description of the product.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -72889,7 +72910,7 @@
           },
           {
             "name": "app",
-            "description": "Look up an app by ID. If ID is not provided, return the currently authenticated app. Requires one of the following permissions: OWNER, MANAGE_APPS.",
+            "description": "Look up an app by ID. If ID is not provided, return the currently authenticated app.\n\nRequires one of the following permissions: AUTHENTICATED_STAFF_USER AUTHENTICATED_APP. The authenticated app has access to its resources. Fetching different apps requires MANAGE_APPS permission.",
             "args": [
               {
                 "name": "id",
@@ -73016,7 +73037,7 @@
           },
           {
             "name": "apps",
-            "description": "List of the apps.\n\nRequires one of the following permissions: MANAGE_APPS.",
+            "description": "List of the apps.\n\nRequires one of the following permissions: AUTHENTICATED_STAFF_USER, MANAGE_APPS.",
             "args": [
               {
                 "name": "after",
@@ -74737,7 +74758,7 @@
           },
           {
             "name": "order",
-            "description": "Look up an order by ID.\n\nRequires one of the following permissions: MANAGE_ORDERS.",
+            "description": "Look up an order by ID.",
             "args": [
               {
                 "name": "id",
@@ -79826,7 +79847,7 @@
           },
           {
             "name": "description",
-            "description": "Shipping method description (JSON).",
+            "description": "Shipping method description.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -80544,7 +80565,7 @@
         "fields": [
           {
             "name": "description",
-            "description": null,
+            "description": "Description of the shipping method.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -80646,7 +80667,7 @@
         "fields": [
           {
             "name": "description",
-            "description": null,
+            "description": "Translated description of the shipping method.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -80739,7 +80760,7 @@
           },
           {
             "name": "description",
-            "description": "Shipping method description.",
+            "description": "Shipping method description.\n\nRich text format. For reference see https://editorjs.io/",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -82004,7 +82025,7 @@
         "inputFields": [
           {
             "name": "description",
-            "description": "Translated shipping method description (JSON).",
+            "description": "Translated shipping method description.\n\nRich text format. For reference see https://editorjs.io/",
             "type": {
               "kind": "SCALAR",
               "name": "JSONString",
@@ -86793,13 +86814,13 @@
       {
         "kind": "ENUM",
         "name": "TransactionActionEnum",
-        "description": "Represents possible actions on payment transaction.\n\n    The following actions are possible:\n    CAPTURE - Represents the capture action.\n    REFUND - Represents a refund action.\n    VOID - Represents a void action.\n    ",
+        "description": "Represents possible actions on payment transaction.\n\n    The following actions are possible:\n    CHARGE - Represents the charge action.\n    REFUND - Represents a refund action.\n    VOID - Represents a void action.\n    ",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
-            "name": "CAPTURE",
+            "name": "CHARGE",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -87016,8 +87037,8 @@
             "deprecationReason": null
           },
           {
-            "name": "amountCaptured",
-            "description": "Amount captured by this transaction.",
+            "name": "amountCharged",
+            "description": "Amount charged by this transaction.",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "MoneyInput",
@@ -87350,8 +87371,8 @@
             "deprecationReason": null
           },
           {
-            "name": "capturedAmount",
-            "description": "Total amount captured for this payment.",
+            "name": "chargedAmount",
+            "description": "Total amount charged for this payment.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -88097,8 +88118,8 @@
             "deprecationReason": null
           },
           {
-            "name": "amountCaptured",
-            "description": "Amount captured by this transaction.",
+            "name": "amountCharged",
+            "description": "Amount charged by this transaction.",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "MoneyInput",
@@ -88599,7 +88620,7 @@
         "inputFields": [
           {
             "name": "description",
-            "description": null,
+            "description": "Translated description.\n\nRich text format. For reference see https://editorjs.io/",
             "type": {
               "kind": "SCALAR",
               "name": "JSONString",
@@ -93929,6 +93950,29 @@
       },
       {
         "kind": "OBJECT",
+        "name": "WarehouseCreated",
+        "description": null,
+        "fields": [
+          {
+            "name": "warehouse",
+            "description": "Look up a warehouse.\n\nAdded in Saleor 3.4.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Warehouse",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "WarehouseDelete",
         "description": "Deletes selected warehouse. \n\nRequires one of the following permissions: MANAGE_PRODUCTS.",
         "fields": [
@@ -93991,6 +94035,29 @@
             },
             "isDeprecated": true,
             "deprecationReason": "This field will be removed in Saleor 4.0. Use `errors` field instead."
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "WarehouseDeleted",
+        "description": null,
+        "fields": [
+          {
+            "name": "warehouse",
+            "description": "Look up a warehouse.\n\nAdded in Saleor 3.4.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Warehouse",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -94516,6 +94583,29 @@
           }
         ],
         "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "WarehouseUpdated",
+        "description": null,
+        "fields": [
+          {
+            "name": "warehouse",
+            "description": "Look up a warehouse.\n\nAdded in Saleor 3.4.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Warehouse",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -95318,14 +95408,14 @@
             "deprecationReason": null
           },
           {
-            "name": "APP_CREATED",
-            "description": "A new app created.",
+            "name": "APP_DELETED",
+            "description": "An app deleted.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "APP_DELETED",
-            "description": "An app deleted.",
+            "name": "APP_INSTALLED",
+            "description": "A new app installed.",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -95540,6 +95630,12 @@
             "deprecationReason": null
           },
           {
+            "name": "OBSERVABILITY",
+            "description": "An observability event is created.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ORDER_CANCELLED",
             "description": "An order is cancelled.",
             "isDeprecated": false,
@@ -95730,6 +95826,24 @@
             "description": "A voucher is updated.",
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "WAREHOUSE_CREATED",
+            "description": "A new warehouse created.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "WAREHOUSE_DELETED",
+            "description": "A warehouse is deleted.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "WAREHOUSE_UPDATED",
+            "description": "A warehouse is updated.",
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "possibleTypes": null
@@ -95749,14 +95863,14 @@
             "deprecationReason": null
           },
           {
-            "name": "APP_CREATED",
-            "description": "A new app created.",
+            "name": "APP_DELETED",
+            "description": "An app deleted.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "APP_DELETED",
-            "description": "An app deleted.",
+            "name": "APP_INSTALLED",
+            "description": "A new app installed.",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -95973,6 +96087,12 @@
           {
             "name": "NOTIFY_USER",
             "description": "User notification triggered.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "OBSERVABILITY",
+            "description": "An observability event is created.",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -96219,6 +96339,24 @@
           {
             "name": "VOUCHER_UPDATED",
             "description": "A voucher is updated.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "WAREHOUSE_CREATED",
+            "description": "A new warehouse created.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "WAREHOUSE_DELETED",
+            "description": "A warehouse is deleted.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "WAREHOUSE_UPDATED",
+            "description": "A warehouse is updated.",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -96305,13 +96443,13 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "APP_CREATED",
+            "name": "APP_DELETED",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "APP_DELETED",
+            "name": "APP_INSTALLED",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -96527,6 +96665,12 @@
             "deprecationReason": null
           },
           {
+            "name": "OBSERVABILITY",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ORDER_CANCELLED",
             "description": null,
             "isDeprecated": false,
@@ -96714,6 +96858,24 @@
           },
           {
             "name": "VOUCHER_UPDATED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "WAREHOUSE_CREATED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "WAREHOUSE_DELETED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "WAREHOUSE_UPDATED",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
