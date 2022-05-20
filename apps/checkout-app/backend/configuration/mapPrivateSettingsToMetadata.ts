@@ -1,15 +1,15 @@
-import { encryptSetting } from "@/backend/encryption";
 import { CommonField, fields } from "@/config/fields";
-import { SettingsValues } from "@/types/api";
-import { SettingID } from "@/types/common";
+import { PrivateSettingsValues, SettingValue } from "@/types/api";
+import { PrivateSettingID } from "@/types/common";
 import reduce from "lodash-es/reduce";
+import { encryptSetting } from "./encryption";
 
 const encryptSubSettings = (
-  defaultSetting: SettingsValues<"private" | "public", "unencrypted">,
+  subSetting: Record<string, string> | undefined,
   subSettingsFields?: CommonField[]
 ) => {
   const encryptedSubSetting = reduce(
-    defaultSetting,
+    subSetting,
     (result, value, valueKey) => {
       const setting = subSettingsFields?.find(
         (setting) => setting.id === valueKey
@@ -23,28 +23,29 @@ const encryptSubSettings = (
       }
       return {
         ...result,
-        [valueKey]: value,
+        [valueKey]: {
+          encrypted: false,
+          value,
+        },
       };
     },
-    {} as SettingsValues<"private" | "public", "unencrypted" | "encrypted">
+    {} as Record<string, SettingValue>
   );
 
   return encryptedSubSetting;
 };
 
-const encryptSettings = <
-  T extends SettingsValues<"private" | "public", "unencrypted">
->(
-  settingsValues: T[] | undefined,
+const encryptSettings = (
+  settingsValues: Partial<Record<string, Record<string, string>>> | undefined,
   settingsFields: Record<string, CommonField[]>
 ) => {
   const encrypteSettings = reduce(
     settingsValues,
-    (result, defaultSetting, settingKey) => {
+    (result, subSetting, settingKey) => {
       const subSettingsFields = settingsFields[settingKey];
 
       const encryptedSubSetting = encryptSubSettings(
-        defaultSetting,
+        subSetting,
         subSettingsFields
       );
 
@@ -53,26 +54,23 @@ const encryptSettings = <
         [settingKey]: encryptedSubSetting,
       };
     },
-    {} as Record<SettingID[number], T>
+    {} as Partial<
+      PrivateSettingsValues<"encrypted">[keyof PrivateSettingsValues<"unencrypted">]
+    >
   );
   return encrypteSettings;
 };
 
-export const mapSettingsToMetadata = <
-  T extends SettingsValues<"private" | "public", "unencrypted">
->(
-  settingsValues: Partial<T>
+export const mapPrivateSettingsToMetadata = (
+  settingsValues: Partial<PrivateSettingsValues<"unencrypted">>
 ) => {
   return Object.keys(settingsValues).reduce(
     (metadata, settingsValuesKey) => {
       const settingsValuesObject = encryptSettings(
         settingsValues[
-          settingsValuesKey as keyof SettingsValues<
-            "private" | "public",
-            "unencrypted"
-          >
+          settingsValuesKey as keyof PrivateSettingsValues<"unencrypted">
         ],
-        fields[settingsValuesKey as SettingID[number]]
+        fields[settingsValuesKey as PrivateSettingID[number]]
       );
       const settingsValuesValue = JSON.stringify(settingsValuesObject);
 

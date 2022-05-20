@@ -8,7 +8,8 @@ import {
 import {
   ChannelActivePaymentProviders,
   ChannelPaymentOptions,
-  UnknownSettingsValues,
+  UnknownPrivateSettingsValues,
+  UnknownPublicSettingsValues,
 } from "types/api";
 import {
   Customization,
@@ -20,7 +21,7 @@ import {
 } from "types/common";
 
 export const useCustomizationSettings = (
-  settingsValues: UnknownSettingsValues<"unencrypted">
+  settingsValues: UnknownPublicSettingsValues
 ): Customization<CustomizationID>[] =>
   useCustomizations().map((customization) => ({
     ...customization,
@@ -33,7 +34,7 @@ export const useCustomizationSettings = (
   }));
 
 export const usePaymentProviderSettings = (
-  settingsValues: UnknownSettingsValues<"unencrypted">
+  settingsValues: UnknownPrivateSettingsValues<"unencrypted">
 ): PaymentProvider<PaymentProviderID>[] =>
   usePaymentProviders().map((provider) => ({
     ...provider,

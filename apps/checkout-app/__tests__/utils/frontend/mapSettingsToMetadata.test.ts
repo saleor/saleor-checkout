@@ -2,7 +2,8 @@ import {
   defaultPrivateSettings,
   defaultPublicSettings,
 } from "@/config/defaults";
-import { mapSettingsToMetadata } from "@/frontend/misc/mapSettingsToMetadata";
+import { mapPrivateSettingsToMetadata } from "@/backend/configuration/mapPrivateSettingsToMetadata";
+import { mapPublicSettingsToMetadata } from "@/frontend/misc/mapPublicSettingsToMetadata";
 import { MetadataItemFragment } from "@/graphql";
 import { PrivateSettingsValues, PublicSettingsValues } from "@/types/api";
 
@@ -20,7 +21,7 @@ describe("/utils/frontend/misc/mapSettingsToMetadata", () => {
       },
     };
 
-    const mappedMetadata = mapSettingsToMetadata(settingsValues);
+    const mappedMetadata = mapPublicSettingsToMetadata(settingsValues);
 
     const expectedMetadata: MetadataItemFragment[] = [
       {
@@ -42,24 +43,28 @@ describe("/utils/frontend/misc/mapSettingsToMetadata", () => {
       ...defaultPrivateSettings,
       paymentProviders: {
         ...defaultPrivateSettings.paymentProviders,
-        mollie: {
-          ...defaultPrivateSettings.paymentProviders.mollie,
-          partnerId: "some_unencrypted_id",
-          liveApiKey: "some_unencrypted_key",
+        adyen: {
+          clientKey: "adyen_unencrypted_key",
+          merchantAccount: "adyen_unencrypted_value",
+          supportedCurrencies: "USD,EUR",
         },
       },
     };
 
-    const mappedMetadata = mapSettingsToMetadata(settingsValues);
+    const mappedMetadata = mapPrivateSettingsToMetadata(settingsValues);
 
-    const expectedMetadata: MetadataItemFragment[] = [
-      {
-        key: "paymentProviders",
-        value:
-          '{"mollie":{"partnerId":{"encrypted":"302c2e261c362d262d20313a333726271c2a27"},"liveApiKey":{"encrypted":"302c2e261c362d262d20313a333726271c28263a"},"testApiKey":""},"adyen":{"merchantAccount":"","clientKey":"","supportedCurrencies":""}}',
-      },
-    ];
+    const providersMetadata = mappedMetadata.find(
+      (metadata) => metadata.key === "paymentProviders"
+    )?.value;
 
-    expect(mappedMetadata).toEqual(expectedMetadata);
+    expect(providersMetadata).not.toContain(
+      settingsValues.paymentProviders.adyen.clientKey
+    );
+    expect(providersMetadata).not.toContain(
+      settingsValues.paymentProviders.adyen.merchantAccount
+    );
+    expect(providersMetadata).toContain(
+      settingsValues.paymentProviders.adyen.supportedCurrencies
+    );
   });
 });

@@ -9,8 +9,8 @@ import { getCommonErrors } from "@/frontend/utils";
 import { useCustomizationSettings } from "@/frontend/data";
 import { useAuthData } from "@/frontend/hooks/useAuthData";
 import { serverEnvVars } from "@/constants";
-import { mapMetadataToSettings } from "@/frontend/misc/mapMetadataToSettings";
-import { mapSettingsToMetadata } from "@/frontend/misc/mapSettingsToMetadata";
+import { mapPublicSettingsToMetadata } from "@/frontend/misc/mapPublicSettingsToMetadata";
+import { mapPublicMetadataToSettings } from "@/frontend/misc/mapPublicMetadataToSettings";
 
 const Customization = () => {
   const router = useRouter();
@@ -24,10 +24,9 @@ const Customization = () => {
   const [metadataMutation, setPublicMetadata] =
     useUpdatePublicMetadataMutation();
 
-  const settingsValues = mapMetadataToSettings({
-    metadata: metadataQuery.data?.app?.metadata || [],
-    type: "public",
-  });
+  const settingsValues = mapPublicMetadataToSettings(
+    metadataQuery.data?.app?.metadata || []
+  );
   const customizationSettings = useCustomizationSettings(
     settingsValues.customizations
   );
@@ -37,7 +36,7 @@ const Customization = () => {
   };
 
   const handleSubmit = (data: CustomizationSettingsValues) => {
-    const metadata = mapSettingsToMetadata({
+    const metadata = mapPublicSettingsToMetadata({
       customizations: data,
     });
 

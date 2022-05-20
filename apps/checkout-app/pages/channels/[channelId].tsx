@@ -3,8 +3,8 @@ import ErrorDetails from "@/frontend/components/templates/ErrorDetails";
 import { useChannelPaymentOptions } from "@/frontend/data";
 import { useAuthData } from "@/frontend/hooks/useAuthData";
 import { notFoundMessages } from "@/frontend/misc/errorMessages";
-import { mapMetadataToSettings } from "@/frontend/misc/mapMetadataToSettings";
-import { mapSettingsToMetadata } from "@/frontend/misc/mapSettingsToMetadata";
+import { mapPublicMetadataToSettings } from "@/frontend/misc/mapPublicMetadataToSettings";
+import { mapPublicSettingsToMetadata } from "@/frontend/misc/mapPublicSettingsToMetadata";
 import { getCommonErrors } from "@/frontend/utils";
 import {
   useChannelsQuery,
@@ -31,10 +31,9 @@ const Channel = () => {
   const [metadataMutation, setPublicMetadata] =
     useUpdatePublicMetadataMutation();
 
-  const settingsValues = mapMetadataToSettings({
-    metadata: metadataQuery.data?.app?.metadata || [],
-    type: "public",
-  });
+  const settingsValues = mapPublicMetadataToSettings(
+    metadataQuery.data?.app?.metadata || []
+  );
 
   const [channelsQuery] = useChannelsQuery({
     pause: !isAuthorized,
@@ -52,7 +51,7 @@ const Channel = () => {
   };
 
   const handleSubmit = (data: ChannelActivePaymentProviders) => {
-    const metadata = mapSettingsToMetadata({
+    const metadata = mapPublicSettingsToMetadata({
       channelActivePaymentProviders: {
         ...settingsValues.channelActivePaymentProviders,
         ...data,

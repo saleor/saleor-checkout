@@ -19,15 +19,12 @@ import { client } from "@/backend/client";
 import { defaultActiveChannelPaymentProviders } from "config/defaults";
 import { mergeChannelsWithPaymentProvidersSettings } from "./utils";
 import { serverEnvVars } from "@/constants";
-import { mapMetadataToSettings } from "@/frontend/misc/mapMetadataToSettings";
 import { PrivateSettingsValues } from "@/types/api";
-import { mapSettingsToMetadata } from "@/frontend/misc/mapSettingsToMetadata";
+import { mapPrivateSettingsToMetadata } from "./mapPrivateSettingsToMetadata";
+import { mapPrivateMetadataToSettings } from "./mapPrivateMetadataToSettings";
+import { mapPublicMetadataToSettings } from "@/frontend/misc/mapPublicMetadataToSettings";
 
-export const getPrivateSettings = async ({
-  returnEncryptedSettings,
-}: {
-  returnEncryptedSettings?: boolean;
-}) => {
+export const getPrivateSettings = async () => {
   const { data, error } = await client
     .query<PrivateMetadataQuery, PrivateMetadataQueryVariables>(
       PrivateMetadataDocument,
@@ -43,11 +40,9 @@ export const getPrivateSettings = async ({
 
   console.log(data?.app?.privateMetadata); // for deployment debug pusposes
 
-  const settingsValues = mapMetadataToSettings({
-    metadata: data?.app?.privateMetadata || [],
-    type: "private",
-    includeEncryptedSettings: returnEncryptedSettings,
-  });
+  const settingsValues = mapPrivateMetadataToSettings(
+    data?.app?.privateMetadata || []
+  );
 
   return settingsValues;
 };
@@ -68,10 +63,7 @@ export const getPublicSettings = async () => {
 
   console.log(data?.app?.metadata); // for deployment debug pusposes
 
-  const settingsValues = mapMetadataToSettings({
-    metadata: data?.app?.metadata || [],
-    type: "public",
-  });
+  const settingsValues = mapPublicMetadataToSettings(data?.app?.metadata || []);
 
   return settingsValues;
 };
@@ -119,14 +111,10 @@ export const getChannelActivePaymentProvidersSettings = async (
   return channelActivePaymentProvidersSettings;
 };
 
-export const setPrivateSettings = async ({
-  settings,
-  returnEncryptedSettings,
-}: {
-  settings: PrivateSettingsValues<"unencrypted">;
-  returnEncryptedSettings?: boolean;
-}) => {
-  const metadata = mapSettingsToMetadata(settings);
+export const setPrivateSettings = async (
+  settings: PrivateSettingsValues<"unencrypted">
+) => {
+  const metadata = mapPrivateSettingsToMetadata(settings);
 
   const { data, error } = await client
     .mutation<
@@ -146,11 +134,9 @@ export const setPrivateSettings = async ({
 
   console.log(data?.updatePrivateMetadata?.item?.privateMetadata); // for deployment debug pusposes
 
-  const settingsValues = mapMetadataToSettings({
-    metadata: data?.updatePrivateMetadata?.item?.privateMetadata || [],
-    type: "private",
-    includeEncryptedSettings: returnEncryptedSettings,
-  });
+  const settingsValues = mapPrivateMetadataToSettings(
+    data?.updatePrivateMetadata?.item?.privateMetadata || []
+  );
 
   return settingsValues;
 };

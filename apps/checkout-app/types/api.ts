@@ -12,13 +12,11 @@ import {
   SettingsType,
 } from "./common";
 
-export interface Encrypted<T> {
-  encrypted: T;
+export interface SettingValue {
+  value: string;
+  encrypted: boolean;
 }
-export type EncryptionType = "encrypted" | "unencrypted";
-export type SettingsField<E extends EncryptionType> = E extends "unencrypted"
-  ? string | undefined
-  : string | Encrypted<string>;
+export type SettingReadMode = "encrypted" | "unencrypted";
 
 export interface PaymentOption {
   id: string;
@@ -40,27 +38,32 @@ export type ChannelActivePaymentProviders = {
 export type ChannelActivePaymentProvidersByChannel = {
   [P in PaymentMethodID]: PaymentProviderID | "";
 };
-export type PaymentProviderSettingsValues<E extends EncryptionType> = {
+export type PaymentProviderSettingsValues<E extends SettingReadMode> = {
   [P in PaymentProviderID]: E extends "unencrypted"
     ? Partial<{
-        [K in PaymentProviderSettingID<P>]: SettingsField<"unencrypted">;
+        [K in PaymentProviderSettingID<P>]: string;
       }>
     : {
-        [K in PaymentProviderSettingID<P>]: SettingsField<"encrypted">;
+        [K in PaymentProviderSettingID<P>]: SettingValue;
       };
 };
 export type CustomizationSettingsValues = {
   [P in CustomizationID]: {
-    [K in CustomizationSettingID<P>]: SettingsField<"unencrypted">;
+    [K in CustomizationSettingID<P>]: string;
   };
 };
-export type UnknownSettingsValues<E extends EncryptionType> = {
+export type UnknownPublicSettingsValues = {
+  [P in string]: {
+    [K in string]: string;
+  };
+};
+export type UnknownPrivateSettingsValues<E extends SettingReadMode> = {
   [P in string]: E extends "unencrypted"
     ? Partial<{
-        [K in string]: SettingsField<"unencrypted">;
+        [K in string]: string;
       }>
     : {
-        [K in string]: SettingsField<"encrypted">;
+        [K in string]: SettingValue;
       };
 };
 
@@ -69,14 +72,14 @@ export type PublicSettingsValues = {
     ? CustomizationSettingsValues
     : P extends "channelActivePaymentProviders"
     ? ChannelActivePaymentProviders
-    : UnknownSettingsValues<"unencrypted">;
+    : UnknownPublicSettingsValues;
 };
-export type PrivateSettingsValues<E extends EncryptionType> = {
+export type PrivateSettingsValues<E extends SettingReadMode> = {
   [P in PrivateSettingID[number]]: P extends "paymentProviders"
     ? PaymentProviderSettingsValues<E>
-    : UnknownSettingsValues<E>;
+    : UnknownPrivateSettingsValues<E>;
 };
 export type SettingsValues<
   T extends SettingsType,
-  E extends EncryptionType
+  E extends SettingReadMode
 > = T extends "public" ? PublicSettingsValues : PrivateSettingsValues<E>;

@@ -4,9 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const settings = await getPrivateSettings({
-      returnEncryptedSettings: true,
-    });
+    const settings = await getPrivateSettings();
 
     console.log(settings); // for deployment debug pusposes
 
