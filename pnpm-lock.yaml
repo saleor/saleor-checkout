@@ -132,6 +132,7 @@ importers:
       '@mollie/api-client': ^3.6.0
       '@saleor/app-bridge': ^0.1.7
       '@saleor/macaw-ui': ^0.4.0
+      '@types/crypto-js': ^4.1.1
       '@types/jest': ^27.4.0
       '@types/lodash-es': ^4.17.6
       '@types/node': ^16.11.22
@@ -141,6 +142,7 @@ importers:
       babel-plugin-formatjs: ^10.3.18
       clsx: ^1.1.1
       config: workspace:*
+      crypto-js: ^4.1.1
       dotenv: ^16.0.1
       eslint: 7.32.0
       eslint-plugin-react: ^7.29.4
@@ -175,6 +177,7 @@ importers:
       '@saleor/macaw-ui': 0.4.0_1cdc5c7fddbb2168add9985cd94e1e8b
       '@urql/exchange-auth': 0.1.7_graphql@16.3.0
       clsx: 1.1.1
+      crypto-js: 4.1.1
       eslint-plugin-react: 7.29.4_eslint@7.32.0
       eslint-plugin-react-hooks: 4.4.0_eslint@7.32.0
       graphql: 16.3.0
@@ -197,6 +200,7 @@ importers:
       '@graphql-codegen/typescript-operations': 2.3.5_graphql@16.3.0
       '@graphql-codegen/typescript-urql': 3.5.7_e20029557891e0afb887c44ec7f516f8
       '@graphql-codegen/urql-introspection': 2.1.1_graphql@16.3.0
+      '@types/crypto-js': 4.1.1
       '@types/jest': 27.4.1
       '@types/lodash-es': 4.17.6
       '@types/node': 16.11.27
@@ -6236,6 +6240,10 @@ packages:
       '@types/node': 17.0.25
     dev: false
 
+  /@types/crypto-js/4.1.1:
+    resolution: {integrity: sha512-BG7fQKZ689HIoc5h+6D2Dgq1fABRa0RbBWKBd9SP/MVRVXROflpm5fhwyATX5duFmbStzyzyycPB8qUYKDH3NA==}
+    dev: true
+
   /@types/eslint-scope/3.7.3:
     resolution: {integrity: sha512-PB3ldyrcnAicT35TWPs5IcwKD8S333HMaa2VVv4+wdvebJkjWuW/xESoB8IwRcog8HYVYamb1g/R31Qv5Bx03g==}
     dependencies:
@@ -9211,6 +9219,10 @@ packages:
       randombytes: 2.1.0
       randomfill: 1.0.4
     dev: true
+
+  /crypto-js/4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
+    dev: false
 
   /crypto-random-string/2.0.0:
     resolution: {integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==}

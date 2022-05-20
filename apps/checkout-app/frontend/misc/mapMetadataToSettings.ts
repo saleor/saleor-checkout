@@ -2,7 +2,7 @@ import {
   defaultPrivateSettings,
   defaultPublicSettings,
 } from "@/config/defaults";
-import { serverEnvVars } from "@/constants";
+import { isSsr } from "@/constants";
 import { MetadataItemFragment } from "@/graphql";
 import {
   Encrypted,
@@ -13,27 +13,7 @@ import {
 } from "@/types/api";
 import { allSettingID, SettingsType } from "@/types/common";
 import reduce from "lodash-es/reduce";
-
-// TODO: use library instead of this function
-const decrypt = (salt: any, encoded: string) => {
-  const textToChars = (text: string) =>
-    text.split("").map((c) => c.charCodeAt(0));
-  const applySaltToChar = (code: any) =>
-    textToChars(salt).reduce((a, b) => a ^ b, code);
-  return encoded
-    .match(/.{1,2}/g)
-    ?.map((hex: string) => parseInt(hex, 16))
-    .map(applySaltToChar)
-    .map((charCode: number) => String.fromCharCode(charCode))
-    .join("");
-};
-
-const decryptSetting = (settingValue: Encrypted<string>) => {
-  return (
-    decrypt(serverEnvVars.settingsEncryptionSecret, settingValue.encrypted) ||
-    ""
-  );
-};
+import { decryptSetting } from "@/backend/encryption";
 
 const readSettings = <E extends EncryptionType>(
   subSettings: Record<string, SettingsField<E>>,
@@ -45,7 +25,7 @@ const readSettings = <E extends EncryptionType>(
       const isEncrypted =
         typeof subSetting !== "string" && "encrypted" in subSetting;
 
-      if (isEncrypted && !includeEncryptedSettings) {
+      if (isEncrypted && (!includeEncryptedSettings || !isSsr)) {
         return subSettings;
       }
 

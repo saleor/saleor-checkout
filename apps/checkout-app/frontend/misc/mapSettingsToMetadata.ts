@@ -1,37 +1,8 @@
+import { encryptSetting } from "@/backend/encryption";
 import { CommonField, fields } from "@/config/fields";
-import { serverEnvVars } from "@/constants";
-import {
-  Encrypted,
-  PrivateSettingsValues,
-  PublicSettingsValues,
-  SettingsField,
-  SettingsValues,
-  UnknownSettingsValues,
-} from "@/types/api";
-import { SettingID, SettingsType } from "@/types/common";
+import { SettingsValues } from "@/types/api";
+import { SettingID } from "@/types/common";
 import reduce from "lodash-es/reduce";
-
-// TODO: use library instead of this function
-const encrypt = (salt: any, text: string) => {
-  const textToChars = (text: string) =>
-    text.split("").map((c) => c.charCodeAt(0));
-  const byteHex = (n: any) => ("0" + Number(n).toString(16)).substr(-2);
-  const applySaltToChar = (code: any) =>
-    textToChars(salt).reduce((a, b) => a ^ b, code);
-
-  return text
-    .split("")
-    .map(textToChars)
-    .map(applySaltToChar)
-    .map(byteHex)
-    .join("");
-};
-
-const encryptSetting = (settingValue: string): Encrypted<string> => {
-  return {
-    encrypted: encrypt(serverEnvVars.settingsEncryptionSecret, settingValue),
-  };
-};
 
 const encryptSubSettings = (
   defaultSetting: SettingsValues<"private" | "public", "unencrypted">,

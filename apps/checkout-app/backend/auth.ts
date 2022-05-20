@@ -11,7 +11,7 @@ export class JwtVerifier {
   private constructor(domain: string) {
     // By default, signing key verification results are cached by the client.
     this.jwksClient = JwksClient({
-      jwksUri: `${domain}/.well-known/jwks.json`,
+      jwksUri: `https://${domain}/.well-known/jwks.json`,
     });
   }
 
