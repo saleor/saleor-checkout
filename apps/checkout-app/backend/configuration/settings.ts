@@ -15,20 +15,20 @@ import {
   UpdatePrivateMetadataMutation,
   UpdatePrivateMetadataMutationVariables,
 } from "@/graphql";
-import { client } from "@/backend/client";
+import { getClient } from "@/backend/client";
 import { defaultActiveChannelPaymentProviders } from "config/defaults";
 import { mergeChannelsWithPaymentProvidersSettings } from "./utils";
-import { serverEnvVars } from "@/constants";
+import { envVars, serverEnvVars } from "@/constants";
 import { PrivateSettingsValues } from "@/types/api";
 import { mapPrivateSettingsToMetadata } from "./mapPrivateSettingsToMetadata";
 import { mapPrivateMetadataToSettings } from "./mapPrivateMetadataToSettings";
 import { mapPublicMetadataToSettings } from "@/frontend/misc/mapPublicMetadataToSettings";
 
-export const getPrivateSettings = async () => {
-  const { data, error } = await client
+export const getPrivateSettings = async (apiUrl: string) => {
+  const { data, error } = await getClient(apiUrl, serverEnvVars.appToken)
     .query<PrivateMetadataQuery, PrivateMetadataQueryVariables>(
       PrivateMetadataDocument,
-      { id: serverEnvVars.appId! }
+      { id: serverEnvVars.appId }
     )
     .toPromise();
 
@@ -48,10 +48,13 @@ export const getPrivateSettings = async () => {
 };
 
 export const getPublicSettings = async () => {
-  const { data, error } = await client
+  const { data, error } = await getClient(
+    envVars.apiUrl,
+    serverEnvVars.appToken
+  )
     .query<PublicMetadataQuery, PublicMetadataQueryVariables>(
       PublicMetadataDocument,
-      { id: process.env.SALEOR_APP_ID! }
+      { id: serverEnvVars.appId }
     )
     .toPromise();
 
@@ -71,7 +74,10 @@ export const getPublicSettings = async () => {
 export const getActivePaymentProvidersSettings = async () => {
   const settings = await getPublicSettings();
 
-  const { data, error } = await client
+  const { data, error } = await getClient(
+    envVars.apiUrl,
+    serverEnvVars.appToken
+  )
     .query<ChannelsQuery, ChannelsQueryVariables>(ChannelsDocument)
     .toPromise();
 
@@ -92,7 +98,10 @@ export const getChannelActivePaymentProvidersSettings = async (
 ) => {
   const settings = await getPublicSettings();
 
-  const { data, error } = await client
+  const { data, error } = await getClient(
+    envVars.apiUrl,
+    serverEnvVars.appToken
+  )
     .query<ChannelQuery, ChannelQueryVariables>(ChannelDocument, {
       id: channelId,
     })
@@ -112,11 +121,12 @@ export const getChannelActivePaymentProvidersSettings = async (
 };
 
 export const setPrivateSettings = async (
+  apiUrl: string,
   settings: PrivateSettingsValues<"unencrypted">
 ) => {
   const metadata = mapPrivateSettingsToMetadata(settings);
 
-  const { data, error } = await client
+  const { data, error } = await getClient(apiUrl, serverEnvVars.appToken)
     .mutation<
       UpdatePrivateMetadataMutation,
       UpdatePrivateMetadataMutationVariables

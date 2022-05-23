@@ -1,3 +1,4 @@
+import { getTokenDataFromRequest } from "@/backend/auth";
 import {
   getPrivateSettings,
   setPrivateSettings,
@@ -6,6 +7,16 @@ import { allowCors, requireAuthorization } from "@/backend/utils";
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const tokenData = getTokenDataFromRequest(req);
+
+  const tokenDomain = tokenData?.["iss"];
+
+  if (!tokenDomain) {
+    return res.status(500).json({ error: "Token iss is not correct" });
+  }
+
+  const apiUrl = `https://${tokenDomain}/graphql`;
+
   const data = req.body;
 
   console.log("data:", data); // for deployment debug pusposes
@@ -19,11 +30,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-    const settings = await getPrivateSettings();
+    const settings = await getPrivateSettings(apiUrl);
 
     console.log(settings); // for deployment debug pusposes
 
-    const updatedSettings = await setPrivateSettings({
+    const updatedSettings = await setPrivateSettings(apiUrl, {
       ...settings,
       paymentProviders: {
         ...settings.paymentProviders,

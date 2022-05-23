@@ -15,7 +15,7 @@ export type ServerEnvVars = Record<ServerEnvVar, string>;
 export const envVars: EnvVars = {
   appDomain: process.env.NEXT_PUBLIC_VERCEL_URL!,
   appUrl: `https://${process.env.NEXT_PUBLIC_VERCEL_URL!}`,
-  apiUrl: process.env.NEXT_PUBLIC_API_URL!,
+  apiUrl: process.env.NEXT_PUBLIC_SALEOR_API_URL!,
 };
 
 export const serverEnvVars: ServerEnvVars = {

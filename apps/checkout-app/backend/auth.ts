@@ -44,16 +44,34 @@ const getTokenFromRequest = (req: NextApiRequest) => {
   return token;
 };
 
-export const isAuthenticated = async (req: NextApiRequest) => {
-  const token = getTokenFromRequest(req);
-
+const getTokenData = (token?: string) => {
   if (!token) {
-    return false;
+    return undefined;
   }
 
   const tokenData = decode(token);
 
-  if (typeof tokenData === "string" || !tokenData || !tokenData["iss"]) {
+  if (typeof tokenData === "string" || !tokenData) {
+    return undefined;
+  }
+
+  return tokenData;
+};
+
+export const getTokenDataFromRequest = (req: NextApiRequest) => {
+  const token = getTokenFromRequest(req);
+
+  const tokenData = getTokenData(token);
+
+  return tokenData;
+};
+
+export const isAuthenticated = async (req: NextApiRequest) => {
+  const token = getTokenFromRequest(req);
+
+  const tokenData = getTokenData(token);
+
+  if (!token || !tokenData?.["iss"]) {
     return false;
   }
 
@@ -63,16 +81,10 @@ export const isAuthenticated = async (req: NextApiRequest) => {
 };
 
 export const isAuthorized = async (req: NextApiRequest) => {
-  const token = getTokenFromRequest(req);
+  const tokenData = getTokenDataFromRequest(req);
 
-  if (!token) {
+  if (!tokenData?.["is_staff"]) {
     return false;
   }
-
-  const tokenData = decode(token);
-
-  if (typeof tokenData !== "string" && tokenData && tokenData["is_staff"]) {
-    return true;
-  }
-  return false;
+  return true;
 };
