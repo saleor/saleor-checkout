@@ -1,5 +1,11 @@
 import { UnknownPublicSettingsValues } from "@/types/api";
-import { Item, NamedNode, Node } from "@/types/common";
+import {
+  Item,
+  NamedNode,
+  Node,
+  PaymentProvider,
+  PaymentProviderID,
+} from "@/types/common";
 import { CombinedError } from "urql";
 
 export const flattenSettingId = (optionIdx: number, settingId: string) =>

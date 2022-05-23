@@ -1,8 +1,7 @@
-import { setPrivateSettings } from "@/backend/configuration/settings";
 import { defaultPrivateSettings } from "@/config/defaults";
-import { app } from "@/frontend/misc/app";
+import createSafeContext from "@/frontend/misc/createSafeContext";
 import { PrivateSettingsValues } from "@/types/api";
-import { createContext, Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 interface PrivateSettingsProviderContext {
   privateSettings: PrivateSettingsValues<"unencrypted">;
@@ -11,11 +10,8 @@ interface PrivateSettingsProviderContext {
   >;
 }
 
-export const PrivateSettingsContext =
-  createContext<PrivateSettingsProviderContext>({
-    privateSettings: defaultPrivateSettings,
-    setPrivateSettings: () => undefined,
-  });
+export const [usePrivateSettingsContext, Provider] =
+  createSafeContext<PrivateSettingsProviderContext>();
 
 const PrivateSettingsProvider: React.FC = (props) => {
   const [privateSettings, setPrivateSettings] = useState(
@@ -23,7 +19,7 @@ const PrivateSettingsProvider: React.FC = (props) => {
   );
 
   return (
-    <PrivateSettingsContext.Provider
+    <Provider
       value={{
         privateSettings,
         setPrivateSettings,

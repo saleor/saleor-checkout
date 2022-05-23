@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import { PrivateSettingsContext } from "../components/elements/PrivateSettingsProvider";
+import { usePrivateSettingsContext } from "../components/elements/PrivateSettingsProvider";
 
 export const usePrivateSettings = () => {
-  const app = useContext(PrivateSettingsContext);
+  const app = usePrivateSettingsContext();
 
   return app;
 };

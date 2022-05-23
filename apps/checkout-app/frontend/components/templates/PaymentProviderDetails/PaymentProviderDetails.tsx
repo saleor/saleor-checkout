@@ -6,7 +6,7 @@ import { sectionMessages } from "@/frontend/misc/commonMessages";
 import AppLayout from "@/frontend/components/elements/AppLayout";
 import AppSavebar from "@/frontend/components/elements/AppSavebar";
 import { PaymentProviderSettingsValues } from "types/api";
-import { getFormDefaultValues } from "./data";
+import { extractSettingsData, getFormDefaultValues } from "./data";
 import { getMetadataErrorMessage } from "@/frontend/misc/errors";
 import { MetadataErrorFragment } from "@/graphql";
 import ErrorAlert from "../../elements/ErrorAlert";
@@ -91,14 +91,12 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
     } as PaymentProviderSettingsValues<"unencrypted">);
   };
 
-  const encryptedSettings = selectedPaymentProvider.settings.filter(
-    ({ encrypt }) => encrypt
-  );
-  const publicSettings = selectedPaymentProvider.settings.filter(
-    ({ encrypt }) => !encrypt
-  );
-  const hasEncryptedSettings = encryptedSettings.length > 0;
-  const hasPublicSettings = publicSettings.length > 0;
+  const {
+    encryptedSettings,
+    publicSettings,
+    hasEncryptedSettings,
+    hasPublicSettings,
+  } = extractSettingsData(selectedPaymentProvider);
 
   return (
     <form>
