@@ -15,7 +15,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return res.status(500).json({ error: "Token iss is not correct" });
   }
 
-  const apiUrl = `https://${tokenDomain}/graphql`;
+  const apiUrl = `https://${tokenDomain}/graphql/`;
 
   const data = req.body;
 
