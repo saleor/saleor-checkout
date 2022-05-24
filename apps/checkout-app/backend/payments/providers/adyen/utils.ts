@@ -1,4 +1,5 @@
 import {
+  MoneyFragment,
   OrderFragment,
   TransactionActionEnum,
   TransactionEventFragment,
@@ -55,3 +56,16 @@ export const getLineItems = (
 
 export const createEventUniqueKey = (event: TransactionEventFragment) =>
   [event.name, event.reference].join();
+
+export const getAmountAfterRefund = (
+  money: MoneyFragment,
+  refundAmount: number
+) => {
+  const chargedAmount = money.amount - refundAmount;
+
+  if (chargedAmount < 0) {
+    throw "Amount after refund cannot be negative";
+  }
+
+  return chargedAmount;
+};

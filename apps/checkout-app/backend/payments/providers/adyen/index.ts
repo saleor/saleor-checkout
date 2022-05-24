@@ -17,7 +17,10 @@ import {
   mapAvailableActions,
   getLineItems,
   createEventUniqueKey,
+  getAmountAfterRefund,
 } from "./utils";
+
+const EventCodeEnum = Types.notification.NotificationRequestItem.EventCodeEnum;
 
 const client = new Client({
   apiKey: process.env.ADYEN_API_KEY!,
@@ -123,8 +126,8 @@ export const getUpdatedTransactionData = (
 
   const getStatus = (): TransactionStatus => {
     const failureStates = [
-      Types.notification.NotificationRequestItem.EventCodeEnum.CaptureFailed,
-      Types.notification.NotificationRequestItem.EventCodeEnum.RefundFailed,
+      EventCodeEnum.CaptureFailed,
+      EventCodeEnum.RefundFailed,
     ];
 
     if (
@@ -143,21 +146,17 @@ export const getUpdatedTransactionData = (
         "amountRefunded" | "amountAuthorized" | "amountCharged" | "amountVoided"
       >
     | undefined => {
-    if (
-      eventCode ===
-      Types.notification.NotificationRequestItem.EventCodeEnum.Refund
-    ) {
+    if (eventCode === EventCodeEnum.Refund) {
       if (!amount.currency || !amount.value) {
         throw "Amount not specified for a refund notification";
       }
       const refundAmount = getSaleorAmountFromAdyen(amount.value);
 
       if (transaction.chargedAmount.amount !== 0) {
-        const chargedAmount = transaction.chargedAmount.amount - refundAmount;
-
-        if (chargedAmount < 0) {
-          throw "Amount after refund cannot be negative";
-        }
+        const chargedAmount = getAmountAfterRefund(
+          transaction.chargedAmount,
+          refundAmount
+        );
 
         return {
           amountCharged: {
@@ -170,12 +169,10 @@ export const getUpdatedTransactionData = (
           },
         };
       } else if (transaction.authorizedAmount.amount !== 0) {
-        const chargedAmount =
-          transaction.authorizedAmount.amount - refundAmount;
-
-        if (chargedAmount < 0) {
-          throw "Amount after refund cannot be negative";
-        }
+        const chargedAmount = getAmountAfterRefund(
+          transaction.authorizedAmount,
+          refundAmount
+        );
 
         return {
           amountAuthorized: {
@@ -234,10 +231,7 @@ export const getNewTransactionData = (
     reference: pspReference,
   };
 
-  if (
-    eventCode ===
-    Types.notification.NotificationRequestItem.EventCodeEnum.Authorisation
-  ) {
+  if (eventCode === EventCodeEnum.Authorisation) {
     return {
       id: orderId,
       transactionEvent,
@@ -254,10 +248,7 @@ export const getNewTransactionData = (
     };
   }
 
-  if (
-    eventCode ===
-    Types.notification.NotificationRequestItem.EventCodeEnum.Capture
-  ) {
+  if (eventCode === EventCodeEnum.Capture) {
     return {
       id: orderId,
       transactionEvent,
