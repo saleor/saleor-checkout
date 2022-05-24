@@ -1,4 +1,5 @@
-import { client } from "@/backend/client";
+import { getClient } from "@/backend/client";
+import { envVars, serverEnvVars } from "@/constants";
 import {
   OrderTransactionsDocument,
   OrderTransactionsQuery,
@@ -8,7 +9,10 @@ import {
 export const getOrderTransactions = async (
   args: OrderTransactionsQueryVariables
 ) => {
-  const { data, error } = await client
+  const { data, error } = await getClient(
+    envVars.apiUrl,
+    serverEnvVars.appToken
+  )
     .query<OrderTransactionsQuery, OrderTransactionsQueryVariables>(
       OrderTransactionsDocument,
       args
