@@ -1,4 +1,10 @@
-import { createClient, Client, Operation, makeOperation } from "urql";
+import {
+  createClient,
+  Client,
+  Operation,
+  makeOperation,
+  fetchExchange,
+} from "urql";
 import { authExchange } from "@urql/exchange-auth";
 
 let client: Client;
@@ -51,6 +57,7 @@ export const getClient = (apiUrl: string, appToken: string) => {
         getAuth: async () => ({ token }),
         addAuthToOperation,
       }),
+      fetchExchange,
     ],
   });
 
