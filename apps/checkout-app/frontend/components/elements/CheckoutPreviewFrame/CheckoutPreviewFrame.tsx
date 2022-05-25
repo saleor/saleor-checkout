@@ -13,7 +13,7 @@ const CheckoutPreviewFrame: React.FC<CheckoutPreviewFrameProps> = ({
   const encodedSettings =
     settings && encodeURIComponent(JSON.stringify(settings));
 
-  const previewUrl = "http://localhost:3001";
+  const previewUrl = "https://checkout-preview.vercel.app"; // TODO: use the real checkout url
   const previewFullUrl = encodedSettings
     ? `${previewUrl}?settings=${encodedSettings}`
     : previewUrl;
