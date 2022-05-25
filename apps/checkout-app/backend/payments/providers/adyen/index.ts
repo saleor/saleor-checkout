@@ -10,6 +10,8 @@ import {
   TransactionUpdateMutationVariables,
 } from "@/graphql";
 import { formatRedirectUrl } from "@/backend/payments/utils";
+import { getPrivateSettings } from "@/backend/configuration/settings";
+import { envVars } from "@/constants";
 
 import {
   getAdyenAmountFromSaleor,
@@ -22,17 +24,29 @@ import {
 
 const EventCodeEnum = Types.notification.NotificationRequestItem.EventCodeEnum;
 
-const client = new Client({
-  apiKey: process.env.ADYEN_API_KEY!,
-  environment: "TEST",
-});
-
-const checkout = new CheckoutAPI(client);
-
 export const createAdyenPayment = async (
   data: OrderFragment,
   redirectUrl: string
 ) => {
+  const {
+    paymentProviders: { adyen },
+  } = await getPrivateSettings(envVars.apiUrl);
+
+  if (!adyen.apiKey) {
+    throw "API key not defined";
+  }
+
+  if (!adyen.merchantAccount) {
+    throw "Merchant account not defined";
+  }
+
+  const client = new Client({
+    apiKey: adyen.apiKey,
+    environment: "TEST",
+  });
+
+  const checkout = new CheckoutAPI(client);
+
   const total = data.total.gross;
 
   const { url } = await checkout.paymentLinks({
@@ -42,13 +56,19 @@ export const createAdyenPayment = async (
     },
     reference: data.number || data.id,
     returnUrl: formatRedirectUrl(redirectUrl, data.token),
-    merchantAccount: "SaleorECOM",
+    merchantAccount: adyen.merchantAccount,
     countryCode: data.billingAddress?.country.code,
     metadata: {
       orderId: data.id,
     },
     lineItems: getLineItems(data.lines),
     shopperEmail: data.userEmail!,
+    shopperName: data.billingAddress
+      ? {
+          firstName: data.billingAddress.firstName,
+          lastName: data.billingAddress.lastName,
+        }
+      : undefined,
     shopperLocale: "EN", //TODO: get from checkout and pass here
     telephoneNumber:
       data.shippingAddress?.phone || data.billingAddress?.phone || undefined,
@@ -93,7 +113,8 @@ export const isNotificationDuplicate = async (
 };
 
 export const getOrderId = async (
-  notification: Types.notification.NotificationRequestItem
+  notification: Types.notification.NotificationRequestItem,
+  apiKey: string
 ) => {
   const { additionalData } = notification;
   const paymentLinkId = additionalData?.paymentLinkId;
@@ -102,9 +123,25 @@ export const getOrderId = async (
     return;
   }
 
-  const { metadata } = await checkout.getPaymentLinks(paymentLinkId);
+  const client = new Client({
+    apiKey,
+    environment: "TEST",
+  });
 
-  return metadata?.orderId;
+  const checkout = new CheckoutAPI(client);
+
+  try {
+    const { metadata } = await checkout.getPaymentLinks(paymentLinkId);
+    return metadata?.orderId;
+  } catch (e) {
+    // INFO: checkout.getPaymentLinks method fails randomly
+    // it's possible to get notification metadata directly from notification itself (undocumented)
+    console.error("checkout.getPaymentLinks failed");
+
+    return "metadata.orderId" in additionalData
+      ? additionalData["metadata.orderId"]
+      : null;
+  }
 };
 
 export const getUpdatedTransactionData = (

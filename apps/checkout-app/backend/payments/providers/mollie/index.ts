@@ -10,10 +10,16 @@ import {
   getShippingLines,
   parseAmountToString,
 } from "./utils";
+import { getPrivateSettings } from "@/backend/configuration/settings";
 
-export const mollieClient = createMollieClient({
-  apiKey: process.env.MOLLIE_API_KEY!,
-});
+export const getMollieClient = async () => {
+  const metadata = await getPrivateSettings(envVars.apiUrl);
+  const apiKey = metadata.paymentProviders.mollie.apiKey!;
+
+  return createMollieClient({
+    apiKey,
+  });
+};
 
 export const createMolliePayment = async (
   data: OrderFragment,
@@ -22,6 +28,7 @@ export const createMolliePayment = async (
   const discountLines = getDiscountLines(data.discounts);
   const shippingLines = getShippingLines(data);
   const lines = getLines(data.lines);
+  const mollieClient = await getMollieClient();
 
   const mollieData = await mollieClient.orders.create({
     orderNumber: data.number!,
@@ -66,6 +73,8 @@ export const createMolliePayment = async (
 export const verifyPayment = async (
   id: string
 ): Promise<TransactionCreateMutationVariables | undefined> => {
+  const mollieClient = await getMollieClient();
+
   const { status, amountCaptured, metadata, method, amount } =
     await mollieClient.orders.get(id);
 
