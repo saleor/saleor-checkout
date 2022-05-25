@@ -226,6 +226,34 @@ importers:
       tsconfig: link:../../packages/tsconfig
       typescript: 4.7.3
 
+  apps/checkout-preview:
+    specifiers:
+      '@testing-library/jest-dom': ^5.14.1
+      '@testing-library/react': ^13.0.0
+      '@testing-library/user-event': ^13.2.1
+      '@types/jest': ^27.0.1
+      '@types/node': ^16.7.13
+      '@types/react': ^18.0.0
+      '@types/react-dom': ^18.0.0
+      react: ^18.1.0
+      react-dom: ^18.1.0
+      react-scripts: 5.0.1
+      typescript: ^4.4.2
+      web-vitals: ^2.1.0
+    dependencies:
+      '@testing-library/jest-dom': 5.16.4
+      '@testing-library/react': 13.2.0_react-dom@18.1.0+react@18.1.0
+      '@testing-library/user-event': 13.5.0
+      '@types/jest': 27.4.1
+      '@types/node': 16.11.27
+      '@types/react': 18.0.7
+      '@types/react-dom': 18.0.2
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
+      react-scripts: 5.0.1_react@18.1.0+typescript@4.6.3
+      typescript: 4.6.3
+      web-vitals: 2.1.4
+
   packages/config:
     specifiers:
       eslint-config-next: ^12.0.7
@@ -6276,6 +6304,20 @@ packages:
       react-dom: 18.1.0_react@18.1.0
     dev: false
 
+  /@testing-library/react/13.2.0_react-dom@18.1.0+react@18.1.0:
+    resolution: {integrity: sha512-Bprbz/SZVONCJy5f7hcihNCv313IJXdYiv0nSJklIs1SQCIHHNlnGNkosSXnGZTmesyGIcBGNppYhXcc11pb7g==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    dependencies:
+      '@babel/runtime': 7.17.9
+      '@testing-library/dom': 8.13.0
+      '@types/react-dom': 18.0.2
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
+    dev: false
+
   /@testing-library/user-event/13.5.0:
     resolution: {integrity: sha512-5Kwtbo3Y/NowpkbRuSepbyMFkZmHgD+vPzYB/RJ4oxt5Gj/avFFBYjhw27cqSVPVw/3a67NK1PbiIr9k4Gwmdg==}
     engines: {node: '>=10', npm: '>=6'}
@@ -6667,7 +6709,6 @@ packages:
     resolution: {integrity: sha512-UxeS+Wtj5bvLRREz9tIgsK4ntCuLDo0EcAcACgw3E+9wE8ePDr9uQpq53MfcyxyIS55xJ+0B6mDS8c4qkkHLBg==}
     dependencies:
       '@types/react': 18.0.7
-    dev: true
 
   /@types/react-syntax-highlighter/11.0.5:
     resolution: {integrity: sha512-VIOi9i2Oj5XsmWWoB72p3KlZoEbdRAcechJa8Ztebw7bDl2YmR+odxIqhtJGp1q2EozHs02US+gzxJ9nuf56qg==}
@@ -6710,7 +6751,6 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
       csstype: 3.0.11
-    dev: true
 
   /@types/resolve/1.17.1:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
@@ -17831,6 +17871,100 @@ packages:
       - esbuild
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
+      - fibers
+      - node-notifier
+      - node-sass
+      - rework
+      - rework-visit
+      - sass
+      - sass-embedded
+      - sockjs-client
+      - supports-color
+      - ts-node
+      - type-fest
+      - uglify-js
+      - utf-8-validate
+      - vue-template-compiler
+      - webpack-cli
+      - webpack-hot-middleware
+      - webpack-plugin-serve
+    dev: false
+
+  /react-scripts/5.0.1_react@18.1.0+typescript@4.6.3:
+    resolution: {integrity: sha512-8VAmEm/ZAwQzJ+GOMLbBsTdDKOpuZh7RPs0UymvBR2vRk4iZWCskjbFnxqjrzoIvlNNRZ3QJFx6/qDSi6zSnaQ==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    peerDependencies:
+      react: '>= 16'
+      typescript: ^3.2.1 || ^4
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@babel/core': 7.17.9
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.5_71ded90fc5f197eeccab1f0382e7a4aa
+      '@svgr/webpack': 5.5.0
+      babel-jest: 27.5.1_@babel+core@7.17.9
+      babel-loader: 8.2.5_acba72ea4bf9d339cdfcd8f55cdb7006
+      babel-plugin-named-asset-import: 0.3.8_@babel+core@7.17.9
+      babel-preset-react-app: 10.0.1
+      bfj: 7.0.2
+      browserslist: 4.20.2
+      camelcase: 6.3.0
+      case-sensitive-paths-webpack-plugin: 2.4.0
+      css-loader: 6.7.1_webpack@5.72.0
+      css-minimizer-webpack-plugin: 3.4.1_webpack@5.72.0
+      dotenv: 10.0.0
+      dotenv-expand: 5.1.0
+      eslint: 8.13.0
+      eslint-config-react-app: 7.0.1_7e5e6237d96334972dc90355c15ec900
+      eslint-webpack-plugin: 3.1.1_eslint@8.13.0+webpack@5.72.0
+      file-loader: 6.2.0_webpack@5.72.0
+      fs-extra: 10.1.0
+      html-webpack-plugin: 5.5.0_webpack@5.72.0
+      identity-obj-proxy: 3.0.0
+      jest: 27.5.1
+      jest-resolve: 27.5.1
+      jest-watch-typeahead: 1.0.0_jest@27.5.1
+      mini-css-extract-plugin: 2.6.0_webpack@5.72.0
+      postcss: 8.4.12
+      postcss-flexbugs-fixes: 5.0.2_postcss@8.4.12
+      postcss-loader: 6.2.1_postcss@8.4.12+webpack@5.72.0
+      postcss-normalize: 10.0.1_e3735dbe6187dcfb964df4abbfac9372
+      postcss-preset-env: 7.4.3_postcss@8.4.12
+      prompts: 2.4.2
+      react: 18.1.0
+      react-app-polyfill: 3.0.0
+      react-dev-utils: 12.0.1_7042031ec5ebecf4935c89695aaa9fc4
+      react-refresh: 0.11.0
+      resolve: 1.22.0
+      resolve-url-loader: 4.0.0
+      sass-loader: 12.6.0_webpack@5.72.0
+      semver: 7.3.7
+      source-map-loader: 3.0.1_webpack@5.72.0
+      style-loader: 3.3.1_webpack@5.72.0
+      tailwindcss: 3.0.24
+      terser-webpack-plugin: 5.3.1_webpack@5.72.0
+      typescript: 4.6.3
+      webpack: 5.72.0
+      webpack-dev-server: 4.8.1_webpack@5.72.0
+      webpack-manifest-plugin: 4.1.1_webpack@5.72.0
+      workbox-webpack-plugin: 6.5.3_webpack@5.72.0
+    optionalDependencies:
+      fsevents: 2.3.2
+    transitivePeerDependencies:
+      - '@babel/plugin-syntax-flow'
+      - '@babel/plugin-transform-react-jsx'
+      - '@parcel/css'
+      - '@swc/core'
+      - '@types/babel__core'
+      - '@types/webpack'
+      - bufferutil
+      - canvas
+      - clean-css
+      - csso
+      - debug
+      - esbuild
       - fibers
       - node-notifier
       - node-sass

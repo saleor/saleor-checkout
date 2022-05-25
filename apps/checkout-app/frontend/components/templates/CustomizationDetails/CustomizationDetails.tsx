@@ -27,6 +27,9 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { MetadataErrorFragment } from "@/checkout-app/graphql";
 import { getMetadataErrorMessage } from "@/checkout-app/frontend/misc/errors";
 import ErrorAlert from "../../elements/ErrorAlert";
+import CheckoutPreviewFrame from "../../elements/CheckoutPreviewFrame";
+import { useEffect, useState } from "react";
+import { getFormDefaultValues } from "./data";
 
 interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
@@ -46,7 +49,31 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
   onSubmit,
 }) => {
   const classes = useStyles();
-  const { control, handleSubmit: handleSubmitForm, formState } = useForm();
+  const {
+    control,
+    handleSubmit: handleSubmitForm,
+    formState,
+    watch,
+  } = useForm();
+
+  const [previewSettings, setPreviewSettings] =
+    useState<CustomizationSettingsValues>(getFormDefaultValues(options));
+
+  useEffect(() => {
+    setPreviewSettings(getFormDefaultValues(options));
+  }, [options]);
+
+  useEffect(() => {
+    const subscription = watch((flattenedSettings) => {
+      const updatedSettings = unflattenSettings(
+        flattenedSettings,
+        options
+      ) as CustomizationSettingsValues;
+
+      setPreviewSettings(updatedSettings);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   const handleSubmit = (flattenedSettings: Record<string, string>) => {
     onSubmit(
@@ -117,7 +144,9 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
           <Typography variant="subtitle1">
             <FormattedMessage {...messages.customizationPreview} />
           </Typography>
-          <div className={classes.designPreview}>Customization</div>
+          <div className={classes.designPreview}>
+            <CheckoutPreviewFrame settings={previewSettings} />
+          </div>
         </div>
       </div>
       <AppSavebar
