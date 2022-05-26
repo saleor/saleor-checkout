@@ -273,8 +273,8 @@ describe("/utils/frontend/misc/mergeSettingsValues", () => {
     expect(privateMergedSettings).toEqual(defaultSettings);
   });
 
-  it("merges payment provider values", async () => {
-    const defaultSettings: PaymentProviderSettingsValues<"unencrypted"> = {
+  it("merges sample payment provider values", async () => {
+    const defaultSettings = {
       adyen: {
         clientKey: "",
         merchantAccount: "",
@@ -286,7 +286,7 @@ describe("/utils/frontend/misc/mergeSettingsValues", () => {
         testApiKey: "",
       },
     };
-    const savedSettings: PaymentProviderSettingsValues<"encrypted"> = {
+    const savedSettings = {
       adyen: {
         clientKey: {
           encrypted: true,
@@ -324,7 +324,7 @@ describe("/utils/frontend/misc/mergeSettingsValues", () => {
       savedSettings
     );
 
-    const expectedSettings: PaymentProviderSettingsValues<"unencrypted"> = {
+    const expectedSettings = {
       adyen: {
         clientKey: "adyen_unencrypted_key",
         merchantAccount: "adyen_unencrypted_value",

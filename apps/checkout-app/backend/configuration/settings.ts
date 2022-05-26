@@ -16,7 +16,7 @@ import {
   UpdatePrivateMetadataMutationVariables,
 } from "@/graphql";
 import { getClient } from "@/backend/client";
-import { defaultActiveChannelPaymentProviders } from "config/defaults";
+import { defaultActiveChannelPaymentProviders } from "@/config/defaults";
 import { mergeChannelsWithPaymentProvidersSettings } from "./utils";
 import { envVars, serverEnvVars } from "@/constants";
 import { PrivateSettingsValues } from "@/types/api";

@@ -41,7 +41,7 @@ describe("/utils/frontend/misc/mapSettingsToMetadata", () => {
   });
 
   it("maps settings to private metadata", async () => {
-    const settingsValues: PrivateSettingsValues<"unencrypted"> = {
+    const settingsValues = {
       ...defaultPrivateSettings,
       paymentProviders: {
         ...defaultPrivateSettings.paymentProviders,

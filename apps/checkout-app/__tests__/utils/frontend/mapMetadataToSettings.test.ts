@@ -42,7 +42,7 @@ describe("/utils/frontend/misc/mapMetadataToSettings", () => {
 
     const mergedSettings = mapPrivateMetafieldsToSettings(metafields);
 
-    const expectedSettings: PrivateSettingsValues<"unencrypted"> = {
+    const expectedSettings = {
       ...defaultPrivateSettings,
       paymentProviders: {
         adyen: {},
