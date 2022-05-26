@@ -27,49 +27,29 @@ export type CustomizationSettingsValues = {
   };
 };
 
-const getSettingsValues = (): CustomizationSettingsValues | undefined => {
-  var url = window.location.search.substring(1);
-  var qArray = url.split("&");
-  const settingsParam = qArray.find((qArrayItem) => {
-    var pArr = qArrayItem.split("=");
-    return pArr[0] === "settings";
-  });
-  const encodedSettings = settingsParam?.split("=")[1];
-  const decodedSettings =
-    encodedSettings && decodeURIComponent(encodedSettings);
-  return decodedSettings && JSON.parse(decodedSettings);
-};
+const appUrl = "https://saleor-checkout-yinr0cr4m-saleorcommerce.vercel.app"; // TODO: in real chekcout implementation should be changed to env variable
 
 function App() {
-  const [previewUrl, setPreviewUrl] = React.useState(document.location.href);
-
-  const previewSettings = getSettingsValues();
+  const [previewSettings, setPreviewSettings] =
+    React.useState<CustomizationSettingsValues>();
 
   useEffect(() => {
-    var bodyList = document.querySelector("body");
-
-    var observer = new MutationObserver(function (mutations) {
-      mutations.forEach(function (mutation) {
-        if (previewUrl != document.location.href) {
-          setPreviewUrl(document.location.href);
-          /* Changed ! your code here */
-        }
-      });
-    });
-
-    var config = {
-      childList: true,
-      subtree: true,
+    const eventListener = (
+      event: MessageEvent<CustomizationSettingsValues | undefined>
+    ) => {
+      if (event.origin === appUrl) {
+        setPreviewSettings(event.data);
+      }
     };
 
-    if (bodyList) {
-      observer.observe(bodyList, config);
-    }
+    window.addEventListener("message", eventListener);
 
-    return () => observer.disconnect();
+    window.parent.postMessage("mounted", appUrl);
+
+    return () => {
+      window.removeEventListener("message", eventListener);
+    };
   }, []);
-
-  console.log("iframe previewSettings:", previewSettings);
 
   return (
     <div className="App">
