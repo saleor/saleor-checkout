@@ -27,7 +27,8 @@ export type CustomizationSettingsValues = {
   };
 };
 
-const appUrl = "https://saleor-checkout-yinr0cr4m-saleorcommerce.vercel.app"; // TODO: in real chekcout implementation should be changed to env variable
+const appUrl =
+  "https://saleor-checkout-app-git-checkout-preview-test-saleorcommerce.vercel.app/"; // TODO: in real checkout implementation should be changed to env variable
 
 function App() {
   const [previewSettings, setPreviewSettings] =
