@@ -8,7 +8,7 @@ import { envVars } from "@/constants";
 import { OrderFragment, OrderLineFragment } from "@/graphql";
 
 export const getMollieClient = async () => {
-  const metadata = await getPrivateSettings(envVars.apiUrl);
+  const metadata = await getPrivateSettings(envVars.apiUrl, false);
   const apiKey = metadata.paymentProviders.mollie.apiKey!;
 
   return createMollieClient({

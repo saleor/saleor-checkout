@@ -25,7 +25,10 @@ import { mapPrivateMetafieldsToSettings } from "./mapPrivateMetafieldsToSettings
 import { mapPublicMetafieldsToSettings } from "@/frontend/misc/mapPublicMetafieldsToSettings";
 import { allPrivateSettingID, allPublicSettingID } from "@/types/common";
 
-export const getPrivateSettings = async (apiUrl: string) => {
+export const getPrivateSettings = async (
+  apiUrl: string,
+  obfuscateEncryptedData: boolean
+) => {
   const { data, error } = await getClient(apiUrl, serverEnvVars.appToken)
     .query<PrivateMetafieldsQuery, PrivateMetafieldsQueryVariables>(
       PrivateMetafieldsDocument,
@@ -38,7 +41,8 @@ export const getPrivateSettings = async (apiUrl: string) => {
   }
 
   const settingsValues = mapPrivateMetafieldsToSettings(
-    data?.app?.privateMetafields || {}
+    data?.app?.privateMetafields || {},
+    obfuscateEncryptedData
   );
 
   return settingsValues;
@@ -145,7 +149,8 @@ export const setPrivateSettings = async (
   console.log(data?.updatePrivateMetadata?.item?.privateMetafields); // for deployment debug pusposes
 
   const settingsValues = mapPrivateMetafieldsToSettings(
-    data?.updatePrivateMetadata?.item?.privateMetafields || {}
+    data?.updatePrivateMetadata?.item?.privateMetafields || {},
+    true
   );
 
   return settingsValues;

@@ -55,4 +55,29 @@ describe("/utils/frontend/misc/mapMetadataToSettings", () => {
 
     expect(mergedSettings).toEqual(expectedSettings);
   });
+
+  it("maps private metadata to settings with obfuscated data", async () => {
+    const metadata: MetadataItemFragment[] = [
+      {
+        key: "paymentProviders",
+        value:
+          '{"mollie":{"partnerId":{"encrypted":false,"value":"some_not_encrypted_id"},"liveApiKey":{"encrypted":true,"value":"U2FsdGVkX18zfzUyZy2f00/5BoS3s3WtAOo7wY0yELlwuW6hX0R/zCn/ppPnsBRk"}}}',
+      },
+    ];
+
+    const mergedSettings = mapPrivateMetadataToSettings(metadata, true);
+
+    const expectedSettings = {
+      ...defaultPrivateSettings,
+      paymentProviders: {
+        adyen: {},
+        mollie: {
+          partnerId: "some_not_encrypted_id",
+          liveApiKey: "**** _key",
+        },
+      },
+    };
+
+    expect(mergedSettings).toEqual(expectedSettings);
+  });
 });

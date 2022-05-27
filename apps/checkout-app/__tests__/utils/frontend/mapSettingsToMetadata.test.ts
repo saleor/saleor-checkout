@@ -61,9 +61,6 @@ describe("/utils/frontend/misc/mapSettingsToMetadata", () => {
       (metadata) => metadata.key === "paymentProviders"
     )?.value;
 
-    console.log(settingsValues.paymentProviders.adyen.clientKey);
-    console.log(providersMetadata);
-
     // These metadata are private and encrypted
     expect(providersMetadata).not.toContain(
       settingsValues.paymentProviders.adyen.apiKey

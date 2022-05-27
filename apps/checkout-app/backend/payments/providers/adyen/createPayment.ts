@@ -13,7 +13,7 @@ export const createAdyenPayment = async (
 ) => {
   const {
     paymentProviders: { adyen },
-  } = await getPrivateSettings(envVars.apiUrl);
+  } = await getPrivateSettings(envVars.apiUrl, false);
 
   if (!adyen.apiKey) {
     throw "API key not defined";
