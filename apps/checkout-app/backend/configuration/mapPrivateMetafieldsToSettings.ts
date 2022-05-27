@@ -84,22 +84,15 @@ export const mapPrivateMetafieldsToSettings = (
         return settings;
       }
 
-      try {
-        const metadataItemSettings = JSON.parse(metafield || "");
+      const metadataItemSettings = JSON.parse(metafield || "");
 
-        return {
-          ...settings,
-          [settingsKey]: mergeSettingsValues(
-            settings[settingsKey],
-            metadataItemSettings
-          ) as PrivateSettingsValues<"unencrypted">[keyof PrivateSettingsValues<"unencrypted">],
-        };
-      } catch (e) {
-        return {
-          ...settings,
-          [settingsKey]: settings[settingsKey] || {},
-        };
-      }
+      return {
+        ...settings,
+        [settingsKey]: mergeSettingsValues(
+          settings[settingsKey],
+          metadataItemSettings
+        ) as PrivateSettingsValues<"unencrypted">[keyof PrivateSettingsValues<"unencrypted">],
+      };
     },
     defaultPrivateSettings
   );

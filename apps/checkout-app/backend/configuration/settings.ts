@@ -33,13 +33,9 @@ export const getPrivateSettings = async (apiUrl: string) => {
     )
     .toPromise();
 
-  console.log(data, error); // for deployment debug pusposes
-
   if (error) {
     throw error;
   }
-
-  console.log(data?.app?.privateMetafields); // for deployment debug pusposes
 
   const settingsValues = mapPrivateMetafieldsToSettings(
     data?.app?.privateMetafields || {}
