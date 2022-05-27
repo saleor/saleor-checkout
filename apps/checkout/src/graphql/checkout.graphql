@@ -124,6 +124,16 @@ fragment CheckoutLineFragment on CheckoutLine {
         }
       }
     }
+    attributes {
+      attribute {
+        name
+        id
+      }
+      values {
+        name
+        id
+      }
+    }
     name
     product {
       name

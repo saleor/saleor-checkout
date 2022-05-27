@@ -17,7 +17,7 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
   const { variantName, productName, productImage } = getSummaryLineProps(line);
 
   const formatMessage = useFormattedMessages();
-
+  console.log(variantName)
   return (
     <li className="flex flex-row px-6 mb-6">
       <div className="relative flex flex-row">
