@@ -14,10 +14,11 @@ interface LineItemProps {
 
 export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
   const readOnly = !isCheckoutLine(line);
-  const { variantName, productName, productImage } = getSummaryLineProps(line);
+  const { variantName, productName, productImage, attributes } = getSummaryLineProps(line);
 
   const formatMessage = useFormattedMessages();
-
+  console.log('VARIANT:', variantName)
+  console.log('ATTRIBUTES:', attributes)
   return (
     <li className="flex flex-row px-6 mb-6">
       <div className="relative flex flex-row">
