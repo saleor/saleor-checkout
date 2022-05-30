@@ -1,28 +1,33 @@
+import { envVars } from "@/constants";
 import { CustomizationSettingsValues } from "@/types/api";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import clsx from "clsx";
+import { useEffect, useRef, useState } from "react";
 import { useStyles } from "./styles";
 
 interface CheckoutPreviewFrameProps {
   settings: CustomizationSettingsValues;
+  className?: string;
 }
 
 const CheckoutPreviewFrame: React.FC<CheckoutPreviewFrameProps> = ({
   settings,
+  className,
 }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [appMounted, setAppMounted] = useState(false);
   const classes = useStyles();
 
-  const previewUrl = "https://checkout-preview.vercel.app"; // TODO: use the real checkout url
-
   const sendMessage = () => {
     if (iframeRef.current) {
-      iframeRef.current.contentWindow?.postMessage(settings, previewUrl);
+      iframeRef.current.contentWindow?.postMessage(
+        settings,
+        envVars.previewUrl
+      );
     }
   };
 
   const mountListener = (event: MessageEvent<"mounted" | undefined>) => {
-    if (event.origin === previewUrl && event.data === "mounted") {
+    if (event.origin === envVars.previewUrl && event.data === "mounted") {
       setAppMounted(true);
     }
   };
@@ -46,6 +51,12 @@ const CheckoutPreviewFrame: React.FC<CheckoutPreviewFrameProps> = ({
     }
   }, [appMounted]);
 
-  return <iframe ref={iframeRef} src={previewUrl} className={classes.iframe} />;
+  return (
+    <iframe
+      ref={iframeRef}
+      src={`${envVars.previewUrl}?checkoutToken=${envVars.previewCheckoutToken}`}
+      className={clsx(classes.iframe, className)}
+    />
+  );
 };
 export default CheckoutPreviewFrame;

@@ -77,6 +77,10 @@ export const useStyles = makeStyles(
       minHeight: "500px", // TEMPORARY VALUE
       boxShadow: "0px 6px 30px rgba(0, 0, 0, 0.16)",
       margin: "1rem 0 0 0",
+      display: "flex",
+    },
+    designPreviewFrame: {
+      flex: "1",
     },
     optionSkeleton: {
       width: "100%",

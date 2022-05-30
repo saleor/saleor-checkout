@@ -145,7 +145,10 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
             <FormattedMessage {...messages.customizationPreview} />
           </Typography>
           <div className={classes.designPreview}>
-            <CheckoutPreviewFrame settings={previewSettings} />
+            <CheckoutPreviewFrame
+              settings={previewSettings}
+              className={classes.designPreviewFrame}
+            />
           </div>
         </div>
       </div>
