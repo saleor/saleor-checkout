@@ -17,13 +17,16 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
   const { productName, productImage, allAttributes } = getSummaryLineProps(line);
 
   const formatMessage = useFormattedMessages();
-
-  const fieldsToDisplay = ['Embark Date', 'Disembark Date', 'Duration', 'Rate Code', 'Ship Name']
+  console.log(allAttributes)
+  const fieldsToDisplayValue = ['Embark Date', 'Disembark Date', 'Duration', 'Rate Code', 'Ship Name']
+  const fieldsToDisplayRichText = ['Price Items']
   const attributesToDisplay: Record<string, any> = {}
   allAttributes?.forEach((attribute) => {
-    attribute.name && fieldsToDisplay.includes(attribute.name) ? attributesToDisplay[attribute?.name] = attribute.value[0] : 'N/A'
+    attribute.name && fieldsToDisplayValue.includes(attribute.name) ? attributesToDisplay[attribute?.name] = attribute.value[0] : 'N/A'
   })
-
+  const priceItem = allAttributes?.filter(attr => attr.name == 'Price Items')[0].richText[0]
+  const priceItemJSON = JSON.parse(priceItem ? priceItem : "{}")
+  console.log(JSON.parse(priceItemJSON.blocks[0].data.text))
   return (
     <li className="flex flex-row px-6 mb-6">
       <div className="relative flex flex-row">
@@ -54,9 +57,7 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
             {productName}
           </Text>
           <Text aria-label={formatMessage("variantNameLabel")}>
-            {fieldsToDisplay.map((field, index) => {
-              return <span key={`${field}-${index}`} style={{display: 'block'}}>{`${field}: ${attributesToDisplay[field]}`}</span>
-            })}
+            PlaceHolder
           </Text>
         </div>
         {readOnly && (

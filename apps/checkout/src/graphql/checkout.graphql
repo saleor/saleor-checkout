@@ -132,6 +132,7 @@ fragment CheckoutLineFragment on CheckoutLine {
       values {
         name
         id
+        richText
       }
     }
     name

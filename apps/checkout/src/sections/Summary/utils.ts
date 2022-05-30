@@ -21,8 +21,12 @@ export const getSummaryLineProps = (
         productName: line.variant.product.name,
         productImage: line.variant.media?.find(({ type }) => type === "IMAGE"),
         allAttributes: line.variant.attributes.map((attribute) => {
-          return {name: attribute.attribute.name, value: attribute.values.map(valueObj => valueObj.name)}
-          })
+          return {
+            name: attribute.attribute.name,
+            value: attribute.values.map(valueObj => valueObj.name ),
+            richText: attribute.values.map(valueObj => valueObj.richText ),
+          }
+        })
       }
     : {
         variantName: line.variantName,
