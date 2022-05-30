@@ -28,7 +28,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-    const settings = await getPrivateSettings(apiUrl);
+    const settings = await getPrivateSettings(apiUrl, false);
 
     const updatedSettings = await setPrivateSettings(apiUrl, {
       ...settings,

@@ -81,7 +81,7 @@ export default async function handler(
 ) {
   const {
     paymentProviders: { adyen },
-  } = await getPrivateSettings(envVars.apiUrl);
+  } = await getPrivateSettings(envVars.apiUrl, false);
 
   // Get basic auth token
   const encodedCredentials = Buffer.from(

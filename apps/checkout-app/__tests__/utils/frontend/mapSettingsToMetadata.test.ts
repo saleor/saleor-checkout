@@ -4,7 +4,6 @@ import {
 } from "@/config/defaults";
 import { mapPrivateSettingsToMetadata } from "@/backend/configuration/mapPrivateSettingsToMetadata";
 import { mapPublicSettingsToMetadata } from "@/frontend/misc/mapPublicSettingsToMetadata";
-import { MetadataItemFragment } from "@/graphql";
 import { PublicSettingsValues } from "@/types/api";
 
 describe("/utils/frontend/misc/mapSettingsToMetadata", () => {
