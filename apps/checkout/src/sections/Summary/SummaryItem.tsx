@@ -14,11 +14,18 @@ interface LineItemProps {
 
 export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
   const readOnly = !isCheckoutLine(line);
-  const { variantName, productName, productImage, attributes } = getSummaryLineProps(line);
+  const { variantName, productName, productImage, allAttributes } = getSummaryLineProps(line);
 
   const formatMessage = useFormattedMessages();
   console.log('VARIANT:', variantName)
-  console.log('ATTRIBUTES:', attributes)
+  console.log('ATTRIBUTES:', allAttributes)
+
+  const fieldsToDisplay = ['Embark Date', 'Disembark Date', 'Duration', 'Rate Code', 'Ship Name']
+  const attributesToDisplay: Record<string, any> = {}
+  allAttributes?.forEach((attribute) => {
+    if (attribute.name && fieldsToDisplay.includes(attribute.name)) attributesToDisplay[attribute?.name] = attribute.value[0]
+  })
+  console.log(attributesToDisplay)
   return (
     <li className="flex flex-row px-6 mb-6">
       <div className="relative flex flex-row">
@@ -49,15 +56,15 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
             {productName}
           </Text>
           <Text aria-label={formatMessage("variantNameLabel")}>
-            {variantName}
+            {`Rate Code: ${attributesToDisplay['Rate Code']}`}<br /> 
+            {`Embark Date: ${attributesToDisplay['Embark Date']}`}<br />
+            {`Disembark Date: ${attributesToDisplay['Disembark Date']}`}<br />
+            {`Duration: ${attributesToDisplay['Duration']}`}<br /> 
+            {`Ship Name: ${attributesToDisplay['Ship Name']}`}<br /> 
           </Text>
         </div>
-        {readOnly ? (
+        {readOnly && (
           <SummaryItemMoneySection line={line as OrderLineFragment} />
-        ) : (
-          <SummaryItemMoneyEditableSection
-            line={line as CheckoutLineFragment}
-          />
         )}
       </div>
     </li>
