@@ -1,6 +1,6 @@
 # saleor-checkout
 
-Extensible, powerful checkout powered by Saleor API.
+Extensible, powerful checkout powered by Saleor API. WooHOO
 
 ## Setup
 
