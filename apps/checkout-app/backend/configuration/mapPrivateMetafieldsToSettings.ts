@@ -1,6 +1,6 @@
 import { defaultPrivateSettings } from "@/config/defaults";
-import { MetadataItemFragment } from "@/graphql";
 import {
+  PrivateMetafieldsValues,
   PrivateSettingsValues,
   SettingValue,
   UnknownPrivateSettingsValues,
@@ -10,7 +10,8 @@ import reduce from "lodash-es/reduce";
 import { decryptSetting } from "./encryption";
 
 const readSettingsValues = (
-  subSettings: Record<string, SettingValue | string | undefined>
+  subSettings: Record<string, SettingValue | string | undefined>,
+  obfuscateEncryptedData: boolean
 ) => {
   return reduce(
     subSettings,
@@ -35,7 +36,7 @@ const readSettingsValues = (
       return {
         ...subSettings,
         [subSettingKey]: subSetting.encrypted
-          ? decryptSetting(subSetting as SettingValue)
+          ? decryptSetting(subSetting as SettingValue, obfuscateEncryptedData)
           : subSetting.value,
       };
     },
@@ -51,7 +52,8 @@ const readSettingsValues = (
  */
 export const mergeSettingsValues = (
   defaultSettings: UnknownPrivateSettingsValues<"unencrypted">,
-  savedSettings: UnknownPrivateSettingsValues<"encrypted">
+  savedSettings: UnknownPrivateSettingsValues<"encrypted">,
+  obfuscateEncryptedData: boolean
 ) => {
   return reduce(
     defaultSettings,
@@ -61,7 +63,10 @@ export const mergeSettingsValues = (
       const udpatedSetting = hasSettingInBothSettings
         ? { ...defaultSetting, ...savedSetting }
         : defaultSetting;
-      const setting = readSettingsValues(udpatedSetting);
+      const setting = readSettingsValues(
+        udpatedSetting,
+        obfuscateEncryptedData
+      );
 
       return {
         ...result,
@@ -72,33 +77,30 @@ export const mergeSettingsValues = (
   );
 };
 
-export const mapPrivateMetadataToSettings = (
-  metadata: (MetadataItemFragment | null)[]
+export const mapPrivateMetafieldsToSettings = (
+  metafields: PrivateMetafieldsValues,
+  obfuscateEncryptedData: boolean
 ): PrivateSettingsValues<"unencrypted"> => {
-  const settings = metadata.reduce((settings, metadataItem) => {
-    const settingsKey = metadataItem?.key as keyof typeof settings;
+  return reduce(
+    metafields,
+    (settings, metafield, metafieldKey) => {
+      const settingsKey = metafieldKey as keyof typeof settings;
 
-    if (!settingsKey || !allSettingID.includes(settingsKey)) {
-      return settings;
-    }
+      if (!settingsKey || !allSettingID.includes(settingsKey)) {
+        return settings;
+      }
 
-    try {
-      const metadataItemSettings = JSON.parse(metadataItem?.value || "");
+      const metadataItemSettings = JSON.parse(metafield || "");
 
       return {
         ...settings,
         [settingsKey]: mergeSettingsValues(
           settings[settingsKey],
-          metadataItemSettings
+          metadataItemSettings,
+          obfuscateEncryptedData
         ) as PrivateSettingsValues<"unencrypted">[keyof PrivateSettingsValues<"unencrypted">],
       };
-    } catch (e) {
-      return {
-        ...settings,
-        [settingsKey]: settings[settingsKey] || {},
-      };
-    }
-  }, defaultPrivateSettings);
-
-  return settings as PrivateSettingsValues<"unencrypted">;
+    },
+    defaultPrivateSettings
+  );
 };
