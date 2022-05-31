@@ -1,7 +1,11 @@
 import { useRouter } from "next/router";
 import CustomizationDetails from "@/checkout-app/frontend/components/templates/CustomizationDetails";
-import { CustomizationSettingsValues } from "types/api";
 import {
+  CustomizationSettingsFiles,
+  CustomizationSettingsValues,
+} from "types/api";
+import {
+  useFileUploadMutation,
   usePublicMetafieldsQuery,
   useUpdatePublicMetadataMutation,
 } from "@/checkout-app/graphql";
@@ -15,6 +19,7 @@ import {
 } from "@/checkout-app/frontend/misc/mapPublicSettingsToMetadata";
 import { mapPublicMetafieldsToSettings } from "@/checkout-app/frontend/misc/mapPublicMetafieldsToSettings";
 import { PublicMetafieldID } from "@/checkout-app/types/common";
+import { reduce } from "lodash-es";
 
 const Customization = () => {
   const router = useRouter();
@@ -31,6 +36,7 @@ const Customization = () => {
   });
   const [metadataMutation, setPublicMetadata] =
     useUpdatePublicMetadataMutation();
+  const [uploadFileState, uploadFile] = useFileUploadMutation();
 
   const settingsValues = mapPublicMetafieldsToSettings(
     metafieldsQuery.data?.app?.metafields || {}
@@ -48,13 +54,58 @@ const Customization = () => {
     router.back();
   };
 
-  const handleSubmit = (
+  const uploadSettingsFiles = async (
     data: CustomizationSettingsValues,
+    dataFiles?: CustomizationSettingsFiles
+  ) => {
+    if (!dataFiles) {
+      return data;
+    }
+
+    return await reduce(
+      dataFiles,
+      async (settings, settingList, idx) => {
+        const uploadedSettings = await settings;
+        return {
+          ...settings,
+          [idx]: await reduce(
+            settingList,
+            async (settingsUrls, settingFile, settingIdx) => {
+              const uploadedSettingsUrls = await settingsUrls;
+              if (settingFile) {
+                const uploadFileResult = await uploadFile({
+                  file: settingFile,
+                });
+                if (uploadFileResult.data?.fileUpload) {
+                  return {
+                    ...uploadedSettingsUrls,
+                    [settingIdx]:
+                      uploadFileResult.data.fileUpload?.uploadedFile?.url,
+                  };
+                }
+              }
+              return uploadedSettingsUrls;
+            },
+            Promise.resolve(
+              uploadedSettings[idx as keyof CustomizationSettingsValues]
+            )
+          ),
+        };
+      },
+      Promise.resolve(data)
+    );
+  };
+
+  const handleSubmit = async (
+    data: CustomizationSettingsValues,
+    dataFiles?: CustomizationSettingsFiles,
     checkoutUrl?: string
   ) => {
+    const newData = await uploadSettingsFiles(data, dataFiles);
+
     const metadata = [
       ...mapPublicSettingsToMetadata({
-        customizations: data,
+        customizations: newData,
       }),
       ...mapPublicMetafieldsToMetadata({
         customizationsCheckoutUrl: checkoutUrl,
