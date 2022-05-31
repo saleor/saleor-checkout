@@ -33,4 +33,4 @@ export const pay = ({
   });
 
 export const getAppConfig = (): FetchResponse<AppConfig> =>
-  fetch(`${envVars.checkoutAppUrl}/customization-settings`);
+  fetch(`${envVars.checkoutAppUrl}/customization`);

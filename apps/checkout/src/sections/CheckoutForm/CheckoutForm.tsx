@@ -63,10 +63,10 @@ export const CheckoutForm = () => {
       </FormProvider>
       <Divider className="mt-4" />
       <Suspense fallback={<AddressesSkeleton />}>
-        {isLoading ? <AddressesSkeleton /> : <Addresses />}
+        <Addresses />
       </Suspense>
       <Suspense fallback={<ShippingMethodsSkeleton />}>
-        {isLoading ? <ShippingMethodsSkeleton /> : <ShippingMethods />}
+        <ShippingMethods />
       </Suspense>
       {/* TMP */}
       {/* <PaymentProviders

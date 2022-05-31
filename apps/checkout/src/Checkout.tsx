@@ -10,32 +10,27 @@ import { useAuthState } from "@saleor/sdk";
 import "./CheckoutStyles.css";
 
 export const Checkout = () => {
-  const { checkout, loading } = useCheckout();
-  const { authenticating } = useAuthState();
+  // const { authenticating } = useAuthState();
+  // const { checkout, loading } = useCheckout();
 
-  const isCheckoutInvalid = !loading && !checkout && !authenticating;
+  // const isCheckoutInvalid = !loading && !checkout && !authenticating;
 
-  const isLoading = loading || authenticating;
+  // const isLoading = loading || authenticating;
 
   return (
     <div className="app">
-      {isCheckoutInvalid ? (
-        <PageNotFound />
-      ) : (
-        /* @ts-ignore React 17 <-> 18 type mismatch */
-        <ErrorBoundary FallbackComponent={PageNotFound}>
-          <div className="page">
-            <PageHeader />
-            <div className="page-content">
-              <CheckoutForm />
-              <div className="page-divider" />
-              <Suspense fallback={<SummarySkeleton />}>
-                {isLoading ? <SummarySkeleton /> : <Summary />}
-              </Suspense>
-            </div>
+      <ErrorBoundary FallbackComponent={PageNotFound}>
+        <div className="page">
+          <PageHeader />
+          <div className="page-content">
+            <CheckoutForm />
+            <div className="page-divider" />
+            <Suspense fallback={<SummarySkeleton />}>
+              <Summary />
+            </Suspense>
           </div>
-        </ErrorBoundary>
-      )}
+        </div>
+      </ErrorBoundary>
     </div>
   );
 };
