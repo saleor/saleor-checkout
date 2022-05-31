@@ -53,7 +53,7 @@ interface CustomizationDetailsProps {
     data: CustomizationSettingsValues,
     dataFiles?: CustomizationSettingsFiles,
     checkoutUrl?: string
-  ) => void;
+  ) => Promise<void>;
 }
 
 const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
@@ -94,8 +94,8 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
     }
   };
 
-  const handleSubmit = (flattenedValues: Record<string, string>) => {
-    onSubmit(
+  const handleSubmit = async (flattenedValues: Record<string, string>) => {
+    await onSubmit(
       unflattenSettings(
         "customizations",
         flattenedValues,
@@ -104,6 +104,7 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
       files,
       unflattenValue("customizationsCheckoutUrl", flattenedValues)
     );
+    setFiles(undefined);
   };
 
   return (
@@ -144,17 +145,11 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
                               name={field.name}
                               type={type}
                               label={label}
-                              value={field.value}
-                              onChange={(event) => {
-                                field.onChange(event);
-                                if (type === "image") {
-                                  handleFileChange(
-                                    option.id,
-                                    id,
-                                    event as React.ChangeEvent<HTMLInputElement>
-                                  );
-                                }
-                              }}
+                              value={type === "image" ? value : field.value}
+                              onChange={field.onChange}
+                              onFileChange={(event) =>
+                                handleFileChange(option.id, id, event)
+                              }
                               onBlur={field.onBlur}
                             />
                           )}

@@ -112,7 +112,7 @@ const Customization = () => {
       }),
     ];
 
-    setPublicMetadata({
+    await setPublicMetadata({
       id: appId || serverEnvVars.appId,
       input: metadata,
     });
@@ -127,7 +127,11 @@ const Customization = () => {
     <CustomizationDetails
       options={customizationSettings}
       checkoutUrl={checkoutUrl}
-      loading={metafieldsQuery.fetching || metadataMutation.fetching}
+      loading={
+        metafieldsQuery.fetching ||
+        metadataMutation.fetching ||
+        uploadFileState.fetching
+      }
       saveButtonBarState="default"
       errors={errors}
       onCancel={handleCancel}
