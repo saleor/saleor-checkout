@@ -9,19 +9,8 @@ export const getById =
   (obj: T) =>
     obj.id === idToCompare;
 
-export const getDataWithToken = <TData extends {} = {}>(
-  data: TData = {} as TData
-) => ({
-  token: extractCheckoutTokenFromUrl(),
-  ...data,
-});
-
 export type QueryVariables = Record<
-  | "checkoutToken"
-  | "passwordResetToken"
-  | "email"
-  | "orderToken"
-  | "redirectUrl",
+  "checkoutId" | "passwordResetToken" | "email" | "orderToken" | "redirectUrl",
   string
 >;
 
@@ -29,6 +18,7 @@ export const getQueryVariables = (): Partial<QueryVariables> => {
   const vars = queryString.parse(location.search);
   return {
     ...vars,
+    checkoutId: vars.checkout as string | undefined,
     orderToken: vars.order as string | undefined,
     passwordResetToken: vars.token as string | undefined,
   };
@@ -36,17 +26,14 @@ export const getQueryVariables = (): Partial<QueryVariables> => {
 
 export const getCurrentHref = () => location.href;
 
-const extractCheckoutTokenFromUrl = (): string => {
-  const { checkoutToken } = getQueryVariables();
+export const extractCheckoutIdFromUrl = (): string => {
+  const { checkoutId } = getQueryVariables();
 
-  // for development & preview purposes
-  const token = checkoutToken || envVars.devCheckoutToken;
-
-  if (typeof token !== "string") {
+  if (typeof checkoutId !== "string") {
     throw new Error("Checkout token does not exist");
   }
 
-  return token;
+  return checkoutId;
 };
 
 export const extractMutationErrors = <TData extends Object, TVars = any>(
