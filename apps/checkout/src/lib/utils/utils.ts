@@ -2,7 +2,6 @@ import { reduce } from "lodash-es";
 import queryString from "query-string";
 import { ChangeEvent, ReactEventHandler } from "react";
 import { OperationResult } from "urql";
-import { envVars } from "./environment";
 
 export const getById =
   <T extends { id: string }>(idToCompare: string | undefined) =>
@@ -10,7 +9,7 @@ export const getById =
     obj.id === idToCompare;
 
 export type QueryVariables = Record<
-  "checkoutId" | "passwordResetToken" | "email" | "orderToken" | "redirectUrl",
+  "checkoutId" | "passwordResetToken" | "email" | "orderId" | "redirectUrl",
   string
 >;
 
@@ -19,7 +18,7 @@ export const getQueryVariables = (): Partial<QueryVariables> => {
   return {
     ...vars,
     checkoutId: vars.checkout as string | undefined,
-    orderToken: vars.order as string | undefined,
+    orderId: vars.order as string | undefined,
     passwordResetToken: vars.token as string | undefined,
   };
 };
