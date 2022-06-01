@@ -14,6 +14,8 @@ interface AddressEditFormProps
   show: boolean;
 }
 
+const ERROR_SCOPE: ErrorScope = "userAddressUpdate";
+
 export const AddressEditForm: React.FC<AddressEditFormProps> = ({
   onClose,
   show,
@@ -24,8 +26,7 @@ export const AddressEditForm: React.FC<AddressEditFormProps> = ({
 
   const { countryCode } = useCountrySelect();
 
-  const { setApiErrors, ...errorsRest } =
-    useErrors<UserAddressFormData>("userAddressUpdate");
+  const { setApiErrors } = useErrors<UserAddressFormData>(ERROR_SCOPE);
 
   const handleSubmit = async (address: UserAddressFormData) => {
     const result = await userAddressUpdate({
@@ -56,7 +57,7 @@ export const AddressEditForm: React.FC<AddressEditFormProps> = ({
       onSave={handleSubmit}
       defaultValues={defaultValues}
       onCancel={onClose}
-      {...errorsRest}
+      errorScope={ERROR_SCOPE}
     />
   );
 };

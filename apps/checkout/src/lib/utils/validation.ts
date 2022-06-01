@@ -79,7 +79,7 @@ export const useGetFormErrorsFromApiErrors = (): (<TFormData>(
     }
 
     return apiErrors.reduce((result, { field, code }) => {
-      const errorCode = code.toLowerCase() as ValidationErrorCode;
+      const errorCode = camelCase(code) as ValidationErrorCode;
 
       return {
         ...result,

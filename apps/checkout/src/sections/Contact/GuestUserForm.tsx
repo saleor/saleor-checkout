@@ -34,8 +34,11 @@ export const GuestUserForm: React.FC<AnonymousCustomerFormProps> = ({
   const {
     getValues: getContextValues,
     setValue: setContextValue,
+    setError: setContextError,
     ...contextPropsRest
   } = useFormContext();
+
+  useSetFormErrors({ errorScope: "userRegister", setError: setContextError });
 
   const schema = object({
     email: string()
@@ -49,6 +52,7 @@ export const GuestUserForm: React.FC<AnonymousCustomerFormProps> = ({
     mode: "onBlur",
     defaultValues: { email: getContextValues("email") },
   });
+
   const getInputProps = useGetInputProps(rest);
   const getContextInputProps = useGetInputProps(contextPropsRest);
 
