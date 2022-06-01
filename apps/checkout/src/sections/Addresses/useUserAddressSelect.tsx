@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { isMatchingAddress } from "./utils";
 
 export interface UseUserAddressSelectProps {
-  defaultAddress?: Pick<AddressFragment, "id"> | null;
+  defaultAddressId?: string;
   addresses: AddressFragment[];
   type: AddressTypeEnum;
 }
@@ -18,14 +18,12 @@ interface UseUserAddressSelect {
 
 export const useUserAddressSelect = ({
   type,
-  defaultAddress,
+  defaultAddressId,
   addresses,
 }: UseUserAddressSelectProps): UseUserAddressSelect => {
   const { checkout } = useCheckout();
 
-  const [selectedAddressId, setSelectedAddressId] = useState(
-    defaultAddress?.id
-  );
+  const [selectedAddressId, setSelectedAddressId] = useState(defaultAddressId);
 
   const selectedAddress = addresses.find(getById(selectedAddressId));
 

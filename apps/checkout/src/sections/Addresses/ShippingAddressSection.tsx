@@ -38,7 +38,7 @@ export const ShippingAddressSection: React.FC<ShippingAddressSectionProps> = ({
           onAddressSelect={updateShippingAddress}
           // @ts-ignore TMP
           addresses={addresses as UserAddressFormData[]}
-          defaultAddress={defaultAddress}
+          defaultAddressId={defaultAddress?.id}
         />
       ) : (
         <GuestAddressSection

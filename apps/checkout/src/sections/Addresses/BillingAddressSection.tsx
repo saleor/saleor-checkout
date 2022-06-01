@@ -57,7 +57,7 @@ export const BillingAddressSection: React.FC<BillingAddressSectionProps> = ({
       type="BILLING"
       onAddressSelect={updateBillingAddress}
       addresses={addresses as AddressFragment[]}
-      defaultAddress={defaultAddress}
+      defaultAddressId={defaultAddress?.id}
     />
   ) : (
     <GuestAddressSection

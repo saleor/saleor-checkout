@@ -11,11 +11,13 @@ import { AddressCreateForm } from "./AddressCreateForm";
 import { AddressEditForm } from "./AddressEditForm";
 import { getAddressFormDataFromAddress } from "./utils";
 import { useCountrySelect } from "@/providers/CountrySelectProvider";
-import { useUserAddressSelect } from "./useUserAddressSelect";
+import {
+  useUserAddressSelect,
+  UseUserAddressSelectProps,
+} from "./useUserAddressSelect";
 import { AddressesSkeleton } from ".";
 
-export interface UserAddressSectionProps {
-  defaultAddress?: Pick<AddressFragment, "id"> | null;
+export interface UserAddressSectionProps extends UseUserAddressSelectProps {
   onAddressSelect: (address: UserAddressFormData) => void;
   addresses: AddressFragment[];
   title: string;
@@ -23,7 +25,7 @@ export interface UserAddressSectionProps {
 }
 
 export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
-  defaultAddress,
+  defaultAddressId,
   addresses = [],
   onAddressSelect,
   title,
@@ -34,7 +36,7 @@ export const UserAddressSection: React.FC<UserAddressSectionProps> = ({
   const { selectedAddress, selectedAddressId, setSelectedAddressId } =
     useUserAddressSelect({
       type,
-      defaultAddress,
+      defaultAddressId,
       addresses,
     });
 
