@@ -17,8 +17,11 @@ export const useCheckoutFinalize = () => {
   const handleUserRegister = async (formData: FormData) => {
     const registerFormData = omit(formData, "createAccount");
     // adding redirect url because api is broken and requires it
-    // despite te types saying otherwise
-    const result = await register({ ...registerFormData, redirectUrl: "" });
+    // despite types saying otherwise
+    const result = await register({
+      ...registerFormData,
+      redirectUrl: location.href,
+    });
 
     const [hasErrors, errors] = extractMutationErrors(result);
 
