@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "test": "jest",
-    "build": "pnpm run i18n && next build",
+    "build": "npm run i18n && next build",
     "start": "next start",
     "lint": "next lint",
     "check-types": "tsc",
