@@ -1,6 +1,6 @@
 {
   "name": "@saleor/ui-kit",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "UI kit for Saleor Checkout and React Storefront",
   "author": "Saleor Commerce",
   "private": false,
