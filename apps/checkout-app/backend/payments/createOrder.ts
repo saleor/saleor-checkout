@@ -35,6 +35,12 @@ export const createOrder = async (
     throw checkout.error;
   }
 
+  if (!checkout.data?.checkout) {
+    return {
+      errors: ["CHECKOUT_NOT_FOUND"],
+    };
+  }
+
   if (checkout.data?.checkout?.totalPrice.gross.amount !== totalAmount) {
     return {
       errors: ["TOTAL_AMOUNT_MISMATCH"],
