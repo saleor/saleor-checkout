@@ -48,6 +48,9 @@ export const getPrivateSettings = async (apiUrl: string) => {
 };
 
 export const getPublicSettings = async () => {
+  console.log(envVars.apiUrl);
+  console.log("ddddd");
+  console.log(serverEnvVars.appId);
   const { data, error } = await getClient(
     envVars.apiUrl,
     serverEnvVars.appToken

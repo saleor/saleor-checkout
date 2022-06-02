@@ -58,7 +58,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (!paymentProviders.includes(body.provider)) {
     return res.status(400).json({ ok: false, errors: ["UNKNOWN_PROVIDER"] });
   }
-
+  console.log(body);
   const order = await createOrder(body.checkoutId, body.totalAmount);
 
   if ("errors" in order) {
@@ -71,6 +71,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   let response: Response;
 
   if (body.provider === "mollie") {
+    console.log(order);
     const url = await createMolliePayment(order.data, body.redirectUrl);
 
     if (url) {

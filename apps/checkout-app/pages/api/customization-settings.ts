@@ -3,6 +3,7 @@ import { allowCors } from "@/backend/utils";
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
+  console.log("---------hello--------");
   const settings = await getPublicSettings();
 
   console.log(settings); // for deployment debug pusposes

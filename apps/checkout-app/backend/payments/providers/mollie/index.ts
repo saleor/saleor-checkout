@@ -22,7 +22,7 @@ export const createMolliePayment = async (
   const discountLines = getDiscountLines(data.discounts);
   const shippingLines = getShippingLines(data);
   const lines = getLines(data.lines);
-
+  console.log(envVars.appUrl);
   const mollieData = await mollieClient.orders.create({
     orderNumber: data.number!,
     webhookUrl: `${envVars.appUrl}/api/webhooks/mollie`,

@@ -20,6 +20,7 @@ export const createOrder = async (
       errors: Errors;
     }
 > => {
+  console.log("hiyaaaaaa");
   const { data, error } = await getClient(
     envVars.apiUrl,
     serverEnvVars.appToken
@@ -40,6 +41,8 @@ export const createOrder = async (
   if (error) {
     throw error;
   }
+
+  console.log(data?.orderCreateFromCheckout?.errors);
 
   if (!data?.orderCreateFromCheckout?.order) {
     return {
