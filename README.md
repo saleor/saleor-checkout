@@ -92,11 +92,15 @@ pnpm dlx turbo link
   - Provide your project name (for example `saleor-payments-app`)
   - Select framework to Next.js
   - Choose the root directory to be `apps/payments-app`
-  - Change the build command to:
+  - Override the build command to:
 
 ```bash
 cd ../.. && pnpm run build:payments-app
 ```
+
+  - Add environment variables:
+    - `NEXT_PUBLIC_SALEOR_API_URL` - URL of your Saleor GraphQL API endpoint
+    - `SETTINGS_ENCRYPTION_SECRET` - Random string used for encrypting apps configuration (you can generate it using `openssl rand -hex 256`)
 
 Here's the final result on configuration page:
 
@@ -134,13 +138,13 @@ saleor app install
 
 After the app was installed generate it's `authToken`
 
-- Saleor CLI
+- [Saleor CLI](https://github.com/saleor/saleor-cli)
 
 ```
 saleor app token
 ```
 
-- Saleor GraphQL API
+- [Saleor GraphQL API](https://docs.saleor.io/docs/3.x/developer/api-reference/mutations/app-token-create)
 
 ```graphql
 mutation {
@@ -150,12 +154,50 @@ mutation {
 }
 ```
 
-Where `<MY_APP_ID>` is the app id. You can retrieve the id by using GraphQL query or by copying the URL inside dashboard
+Where `<MY_APP_ID>` is the app id. You can retrieve the id by using this GraphQL query:
+
+```graphql
+query {
+  apps(first: 10) {
+    edges {
+      node {
+        id
+        name
+      }
+    }
+  }
+}
+```
+
+outputs this:
+```jsonc
+{
+  "data": {
+    "apps": {
+      "edges": [
+        {
+          "node": {
+            "id": "QXBwOjQ=", // <- this is the app id
+            "name": "Checkout"
+          }
+        }
+      ]
+    }
+  },
+}
+```
 
 7. Update environment variables in Vercel
 
-You have to update the environment variables for Payments App in Vercel:
+You have to add additional environment variables for Payments App in Vercel:
 - `SALEOR_APP_ID` - ID of the app
-- `SALEOR_APP_TOKEN` - Token you've generated
+- `SALEOR_APP_TOKEN` - Token you've just generated
+
+Make sure that you also have "Automatically expose System Environment Variables" selected
+
+Here's how the configuration should look like in the end:
+![Vercel env variable final configuration](./docs/setup-vercel-3.png)
 
 After you're done re-deploy the app
+
+8. 🥳 Congrats! Payment app is now ready to be used!
