@@ -12,12 +12,12 @@ Here's the list of each app and shared package in the monorepo (click to see a R
 
 #### Apps
 
-- `apps/checkout`: a SPA React 18 checkout app, ready to be extended/modified
-- `apps/payments-app`: a Next.js checkout dashboard + payments app, ready to be extended/modified
+- [`apps/checkout`](apps/checkout/README.md): a SPA React 18 checkout app, ready to be extended/modified
+- [`apps/payments-app`](apps/payments-app/README.md): a Next.js checkout dashboard + payments app, ready to be extended/modified
 
 #### Packages
 
-- `packages/ui-kit`: UI kit for checkout and (React Storefront)[https://github.com/saleor/react-storefront]
+- `packages/ui-kit`: UI kit for checkout and [React Storefront](https://github.com/saleor/react-storefront)
 - `packages/config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `packages/tsconfig`: `tsconfig.json`s used throughout the monorepo
 
