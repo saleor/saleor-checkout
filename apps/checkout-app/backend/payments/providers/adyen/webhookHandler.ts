@@ -39,6 +39,7 @@ export const getOrderId = async (
 ) => {
   const { additionalData } = notification;
   const paymentLinkId = additionalData?.paymentLinkId;
+  console.log("getOrderId", { additionalData });
 
   if (!paymentLinkId) {
     return;
@@ -51,10 +52,15 @@ export const getOrderId = async (
 
   const checkout = new CheckoutAPI(client);
 
+  console.log("checkout created");
+
   try {
+    console.log("try: get metadata");
     const { metadata } = await checkout.getPaymentLinks(paymentLinkId);
+    console.log("metadata", { metadata });
     return metadata?.orderId;
   } catch (e) {
+    console.log("catch");
     // INFO: checkout.getPaymentLinks method fails randomly
     // it's possible to get notification metadata directly from notification itself (undocumented)
     console.error("checkout.getPaymentLinks failed");
