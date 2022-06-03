@@ -72,7 +72,7 @@ The repo needs to be hosted on GitHub or some other git repository. Before you s
 pnpm dlx turbo login
 ```
 
-- Link the repo to a Vercel scope in order to enable the Remote Caching feature
+- Link the repo to a Vercel scope to enable the Remote Caching feature
 
 ```
 pnpm dlx turbo link
@@ -84,7 +84,7 @@ pnpm dlx turbo link
 
 1. Start [creating new project](https://vercel.com/docs/concepts/projects/overview#creating-a-project) on Vercel and select your forked GitHub repo
 
-> Note: Vercel currently doesn't support importing the entire monorepo, you will need to setup a project yourself for each app inside `/apps` folder
+> Note: Vercel now doesn't support importing the entire monorepo, you will need to set up a project yourself for each app inside `/apps` folder
 
 ![Create project on Vercel by selecting your cloned GitHub repository in the menu](./docs/setup-vercel-1.png)
 
@@ -99,8 +99,8 @@ cd ../.. && pnpm run build:payments-app
 ```
 
   - Add environment variables:
-    - `NEXT_PUBLIC_SALEOR_API_URL` - URL of your Saleor GraphQL API endpoint
-    - `SETTINGS_ENCRYPTION_SECRET` - Random string used for encrypting apps configuration (you can generate it using `openssl rand -hex 256`)
+    - `NEXT_PUBLIC_SALEOR_API_URL` — URL of your Saleor GraphQL API endpoint
+    - `SETTINGS_ENCRYPTION_SECRET` — Random string used for encrypting apps configuration (you can generate it using `openssl rand -hex 256`)
 
 Here's the final result on configuration page:
 
@@ -190,8 +190,8 @@ outputs this:
 5. Update environment variables in Vercel
 
 You have to add additional environment variables for Payments App in Vercel:
-- `SALEOR_APP_ID` - ID of the app
-- `SALEOR_APP_TOKEN` - Token you've just generated
+- `SALEOR_APP_ID` — ID of the app
+- `SALEOR_APP_TOKEN` — Token you've just generated
 
 Make sure that you also have "Automatically expose System Environment Variables" selected
 
@@ -217,7 +217,7 @@ cd ../.. && pnpm run build:checkout
 ```
 
   - Add environment variables:
-    - `REACT_APP_CHECKOUT_APP_URL` - URL of the deployed [Payments App](#payments-app) API root. For example:
+    - `REACT_APP_CHECKOUT_APP_URL` — URL of the deployed [Payments App](#payments-app) API root. For example:
 ```
 https://saleor-payments-app.vercel.app/api
 ```
