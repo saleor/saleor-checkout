@@ -14,19 +14,25 @@ interface LineItemProps {
 
 export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
   const readOnly = !isCheckoutLine(line);
+  //Summary Item is used before Paying and after Paying - each time is a different data layout and behavior
   const { productName, productImage, allAttributes } = getSummaryLineProps(line);
-
   const formatMessage = useFormattedMessages();
-  console.log(allAttributes)
-  const fieldsToDisplayValue = ['Embark Date', 'Disembark Date', 'Duration', 'Rate Code', 'Ship Name']
-  const fieldsToDisplayRichText = ['Price Items']
-  const attributesToDisplay: Record<string, any> = {}
-  allAttributes?.forEach((attribute) => {
-    attribute.name && fieldsToDisplayValue.includes(attribute.name) ? attributesToDisplay[attribute?.name] = attribute.value[0] : 'N/A'
-  })
-  const priceItem = allAttributes?.filter(attr => attr.name == 'Price Items')[0].richText[0]
-  const priceItemJSON = JSON.parse(priceItem ? priceItem : "{}")
-  console.log(JSON.parse(priceItemJSON.blocks[0].data.text))
+  
+  //all attributes does not exist after paying
+  if(allAttributes) {
+    console.log(allAttributes)
+    const fieldsToDisplayValue = ['Embark Date', 'Disembark Date', 'Duration', 'Rate Code', 'Ship Name']
+    const fieldsToDisplayRichText = ['Price Items']
+    const attributesToDisplay: Record<string, any> = {}
+    allAttributes?.forEach((attribute) => {
+      attribute.name && fieldsToDisplayValue.includes(attribute.name) ? attributesToDisplay[attribute?.name] = attribute.value[0] : 'N/A'
+    })
+    console.log(allAttributes)
+    const priceItem = allAttributes?.filter(attr => attr.name == 'Price Items')[0].richText[0]
+    const priceItemJSON = priceItem && JSON.parse(priceItem ? priceItem : "{}")
+    if (priceItem) console.log(JSON.parse(priceItemJSON.blocks[0].data.text))
+  } 
+  
   return (
     <li className="flex flex-row px-6 mb-6">
       <div className="relative flex flex-row">

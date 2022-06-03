@@ -1,4 +1,4 @@
-import createMollieClient, { OrderStatus } from "@mollie/api-client";
+import createMollieClient, { OrderStatus, PaymentMethod } from "@mollie/api-client";
 
 import { OrderFragment, TransactionCreateMutationVariables } from "@/graphql";
 import { envVars } from "@/constants";
@@ -23,6 +23,8 @@ export const createMolliePayment = async (
   const shippingLines = getShippingLines(data);
   const lines = getLines(data.lines);
   console.log(envVars.appUrl);
+  console.log('URLS REDIRECT')
+  console.log(redirectUrl, data.token)
   const mollieData = await mollieClient.orders.create({
     orderNumber: data.number!,
     webhookUrl: `${envVars.appUrl}/api/webhooks/mollie`,
@@ -58,8 +60,11 @@ export const createMolliePayment = async (
           organizationName: data.shippingAddress.companyName,
         }
       : undefined,
+      method: PaymentMethod.paypal,
   });
-
+  
+  console.log('mollieData: ' )
+  console.log(mollieData)
   return mollieData._links.checkout;
 };
 
