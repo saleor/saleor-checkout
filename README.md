@@ -92,9 +92,6 @@ pnpm dlx turbo link
   - Provide your project name (for example `saleor-payments-app`)
   - Select framework to Next.js
   - Choose the root directory to be `apps/payments-app`
-
-![Directory `apps/payments-app` chosen inside Vercel configuration modal](./docs/setup-vercel-3.png)
-
   - Change the build command to:
 
 ```bash
@@ -105,4 +102,60 @@ Here's the final result on configuration page:
 
 ![Vercel "Configure project" page with all settings filled out](./docs/setup-vercel-2.png)
 
+Click deploy and wait until the app is deployed
 
+5. Install the app in Saleor
+
+Grab the deployed app URL from Vercel and add `/api/manifest`. This URL points to the manifest file that is required for installing the app in Saleor
+
+> Example manifest URL:
+> ```
+> https://saleor-payments-xyz-myusername.vercel.app/api/manifest
+> ```
+
+You can install the app by using:
+
+- [Saleor Dashboard](https://github.com/saleor/saleor-dashboard)
+
+```
+http://<YOUR_SALEOR_URL>/dashboard/apps/install?manifestUrl=<YOUR_MANIFEST_URL>
+```
+
+- [Saleor CLI](https://github.com/saleor/saleor-cli)
+
+```
+saleor app install
+```
+
+- [Saleor Core manage.py script](https://docs.saleor.io/docs/3.x/developer/extending/apps/installing-apps#installing-third-party-apps)
+- [Saleor GraphQL API](https://docs.saleor.io/docs/3.x/developer/extending/apps/installing-apps#installation-using-graphql-api)
+
+6. Generate app token
+
+After the app was installed generate it's `authToken`
+
+- Saleor CLI
+
+```
+saleor app token
+```
+
+- Saleor GraphQL API
+
+```graphql
+mutation {
+  appTokenCreate(input: {name: "Vercel", app: "<MY_APP_ID>"}) {
+    authToken
+  }
+}
+```
+
+Where `<MY_APP_ID>` is the app id. You can retrieve the id by using GraphQL query or by copying the URL inside dashboard
+
+7. Update environment variables in Vercel
+
+You have to update the environment variables for Payments App in Vercel:
+- `SALEOR_APP_ID` - ID of the app
+- `SALEOR_APP_TOKEN` - Token you've generated
+
+After you're done re-deploy the app
