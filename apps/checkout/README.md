@@ -27,11 +27,30 @@ You'll need checkout token in order to use the checkout. You can generate new ch
 
 > ⚠️ Note that if a given checkout has customer already attached, it'll become private and **you won't be able to fetch its data from the api** without the same customer being logged in your current browser. Checkout uses [Saleor SDK](https://github.com/saleor/saleor-sdk) for authentication.
 
+To generate checkout in GraphQL API and retrieve it's id:
+
+```graphql
+mutation {
+  checkoutCreate(
+    input: {
+      channel: "default-channel"
+      lines: [{ variantId: "UHJvZHVjdFZhcmlhbnQ6MjAz", quantity: 1 }]
+    }
+  ) {
+    checkout {
+      id
+    }
+  }
+}
+```
+
+Learn more about creating checkout sessions in [Saleor docs](https://docs.saleor.io/docs/3.x/developer/checkout#creating-a-checkout-session)
+
 Open [localhost:8001?checkout=<ID>](http://localhost:8001?checkout=) with your browser and add the your token to the url.
 
 ## Project structure
 
-### Api requests and types
+### API requests and types
 
 Checkout uses urql for all graphql queries and mutations. Queries and mutations are split between `checkout.graphql`, `order.graphql`. To add a query or mutation, go to respective file and add your code there. Then generate typescript types by running:
 
