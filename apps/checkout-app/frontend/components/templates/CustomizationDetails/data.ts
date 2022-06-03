@@ -1,4 +1,7 @@
+import { unflattenSettings } from "@/frontend/utils";
 import { CustomizationSettingsValues } from "@/types/api";
+import { useEffect, useState } from "react";
+import { FieldValues, UseFormWatch } from "react-hook-form";
 import { Customization, CustomizationID } from "types/common";
 
 export const getFormDefaultValues = (
@@ -17,3 +20,29 @@ export const getFormDefaultValues = (
     }),
     {} as CustomizationSettingsValues
   );
+
+export const useSettingsFromValues = (
+  options: Customization<CustomizationID>[],
+  watch: UseFormWatch<FieldValues>
+) => {
+  const [previewSettings, setPreviewSettings] =
+    useState<CustomizationSettingsValues>(getFormDefaultValues(options));
+
+  useEffect(() => {
+    setPreviewSettings(getFormDefaultValues(options));
+  }, [options]);
+
+  useEffect(() => {
+    const subscription = watch((flattenedSettings) => {
+      const updatedSettings = unflattenSettings(
+        flattenedSettings,
+        options
+      ) as CustomizationSettingsValues;
+
+      setPreviewSettings(updatedSettings);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  return previewSettings;
+};

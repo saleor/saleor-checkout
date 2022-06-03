@@ -28,8 +28,7 @@ import { MetadataErrorFragment } from "@/checkout-app/graphql";
 import { getMetadataErrorMessage } from "@/checkout-app/frontend/misc/errors";
 import ErrorAlert from "../../elements/ErrorAlert";
 import CheckoutPreviewFrame from "../../elements/CheckoutPreviewFrame";
-import { useEffect, useState } from "react";
-import { getFormDefaultValues } from "./data";
+import { useSettingsFromValues } from "./data";
 
 interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
@@ -56,24 +55,7 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
     watch,
   } = useForm();
 
-  const [previewSettings, setPreviewSettings] =
-    useState<CustomizationSettingsValues>(getFormDefaultValues(options));
-
-  useEffect(() => {
-    setPreviewSettings(getFormDefaultValues(options));
-  }, [options]);
-
-  useEffect(() => {
-    const subscription = watch((flattenedSettings) => {
-      const updatedSettings = unflattenSettings(
-        flattenedSettings,
-        options
-      ) as CustomizationSettingsValues;
-
-      setPreviewSettings(updatedSettings);
-    });
-    return () => subscription.unsubscribe();
-  }, []);
+  const previewSettings = useSettingsFromValues(options, watch);
 
   const handleSubmit = (flattenedSettings: Record<string, string>) => {
     onSubmit(
