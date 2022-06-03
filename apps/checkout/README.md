@@ -61,3 +61,8 @@ border: {
 Checkout uses [React Hook Form](https://react-hook-form.com/) for forms handling, with [yup](https://github.com/jquense/yup) as validation library.
 
 There is a top level `ErrorsProvider` for global error handling. It keeps an object of all errors from forms and api requests based on `ErrorScope` respective to the given code section e.g `checkoutShippingUpdate` or `userRegister`. Components can access selected errors using `useErrors` hook with provided scope.
+
+## Env variables
+
+- `REACT_APP_CHECKOUT_APP_URL` - URL of [Payments App](../payments-app/README.md) API endpoint
+- `REACT_APP_SALEOR_API_URL` - URL of Saleor GraphQL API endpoint

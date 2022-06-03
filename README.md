@@ -66,13 +66,13 @@ cd apps/checkout && pnpm dev
 
 The repo needs to be hosted on GitHub or some other git repository. Before you start, fork the repo to your account or organization.
 
-1. Authenticate the Turborepo CLI with your Vercel account
+- Authenticate the Turborepo CLI with your Vercel account
 
 ```
 pnpm dlx turbo login
 ```
 
-2. Link the repo to a Vercel scope in order to enable the Remote Caching feature
+- Link the repo to a Vercel scope in order to enable the Remote Caching feature
 
 ```
 pnpm dlx turbo link
@@ -82,13 +82,13 @@ pnpm dlx turbo link
 
 #### Payments App
 
-3. Start [creating new project](https://vercel.com/docs/concepts/projects/overview#creating-a-project) on Vercel and select your forked GitHub repo
+1. Start [creating new project](https://vercel.com/docs/concepts/projects/overview#creating-a-project) on Vercel and select your forked GitHub repo
 
 > Note: Vercel currently doesn't support importing the entire monorepo, you will need to setup a project yourself for each app inside `/apps` folder
 
 ![Create project on Vercel by selecting your cloned GitHub repository in the menu](./docs/setup-vercel-1.png)
 
-4. From the configuration page:
+2. From the configuration page:
   - Provide your project name (for example `saleor-payments-app`)
   - Select framework to Next.js
   - Choose the root directory to be `apps/payments-app`
@@ -108,7 +108,7 @@ Here's the final result on configuration page:
 
 Click deploy and wait until the app is deployed
 
-5. Install the app in Saleor
+3. Install the app in Saleor
 
 Grab the deployed app URL from Vercel and add `/api/manifest`. This URL points to the manifest file that is required for installing the app in Saleor
 
@@ -134,7 +134,7 @@ saleor app install
 - [Saleor Core manage.py script](https://docs.saleor.io/docs/3.x/developer/extending/apps/installing-apps#installing-third-party-apps)
 - [Saleor GraphQL API](https://docs.saleor.io/docs/3.x/developer/extending/apps/installing-apps#installation-using-graphql-api)
 
-6. Generate app token
+4. Generate app token
 
 After the app was installed generate it's `authToken`
 
@@ -187,7 +187,7 @@ outputs this:
 }
 ```
 
-7. Update environment variables in Vercel
+5. Update environment variables in Vercel
 
 You have to add additional environment variables for Payments App in Vercel:
 - `SALEOR_APP_ID` - ID of the app
@@ -200,4 +200,31 @@ Here's how the configuration should look like in the end:
 
 After you're done re-deploy the app
 
-8. 🥳 Congrats! Payment app is now ready to be used!
+6. 🥳 Congrats! Payment app is now ready to be used!
+
+#### Checkout
+
+1. Start by creating another project on Vercel, just like we did in [Payments App setup](#payments-app), select the same repository
+
+2. On the configuration page:
+  - Provide your project name (for example `saleor-checkout`)
+  - Select framework to Create React App
+  - Choose the root directory to be `apps/checkout`
+  - Override the build command to:
+
+```bash
+cd ../.. && pnpm run build:checkout
+```
+
+  - Add environment variables:
+    - `REACT_APP_CHECKOUT_APP_URL` - URL of the deployed [Payments App](#payments-app) API root. For example:
+```
+https://saleor-payments-app.vercel.app/api
+```
+    - `REACT_APP_SALEOR_API_URL` - URL of Saleor GraphQL API endpoint
+
+Here's the final result on configuration page:
+
+![Vercel "Configure project" page with all settings filled out for Checkout frontend deployment](./docs/setup-vercel-4.png)
+
+Click deploy and wait until the app is deployed
