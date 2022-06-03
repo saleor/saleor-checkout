@@ -83,5 +83,7 @@ There is a top level `ErrorsProvider` for global error handling. It keeps an obj
 
 ## Env variables
 
-- `REACT_APP_CHECKOUT_APP_URL` - URL of [Payments App](../payments-app/README.md) API endpoint
-- `REACT_APP_SALEOR_API_URL` - URL of Saleor GraphQL API endpoint
+> Note: by default those environment variables values are taken from root of monorepo. If you want to customise them, you can add a separate `.env.local` file, which won't be stored in git repository
+
+- `REACT_APP_CHECKOUT_APP_URL` — URL of [Payments App](../payments-app/README.md) API endpoint
+- `REACT_APP_SALEOR_API_URL` — URL of Saleor GraphQL API endpoint

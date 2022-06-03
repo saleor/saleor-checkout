@@ -50,5 +50,8 @@ openssl rand -hex 256
 Each variable starting with [`NEXT_PUBLIC`](https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables-to-the-browser) is exposed to frontend
 
 - `NEXT_PUBLIC_SALEOR_API_URL` — URL of your Saleor GraphQL API
+
+> Note: by default `SALEOR_API_URL` env variable from root of monorepo is used for the value. If you want to customise it, you can add a separate `.env.local` file, which won't be stored in git repository
+
 - `NEXT_PUBLIC_VERCEL_URL` — [`VERCEL_URL`](https://vercel.com/docs/concepts/projects/environment-variables#:~:text=or%20development.-,VERCEL_URL,-The%20URL%20of) env variable exposed to frontend in `.env.production`. It contains URL of the deployment, added automatically by Vercel
 

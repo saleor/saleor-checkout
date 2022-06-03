@@ -62,6 +62,27 @@ cd apps/checkout && pnpm dev
 
 ## Deployment
 
+### Env variables
+
+Change environment variables inside `.env` file:
+  - `SALEOR_API_URL` — GraphQL endpoint of your Saleor
+
+    Example:
+
+    ```
+    https://my-env.eu.saleor.cloud/graphql/
+    ```
+  - `CHECKOUT_API_URL` — API endpoint of deployed Payments App
+
+    Example:
+    ```
+    https://saleor-payments-app.vercel.app/api
+    ```
+
+    See [guide below](#payments-app) on how to deploy the Payments App
+
+There are more environment variables available in each app. Go to their README's to learn more
+
 ### Vercel
 
 The repo needs to be hosted on GitHub or some other git repository. Before you start, fork the repo to your account or organization.
@@ -79,6 +100,7 @@ pnpm dlx turbo link
 ```
 
 > Remote Caching drastically reduces build times if you work in a team. Learn more about it at [Turborepo documentation](https://turborepo.org/docs/core-concepts/remote-caching) and [Vercel documentation](https://vercel.com/docs/concepts/monorepos/remote-caching)
+
 
 #### Payments App
 
@@ -99,8 +121,9 @@ cd ../.. && pnpm run build:payments-app
 ```
 
   - Add environment variables:
-    - `NEXT_PUBLIC_SALEOR_API_URL` — URL of your Saleor GraphQL API endpoint
     - `SETTINGS_ENCRYPTION_SECRET` — Random string used for encrypting apps configuration (you can generate it using `openssl rand -hex 256`)
+    - *Optional*: `NEXT_PUBLIC_SALEOR_API_URL` — if you want to override the value of `SALEOR_API_URL` stored inside `.env` file in the root of repository
+
 
 Here's the final result on configuration page:
 
@@ -108,7 +131,17 @@ Here's the final result on configuration page:
 
 Click deploy and wait until the app is deployed
 
-3. Install the app in Saleor
+3. Update environment variables in repository
+
+Update `CHECKOUT_API_URL` in `.env` file located at the root of monorepo to be your deployment URL + `/api`
+
+Example:
+
+```
+https://saleor-payments-app.vercel.app/api
+```
+
+4. Install the app in Saleor
 
 Grab the deployed app URL from Vercel and add `/api/manifest`. This URL points to the manifest file that is required for installing the app in Saleor
 
@@ -134,7 +167,7 @@ saleor app install
 - [Saleor Core manage.py script](https://docs.saleor.io/docs/3.x/developer/extending/apps/installing-apps#installing-third-party-apps)
 - [Saleor GraphQL API](https://docs.saleor.io/docs/3.x/developer/extending/apps/installing-apps#installation-using-graphql-api)
 
-4. Generate app token
+5. Generate app token
 
 After the app was installed generate it's `authToken`
 
@@ -187,11 +220,13 @@ outputs this:
 }
 ```
 
-5. Update environment variables in Vercel
+6. Update environment variables in Vercel
 
 You have to add additional environment variables for Payments App in Vercel:
 - `SALEOR_APP_ID` — ID of the app
 - `SALEOR_APP_TOKEN` — Token you've just generated
+
+> ⚠️  These values are secrets — don't store them inside your git repository
 
 Make sure that you also have "Automatically expose System Environment Variables" selected
 
@@ -200,7 +235,7 @@ Here's how the configuration should look like in the end:
 
 After you're done re-deploy the app
 
-6. 🥳 Congrats! Payment app is now ready to be used!
+7. 🥳 Congrats! Payment app is now ready to be used!
 
 #### Checkout
 
@@ -216,12 +251,11 @@ After you're done re-deploy the app
 cd ../.. && pnpm run build:checkout
 ```
 
-  - Add environment variables:
+  - *Optional*: customise environment variables:
     - `REACT_APP_CHECKOUT_APP_URL` — URL of the deployed [Payments App](#payments-app) API root. For example:
-```
-https://saleor-payments-app.vercel.app/api
-```
-    - `REACT_APP_SALEOR_API_URL` - URL of Saleor GraphQL API endpoint
+    - `REACT_APP_SALEOR_API_URL` — URL of Saleor GraphQL API endpoint
+
+> By default, those environment variables are taken from `.env` file in root of the monorepo
 
 Here's the final result on configuration page:
 
