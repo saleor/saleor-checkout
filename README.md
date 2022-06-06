@@ -126,6 +126,7 @@ cd ../.. && pnpm run build:payments-app
 
   - Add environment variables:
     - `SETTINGS_ENCRYPTION_SECRET` — Random string used for encrypting apps configuration (you can generate it using `openssl rand -hex 256`)
+    - `NEXT_PUBLIC_VERCEL_URL` - Domain used for production deployment on Vercel (ex. `my-domain.vercel.app`)
     - *Optional*: `NEXT_PUBLIC_SALEOR_API_URL` — if you want to override the value of `SALEOR_API_URL` stored inside `.env` file in the root of repository
 
 
