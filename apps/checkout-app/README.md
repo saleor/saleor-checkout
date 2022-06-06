@@ -1,3 +1,7 @@
+# Checkout App
+
+[Saleor App](https://docs.saleor.io/docs/3.x/developer/extending/apps/key-concepts) for payment gateways configuration and layout customisation of [Saleor Checkout](https://github.com/saleor/saleor-checkout/blob/main/apps/checkout/README.md)
+
 ## Getting Started
 
 First, run the development server:
