@@ -20,6 +20,7 @@ import {
 import { mapPublicMetafieldsToSettings } from "@/checkout-app/frontend/misc/mapPublicMetafieldsToSettings";
 import { PublicMetafieldID } from "@/checkout-app/types/common";
 import { reduce } from "lodash-es";
+import { uploadSettingsFiles } from "@/frontend/handlers";
 
 const Customization = () => {
   const router = useRouter();
@@ -54,54 +55,12 @@ const Customization = () => {
     router.back();
   };
 
-  const uploadSettingsFiles = async (
-    data: CustomizationSettingsValues,
-    dataFiles?: CustomizationSettingsFiles
-  ) => {
-    if (!dataFiles) {
-      return data;
-    }
-
-    return await reduce(
-      dataFiles,
-      async (settings, settingList, idx) => {
-        const uploadedSettings = await settings;
-        return {
-          ...settings,
-          [idx]: await reduce(
-            settingList,
-            async (settingsUrls, settingFile, settingIdx) => {
-              const uploadedSettingsUrls = await settingsUrls;
-              if (settingFile) {
-                const uploadFileResult = await uploadFile({
-                  file: settingFile,
-                });
-                if (uploadFileResult.data?.fileUpload) {
-                  return {
-                    ...uploadedSettingsUrls,
-                    [settingIdx]:
-                      uploadFileResult.data.fileUpload?.uploadedFile?.url,
-                  };
-                }
-              }
-              return uploadedSettingsUrls;
-            },
-            Promise.resolve(
-              uploadedSettings[idx as keyof CustomizationSettingsValues]
-            )
-          ),
-        };
-      },
-      Promise.resolve(data)
-    );
-  };
-
   const handleSubmit = async (
     data: CustomizationSettingsValues,
     dataFiles?: CustomizationSettingsFiles,
     checkoutUrl?: string
   ) => {
-    const newData = await uploadSettingsFiles(data, dataFiles);
+    const newData = await uploadSettingsFiles({ data, dataFiles, uploadFile });
 
     const metadata = [
       ...mapPublicSettingsToMetadata({
