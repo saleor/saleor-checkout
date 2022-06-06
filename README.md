@@ -72,14 +72,18 @@ Change environment variables inside `.env` file:
     ```
     https://my-env.eu.saleor.cloud/graphql/
     ```
+    > To run sandbox Saleor environment in [Saleor Cloud](https://cloud.saleor.io/) use this command:
+    > ```bash
+    > npx saleor project create && npx saleor environment create
+    > ```
+    > You can also run Saleor locally. See [Saleor docs](https://docs.saleor.io/docs/3.x/developer/installation) for more instructions
   - `CHECKOUT_API_URL` — API endpoint of deployed Payments App
 
     Example:
     ```
     https://saleor-payments-app.vercel.app/api
     ```
-
-    See [guide below](#payments-app) on how to deploy the Payments App
+    > See [guide below](#payments-app) on how to deploy the Payments App
 
 There are more environment variables available in each app. Go to their README's to learn more
 
