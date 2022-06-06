@@ -4,7 +4,7 @@ Extensible, powerful checkout powered by Saleor API.
 
 ## Setup
 
-This monorepo uses [PNPM](https://pnpm.io/) as a package manager and [Turborepo](https://turborepo.org/) for building packages. 
+This monorepo uses [PNPM](https://pnpm.io/) as a package manager and [Turborepo](https://turborepo.org/) for building packages.
 
 ### Monorepo structure
 
@@ -266,3 +266,32 @@ Here's the final result on configuration page:
 ![Vercel "Configure project" page with all settings filled out for Checkout frontend deployment](./docs/setup-vercel-4.png)
 
 Click deploy and wait until the app is deployed
+
+## Payment gateways configuration
+
+Checkout app supports two payment gateways that you can configure:
+
+[![Mollie](./docs/logos/mollie_light.svg#gh-dark-mode-only) ![Mollie](./docs/logos/mollie_dark.svg#gh-light-mode-only)](https://www.mollie.com/en)
+
+<br>
+
+[![Adyen](./docs/logos/adyen.svg)](https://www.adyen.com/)
+
+Payment gateways can be configured in the Checkout app inside Saleor dashboard.
+Go to **Apps > Third party apps > Checkout**.
+
+You can toggle, which payment gateway handles each different payment options per channel:
+
+![Configuration options: Credit Card, Apple Pay, PayPal that are available in checkout app dashboard](./docs/config-dashboard-1.png)
+
+In order to use payment gateway you need to provide credentials. You can do that by clicking settings icon in channel configuration page
+
+![Payment gateway configuration in Saleor dashboard](./docs/config-dashboard-2.png)
+
+### Mollie
+
+Guide TBD
+
+### Adyen
+
+Guide TBD
