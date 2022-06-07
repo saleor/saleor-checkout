@@ -293,7 +293,15 @@ In order to use payment gateway you need to provide credentials. You can do that
 
 ### Mollie
 
-Guide TBD
+1. [Sign up for Mollie account](https://www.mollie.com/dashboard/signup?lang=en)
+
+2. In your Mollie dashboard select: Developers > API keys and copy **API key** and **Profile ID**
+  - **Live API key** - for production environment
+  - **Test API key** - for development environment
+
+3. In Checkout app configuration enter the data you've just copied
+
+![Mollie config inside Saleor dashboard after env variable and profile id were pasted](./docs/config-dashboard-mollie.png)
 
 ### Adyen
 
