@@ -4,12 +4,17 @@ Saleor checkout is a [CRA](https://create-react-app.dev/) for connecting Saleor 
 
 ## Local development
 
-First, setup necessary environment variables:
+First, setup necessary [environment variables](#env-variables):
 
 ```
-REACT_APP_CHECKOUT_API_URL=https://your-checkout-app-url.app/api
-REACT_APP_SALEOR_API_URL=https://your-saleor-instance.saleor.cloud/graphql/
+cp .env.template .env.local
 ```
+
+Fill out each empty env variable in `.env.local` file
+
+> Note: For development environment variables are applied in this order:
+> - `.env`
+> - `.env.local`
 
 Install packages:
 
@@ -83,7 +88,28 @@ There is a top level `ErrorsProvider` for global error handling. It keeps an obj
 
 ## Env variables
 
-> Note: by default those environment variables values are taken from root of monorepo. If you want to customise them, you can add a separate `.env.local` file, which won't be stored in git repository
+By default those environment variables values are taken from `.env` file in root of monorepo. If you want to customise them, you can add a separate `.env.local` file in this app's folder, which won't be stored in git repository
 
-- `REACT_APP_CHECKOUT_APP_URL` — URL of [Payments App](../payments-app/README.md) API endpoint
+Checkout uses the following environment variables:
+
+- `REACT_APP_CHECKOUT_APP_URL` — URL of the deployed [Checkout App](../checkout-app/README.md) API endpoint
+
+> **For development**: use the domain name Saleor CLI assigned you when you've run `saleor app tunnel`.
+> Don't use `localhost` - payment gateways need an available endpoint for webhook callbacks
+> 
+> The domain name shouldn't include protocol, so make sure to remove `https://`
+>
+> Example:
+> ```
+> NEXT_PUBLIC_VERCEL_URL=checkout-app-xyz.saleor.live
+> ```
+
 - `REACT_APP_SALEOR_API_URL` — URL of Saleor GraphQL API endpoint
+
+> **PROTIP 💡**: If you need Saleor instance for tesitng, create one using [Saleor CLI](https://github.com/saleor/saleor-cli):
+> ```bash
+> npx saleor project create && npx saleor environment create
+> ```
+> This will create new Saleor sandbox in [Saleor Cloud](https://cloud.saleor.io/)
+> 
+> ⚠️  You need to use the same Saleor instance in `checkout-app`. Make sure you have the same value of `NEXT_PUBLIC_SALEOR_API_URL` variable in `apps/checkout-app/.env.local`
