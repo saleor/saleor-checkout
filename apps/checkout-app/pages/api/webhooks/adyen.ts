@@ -35,10 +35,8 @@ const notificationHandler = async (
   notification: Types.notification.NotificationRequestItem,
   apiKey: string
 ) => {
-  console.log("notificationHandler");
   // Get order id from webhook metadata
   const orderId = await getOrderId(notification, apiKey);
-  console.log("orderId", orderId);
 
   if (!orderId) {
     return;
@@ -48,7 +46,6 @@ const notificationHandler = async (
   // https://docs.adyen.com/development-resources/webhooks/best-practices#handling-duplicates
   const transactions = await getOrderTransactions({ id: orderId });
   const duplicate = await isNotificationDuplicate(transactions, notification);
-  console.log({ transactions, duplicate });
 
   if (duplicate) {
     return;
@@ -66,7 +63,7 @@ const notificationHandler = async (
 
     const data = await getUpdatedTransactionData(transaction, notification);
 
-    updateTransaction(data);
+    await updateTransaction(data);
   } else {
     const data = await getNewTransactionData(orderId, notification);
 
@@ -74,7 +71,7 @@ const notificationHandler = async (
       return;
     }
 
-    createTransaction(data);
+    await createTransaction(data);
   }
 };
 
