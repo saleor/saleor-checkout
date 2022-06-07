@@ -55,6 +55,10 @@ export const getOrderId = async (
   console.log("checkout created");
 
   try {
+    console.log("sleep 2seconds");
+    await new Promise<void>((resolve) => {
+      setTimeout(() => resolve(), 2000);
+    });
     console.log("try: get metadata");
     const { metadata } = await checkout.getPaymentLinks(paymentLinkId);
     console.log("metadata", { metadata });
