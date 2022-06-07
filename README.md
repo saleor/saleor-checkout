@@ -13,7 +13,7 @@ Here's the list of each app and shared package in the monorepo (click to see a R
 #### Apps
 
 - [`apps/checkout`](apps/checkout/README.md): a SPA React 18 checkout app, ready to be extended/modified
-- [`apps/checkout-app`](apps/checkout-app/README.md): a Next.js checkout dashboard + payments app, ready to be extended/modified
+- [`apps/checkout-app`](apps/checkout-app/README.md): a Next.js Saleor app with dashboard for managing settings and theme, backend for checkout SPA, ready to be extended/modified
 
 #### Packages
 
@@ -46,7 +46,19 @@ In this example we'll only build `apps/checkout`
 
 ### Develop
 
-To develop all apps and packages, run the following command:
+Create a tunnel for `checkout-app`:
+
+```bash
+npx saleor app tunnel 3000
+```
+
+> Note: the process needs to be running in the background
+
+Before you start the server you need to change default environment variables. Create `.env.local` file in each app:
+- [`apps/checkout-app`](./apps/checkout-app/README.md#env-variables)
+- [`apps/checkout`](./apps/checkout/README.md#local-development)
+
+To run the development server for all the apps, use the following command:
 
 ```
 pnpm run dev
@@ -77,13 +89,13 @@ Change environment variables inside `.env` file:
     > npx saleor project create && npx saleor environment create
     > ```
     > You can also run Saleor locally. See [Saleor docs](https://docs.saleor.io/docs/3.x/developer/installation) for more instructions
-  - `CHECKOUT_API_URL` — API endpoint of deployed Payments App
+  - `CHECKOUT_API_URL` — API endpoint of deployed Checkout App
 
     Example:
     ```
-    https://saleor-payments-app.vercel.app/api
+    https://saleor-checkout-app.vercel.app/api
     ```
-    > See [guide below](#payments-app) on how to deploy the Payments App
+    > See [guide below](#checkout-app) on how to deploy the Checkout App
 
 There are more environment variables available in each app. Go to their README's to learn more
 
@@ -106,7 +118,7 @@ pnpm dlx turbo link
 > Remote Caching drastically reduces build times if you work in a team. Learn more about it at [Turborepo documentation](https://turborepo.org/docs/core-concepts/remote-caching) and [Vercel documentation](https://vercel.com/docs/concepts/monorepos/remote-caching)
 
 
-#### Payments App
+#### Checkout App
 
 1. Start [creating new project](https://vercel.com/docs/concepts/projects/overview#creating-a-project) on Vercel and select your forked GitHub repo
 
@@ -115,19 +127,18 @@ pnpm dlx turbo link
 ![Create project on Vercel by selecting your cloned GitHub repository in the menu](./docs/setup-vercel-1.png)
 
 2. From the configuration page:
-  - Provide your project name (for example `saleor-payments-app`)
+  - Provide your project name (for example `saleor-checkout-app`)
   - Select framework to Next.js
-  - Choose the root directory to be `apps/payments-app`
+  - Choose the root directory to be `apps/checkout-app`
   - Override the build command to:
 
 ```bash
-cd ../.. && pnpm run build:payments-app
+cd ../.. && pnpm run build:checkout-app
 ```
 
   - Add environment variables:
     - `SETTINGS_ENCRYPTION_SECRET` — Random string used for encrypting apps configuration (you can generate it using `openssl rand -hex 256`)
-    - `NEXT_PUBLIC_VERCEL_URL` - Domain used for production deployment on Vercel (ex. `my-domain.vercel.app`)
-    - *Optional*: `NEXT_PUBLIC_SALEOR_API_URL` — if you want to override the value of `SALEOR_API_URL` stored inside `.env` file in the root of repository
+    - *Optional*: `NEXT_PUBLIC_SALEOR_API_URL` — if you want to override the value of `SALEOR_API_URL` stored inside `.env` file in the root of the repository
 
 
 Here's the final result on configuration page:
@@ -143,7 +154,7 @@ Update `CHECKOUT_API_URL` in `.env` file located at the root of monorepo to be y
 Example:
 
 ```
-https://saleor-payments-app.vercel.app/api
+https://saleor-checkout-app.vercel.app/api
 ```
 
 4. Install the app in Saleor
@@ -152,7 +163,7 @@ Grab the deployed app URL from Vercel and add `/api/manifest`. This URL points t
 
 > Example manifest URL:
 > ```
-> https://saleor-payments-xyz-myusername.vercel.app/api/manifest
+> https://saleor-checkout-xyz-myusername.vercel.app/api/manifest
 > ```
 
 You can install the app by using:
@@ -171,6 +182,19 @@ saleor app install
 
 - [Saleor Core manage.py script](https://docs.saleor.io/docs/3.x/developer/extending/apps/installing-apps#installing-third-party-apps)
 - [Saleor GraphQL API](https://docs.saleor.io/docs/3.x/developer/extending/apps/installing-apps#installation-using-graphql-api)
+
+> **PROTIP 💡**: If you want your app to automatically update whenever you push changes to the `main` branch, make sure to use **production** domain from Vercel (not deployment domain) for your manifest URL.
+> 
+> ❌ Deployment domain (won't update app after push):
+> ```
+> https://saleor-checkout-app-jluy793b2-myusername.vercel.app/api/manifest
+> ```
+> ✅ Production domain:
+> ```
+> https://saleor-checkout-app.vercel.app/api/manifest
+> ```
+> To see which domain is used for production go to [Vercel Dashboard](https://vercel.com) > Settings > Domains:
+> ![Vercel dashboard settings page that shows which domain is connected to production deployment](./docs/setup-vercel-domain.png)
 
 5. Generate app token
 
@@ -227,7 +251,7 @@ outputs this:
 
 6. Update environment variables in Vercel
 
-You have to add additional environment variables for Payments App in Vercel:
+You have to add additional environment variables for Checkout App in Vercel:
 - `SALEOR_APP_ID` — ID of the app
 - `SALEOR_APP_TOKEN` — Token you've just generated
 
@@ -246,7 +270,7 @@ After you're done re-deploy the app
 
 #### Checkout
 
-1. Start by creating another project on Vercel, just like we did in [Payments App setup](#payments-app), select the same repository
+1. Start by creating another project on Vercel, just like we did in [Checkout App setup](#checkout-app), select the same repository
 
 2. On the configuration page:
   - Provide your project name (for example `saleor-checkout`)
@@ -259,7 +283,7 @@ cd ../.. && pnpm run build:checkout
 ```
 
   - *Optional*: customise environment variables:
-    - `REACT_APP_CHECKOUT_APP_URL` — URL of the deployed [Payments App](#payments-app) API root. For example:
+    - `REACT_APP_CHECKOUT_APP_URL` — URL of the deployed [Checkout App](#checkout-app) API root. For example:
     - `REACT_APP_SALEOR_API_URL` — URL of Saleor GraphQL API endpoint
 
 > By default, those environment variables are taken from `.env` file in root of the monorepo
