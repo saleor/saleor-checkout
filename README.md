@@ -231,7 +231,7 @@ You have to add additional environment variables for Payments App in Vercel:
 - `SALEOR_APP_ID` — ID of the app
 - `SALEOR_APP_TOKEN` — Token you've just generated
 
-> ⚠️  These values are secrets — don't store them inside your git repository
+> 🚨 These values are secrets — don't store them inside your git repository
 
 Make sure that you also have "Automatically expose System Environment Variables" selected
 
@@ -239,6 +239,8 @@ Here's how the configuration should look like in the end:
 ![Vercel env variable final configuration](./docs/setup-vercel-3.png)
 
 After you're done re-deploy the app
+
+> ⚠️  Make sure that you **didn't** select the "Redeploy with existing Build Cache."  option
 
 7. 🥳 Congrats! Payment app is now ready to be used!
 
