@@ -28,11 +28,11 @@ And run the development server:
 $ pnpm dev
 ```
 
-You'll need checkout token in order to use the checkout. You can generate new checkout either in your storefront or graphql playground. You can use a preexisting checkout as well.
+You'll need a token to use the checkout. A new checkout session can be generated either in your storefront or in the GraphQL Playground. You could use a preexisting checkout as well.
 
-> ⚠️ Note that if a given checkout has customer already attached, it'll become private and **you won't be able to fetch its data from the api** without the same customer being logged in your current browser. Checkout uses [Saleor SDK](https://github.com/saleor/saleor-sdk) for authentication.
+> ⚠️ Note that if a given checkout has customer already attached, it'll become private, and **you won't be able to fetch its data from the api** without the same customer being logged in your current browser. Checkout uses [Saleor SDK](https://github.com/saleor/saleor-sdk) for authentication.
 
-To generate checkout in GraphQL API and retrieve it's id:
+To generate checkout in GraphQL API and retrieve its `id`:
 
 ```graphql
 mutation {

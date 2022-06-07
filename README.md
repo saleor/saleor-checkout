@@ -12,8 +12,8 @@ Here's the list of each app and shared package in the monorepo (click to see a R
 
 #### Apps
 
-- [`apps/checkout`](apps/checkout/README.md): a SPA React 18 checkout app, ready to be extended/modified
-- [`apps/checkout-app`](apps/checkout-app/README.md): a Next.js Saleor app with dashboard for managing settings and theme, backend for checkout SPA, ready to be extended/modified
+- [`apps/checkout`](apps/checkout/README.md): an SPA React 18 checkout app, ready to be extended/modified
+- [`apps/checkout-app`](apps/checkout-app/README.md): an Next.js Saleor app with dashboard for managing settings and theme, backend for checkout SPA, ready to be extended/modified
 
 #### Packages
 
@@ -42,7 +42,7 @@ pnpm dlx turbo run build --filter=checkout
 pnpm run build:checkout
 ```
 
-In this example we'll only build `apps/checkout`
+In this example, we'll only build `apps/checkout`
 
 ### Develop
 
@@ -54,7 +54,7 @@ npx saleor app tunnel 3000
 
 > Note: the process needs to be running in the background
 
-Before you start the server you need to change default environment variables. Create `.env.local` file in each app:
+Before you start the server, you need to change default environment variables. Create `.env.local` file in each app:
 - [`apps/checkout-app`](./apps/checkout-app/README.md#env-variables)
 - [`apps/checkout`](./apps/checkout/README.md#local-development)
 
@@ -198,7 +198,7 @@ saleor app install
 
 5. Generate app token
 
-After the app was installed generate it's `authToken`
+After the app was installed, generate it's `authToken`
 
 - [Saleor CLI](https://github.com/saleor/saleor-cli)
 
@@ -216,7 +216,7 @@ mutation {
 }
 ```
 
-Where `<MY_APP_ID>` is the app id. You can retrieve the id by using this GraphQL query:
+Where `<MY_APP_ID>` is the app `id`. You can retrieve the `id` by using this GraphQL query:
 
 ```graphql
 query {
@@ -262,7 +262,7 @@ Make sure that you also have "Automatically expose System Environment Variables"
 Here's how the configuration should look like in the end:
 ![Vercel env variable final configuration](./docs/setup-vercel-3.png)
 
-After you're done re-deploy the app
+After you're done, re-deploy the app
 
 > ⚠️  Make sure that you **didn't** select the "Redeploy with existing Build Cache."  option
 
@@ -311,7 +311,7 @@ You can toggle, which payment gateway handles each different payment options per
 
 ![Configuration options: Credit Card, Apple Pay, PayPal that are available in checkout app dashboard](./docs/config-dashboard-1.png)
 
-In order to use payment gateway you need to provide credentials. You can do that by clicking settings icon in channel configuration page
+To use payment gateway, you need to provide its credentials. You can do that by clicking settings icon in channel configuration page
 
 ![Payment gateway configuration in Saleor dashboard](./docs/config-dashboard-2.png)
 
@@ -319,11 +319,11 @@ In order to use payment gateway you need to provide credentials. You can do that
 
 1. [Sign up for Mollie account](https://www.mollie.com/dashboard/signup?lang=en)
 
-2. In your Mollie dashboard select: Developers > API keys and copy **API key** and **Profile ID**
+2. In your Mollie dashboard, select: Developers > API keys and copy **API key** and **Profile ID**
   - **Live API key** - for production environment
   - **Test API key** - for development environment
 
-3. In Checkout app configuration enter the data you've just copied
+3. In Checkout app configuration, enter the data you've just copied
 
 ![Mollie config inside Saleor dashboard after env variable and profile id were pasted](./docs/config-dashboard-mollie.png)
 
