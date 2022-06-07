@@ -1,4 +1,3 @@
-import { envVars } from "@/constants";
 import { CustomizationSettingsValues } from "@/types/api";
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
@@ -7,27 +6,28 @@ import { useStyles } from "./styles";
 interface CheckoutPreviewFrameProps {
   settings: CustomizationSettingsValues;
   className?: string;
+  checkoutUrl: string;
 }
 
 const CheckoutPreviewFrame: React.FC<CheckoutPreviewFrameProps> = ({
   settings,
   className,
+  checkoutUrl,
 }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [appMounted, setAppMounted] = useState(false);
   const classes = useStyles();
 
+  const checkoutOrigin = new URL(checkoutUrl).origin;
+
   const sendMessage = () => {
     if (iframeRef.current) {
-      iframeRef.current.contentWindow?.postMessage(
-        settings,
-        envVars.previewUrl
-      );
+      iframeRef.current.contentWindow?.postMessage(settings, checkoutOrigin);
     }
   };
 
   const mountListener = (event: MessageEvent<"mounted" | undefined>) => {
-    if (event.origin === envVars.previewUrl && event.data === "mounted") {
+    if (event.origin === checkoutOrigin && event.data === "mounted") {
       setAppMounted(true);
     }
   };
@@ -42,7 +42,7 @@ const CheckoutPreviewFrame: React.FC<CheckoutPreviewFrameProps> = ({
     return () => {
       window.removeEventListener("message", mountListener);
     };
-  }, [settings, iframeRef.current]);
+  }, [settings, checkoutUrl, iframeRef.current]);
 
   useEffect(() => {
     if (appMounted) {
@@ -54,7 +54,7 @@ const CheckoutPreviewFrame: React.FC<CheckoutPreviewFrameProps> = ({
   return (
     <iframe
       ref={iframeRef}
-      src={`${envVars.previewUrl}?checkoutToken=${envVars.previewCheckoutToken}`}
+      src={checkoutUrl}
       className={clsx(classes.iframe, className)}
     />
   );

@@ -4,12 +4,7 @@ export const isSsr = typeof window === "undefined";
 export const saleorDomainHeader = "x-saleor-domain";
 export const saleorTokenHeader = "x-saleor-token";
 
-export type EnvVar =
-  | "appDomain"
-  | "appUrl"
-  | "apiUrl"
-  | "previewUrl"
-  | "previewCheckoutToken";
+export type EnvVar = "appDomain" | "appUrl" | "apiUrl";
 export type ServerEnvVar = "appId" | "appToken" | "settingsEncryptionSecret";
 
 export type EnvVars = Record<EnvVar, string>;
@@ -21,8 +16,6 @@ export const envVars: EnvVars = {
   appDomain: process.env.NEXT_PUBLIC_VERCEL_URL!,
   appUrl: `https://${process.env.NEXT_PUBLIC_VERCEL_URL!}`,
   apiUrl: process.env.NEXT_PUBLIC_SALEOR_API_URL!,
-  previewUrl: process.env.PREVIEW_URL!,
-  previewCheckoutToken: process.env.PREVIEW_CHECKOUT_TOKEN!,
 };
 
 export const serverEnvVars: ServerEnvVars = {
