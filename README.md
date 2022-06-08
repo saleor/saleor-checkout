@@ -37,8 +37,6 @@ pnpm run build
 You can also build a specific app or package by running this command:
 
 ```bash
-pnpm dlx turbo run build --filter=checkout
-# or
 pnpm run build:checkout
 ```
 
@@ -67,8 +65,6 @@ pnpm run dev
 You can also run only a specific app by running this command:
 
 ```bash
-pnpm dlx turbo run dev --filter=checkout
-# or
 cd apps/checkout && pnpm dev
 ```
 
