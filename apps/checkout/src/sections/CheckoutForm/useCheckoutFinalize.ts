@@ -1,7 +1,7 @@
-import { useCheckout } from "@/hooks/useCheckout";
-import { usePay } from "@/hooks/usePay";
-import { extractMutationErrors } from "@/lib/utils";
-import { useErrors } from "@/providers/ErrorsProvider";
+import { useCheckout } from "@/checkout/hooks/useCheckout";
+import { usePay } from "@/checkout/hooks/usePay";
+import { extractMutationErrors } from "@/checkout/lib/utils";
+import { useErrors } from "@/checkout/providers/ErrorsProvider";
 import { useAuth, useAuthState } from "@saleor/sdk";
 import { omit } from "lodash-es";
 

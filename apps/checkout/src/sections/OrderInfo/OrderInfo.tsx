@@ -1,5 +1,5 @@
-import { OrderFragment } from "@/graphql";
-import { useFormattedMessages } from "@/hooks/useFormattedMessages";
+import { OrderFragment } from "@/checkout/graphql";
+import { useFormattedMessages } from "@/checkout/hooks/useFormattedMessages";
 
 import { Address } from "./Address";
 import { DeliverySection } from "./DeliverySection";

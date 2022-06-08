@@ -4,9 +4,9 @@ import {
   OrderAuthorizeStatusEnum,
   OrderChargeStatusEnum,
   PaymentChargeStatusEnum,
-} from "@/graphql";
-import { useFormattedMessages } from "@/hooks/useFormattedMessages";
-import { usePay } from "@/hooks/usePay";
+} from "@/checkout/graphql";
+import { useFormattedMessages } from "@/checkout/hooks/useFormattedMessages";
+import { usePay } from "@/checkout/hooks/usePay";
 
 import { Section, SectionTitle } from "./Section";
 

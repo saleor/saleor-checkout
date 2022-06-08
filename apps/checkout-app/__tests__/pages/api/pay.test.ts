@@ -1,13 +1,18 @@
-import pay, { Body, ErrorResponse, SuccessResponse } from "@/pages/api/pay";
-import { mockRequest } from "@/test-utils";
+import {
+  Body,
+  ErrorResponse,
+  SuccessResponse,
+} from "@/checkout-app/types/api/pay";
+import pay from "@/checkout-app/pages/api/pay";
+import { mockRequest } from "@/checkout-app/test-utils";
 
-import { createMolliePayment } from "@/backend/payments/providers/mollie";
-import { createAdyenPayment } from "@/backend/payments/providers/adyen";
-import { createOrder } from "@/backend/payments/createOrder";
+import { createMolliePayment } from "@/checkout-app/backend/payments/providers/mollie";
+import { createAdyenPayment } from "@/checkout-app/backend/payments/providers/adyen";
+import { createOrder } from "@/checkout-app/backend/payments/createOrder";
 
-jest.mock("@/backend/payments/createOrder");
-jest.mock("@/backend/payments/providers/mollie");
-jest.mock("@/backend/payments/providers/adyen");
+jest.mock("@/checkout-app/backend/payments/createOrder");
+jest.mock("@/checkout-app/backend/payments/providers/mollie");
+jest.mock("@/checkout-app/backend/payments/providers/adyen");
 jest.mock("@mollie/api-client");
 jest.mock("urql");
 

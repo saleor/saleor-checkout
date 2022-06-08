@@ -1,5 +1,5 @@
-import { pay as payRequest } from "@/fetch";
-import { useFetch } from "@/hooks/useFetch";
+import { pay as payRequest } from "@/checkout/fetch";
+import { useFetch } from "@/checkout/hooks/useFetch";
 import { OrderBody, CheckoutBody } from "checkout-app/types/api/pay";
 
 const getRedirectUrl = () => {

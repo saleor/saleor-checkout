@@ -1,4 +1,4 @@
-import { OrderCreateFromCheckoutErrorCode } from "@/graphql";
+import { OrderCreateFromCheckoutErrorCode } from "@/checkout-app/graphql";
 
 type InternalErrorCodes =
   | "COULD_NOT_CREATE_ORDER_FROM_CHECKOUT"

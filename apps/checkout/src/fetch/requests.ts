@@ -1,6 +1,6 @@
-import { FetchResponse } from "@/hooks/useFetch";
-import { envVars } from "@/lib/utils";
-import { AppConfig } from "@/providers/AppConfigProvider/types";
+import { FetchResponse } from "@/checkout/hooks/useFetch";
+import { envVars } from "@/checkout/lib/utils";
+import { AppConfig } from "@/checkout/providers/AppConfigProvider/types";
 import { Body } from "checkout-app/types/api/pay";
 
 export const getPaymentProviders = () =>

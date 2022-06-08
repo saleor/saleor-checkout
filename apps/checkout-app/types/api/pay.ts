@@ -1,4 +1,4 @@
-import { Errors } from "@/backend/payments/types";
+import { Errors } from "@/checkout-app/backend/payments/types";
 
 import { PaymentProviderID } from "../common";
 

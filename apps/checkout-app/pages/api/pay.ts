@@ -1,13 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { createMolliePayment } from "@/backend/payments/providers/mollie";
-import { createOrder } from "@/backend/payments/createOrder";
-import { allowCors } from "@/backend/utils";
-import { PaymentProviderID } from "@/types/common";
-import { createAdyenPayment } from "@/backend/payments/providers/adyen";
-import { OrderFragment } from "@/graphql";
-import { getOrderDetails } from "@/backend/payments/getOrderDetails";
-import { Body, Response, ErrorResponse } from "@/types/api/pay";
+import { createMolliePayment } from "@/checkout-app/backend/payments/providers/mollie";
+import { createOrder } from "@/checkout-app/backend/payments/createOrder";
+import { allowCors } from "@/checkout-app/backend/utils";
+import { PaymentProviderID } from "@/checkout-app/types/common";
+import { createAdyenPayment } from "@/checkout-app/backend/payments/providers/adyen";
+import { OrderFragment } from "@/checkout-app/graphql";
+import { getOrderDetails } from "@/checkout-app/backend/payments/getOrderDetails";
+import { Body, Response, ErrorResponse } from "@/checkout-app/types/api/pay";
 
 const paymentProviders: PaymentProviderID[] = ["mollie", "adyen"];
 
