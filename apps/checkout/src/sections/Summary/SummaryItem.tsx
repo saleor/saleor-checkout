@@ -6,7 +6,7 @@ import { SummaryItemMoneyEditableSection } from "./SummaryItemMoneyEditableSecti
 import { SummaryItemDelete } from "./SummaryItemDelete";
 import { PhotoIcon } from "@/icons";
 import { useFormattedMessages } from "@/hooks/useFormattedMessages";
-import { getSummaryLineProps, isCheckoutLine } from "./utils";
+import { getSummaryLineProps, isCheckoutLine, constructJSONAttributes } from "./utils";
 
 interface LineItemProps {
   line: CheckoutLineFragment | OrderLineFragment;
@@ -19,20 +19,23 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
   const formatMessage = useFormattedMessages();
   
   //all attributes does not exist after paying
-  if(allAttributes) {
-    console.log(allAttributes)
-    const fieldsToDisplayValue = ['Embark Date', 'Disembark Date', 'Duration', 'Rate Code', 'Ship Name']
-    const fieldsToDisplayRichText = ['Price Items']
-    const attributesToDisplay: Record<string, any> = {}
-    allAttributes?.forEach((attribute) => {
-      attribute.name && fieldsToDisplayValue.includes(attribute.name) ? attributesToDisplay[attribute?.name] = attribute.value[0] : 'N/A'
-    })
-    console.log(allAttributes)
-    const priceItem = allAttributes?.filter(attr => attr.name == 'Price Items')[0].richText[0]
-    const priceItemJSON = priceItem && JSON.parse(priceItem ? priceItem : "{}")
-    if (priceItem) console.log(JSON.parse(priceItemJSON.blocks[0].data.text))
-  } 
-  
+
+  const priceItem = allAttributes?.filter(attr => attr.name == 'Price Items')[0].richText[0]
+ 
+  console.log(allAttributes)
+  const remainingAttributesToDisplay = ['Cabin Grade Name', 'Cabin Grade Description', 
+                                        'Deck Code', 'Deck Level', 'Disembark Date', 
+                                        'Duration', 'Line Name', 'Ship Name']
+  const remainingAttributes: Record<string, any> = {}
+  allAttributes?.forEach((attribute) => {
+    attribute.name && remainingAttributesToDisplay.includes(attribute.name) ? remainingAttributes[attribute?.name] = attribute.value[0] : 'N/A'
+  })
+
+    console.log(remainingAttributes)
+
+
+  const { breakdownItemsPerPassenger, priceItems }: {breakdownItemsPerPassenger: Record<string, Record<string, any>> | null, priceItems: Record<string, any> | null} = priceItem && constructJSONAttributes(priceItem)
+
   return (
     <li className="flex flex-row px-6 mb-6">
       <div className="relative flex flex-row">
@@ -63,7 +66,24 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
             {productName}
           </Text>
           <Text aria-label={formatMessage("variantNameLabel")}>
-            PlaceHolder
+            {remainingAttributesToDisplay.map((attr, index) => {
+              return <span key={`${attr}-${index}`} style={{display: 'block'}}>{`${attr}: ${remainingAttributes[attr]}`}</span>
+            })}
+            <br />
+            {Object.keys(breakdownItemsPerPassenger).map((passenger, index) => {
+              return( <>
+                        <span key={`${passenger}-${index}`} style={{display: 'block'}}>
+                          {`guest ${passenger} fare: ${breakdownItemsPerPassenger[passenger]['AMCT']['price']}`}
+                        </span>
+                        <span key={`${passenger}-${index}`} style={{display: 'block'}}>
+                          {`guest ${passenger} taxes fees and port expenses: ${breakdownItemsPerPassenger[passenger]['TXFS']['price']}`}
+                        </span>
+                        <br />
+                      </>
+                    )
+            })}
+            <br />
+            {`total: ${priceItems['totalFarePrice']}`}
           </Text>
         </div>
         {readOnly && (

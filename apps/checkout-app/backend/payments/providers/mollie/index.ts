@@ -24,7 +24,7 @@ export const createMolliePayment = async (
   const lines = getLines(data.lines);
   console.log(envVars.appUrl);
   console.log('URLS REDIRECT')
-  console.log(redirectUrl, data.token)
+  console.log(formatRedirectUrl(redirectUrl, data.token))
   const mollieData = await mollieClient.orders.create({
     orderNumber: data.number!,
     webhookUrl: `${envVars.appUrl}/api/webhooks/mollie`,
