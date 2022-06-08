@@ -268,7 +268,7 @@ After you're done, re-deploy the app
 
 7. 🥳 Congrats! Payment app is now ready to be used!
 
-#### Checkout
+#### Checkout SPA
 
 1. Start by creating another project on Vercel, just like we did in [Checkout App setup](#checkout-app), select the same repository
 
@@ -329,4 +329,100 @@ To use payment gateway, you need to provide its credentials. You can do that by 
 
 ### Adyen
 
-Guide TBD
+Saleor Checkout uses Adyen's [Pay by Link flow](https://docs.adyen.com/unified-commerce/pay-by-link)
+
+1. [Sign up for Adyen test account](https://www.adyen.com/signup)
+
+2. In [test Customer Area](https://ca-test.adyen.com/) create [new merchan account](https://ca-test.adyen.com/ca/ca/accounts/show.shtml)
+
+3. [Create new API credentials](https://ca-test.adyen.com/ca/ca/config/api_credentials_new.shtml). Go to Developers > API credentials > Create new credential
+
+Select "Web service user" and enter some description (for example "Saleor Checkout")
+
+![Setup Adyen API credentials modal in Customer Area](./docs/setup-adyen-1.png)
+
+4. Copy **API key** from newly generated API credentials and paste it in Checkout app configuration > Adyen > **Private API key**
+
+![Copy API key from Adyen Customer Area](./docs/setup-adyen-2.png)
+
+![Paste API key in Checkout app configuration](./docs/setup-adyen-3.png)
+
+5. Click **"Generate client key"** and copy it to clipboard, paste it in Checkout app configuration > Adyen > **Public client key**
+
+![Copy client key from Adyen's Customer Area](./docs/setup-adyen-4.png)
+
+![Paste client key in Checkout app configuration](./docs/setup-adyen-5.png)
+
+6. **Add allowed origin** to your Client key, paste URL of your deployed [Checkout SPA](#checkout-spa) and click **"Add"**
+
+![Pasted deployed URL of Checkout SPA in client key's allowed origin](./docs/setup-adyen-6.png)
+
+7. **Save changes** you've made to API credential
+
+8. [Create standard notification webhook](https://docs.adyen.com/unified-commerce/pay-by-link/payment-links/api#webhooks). Go to Developers > [Webhooks](https://ca-test.adyen.com/ca/ca/config/showthirdparty.shtml) > "+ Webook" > ["Standard notification"](https://ca-test.adyen.com/ca/ca/config/configurethirdparty.shtml?method:add&selectedMimetype=notifications)
+
+![Creating new Standard notification webhook in Adyen portal](./docs/setup-adyen-7.png)
+
+Fill out the webhook details:
+
+- **Description** - enter some description for your webhook (ex. Saleor Checkout notifications)
+- **Server configuration**
+  - **URL** - URL of your deployed [Checkout App](#checkout-app) + `/api/webhooks/adyen`
+
+```
+<YOUR_CHECKOUT_APP_URL>/api/webhooks/adyen
+```
+
+  - Other settings should be set to default:
+    - **Method**: JSON
+    - **SSL version**: TLSv1.2
+    - **Service version** - 1
+
+![Webhook Server configuration config](./docs/setup-adyen-webhook-1.png)
+
+- **Merchant accounts** - choose "Include only specific merchant accounts" and select the merchant account you'll use for checkout, the name must be provided in Checkout App configuration
+
+![Webhook Merchant accounts configuration](./docs/setup-adyen-webhook-2.png)
+
+![Merchant account configuration in Checkout app settings](./docs/setup-adyen-webhook-3.png)
+
+- **Events** - leave events selected by default
+- **Security**
+  - **Basic authentication** - arbitrary username and password, you can use `openssl rand -hex 64` to generate random password
+  - **HMAC Key** - click "Generate" and copy the key
+  - Those 3 values: `username`, `password` and `HMAC Key` must be provided in Checkout App configuration
+
+This is how your webhook configuration should look like in Adyen:
+
+![Final adyen webhook configuration](./docs/setup-adyen-webhook-4.png)
+
+This is how your Checkout App configuration should look like in Saleor dashboard:
+
+![Final checkout app configuration in Saleor dashboard](./docs/setup-adyen-webhook-5.png)
+
+9. Save settings in Adyen and in Checkout App configuration
+
+10. Test webhook configuration in Adyen
+
+Click "Test configuration" button after you've saved the configuration.
+
+Select **"AUTHORISATION"** from the list and click "Test"
+
+![Selecting what webhook event should be sent to Checkout App](./docs/setup-adyen-webhook-test-1.png)
+
+Adyen will make a call to your webhook. If everythign is configured properly you'll see that the test was successful:
+
+![Successful webhook test in Adyen](./docs/setup-adyen-webhook-test-2.png)
+
+> Note: It can take a while for your webhook configuration to propagate in Adyen after you save it. If the test failed, give it a few minutes before you try again
+
+If the response failed because of invalid configuration in Adyen, Checkout App will return the reason in response:
+
+![Failed test because of invalid HMAC Key](./docs/setup-adyen-webhook-test-3.png)
+
+11. After you've tested your webhook, enable it, by clicking the toggle button
+
+![Enabling the webhook in Adyen](./docs/setup-adyen-webhook-6.png)
+
+12. 🥳 Congrats! You've finished configuration of Adyen payment gateway
+
