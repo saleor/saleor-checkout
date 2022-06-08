@@ -49,7 +49,7 @@ In this example, we'll only build `apps/checkout`
 Create a tunnel for `checkout-app`:
 
 ```bash
-npx saleor app tunnel 3000
+cd apps/checkout-app && npx saleor app tunnel 3000
 ```
 
 > Note: the process needs to be running in the background
