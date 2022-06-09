@@ -4,8 +4,7 @@ import {
 } from "@/config/defaults";
 import { mapPrivateSettingsToMetadata } from "@/backend/configuration/mapPrivateSettingsToMetadata";
 import { mapPublicSettingsToMetadata } from "@/frontend/misc/mapPublicSettingsToMetadata";
-import { MetadataItemFragment } from "@/graphql";
-import { PrivateSettingsValues, PublicSettingsValues } from "@/types/api";
+import { PublicSettingsValues } from "@/types/api";
 
 describe("/utils/frontend/misc/mapSettingsToMetadata", () => {
   it("maps settings to public metadata", async () => {
@@ -23,7 +22,10 @@ describe("/utils/frontend/misc/mapSettingsToMetadata", () => {
 
     const mappedMetadata = mapPublicSettingsToMetadata(settingsValues);
 
-    const expectedMetadata: MetadataItemFragment[] = [
+    const expectedMetadata: Array<{
+      key: string;
+      value: string;
+    }> = [
       {
         key: "customizations",
         value:
@@ -39,7 +41,7 @@ describe("/utils/frontend/misc/mapSettingsToMetadata", () => {
   });
 
   it("maps settings to private metadata", async () => {
-    const settingsValues: PrivateSettingsValues<"unencrypted"> = {
+    const settingsValues = {
       ...defaultPrivateSettings,
       paymentProviders: {
         ...defaultPrivateSettings.paymentProviders,
@@ -47,6 +49,7 @@ describe("/utils/frontend/misc/mapSettingsToMetadata", () => {
           clientKey: "adyen_unencrypted_key",
           merchantAccount: "adyen_unencrypted_value",
           supportedCurrencies: "USD,EUR",
+          apiKey: "api_unecrypted_value",
         },
       },
     };
@@ -57,10 +60,16 @@ describe("/utils/frontend/misc/mapSettingsToMetadata", () => {
       (metadata) => metadata.key === "paymentProviders"
     )?.value;
 
+    // These metadata are private and encrypted
     expect(providersMetadata).not.toContain(
+      settingsValues.paymentProviders.adyen.apiKey
+    );
+
+    // These metadata are public and unencrypted
+    expect(providersMetadata).toContain(
       settingsValues.paymentProviders.adyen.clientKey
     );
-    expect(providersMetadata).not.toContain(
+    expect(providersMetadata).toContain(
       settingsValues.paymentProviders.adyen.merchantAccount
     );
     expect(providersMetadata).toContain(
