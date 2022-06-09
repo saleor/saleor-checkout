@@ -7,25 +7,29 @@ import { PaymentProviderID } from "@/checkout-app/types/common";
 import { createAdyenPayment } from "@/checkout-app/backend/payments/providers/adyen";
 import { OrderFragment } from "@/checkout-app/graphql";
 import { getOrderDetails } from "@/checkout-app/backend/payments/getOrderDetails";
-import { Body, Response, ErrorResponse } from "@/checkout-app/types/api/pay";
+import {
+  PayRequestBody,
+  PayRequestResponse,
+  PayRequestErrorResponse,
+} from "@/checkout-app/types/api/pay";
 
 const paymentProviders: PaymentProviderID[] = ["mollie", "adyen"];
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log(req.headers.host);
   if (req.method !== "POST") {
     res.status(405).send({ message: "Only POST requests allowed" });
     return;
   }
 
-  let body: Body =
+  let body: PayRequestBody =
     typeof req.body === "string" ? JSON.parse(req.body) : req.body;
 
   // check if correct provider was passed
   if (!paymentProviders.includes(body.provider)) {
-    return res
-      .status(400)
-      .json({ ok: false, errors: ["UNKNOWN_PROVIDER"] } as ErrorResponse);
+    return res.status(400).json({
+      ok: false,
+      errors: ["UNKNOWN_PROVIDER"],
+    } as PayRequestErrorResponse);
   }
 
   let order: OrderFragment;
@@ -37,7 +41,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       return res.status(400).json({
         ok: false,
         errors: data.errors,
-      } as ErrorResponse);
+      } as PayRequestErrorResponse);
     }
 
     order = data.data;
@@ -48,7 +52,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       return res.status(400).json({
         ok: false,
         errors: data.errors,
-      } as ErrorResponse);
+      } as PayRequestErrorResponse);
     }
 
     order = data.data;
@@ -56,10 +60,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return res.status(400).json({
       ok: false,
       errors: ["MISSING_CHECKOUT_OR_ORDER_ID"],
-    } as ErrorResponse);
+    } as PayRequestErrorResponse);
   }
 
-  let response: Response;
+  let response: PayRequestResponse;
 
   if (body.provider === "mollie") {
     const url = await createMolliePayment(order, body.redirectUrl);

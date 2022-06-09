@@ -17,7 +17,7 @@ export type CheckoutBody = {
   totalAmount: number;
 } & BaseBody;
 
-export type Body = OrderBody | CheckoutBody;
+export type PayRequestBody = OrderBody | CheckoutBody;
 
 type MollieResponse = {
   provider: "mollie";
@@ -33,16 +33,18 @@ type AdyenResponse = {
   };
 };
 
-export type SuccessResponse = {
+export type PayRequestSuccessResponse = {
   provider: PaymentProviderID;
   ok: true;
   orderId: string;
 } & (MollieResponse | AdyenResponse);
 
-export type ErrorResponse = {
+export type PayRequestErrorResponse = {
   ok: false;
   orderId?: string;
   errors: Errors;
 };
 
-export type Response = SuccessResponse | ErrorResponse;
+export type PayRequestResponse =
+  | PayRequestSuccessResponse
+  | PayRequestErrorResponse;
