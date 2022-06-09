@@ -23,6 +23,44 @@ fragment OrderLineFragment on OrderLine {
   }
   productName
   variantName
+  variant {
+    id
+    pricing {
+      onSale
+      price {
+        gross {
+          currency
+          amount
+        }
+      }
+      priceUndiscounted {
+        gross {
+          currency
+          amount
+        }
+      }
+    }
+    attributes {
+      attribute {
+        name
+        id
+      }
+      values {
+        name
+        id
+        richText
+      }
+    }
+    name
+    product {
+      name
+    }
+    media {
+      alt
+      type
+      url(size: 72)
+    }
+  }
   thumbnail {
     alt
     url

@@ -8,6 +8,6 @@ export const useOrder = (token: string) => {
     variables: { token },
     pause: authenticating,
   });
-
+  console.log(data)
   return { order: data?.orderByToken!, loading };
 };
