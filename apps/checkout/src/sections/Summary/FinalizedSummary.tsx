@@ -40,14 +40,6 @@ export const FinalizedSummary = ({ order }: { order: OrderFragment }) => {
           />
         </div>
         <Divider className="my-4" />
-        <div className="summary-row mb-2">
-          <Text color="secondary">{formatMessage("shippingCost")}</Text>
-          <Money
-            ariaLabel={formatMessage("shippingCostLabel")}
-            color="secondary"
-            money={order.shippingPrice.gross}
-          />
-        </div>
         <div className="summary-row">
           <Text color="secondary">
             {formatMessage("taxCost", {
