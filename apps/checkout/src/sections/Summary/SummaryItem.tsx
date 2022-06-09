@@ -34,7 +34,7 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
     console.log(remainingAttributes)
 
 
-  const { breakdownItemsPerPassenger, priceItems }: {breakdownItemsPerPassenger: Record<string, Record<string, any>> | null, priceItems: Record<string, any> | null} = priceItem && constructJSONAttributes(priceItem)
+  const { breakdownItemsPerPassenger, priceItems } = priceItem && constructJSONAttributes(priceItem)
 
   return (
     <li className="flex flex-row px-6 mb-6">
