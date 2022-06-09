@@ -8,7 +8,7 @@ import {
 import { Addresses, AddressesSkeleton } from "@/sections/Addresses";
 import { useErrorMessages } from "@/hooks/useErrorMessages";
 import { useValidationResolver } from "@/lib/utils";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { Button } from "@/components/Button";
@@ -30,6 +30,8 @@ export const CheckoutForm = () => {
   // TMP
   // const [selectedPaymentProvider, setSelectedPaymentProvider] =
   //   useState<string>();
+
+  const [checkoutStage, setCheckoutStage] = useState<number>(0)
 
   const schema = object({
     password: string().required(errorMessages.requiredValue),
@@ -63,7 +65,7 @@ export const CheckoutForm = () => {
       </FormProvider>
       <Divider className="mt-4" />
       <Suspense fallback={<AddressesSkeleton />}>
-        {isLoading ? <AddressesSkeleton /> : <Addresses />}
+        {checkoutStage === 0 && (isLoading ? <AddressesSkeleton /> : <Addresses />)}
       </Suspense>
       <Suspense fallback={<ShippingMethodsSkeleton />}>
         {isLoading ? <ShippingMethodsSkeleton /> : <ShippingMethods />}

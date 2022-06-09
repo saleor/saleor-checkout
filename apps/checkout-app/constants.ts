@@ -14,7 +14,7 @@ export type ServerEnvVars = Record<ServerEnvVar, string>;
 // https://github.com/vercel/next.js/issues/19420
 export const envVars: EnvVars = {
   appDomain: process.env.NEXT_PUBLIC_VERCEL_URL!,
-  appUrl: `https://${process.env.NEXT_PUBLIC_VERCEL_URL!}`,
+  appUrl: `http://${process.env.NEXT_PUBLIC_VERCEL_URL!}`,
   apiUrl: process.env.NEXT_PUBLIC_SALEOR_API_URL!,
 };
 

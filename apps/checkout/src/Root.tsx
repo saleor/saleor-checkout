@@ -31,7 +31,7 @@ const saleorClient = createSaleorClient({
 
 export const Root = () => {
   const orderToken = getQueryVariables().orderToken;
-
+  console.log(orderToken)
   return (
     // @ts-ignore React 17 <-> 18 type mismatch
     <SaleorProvider client={saleorClient}>

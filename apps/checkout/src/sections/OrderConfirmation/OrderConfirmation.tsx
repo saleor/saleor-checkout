@@ -12,6 +12,7 @@ import { SummarySkeleton } from "@/sections/Summary/SummarySkeleton";
 import "./OrderConfirmationStyles.css";
 
 export const OrderConfirmation = ({ orderToken }: { orderToken: string }) => {
+  console.log(orderToken)
   const { order } = useOrder(orderToken);
   const formatMessage = useFormattedMessages();
 
