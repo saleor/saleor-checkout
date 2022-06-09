@@ -92,16 +92,11 @@ By default those environment variables values are taken from `.env` file in root
 
 Checkout uses the following environment variables:
 
-- `REACT_APP_CHECKOUT_APP_URL` — URL of the deployed [Checkout App](../checkout-app/README.md) API endpoint
+- `REACT_APP_CHECKOUT_API_URL` — URL of the deployed [Checkout App](../checkout-app/README.md) API endpoint
 
-> **For development**: use the domain name Saleor CLI assigned you when you've run `saleor app tunnel`.
-> Don't use `localhost` - payment gateways need an available endpoint for webhook callbacks
-> 
-> The domain name shouldn't include protocol, so make sure to remove `https://`
->
 > Example:
 > ```
-> NEXT_PUBLIC_VERCEL_URL=checkout-app-xyz.saleor.live
+> REACT_APP_CHECKOUT_API_URL=https://saleor-checkout-app.vercel.app/api
 > ```
 
 - `REACT_APP_SALEOR_API_URL` — URL of Saleor GraphQL API endpoint

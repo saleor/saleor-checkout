@@ -278,11 +278,11 @@ After you're done, re-deploy the app
 cd ../.. && pnpm run build:checkout
 ```
 
-  - *Optional*: customise environment variables:
-    - `REACT_APP_CHECKOUT_APP_URL` — URL of the deployed [Checkout App](#checkout-app) API root. For example:
+  - *Optional*: customise [environment variables](./apps/checkout/README.md#env-variables):
+    - `REACT_APP_CHECKOUT_API_URL` — URL of the deployed [Checkout App](#checkout-app) API root.
     - `REACT_APP_SALEOR_API_URL` — URL of Saleor GraphQL API endpoint
 
-> By default, those environment variables are taken from `.env` file in root of the monorepo
+> By default, those environment variables are taken from [`.env`](./.env) file in root of the monorepo. You don't need to provide env variables in Vercel if you want to use the values from `.env` file.
 
 Here's the final result on configuration page:
 
