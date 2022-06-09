@@ -24,7 +24,7 @@ export const PaymentSection = ({
     if (unpaidStatuses.includes(paymentStatus)) {
       return (
         <>
-          <Text color="error">{formatMessage("unpaidOrderMessage")}</Text>
+          <Text color="success">{formatMessage("paidOrderMessage")}</Text>
         </>
       );
     }

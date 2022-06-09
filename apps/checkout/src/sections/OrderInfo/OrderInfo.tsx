@@ -15,7 +15,6 @@ export const OrderInfo = ({ order }: { order: OrderFragment }) => {
         isPaid={order.isPaid}
         paymentStatus={order.paymentStatus}
       />
-      <DeliverySection deliveryMethod={order.deliveryMethod} />
       {order.shippingAddress && (
         <Section>
           <SectionTitle>{formatMessage("shippingAddress")}</SectionTitle>
