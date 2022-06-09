@@ -55,7 +55,7 @@ export const Summary = () => {
         <div className="w-full h-12" />
         <ul className="summary-items">
           {compact(checkout?.lines)?.map((line) => (
-            <SummaryItem line={line} key={line?.id} />
+            <SummaryItem line={line} key={line?.id} isOrderConfirmation={false} />
           ))}
         </ul>
         <div className="summary-recap">

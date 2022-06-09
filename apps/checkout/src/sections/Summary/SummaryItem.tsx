@@ -10,18 +10,21 @@ import { getSummaryLineProps, isCheckoutLine, constructJSONAttributes } from "./
 
 interface LineItemProps {
   line: CheckoutLineFragment | OrderLineFragment;
+  isOrderConfirmation: boolean;
 }
 
-export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
+export const SummaryItem: React.FC<LineItemProps> = ({ line , isOrderConfirmation }) => {
+  console.log(isOrderConfirmation)
   const readOnly = !isCheckoutLine(line);
   //Summary Item is used before Paying and after Paying - each time is a different data layout and behavior
-  const { productName, productImage, allAttributes } = getSummaryLineProps(line);
+  const { productName, allAttributes } = getSummaryLineProps(line);
   const formatMessage = useFormattedMessages();
   
   //all attributes does not exist after paying
 
   const priceItem = allAttributes?.filter(attr => attr.name == 'Price Items')[0].richText[0]
- 
+  const productImage = allAttributes?.filter(attr => attr.name === 'Deck Image')[0].value[0]
+
   console.log(allAttributes)
   const remainingAttributesToDisplay = ['Cabin Grade Name', 'Cabin Grade Description', 
                                         'Deck Code', 'Deck Level', 'Disembark Date', 
@@ -44,8 +47,8 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line }) => {
           {productImage ? (
             <img
               className="object-contain"
-              alt={productImage?.alt || undefined}
-              src={productImage?.url}
+              // alt={productImage?.alt || undefined}
+              src={productImage}
             />
           ) : (
             <img

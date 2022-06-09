@@ -27,7 +27,7 @@ export const FinalizedSummary = ({ order }: { order: OrderFragment }) => {
       <div className="w-full h-12" />
       <ul className="summary-items">
         {order.lines.map((line) => (
-          <SummaryItem key={line.id} line={line} />
+          <SummaryItem key={line.id} line={line} isOrderConfirmation={true} />
         ))}
       </ul>
       <div className="summary-recap">
