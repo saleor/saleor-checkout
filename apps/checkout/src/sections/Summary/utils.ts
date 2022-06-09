@@ -32,6 +32,13 @@ export const getSummaryLineProps = (
         variantName: line.variantName,
         productName: line.productName,
         productImage: line.thumbnail,
+        allAttributes: line.variant.attributes.map((attribute) => {
+          return {
+            name: attribute.attribute.name,
+            value: attribute.values.map(valueObj => valueObj.name ),
+            richText: attribute.values.map(valueObj => valueObj.richText ),
+          }
+        })
       };
 
 

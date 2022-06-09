@@ -8989,7 +8989,7 @@ export type OrderLine = Node & {
   /** Price of the single item in the order line. */
   unitPrice: TaxedMoney;
   /** A purchased product variant. Note: this field may be null if the variant has been removed from stock at all. Requires one of the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
-  variant?: Maybe<ProductVariant>;
+  variant: ProductVariant;
   variantName: Scalars["String"];
 };
 
@@ -16962,6 +16962,31 @@ export type OrderLineFragment = {
   quantity: number;
   productName: string;
   variantName: string;
+  variant: {
+    __typename?: "ProductVariant";
+    id: string;
+    name: string;
+    attributes: Array<SelectedAttribute>
+    pricing?: {
+      __typename?: "VariantPricingInfo";
+      onSale?: boolean | null;
+      price?: {
+        __typename?: "PirceTaxedMoney";
+        gross: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
+      priceUndiscounted?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; currency: string; amount: number };
+      } | null;
+    } | null;
+    product: { __typename?: "Product"; name: string };
+    media?: Array<{
+      __typename?: "ProductMedia";
+      alt: string;
+      type: ProductMediaType;
+      url: string;
+    }> | null;
+  }
   totalPrice: {
     __typename?: "TaxedMoney";
     gross: { __typename?: "Money"; currency: string; amount: number };
