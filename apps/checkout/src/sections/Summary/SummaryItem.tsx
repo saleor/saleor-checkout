@@ -23,12 +23,13 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line , isOrderConfirmatio
   //all attributes does not exist after paying
 
   const priceItem = allAttributes?.filter(attr => attr.name == 'Price Items')[0].richText[0]
-  const productImage = allAttributes?.filter(attr => attr.name === 'Deck Image')[0].value[0]
+  const productImage = isOrderConfirmation ? allAttributes?.filter(attr => attr.name === 'Deck Image')[0].value[0] : undefined
 
   console.log(allAttributes)
   const remainingAttributesToDisplay = ['Cabin Grade Name', 'Cabin Grade Description', 
                                         'Deck Code', 'Deck Level', 'Disembark Date', 
                                         'Duration', 'Line Name', 'Ship Name']
+  if (isOrderConfirmation) remainingAttributesToDisplay.splice(0,0,'Cabin Number')
   const remainingAttributes: Record<string, any> = {}
   allAttributes?.forEach((attribute) => {
     attribute.name && remainingAttributesToDisplay.includes(attribute.name) ? remainingAttributes[attribute?.name] = attribute.value[0] : 'N/A'
