@@ -17138,6 +17138,31 @@ export type OrderQuery = {
       quantity: number;
       productName: string;
       variantName: string;
+      variant: {
+        __typename?: "ProductVariant";
+        id: string;
+        name: string;
+        attributes: Array<SelectedAttribute>
+        pricing?: {
+          __typename?: "VariantPricingInfo";
+          onSale?: boolean | null;
+          price?: {
+            __typename?: "TaxedMoney";
+            gross: { __typename?: "Money"; currency: string; amount: number };
+          } | null;
+          priceUndiscounted?: {
+            __typename?: "TaxedMoney";
+            gross: { __typename?: "Money"; currency: string; amount: number };
+          } | null;
+        } | null;
+        product: { __typename?: "Product"; name: string };
+        media?: Array<{
+          __typename?: "ProductMedia";
+          alt: string;
+          type: ProductMediaType;
+          url: string;
+        }> | null;
+      };
       totalPrice: {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; currency: string; amount: number };
@@ -17367,6 +17392,44 @@ export const OrderLineFragmentDoc = gql`
     }
     productName
     variantName
+    variant {
+      id
+      pricing {
+        onSale
+        price {
+          gross {
+            currency
+            amount
+          }
+        }
+        priceUndiscounted {
+          gross {
+            currency
+            amount
+          }
+        }
+      }
+      attributes {
+        attribute {
+          name
+          id
+        }
+        values {
+          name
+          id
+          richText
+        }
+    }
+      name
+      product {
+        name
+      }
+      media {
+        alt
+        type
+        url(size: 72)
+      }
+    }
     thumbnail {
       alt
       url
