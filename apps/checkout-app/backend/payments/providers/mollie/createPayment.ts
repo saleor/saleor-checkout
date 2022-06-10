@@ -56,5 +56,5 @@ export const createMolliePayment = async (
       : undefined,
   });
 
-  return mollieData._links.checkout;
+  return { url: mollieData._links.checkout, id: mollieData.id };
 };

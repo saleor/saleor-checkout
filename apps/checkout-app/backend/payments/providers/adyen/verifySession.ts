@@ -3,7 +3,7 @@ import { CheckoutAPI, Client } from "@adyen/api-library";
 import { getPrivateSettings } from "@/checkout-app/backend/configuration/settings";
 import { envVars } from "@/checkout-app/constants";
 
-export const verifySession = async (session: string) => {
+export const verifyAdyenSession = async (session: string) => {
   const {
     paymentProviders: { adyen },
   } = await getPrivateSettings(envVars.apiUrl, false);
