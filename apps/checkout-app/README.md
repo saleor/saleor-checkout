@@ -18,7 +18,7 @@ npx saleor app tunnel 3000
 Create [environment variables](#env-variables) config file
 
 ```bash
-cp .env.template .env.local
+cp .env .env.local
 ```
 
 Edit `.env.local` file and fill in values for environment variables
@@ -54,7 +54,7 @@ cd ../.. && pnpm run build:payments-app
 
 When **deploying** to Vercel you can set them on the [configuration page](https://vercel.com/docs/concepts/projects/environment-variables)
 
-When running app **locally** you can use the [`.env.local`](https://nextjs.org/docs/basic-features/environment-variables#loading-environment-variables) file. **It should not be included in your git repository**. An example configuration is available in `.env.template`
+When running app **locally** you can use the [`.env.local`](https://nextjs.org/docs/basic-features/environment-variables#loading-environment-variables) file. **It should not be included in your git repository**.
 
 ### Backend variables
 
