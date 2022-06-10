@@ -19,8 +19,4 @@ module.exports = withTM({
   experimental: {
     esmExternals: false,
   },
-  env: {
-    PREVIEW_URL: process.env.PREVIEW_URL,
-    PREVIEW_CHECKOUT_TOKEN: process.env.PREVIEW_CHECKOUT_TOKEN,
-  },
 });
