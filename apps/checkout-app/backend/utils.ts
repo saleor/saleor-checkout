@@ -23,7 +23,7 @@ export const allowCors =
 export const requireAuthorization =
   (
     fn: (req: NextApiRequest, res: NextApiResponse) => Promise<void>,
-    permissions?: PermissionEnum[]
+    requiredPermissions?: PermissionEnum[]
   ) =>
   async (req: NextApiRequest, res: NextApiResponse) => {
     const authenticated = await isAuthenticated(req);
@@ -36,7 +36,7 @@ export const requireAuthorization =
       });
     }
 
-    const authorized = isAuthorized(req, permissions);
+    const authorized = isAuthorized(req, requiredPermissions);
 
     if (!authorized) {
       return res.status(403).json({

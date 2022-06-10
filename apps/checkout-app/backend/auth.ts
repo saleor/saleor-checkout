@@ -81,11 +81,11 @@ export const isAuthenticated = async (req: NextApiRequest) => {
   return await jwtVerifier.verify(token);
 };
 
-export const hasPermissions = (
+export const hasPermissionsInToken = (
   tokenData?: JwtPayload,
-  permissions?: PermissionEnum[]
+  permissionsToCheckAgainst?: PermissionEnum[]
 ) => {
-  if (!permissions?.length) {
+  if (!permissionsToCheckAgainst?.length) {
     return true;
   }
 
@@ -97,14 +97,14 @@ export const hasPermissions = (
     return false;
   }
 
-  return permissions.every((permission) =>
+  return permissionsToCheckAgainst.every((permission) =>
     userPermissions.includes(permission)
   );
 };
 
 export const isAuthorized = (
   req: NextApiRequest,
-  permissions?: PermissionEnum[]
+  requiredPermissions?: PermissionEnum[]
 ) => {
   const tokenData = getTokenDataFromRequest(req);
 
@@ -112,7 +112,7 @@ export const isAuthorized = (
     return false;
   }
 
-  const withPermissions = hasPermissions(tokenData, permissions);
+  const withPermissions = hasPermissionsInToken(tokenData, requiredPermissions);
 
   if (!withPermissions) {
     return false;
