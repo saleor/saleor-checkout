@@ -1,5 +1,5 @@
-import { unflattenSettings } from "@/frontend/utils";
-import { CustomizationSettingsValues } from "@/types/api";
+import { unflattenSettings } from "@/checkout-app/frontend/utils";
+import { CustomizationSettingsValues } from "@/checkout-app/types/api";
 import { useEffect, useState } from "react";
 import { FieldValues, UseFormWatch } from "react-hook-form";
 import { Customization, CustomizationID } from "types/common";

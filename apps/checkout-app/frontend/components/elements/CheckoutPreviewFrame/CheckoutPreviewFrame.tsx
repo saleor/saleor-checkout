@@ -1,4 +1,4 @@
-import { CustomizationSettingsValues } from "@/types/api";
+import { CustomizationSettingsValues } from "@/checkout-app/types/api";
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { useStyles } from "./styles";

@@ -1,4 +1,4 @@
-import { envVars } from "@/lib/utils";
+import { envVars } from "@/checkout/lib/utils";
 import { useEffect, useState } from "react";
 
 const inIframe = () => {
