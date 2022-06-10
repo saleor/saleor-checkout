@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Types } from "@adyen/api-library";
+import { Types as AdyenTypes } from "@adyen/api-library";
+import { OrderStatus as MollieOrderStatus } from "@mollie/api-client";
 
 import { createMolliePayment } from "@/checkout-app/backend/payments/providers/mollie";
 import { createOrder } from "@/checkout-app/backend/payments/createOrder";
@@ -16,8 +17,9 @@ import {
   PayRequestErrorResponse,
 } from "@/checkout-app/types/api/pay";
 import { allowCors, getBaseUrl } from "@/checkout-app/backend/utils";
-import { verifySession } from "@/checkout-app/backend/payments/providers/adyen/verifySession";
 import { updatePaymentMetafield } from "@/checkout-app/backend/payments/updatePaymentMetafield";
+import { verifyMollieSession } from "@/checkout-app/backend/payments/providers/mollie/verifySession";
+import { verifyAdyenSession } from "@/checkout-app/backend/payments/providers/adyen/verifySession";
 
 const paymentProviders: PaymentProviderID[] = ["mollie", "adyen"];
 
@@ -76,11 +78,40 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     if (payment.provider === body.provider && payment.session) {
       if (payment.provider === "mollie") {
-        // TODO: handle mollie payment session
-        // return;
+        const session = await verifyMollieSession(payment.session);
+
+        if (session.status === MollieOrderStatus.created && session.url) {
+          response = {
+            ok: true,
+            provider: payment.provider,
+            orderId: order.id,
+            data: {
+              paymentUrl: session.url,
+            },
+          };
+
+          return res.status(200).json(response);
+        } else if (
+          [
+            MollieOrderStatus.authorized,
+            MollieOrderStatus.completed,
+            MollieOrderStatus.paid,
+            MollieOrderStatus.pending,
+            MollieOrderStatus.shipping,
+          ].includes(session.status)
+        ) {
+          response = {
+            ok: false,
+            provider: payment.provider,
+            orderId: order.id,
+            errors: ["ALREADY_PAID"],
+          };
+
+          return res.status(200).json(response);
+        }
       } else if (payment.provider === "adyen") {
-        const session = await verifySession(payment.session);
-        const StatusEnum = Types.checkout.PaymentLinkResource.StatusEnum;
+        const session = await verifyAdyenSession(payment.session);
+        const StatusEnum = AdyenTypes.checkout.PaymentLinkResource.StatusEnum;
 
         if (session.status === StatusEnum.Active) {
           response = {
@@ -113,7 +144,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   if (body.provider === "mollie") {
     const appUrl = getBaseUrl(req);
-    const url = await createMolliePayment({
+    const { url, id } = await createMolliePayment({
       order,
       redirectUrl: body.redirectUrl,
       appUrl,
@@ -128,6 +159,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           paymentUrl: url.href,
         },
       };
+
+      const payment: OrderPaymentMetafield = {
+        provider: body.provider,
+        session: id,
+      };
+
+      await updatePaymentMetafield(order.id, payment);
 
       return res.status(200).json(response);
     }

@@ -1,11 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Types } from "@adyen/api-library";
+import { Types as AdyenTypes } from "@adyen/api-library";
+import { OrderStatus as MollieOrderStatus } from "@mollie/api-client";
 
 import { allowCors } from "@/checkout-app/backend/utils";
 import { getOrderPaymentDetails } from "@/checkout-app/backend/payments/getOrderPaymentDetails";
 import { OrderPaymentMetafield } from "@/checkout-app/types";
-import { verifySession } from "@/checkout-app/backend/payments/providers/adyen/verifySession";
+import { verifyAdyenSession } from "@/checkout-app/backend/payments/providers/adyen/verifySession";
 import { PaymentStatusResponse } from "@/checkout-app/types/api/payment-status";
+import { verifyMollieSession } from "@/checkout-app/backend/payments/providers/mollie/verifySession";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "GET") {
@@ -38,10 +40,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   } else if (order.data.privateMetafield) {
     const data: OrderPaymentMetafield = JSON.parse(order.data.privateMetafield);
 
-    if (data.provider === "adyen" && data.session) {
-      const session = await verifySession(data.session);
+    if (data.provider === "adyen") {
+      const session = await verifyAdyenSession(data.session);
 
-      const StatusEnum = Types.checkout.PaymentLinkResource.StatusEnum;
+      const StatusEnum = AdyenTypes.checkout.PaymentLinkResource.StatusEnum;
 
       if (session.status === StatusEnum.Active) {
         // Session was previously generated but has not been completed
@@ -60,7 +62,32 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         throw new Error("Session status unknown");
       }
     } else if (data.provider === "mollie") {
-      // TODO: Handle mollie session
+      const session = await verifyMollieSession(data.session);
+
+      if (session.status === MollieOrderStatus.created) {
+        // Session was previously generated but has not been completed
+        response.status = "UNPAID";
+        response.sessionLink = session.url;
+      } else if (
+        [
+          MollieOrderStatus.authorized,
+          MollieOrderStatus.completed,
+          MollieOrderStatus.paid,
+          MollieOrderStatus.pending,
+          MollieOrderStatus.shipping,
+        ].includes(session.status)
+      ) {
+        // Session was successfully completed but Saleor has not yet registered the payment
+        response.status = "PENDING";
+      } else if (
+        [MollieOrderStatus.expired, MollieOrderStatus.canceled].includes(
+          session.status
+        )
+      ) {
+        response.status = "UNPAID";
+      } else {
+        throw new Error("Session status unknown");
+      }
     }
   }
 
