@@ -20,7 +20,6 @@ const handler: Handler = (request) => {
       "MANAGE_ORDERS",
       "MANAGE_CHECKOUTS",
     ],
-    userPermissions: [],
     appUrl: `${baseURL}/channels`,
     dataPrivacyUrl: `${baseURL}/data-privacy`,
     supportUrl: `${baseURL}/support`,
