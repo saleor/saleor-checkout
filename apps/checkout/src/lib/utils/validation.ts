@@ -1,11 +1,10 @@
 import { useErrorMessages } from "@/checkout/hooks/useErrorMessages";
+import { ApiErrors, Errors, Error } from "@/checkout/hooks/useErrors";
 import { ValidationError, ErrorCode } from "@/checkout/lib/globalTypes";
-import { ApiErrors, Errors } from "@/checkout/providers/ErrorsProvider";
 import { useCallback } from "react";
 import { FieldErrors } from "react-hook-form";
 import { ValidationError as ValidationErrorObject } from "yup";
 import { OptionalObjectSchema } from "yup/lib/object";
-import { Error } from "@/checkout/providers/ErrorsProvider";
 
 export const getAllValidationErrors = <TFormData>({
   inner,
@@ -76,18 +75,24 @@ export const useGetFormErrorsFromApiErrors = (): (<TFormData>(
       return {} as Errors<TFormData>;
     }
 
-    return apiErrors.reduce((result, { field, code }) => {
-      const errorCode = code.toLowerCase() as ErrorCode;
+    return apiErrors.reduce(
+      (
+        result: Errors<TFormData>,
+        { field, code }: { field: keyof TFormData; code: string }
+      ) => {
+        const errorCode = code.toLowerCase() as ErrorCode;
 
-      return {
-        ...result,
-        [field]: {
-          code: errorCode,
-          message: getMessageByErrorCode(errorCode),
-          isApiError: true,
-        } as Error,
-      };
-    }, {} as Errors<TFormData>);
+        return {
+          ...result,
+          [field]: {
+            field,
+            code: errorCode,
+            message: getMessageByErrorCode(errorCode),
+          } as Error<TFormData>,
+        };
+      },
+      {} as Errors<TFormData>
+    );
   };
 
   return getErrorsFromApi;

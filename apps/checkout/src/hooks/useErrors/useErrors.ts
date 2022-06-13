@@ -19,6 +19,7 @@ export const useErrors = <TFormData>(): UseErrors<TFormData> => {
       return {} as Errors<TFormData>;
     }
 
+    // @ts-ignore to be fixed before merge
     return getParsedApiErrors(apiErrors).reduce(
       (result, { field, ...rest }) => {
         return {

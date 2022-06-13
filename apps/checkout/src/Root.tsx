@@ -44,6 +44,7 @@ export const Root = () => {
             <div className="app">
               <ToastContainer
                 toastClassName="alert-container"
+                // @ts-ignore to be fixed before merge
                 bodyClassName={({ type }) =>
                   clsx("alert", {
                     ["alert-error"]: type === "error",

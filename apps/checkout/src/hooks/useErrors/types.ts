@@ -1,4 +1,5 @@
 import { ErrorCode } from "@/checkout/lib/globalTypes";
+import { FieldErrors } from "react-hook-form";
 
 export interface ApiError<TFormData> {
   field: keyof TFormData;
@@ -7,9 +8,7 @@ export interface ApiError<TFormData> {
 }
 export type ApiErrors<TFormData> = ApiError<TFormData>[];
 
-export type Errors<TFormData> = Partial<
-  Record<keyof TFormData, Error<TFormData>>
->;
+export type Errors<TFormData> = Partial<FieldErrors<TFormData>>;
 
 export interface Error<TFormData> {
   field: keyof TFormData;
