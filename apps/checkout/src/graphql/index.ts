@@ -20867,7 +20867,7 @@ export type UserQuery = {
 };
 
 export type CheckoutLinesUpdateMutationVariables = Exact<{
-  id: Scalars["ID"];
+  checkoutId: Scalars["ID"];
   lines: Array<CheckoutLineUpdateInput> | CheckoutLineUpdateInput;
 }>;
 
@@ -20922,7 +20922,7 @@ export type CheckoutLinesUpdateMutation = {
 };
 
 export type CheckoutLineDeleteMutationVariables = Exact<{
-  id: Scalars["ID"];
+  checkoutId: Scalars["ID"];
   lineId?: InputMaybe<Scalars["ID"]>;
 }>;
 
@@ -20978,7 +20978,7 @@ export type CheckoutLineDeleteMutation = {
 
 export type CheckoutEmailUpdateMutationVariables = Exact<{
   email: Scalars["String"];
-  id: Scalars["ID"];
+  checkoutId: Scalars["ID"];
 }>;
 
 export type CheckoutEmailUpdateMutation = {
@@ -21103,7 +21103,8 @@ export type CheckoutEmailUpdateMutation = {
 };
 
 export type CheckoutCustomerAttachMutationVariables = Exact<{
-  id: Scalars["ID"];
+  checkoutId: Scalars["ID"];
+  customerId: Scalars["ID"];
 }>;
 
 export type CheckoutCustomerAttachMutation = {
@@ -21228,7 +21229,7 @@ export type CheckoutCustomerAttachMutation = {
 };
 
 export type CheckoutCustomerDetachMutationVariables = Exact<{
-  id: Scalars["ID"];
+  checkoutId: Scalars["ID"];
 }>;
 
 export type CheckoutCustomerDetachMutation = {
@@ -21451,7 +21452,7 @@ export type UserAddressCreateMutation = {
 };
 
 export type CheckoutShippingAddressUpdateMutationVariables = Exact<{
-  id: Scalars["ID"];
+  checkoutId: Scalars["ID"];
   shippingAddress: AddressInput;
 }>;
 
@@ -21577,7 +21578,7 @@ export type CheckoutShippingAddressUpdateMutation = {
 };
 
 export type CheckoutBillingAddressUpdateMutationVariables = Exact<{
-  id: Scalars["ID"];
+  checkoutId: Scalars["ID"];
   billingAddress: AddressInput;
 }>;
 
@@ -21703,7 +21704,7 @@ export type CheckoutBillingAddressUpdateMutation = {
 };
 
 export type CheckoutDeliveryMethodUpdateMutationVariables = Exact<{
-  id: Scalars["ID"];
+  checkoutId: Scalars["ID"];
   deliveryMethodId: Scalars["ID"];
 }>;
 
@@ -22344,8 +22345,11 @@ export function useUserQuery(
   return Urql.useQuery<UserQuery>({ query: UserDocument, ...options });
 }
 export const CheckoutLinesUpdateDocument = gql`
-  mutation checkoutLinesUpdate($id: ID!, $lines: [CheckoutLineUpdateInput!]!) {
-    checkoutLinesUpdate(id: $id, lines: $lines) {
+  mutation checkoutLinesUpdate(
+    $checkoutId: ID!
+    $lines: [CheckoutLineUpdateInput!]!
+  ) {
+    checkoutLinesUpdate(id: $checkoutId, lines: $lines) {
       errors {
         ...CheckoutErrorFragment
       }
@@ -22368,8 +22372,8 @@ export function useCheckoutLinesUpdateMutation() {
   >(CheckoutLinesUpdateDocument);
 }
 export const CheckoutLineDeleteDocument = gql`
-  mutation checkoutLineDelete($id: ID!, $lineId: ID) {
-    checkoutLineDelete(id: $id, lineId: $lineId) {
+  mutation checkoutLineDelete($checkoutId: ID!, $lineId: ID) {
+    checkoutLineDelete(id: $checkoutId, lineId: $lineId) {
       errors {
         ...CheckoutErrorFragment
       }
@@ -22392,8 +22396,8 @@ export function useCheckoutLineDeleteMutation() {
   >(CheckoutLineDeleteDocument);
 }
 export const CheckoutEmailUpdateDocument = gql`
-  mutation checkoutEmailUpdate($email: String!, $id: ID!) {
-    checkoutEmailUpdate(email: $email, id: $id) {
+  mutation checkoutEmailUpdate($email: String!, $checkoutId: ID!) {
+    checkoutEmailUpdate(email: $email, id: $checkoutId) {
       errors {
         ...CheckoutErrorFragment
       }
@@ -22413,8 +22417,8 @@ export function useCheckoutEmailUpdateMutation() {
   >(CheckoutEmailUpdateDocument);
 }
 export const CheckoutCustomerAttachDocument = gql`
-  mutation checkoutCustomerAttach($id: ID!) {
-    checkoutCustomerAttach(id: $id) {
+  mutation checkoutCustomerAttach($checkoutId: ID!, $customerId: ID!) {
+    checkoutCustomerAttach(id: $checkoutId, checkoutId: $customerId) {
       errors {
         ...CheckoutErrorFragment
       }
@@ -22434,8 +22438,8 @@ export function useCheckoutCustomerAttachMutation() {
   >(CheckoutCustomerAttachDocument);
 }
 export const CheckoutCustomerDetachDocument = gql`
-  mutation checkoutCustomerDetach($id: ID!) {
-    checkoutCustomerDetach(id: $id) {
+  mutation checkoutCustomerDetach($checkoutId: ID!) {
+    checkoutCustomerDetach(id: $checkoutId) {
       errors {
         ...CheckoutErrorFragment
       }
@@ -22519,10 +22523,13 @@ export function useUserAddressCreateMutation() {
 }
 export const CheckoutShippingAddressUpdateDocument = gql`
   mutation checkoutShippingAddressUpdate(
-    $id: ID!
+    $checkoutId: ID!
     $shippingAddress: AddressInput!
   ) {
-    checkoutShippingAddressUpdate(id: $id, shippingAddress: $shippingAddress) {
+    checkoutShippingAddressUpdate(
+      id: $checkoutId
+      shippingAddress: $shippingAddress
+    ) {
       errors {
         ...CheckoutErrorFragment
       }
@@ -22543,10 +22550,13 @@ export function useCheckoutShippingAddressUpdateMutation() {
 }
 export const CheckoutBillingAddressUpdateDocument = gql`
   mutation checkoutBillingAddressUpdate(
-    $id: ID!
+    $checkoutId: ID!
     $billingAddress: AddressInput!
   ) {
-    checkoutBillingAddressUpdate(id: $id, billingAddress: $billingAddress) {
+    checkoutBillingAddressUpdate(
+      id: $checkoutId
+      billingAddress: $billingAddress
+    ) {
       errors {
         ...CheckoutErrorFragment
       }
@@ -22566,8 +22576,14 @@ export function useCheckoutBillingAddressUpdateMutation() {
   >(CheckoutBillingAddressUpdateDocument);
 }
 export const CheckoutDeliveryMethodUpdateDocument = gql`
-  mutation checkoutDeliveryMethodUpdate($id: ID!, $deliveryMethodId: ID!) {
-    checkoutDeliveryMethodUpdate(id: $id, deliveryMethodId: $deliveryMethodId) {
+  mutation checkoutDeliveryMethodUpdate(
+    $checkoutId: ID!
+    $deliveryMethodId: ID!
+  ) {
+    checkoutDeliveryMethodUpdate(
+      id: $checkoutId
+      deliveryMethodId: $deliveryMethodId
+    ) {
       errors {
         ...CheckoutErrorFragment
       }
