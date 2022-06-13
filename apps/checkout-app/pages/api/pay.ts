@@ -156,7 +156,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         provider: "mollie",
         orderId: order.id,
         data: {
-          paymentUrl: url.href,
+          paymentUrl: url,
         },
       };
 
