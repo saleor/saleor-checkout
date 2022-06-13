@@ -21892,10 +21892,6 @@ export type OrderFragment = {
   id: string;
   number: string;
   userEmail?: string | null;
-  isPaid: boolean;
-  paymentStatus: PaymentChargeStatusEnum;
-  authorizeStatus: OrderAuthorizeStatusEnum;
-  chargeStatus: OrderChargeStatusEnum;
   shippingAddress?: {
     __typename?: "Address";
     id: string;
@@ -21985,10 +21981,6 @@ export type OrderQuery = {
     id: string;
     number: string;
     userEmail?: string | null;
-    isPaid: boolean;
-    paymentStatus: PaymentChargeStatusEnum;
-    authorizeStatus: OrderAuthorizeStatusEnum;
-    chargeStatus: OrderChargeStatusEnum;
     shippingAddress?: {
       __typename?: "Address";
       id: string;
@@ -22270,10 +22262,6 @@ export const OrderFragmentDoc = gql`
     id
     number
     userEmail
-    isPaid
-    paymentStatus
-    authorizeStatus
-    chargeStatus
     shippingAddress {
       ...AddressFragment
     }
