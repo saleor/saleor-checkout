@@ -1,8 +1,8 @@
-import { FileUploadMutation } from "@/graphql";
+import { FileUploadMutation } from "@/checkout-app/graphql";
 import {
   CustomizationSettingsFiles,
   CustomizationSettingsValues,
-} from "@/types/api";
+} from "@/checkout-app/types/api";
 import { merge, reduce } from "lodash-es";
 import { OperationResult } from "urql";
 

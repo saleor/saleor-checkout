@@ -20,7 +20,7 @@ import {
 import { mapPublicMetafieldsToSettings } from "@/checkout-app/frontend/misc/mapPublicMetafieldsToSettings";
 import { PublicMetafieldID } from "@/checkout-app/types/common";
 import { reduce } from "lodash-es";
-import { uploadSettingsFiles } from "@/frontend/handlers";
+import { uploadSettingsFiles } from "@/checkout-app/frontend/handlers";
 
 const Customization = () => {
   const router = useRouter();
