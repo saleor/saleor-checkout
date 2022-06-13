@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig/react-library.json",
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "dist",
+    "build",
+    "node_modules",
+    "**/*.stories.tsx"
+  ],
+  "compilerOptions": {
+    "lib": [
+      "es2020"
+    ],
+    "target": "es2020",
+    "moduleResolution": "node",
+    "outDir": "build",
+    "composite": false
+  }
+}
