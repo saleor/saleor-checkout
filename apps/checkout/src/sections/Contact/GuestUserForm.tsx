@@ -1,6 +1,9 @@
 import { useCheckoutEmailUpdateMutation } from "@/checkout/graphql";
 import { useFormattedMessages } from "@/checkout/hooks/useFormattedMessages";
-import { useValidationResolver } from "@/checkout/lib/utils";
+import {
+  extractMutationErrors,
+  useValidationResolver,
+} from "@/checkout/lib/utils";
 import React, { useEffect, useState } from "react";
 import { PasswordInput } from "@/checkout/components/PasswordInput";
 import {
@@ -14,6 +17,7 @@ import { useErrorMessages } from "@/checkout/hooks/useErrorMessages";
 import { Checkbox } from "@/checkout/components/Checkbox";
 import { TextInput } from "@/checkout/components/TextInput";
 import { useCheckout } from "@/checkout/hooks/useCheckout";
+import { useAlerts } from "@/checkout/hooks/useAlerts";
 
 type AnonymousCustomerFormProps = Pick<
   SignInFormContainerProps,
@@ -30,6 +34,7 @@ export const GuestUserForm: React.FC<AnonymousCustomerFormProps> = ({
   const { checkout } = useCheckout();
   const formatMessage = useFormattedMessages();
   const { errorMessages } = useErrorMessages();
+  const { showSuccess, showErrors } = useAlerts("checkoutEmailUpdate");
   const [createAccountSelected, setCreateAccountSelected] = useState(false);
   const {
     getValues: getContextValues,
@@ -54,8 +59,21 @@ export const GuestUserForm: React.FC<AnonymousCustomerFormProps> = ({
 
   const [, updateEmail] = useCheckoutEmailUpdateMutation();
 
-  const onSubmit = ({ email }: FormData) =>
-    updateEmail({ id: checkout.id, email });
+  const onSubmit = async ({ email }: FormData) => {
+    const result = await updateEmail({
+      email,
+      checkoutId: checkout.id,
+    });
+
+    const [hasErrors, errors] = extractMutationErrors(result);
+
+    if (!hasErrors) {
+      showSuccess();
+      return;
+    }
+
+    showErrors(errors);
+  };
 
   const emailValue = watch("email");
 

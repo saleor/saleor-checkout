@@ -1,18 +1,18 @@
 import { useCheckout } from "@/checkout/hooks/useCheckout";
-import { usePay } from "@/checkout/hooks/usePay";
+import { useErrors } from "@/checkout/hooks/useErrors";
 import { extractMutationErrors } from "@/checkout/lib/utils";
-import { useErrors } from "@/checkout/providers/ErrorsProvider";
 import { useAuth, useAuthState } from "@saleor/sdk";
 import { omit } from "lodash-es";
 
 import { FormData } from "./types";
+import { usePay } from "@/checkout/hooks/usePay";
 
 export const useCheckoutFinalize = () => {
   const { checkout } = useCheckout();
   const { register } = useAuth();
   const { user } = useAuthState();
   const { checkoutPay, loading } = usePay();
-  const { setApiErrors, hasErrors } = useErrors<FormData>("userRegister");
+  const { setApiErrors, hasErrors, errors } = useErrors<FormData>();
 
   const handleUserRegister = async (formData: FormData) => {
     const registerFormData = omit(formData, "createAccount");
@@ -41,5 +41,5 @@ export const useCheckoutFinalize = () => {
     }
   };
 
-  return { checkoutFinalize, submitting: loading };
+  return { checkoutFinalize, submitting: loading, errors };
 };

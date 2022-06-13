@@ -23,7 +23,11 @@ export const CheckoutForm = () => {
   const { errorMessages } = useErrorMessages();
   const { checkout, loading } = useCheckout();
   const { authenticating } = useAuthState();
-  const { checkoutFinalize, submitting } = useCheckoutFinalize();
+  const {
+    checkoutFinalize,
+    submitting,
+    errors: checkoutFinalizeErrors,
+  } = useCheckoutFinalize();
 
   const isLoading = loading || authenticating;
 

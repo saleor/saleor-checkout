@@ -4,23 +4,21 @@ import { AddressFormData } from "./types";
 import { AddressForm } from "./AddressForm";
 import { UserAddressSectionContainer } from "./UserAddressSectionContainer";
 import { getAddressFormDataFromAddress } from "./utils";
-import { ErrorScope, useErrors } from "@/checkout/providers/ErrorsProvider";
 import { useCountrySelect } from "@/checkout/providers/CountrySelectProvider";
+import { UseErrors } from "@/checkout/hooks/useErrors";
 
-interface GuestAddressSectionProps {
+interface GuestAddressSectionProps extends UseErrors<AddressFormData> {
   onSubmit: (address: AddressFormData) => void;
   address: AddressFragment;
   title: string;
-  errorScope: ErrorScope;
 }
 
 export const GuestAddressSection: React.FC<GuestAddressSectionProps> = ({
   onSubmit,
   address,
   title,
-  errorScope,
+  ...errorProps
 }) => {
-  const errorProps = useErrors(errorScope);
   const { countryCode } = useCountrySelect();
 
   const handleSave = (address: AddressFormData) =>

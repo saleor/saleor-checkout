@@ -1,10 +1,8 @@
 import { Button } from "@/checkout/components/Button";
 import { TextInput } from "@/checkout/components/TextInput";
-import {
-  CountryCode,
-  useAddressValidationRulesQuery,
-} from "@/checkout/graphql";
+import { useAddressValidationRulesQuery } from "@/checkout/graphql";
 import { useErrorMessages } from "@/checkout/hooks/useErrorMessages";
+import { UseErrors } from "@/checkout/hooks/useErrors";
 import {
   MessageKey,
   useFormattedMessages,
@@ -38,10 +36,7 @@ import {
 } from "./utils";
 
 export interface AddressFormProps<TFormData extends AddressFormData>
-  extends Pick<
-    UseErrorsProps<TFormData>,
-    "errors" | "hasErrors" | "setErrors" | "clearErrors"
-  > {
+  extends Omit<UseErrors<TFormData>, "setApiErrors"> {
   defaultValues?: Partial<TFormData>;
   onCancel?: () => void;
   onSave: SubmitHandler<TFormData>;
@@ -53,7 +48,7 @@ export const AddressForm = <TFormData extends AddressFormData>({
   onSave,
   hasErrors,
   errors,
-  clearErrors: onCleanErrors,
+  clearErrors: onClearErrors,
 }: AddressFormProps<TFormData>) => {
   const formatMessage = useFormattedMessages();
   const { errorMessages } = useErrorMessages();
@@ -108,7 +103,7 @@ export const AddressForm = <TFormData extends AddressFormData>({
 
   const handleCancel = () => {
     clearErrors();
-    onCleanErrors();
+    onClearErrors();
 
     if (onCancel) {
       onCancel();
@@ -116,7 +111,7 @@ export const AddressForm = <TFormData extends AddressFormData>({
   };
 
   const handleSave = (address: UnpackNestedValue<TFormData>) => {
-    onCleanErrors();
+    onClearErrors();
     onSave(address);
   };
 

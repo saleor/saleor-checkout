@@ -9,6 +9,7 @@ import {
   SignInFormContainerProps,
 } from "./SignInFormContainer";
 import {
+  extractMutationErrors,
   extractValidationError,
   getCurrentHref,
   useValidationResolver,
@@ -20,6 +21,7 @@ import { object, string, ValidationError } from "yup";
 import { useErrorMessages } from "@/checkout/hooks/useErrorMessages";
 import { useEffect } from "react";
 import { TextInput } from "@/checkout/components/TextInput";
+import { useAlerts } from "@/checkout/hooks/useAlerts";
 
 type SignInFormProps = Pick<SignInFormContainerProps, "onSectionChange">;
 
@@ -30,6 +32,7 @@ interface FormData {
 
 export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
   const formatMessage = useFormattedMessages();
+  const { showSuccess, showErrors } = useAlerts("login");
   const { errorMessages } = useErrorMessages();
   const [passwordResetSent, setPasswordResetSent] = useState(false);
   const { login, requestPasswordReset } = useAuth();
@@ -44,15 +47,27 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
   });
 
   const resolver = useValidationResolver(schema);
+
   const { handleSubmit, getValues, watch, setError, clearErrors, ...rest } =
     useForm<FormData>({
       resolver,
       mode: "onBlur",
       defaultValues: { email: getContextValues("email") },
     });
+
   const getInputProps = useGetInputProps(rest);
 
-  const onSubmit = async (formData: FormData) => login(formData);
+  const onSubmit = async (formData: FormData) => {
+    const result = await login(formData);
+    const [hasErrors, errors] = extractMutationErrors(result);
+
+    if (hasErrors) {
+      showErrors(errors);
+      return;
+    }
+
+    showSuccess();
+  };
 
   const onPasswordReset = async () => {
     const { email } = getValues();

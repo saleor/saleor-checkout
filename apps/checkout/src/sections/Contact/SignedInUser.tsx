@@ -22,7 +22,7 @@ export const SignedInUser: React.FC<SignedInUserProps> = ({
   const { checkout } = useCheckout();
 
   const handleLogout = async () => {
-    await customerDetach({ id: checkout.id });
+    await customerDetach({ checkoutId: checkout.id });
     await logout();
   };
 

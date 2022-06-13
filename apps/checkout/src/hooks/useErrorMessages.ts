@@ -1,5 +1,5 @@
-import { ValidationErrorCode } from "@/checkout/lib/globalTypes";
-import { useFormattedMessages } from "./useFormattedMessages";
+import { ErrorCode } from "@/checkout/lib/globalTypes";
+import { MessageKey, useFormattedMessages } from "./useFormattedMessages";
 
 export const useErrorMessages = () => {
   const formatMessage = useFormattedMessages();
@@ -9,7 +9,7 @@ export const useErrorMessages = () => {
     requiredValue: formatMessage("required"),
   };
 
-  const getMessageByErrorCode = (errorCode: ValidationErrorCode) => {
+  const getMessageByErrorCode = (errorCode: ErrorCode) => {
     switch (errorCode) {
       case "required":
         return errorMessages.requiredValue;
@@ -18,7 +18,7 @@ export const useErrorMessages = () => {
         return errorMessages.invalidValue;
 
       default:
-        break;
+        formatMessage(errorCode as MessageKey);
     }
   };
 

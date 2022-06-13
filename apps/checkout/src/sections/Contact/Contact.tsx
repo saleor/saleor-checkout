@@ -41,7 +41,10 @@ export const Contact = () => {
       setCurrentSection("signedInUser");
 
       if (checkout?.user?.id !== user?.id) {
-        customerAttach({ id: checkout.id });
+        customerAttach({
+          checkoutId: checkout.id,
+          customerId: user?.id as string,
+        });
       }
 
       return;
