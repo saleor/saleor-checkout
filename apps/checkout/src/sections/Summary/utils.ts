@@ -23,7 +23,9 @@ export const getSummaryLineProps = (
     ? {
         variantName: line.variant.name,
         productName: line.variant.product.name,
-        productImage: line.variant.media?.find(({ type }) => type === "IMAGE"),
+        productImage:
+          line.variant.media?.find(({ type }) => type === "IMAGE") ||
+          line.variant.product.media?.find(({ type }) => type === "IMAGE"),
       }
     : {
         variantName: line.variantName,
