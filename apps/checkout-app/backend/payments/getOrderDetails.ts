@@ -39,5 +39,15 @@ export const getOrderDetails = async (
     };
   }
 
+  // demo.saleor.io
+  if (process.env.DEMO_MODE === "true") {
+    return {
+      data: {
+        ...data.order,
+        userEmail: "checkout@example.com",
+      },
+    };
+  }
+
   return { data: data.order };
 };
