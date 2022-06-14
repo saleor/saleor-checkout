@@ -17,8 +17,8 @@ import {
   useValidationResolver,
 } from "@/checkout/lib/utils";
 import { useCountrySelect } from "@/checkout/providers/CountrySelectProvider";
-import { UseErrorsProps } from "@/checkout/providers/ErrorsProvider";
-import { forEach } from "lodash-es";
+import { ErrorScope, useErrors } from "@/checkout/providers/ErrorsProvider";
+import { useSetFormErrors } from "@/checkout/providers/ErrorsProvider/useSetFormErrors";
 import { ReactNode } from "react";
 import {
   DefaultValues,

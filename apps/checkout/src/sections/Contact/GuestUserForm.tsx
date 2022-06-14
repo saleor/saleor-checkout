@@ -14,6 +14,7 @@ import { useErrorMessages } from "@/checkout/hooks/useErrorMessages";
 import { Checkbox } from "@/checkout/components/Checkbox";
 import { TextInput } from "@/checkout/components/TextInput";
 import { useCheckout } from "@/checkout/hooks/useCheckout";
+import { useSetFormErrors } from "@/checkout/providers/ErrorsProvider/useSetFormErrors";
 
 type AnonymousCustomerFormProps = Pick<
   SignInFormContainerProps,

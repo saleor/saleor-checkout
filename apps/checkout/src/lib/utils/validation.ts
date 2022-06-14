@@ -4,6 +4,7 @@ import {
   ValidationErrorCode,
 } from "@/checkout/lib/globalTypes";
 import { ApiErrors } from "@/checkout/providers/ErrorsProvider";
+import { camelCase } from "lodash-es";
 import { useCallback } from "react";
 import { FieldErrors } from "react-hook-form";
 import { ValidationError as ValidationErrorObject } from "yup";
