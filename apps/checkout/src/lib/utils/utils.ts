@@ -1,9 +1,3 @@
-import {
-  CheckoutScope,
-  ScopedAlertsProps,
-  useAlerts,
-} from "@/checkout/hooks/useAlerts";
-import { useCheckout } from "@/checkout/hooks/useCheckout";
 import { reduce } from "lodash-es";
 import queryString from "query-string";
 import { ChangeEvent, ReactEventHandler } from "react";

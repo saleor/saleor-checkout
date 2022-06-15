@@ -6,33 +6,44 @@ import { omit } from "lodash-es";
 
 import { FormData } from "./types";
 import { usePay } from "@/checkout/hooks/usePay";
+import { useAlerts } from "@/checkout/hooks/useAlerts";
 
 export const useCheckoutFinalize = () => {
   const { checkout } = useCheckout();
   const { register } = useAuth();
   const { user } = useAuthState();
   const { checkoutPay, loading } = usePay();
-  const { setApiErrors, hasErrors, errors } = useErrors<FormData>();
+  const { showErrors } = useAlerts("userRegister");
+  const { errors, setApiErrors, hasErrors } = useErrors();
 
-  const handleUserRegister = async (formData: FormData) => {
+  const userRegister = async (formData: FormData): Promise<boolean> => {
+    if (user || !formData.createAccount) {
+      return true;
+    }
+
     const registerFormData = omit(formData, "createAccount");
     // adding redirect url because api is broken and requires it
     // despite te types saying otherwise
-    const result = await register({ ...registerFormData, redirectUrl: "" });
+    const result = await register({
+      ...registerFormData,
+      redirectUrl: location.href,
+    });
 
     const [hasErrors, errors] = extractMutationErrors(result);
 
     if (hasErrors) {
+      showErrors(errors);
       setApiErrors(errors);
+      return hasErrors;
     }
+
+    return false;
   };
 
   const checkoutFinalize = async (formData: FormData) => {
-    if (!user && formData.createAccount) {
-      await handleUserRegister(formData);
-    }
+    const userRegisterSuccessOrPassed = await userRegister(formData);
 
-    if (!hasErrors) {
+    if (userRegisterSuccessOrPassed) {
       checkoutPay({
         provider: "adyen",
         checkoutId: checkout?.id,
@@ -41,5 +52,10 @@ export const useCheckoutFinalize = () => {
     }
   };
 
-  return { checkoutFinalize, submitting: loading, errors };
+  return {
+    checkoutFinalize,
+    submitting: loading,
+    errors,
+    hasErrors,
+  };
 };

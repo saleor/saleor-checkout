@@ -95,6 +95,7 @@
   "unpaidOrderMessage": "The order has not been paid for. If you ordered a payment - check for the confirmation.",
   "paidOrderMessage": "We've received your payment.",
   "paymentSection": "Payment",
+  "passwordTooShort": "Password is too short",
   "shippingMethodNotApplicable": "Not applicable",
   "checkoutShippingUpdateSuccess": "Successfully updated shipping address!",
   "checkoutBillingUpdateSuccess": "Successfully updated billing address!",
@@ -110,5 +111,6 @@
   "loginEmailInvalidCredentialsError": "Invalid credentials provided to login",
   "userAddressUpdateSuccess": "Successfully updated user address",
   "userAddressUpdatePostalCodeInvalidError": "Invalid postal code provided to address form",
-  "userAddressDeleteSuccess": "Successfully deleted user address"
+  "userAddressDeleteSuccess": "Successfully deleted user address",
+  "userRegisterPasswordPasswordTooShortError": "Provided password is too short"
 }

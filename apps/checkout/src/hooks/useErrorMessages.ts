@@ -18,7 +18,7 @@ export const useErrorMessages = () => {
         return errorMessages.invalidValue;
 
       default:
-        formatMessage(errorCode as MessageKey);
+        return formatMessage(errorCode as MessageKey);
     }
   };
 

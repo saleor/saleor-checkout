@@ -8,6 +8,7 @@ import {
   useFormattedMessages,
 } from "@/checkout/hooks/useFormattedMessages";
 import { useGetInputProps } from "@/checkout/hooks/useGetInputProps";
+import { useSetFormErrors } from "@/checkout/hooks/useSetFormErrors";
 import { AddressField } from "@/checkout/lib/globalTypes";
 import {
   getRequiredAddressFields,
@@ -77,15 +78,7 @@ export const AddressForm = <TFormData extends AddressFormData>({
     defaultValues: defaultValues as DefaultValues<TFormData>,
   });
 
-  useEffect(() => {
-    if (hasErrors) {
-      forEach(errors, (error, key) => {
-        setError(key as Path<TFormData>, {
-          message: (error as unknown as FieldError).message,
-        });
-      });
-    }
-  }, [errors]);
+  useSetFormErrors({ setError, hasErrors, errors });
 
   const getInputProps = useGetInputProps({ ...rest, formState });
 

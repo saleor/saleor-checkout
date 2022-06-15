@@ -17,6 +17,7 @@ import { FormData } from "./types";
 import { useFormattedMessages } from "@/checkout/hooks/useFormattedMessages";
 import { useAuthState } from "@saleor/sdk";
 import "./CheckoutFormStyles.css";
+import { useSetFormErrors } from "@/checkout/hooks/useSetFormErrors";
 
 export const CheckoutForm = () => {
   const formatMessage = useFormattedMessages();
@@ -26,7 +27,8 @@ export const CheckoutForm = () => {
   const {
     checkoutFinalize,
     submitting,
-    errors: checkoutFinalizeErrors,
+    hasErrors: hasUserRegisterErrors,
+    errors: userRegisterErrors,
   } = useCheckoutFinalize();
 
   const isLoading = loading || authenticating;
@@ -48,6 +50,12 @@ export const CheckoutForm = () => {
     resolver,
     mode: "onBlur",
     defaultValues: { email: checkout?.email || "", createAccount: false },
+  });
+
+  useSetFormErrors({
+    setError: methods.setError,
+    errors: userRegisterErrors,
+    hasErrors: hasUserRegisterErrors,
   });
 
   const { getValues } = methods;
