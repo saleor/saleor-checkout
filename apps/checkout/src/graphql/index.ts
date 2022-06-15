@@ -11529,6 +11529,7 @@ export type OrderFilterInput = {
   isClickAndCollect?: InputMaybe<Scalars["Boolean"]>;
   isPreorder?: InputMaybe<Scalars["Boolean"]>;
   metadata?: InputMaybe<Array<MetadataFilter>>;
+  numbers?: InputMaybe<Array<Scalars["String"]>>;
   paymentStatus?: InputMaybe<Array<PaymentChargeStatusEnum>>;
   search?: InputMaybe<Scalars["String"]>;
   status?: InputMaybe<Array<OrderStatusFilter>>;
@@ -11908,7 +11909,9 @@ export type OrderSortField =
   /** Sort orders by number. */
   | "NUMBER"
   /** Sort orders by payment. */
-  | "PAYMENT";
+  | "PAYMENT"
+  /** Sort orders by rank. Note: This option is available only with the `search` filter. */
+  | "RANK";
 
 export type OrderSortingInput = {
   /** Specifies the direction in which to sort products. */
@@ -17968,6 +17971,26 @@ export type StaffCreateInput = {
   redirectUrl?: InputMaybe<Scalars["String"]>;
 };
 
+export type StaffCreated = Event & {
+  __typename?: "StaffCreated";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /**
+   * The user the event relates to.
+   *
+   * Added in Saleor 3.2.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
 /**
  * Deletes a staff user.
  *
@@ -17979,6 +18002,26 @@ export type StaffDelete = {
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
   staffErrors: Array<StaffError>;
   user?: Maybe<User>;
+};
+
+export type StaffDeleted = Event & {
+  __typename?: "StaffDeleted";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /**
+   * The user the event relates to.
+   *
+   * Added in Saleor 3.2.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
 };
 
 export type StaffError = {
@@ -18093,6 +18136,26 @@ export type StaffUpdateInput = {
   note?: InputMaybe<Scalars["String"]>;
   /** List of permission group IDs from which user should be unassigned. */
   removeGroups?: InputMaybe<Array<Scalars["ID"]>>;
+};
+
+export type StaffUpdated = Event & {
+  __typename?: "StaffUpdated";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /**
+   * The user the event relates to.
+   *
+   * Added in Saleor 3.2.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
 };
 
 export type StaffUserInput = {
@@ -20217,6 +20280,10 @@ export type WebhookEventTypeAsyncEnum =
   | "SHIPPING_ZONE_DELETED"
   /** A shipping zone is updated. */
   | "SHIPPING_ZONE_UPDATED"
+  /** A staff user is deleted */
+  | "STAFF_CREATED"
+  | "STAFF_DELETED"
+  | "STAFF_UPDATED"
   | "TRANSACTION_ACTION_REQUEST"
   | "TRANSLATION_CREATED"
   | "TRANSLATION_UPDATED"
@@ -20379,6 +20446,10 @@ export type WebhookEventTypeEnum =
   | "SHIPPING_ZONE_DELETED"
   /** A shipping zone is updated. */
   | "SHIPPING_ZONE_UPDATED"
+  /** A staff user is deleted */
+  | "STAFF_CREATED"
+  | "STAFF_DELETED"
+  | "STAFF_UPDATED"
   | "TRANSACTION_ACTION_REQUEST"
   | "TRANSLATION_CREATED"
   | "TRANSLATION_UPDATED"
@@ -20480,6 +20551,9 @@ export type WebhookSampleEventTypeEnum =
   | "SHIPPING_ZONE_CREATED"
   | "SHIPPING_ZONE_DELETED"
   | "SHIPPING_ZONE_UPDATED"
+  | "STAFF_CREATED"
+  | "STAFF_DELETED"
+  | "STAFF_UPDATED"
   | "TRANSACTION_ACTION_REQUEST"
   | "TRANSLATION_CREATED"
   | "TRANSLATION_UPDATED"
