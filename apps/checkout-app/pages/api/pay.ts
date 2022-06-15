@@ -23,6 +23,76 @@ import { verifyAdyenSession } from "@/checkout-app/backend/payments/providers/ad
 
 const paymentProviders: PaymentProviderID[] = ["mollie", "adyen"];
 
+const reuseExistingSession = async ({
+  orderId,
+  provider,
+  privateMetafield,
+}: {
+  orderId: string;
+  provider: PaymentProviderID;
+  privateMetafield: string;
+}): Promise<PayRequestResponse | undefined> => {
+  const payment: OrderPaymentMetafield = JSON.parse(privateMetafield);
+
+  if (payment.provider === provider && payment.session) {
+    if (payment.provider === "mollie") {
+      const session = await verifyMollieSession(payment.session);
+
+      if (session.status === MollieOrderStatus.created && session.url) {
+        return {
+          ok: true,
+          provider: payment.provider,
+          orderId,
+          data: {
+            paymentUrl: session.url,
+          },
+        };
+      } else if (
+        [
+          MollieOrderStatus.authorized,
+          MollieOrderStatus.completed,
+          MollieOrderStatus.paid,
+          MollieOrderStatus.pending,
+          MollieOrderStatus.shipping,
+        ].includes(session.status)
+      ) {
+        return {
+          ok: false,
+          provider: payment.provider,
+          orderId,
+          errors: ["ALREADY_PAID"],
+        };
+      }
+    } else if (payment.provider === "adyen") {
+      const session = await verifyAdyenSession(payment.session);
+      const StatusEnum = AdyenTypes.checkout.PaymentLinkResource.StatusEnum;
+
+      if (session.status === StatusEnum.Active) {
+        return {
+          ok: true,
+          provider: payment.provider,
+          orderId,
+          data: {
+            paymentUrl: session.url,
+          },
+        };
+      } else if (
+        // Session was successfully completed but Saleor has not yet registered the payment
+        [StatusEnum.Completed, StatusEnum.PaymentPending].includes(
+          session.status
+        )
+      ) {
+        return {
+          ok: false,
+          provider: payment.provider,
+          orderId,
+          errors: ["ALREADY_PAID"],
+        };
+      }
+    }
+  }
+};
+
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     res.status(405).send({ message: "Only POST requests allowed" });
@@ -71,76 +141,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     } as PayRequestErrorResponse);
   }
 
-  let response: PayRequestResponse;
-
   if (order.privateMetafield) {
-    const payment: OrderPaymentMetafield = JSON.parse(order.privateMetafield);
+    const existingSessionResponse = await reuseExistingSession({
+      orderId: order.id,
+      privateMetafield: order.privateMetafield,
+      provider: body.provider,
+    });
 
-    if (payment.provider === body.provider && payment.session) {
-      if (payment.provider === "mollie") {
-        const session = await verifyMollieSession(payment.session);
-
-        if (session.status === MollieOrderStatus.created && session.url) {
-          response = {
-            ok: true,
-            provider: payment.provider,
-            orderId: order.id,
-            data: {
-              paymentUrl: session.url,
-            },
-          };
-
-          return res.status(200).json(response);
-        } else if (
-          [
-            MollieOrderStatus.authorized,
-            MollieOrderStatus.completed,
-            MollieOrderStatus.paid,
-            MollieOrderStatus.pending,
-            MollieOrderStatus.shipping,
-          ].includes(session.status)
-        ) {
-          response = {
-            ok: false,
-            provider: payment.provider,
-            orderId: order.id,
-            errors: ["ALREADY_PAID"],
-          };
-
-          return res.status(200).json(response);
-        }
-      } else if (payment.provider === "adyen") {
-        const session = await verifyAdyenSession(payment.session);
-        const StatusEnum = AdyenTypes.checkout.PaymentLinkResource.StatusEnum;
-
-        if (session.status === StatusEnum.Active) {
-          response = {
-            ok: true,
-            provider: payment.provider,
-            orderId: order.id,
-            data: {
-              paymentUrl: session.url,
-            },
-          };
-
-          return res.status(200).json(response);
-        } else if (
-          [StatusEnum.Completed, StatusEnum.PaymentPending].includes(
-            session.status
-          )
-        ) {
-          response = {
-            ok: false,
-            provider: payment.provider,
-            orderId: order.id,
-            errors: ["ALREADY_PAID"],
-          };
-
-          return res.status(200).json(response);
-        }
-      }
+    if (existingSessionResponse) {
+      return res.status(200).json(existingSessionResponse);
     }
   }
+
+  let response: PayRequestResponse;
 
   if (body.provider === "mollie") {
     const appUrl = getBaseUrl(req);

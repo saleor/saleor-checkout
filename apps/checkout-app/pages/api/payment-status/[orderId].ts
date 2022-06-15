@@ -9,6 +9,72 @@ import { verifyAdyenSession } from "@/checkout-app/backend/payments/providers/ad
 import { PaymentStatusResponse } from "@/checkout-app/types/api/payment-status";
 import { verifyMollieSession } from "@/checkout-app/backend/payments/providers/mollie/verifySession";
 
+const adyenHandler = async (
+  sessionId: string
+): Promise<PaymentStatusResponse> => {
+  const session = await verifyAdyenSession(sessionId);
+
+  const StatusEnum = AdyenTypes.checkout.PaymentLinkResource.StatusEnum;
+
+  if (session.status === StatusEnum.Active) {
+    // Session was previously generated but has not been completed
+    return {
+      status: "UNPAID",
+      sessionLink: session.url,
+    };
+  } else if (
+    [StatusEnum.Completed, StatusEnum.PaymentPending].includes(session.status)
+  ) {
+    // Session was successfully completed but Saleor has not yet registered the payment
+    return {
+      status: "PENDING",
+    };
+  } else if (session.status === StatusEnum.Expired) {
+    return {
+      status: "UNPAID",
+    };
+  } else {
+    throw new Error("Session status unknown");
+  }
+};
+
+const mollieHandler = async (
+  sessionId: string
+): Promise<PaymentStatusResponse> => {
+  const session = await verifyMollieSession(sessionId);
+
+  if (session.status === MollieOrderStatus.created) {
+    // Session was previously generated but has not been completed
+    return {
+      status: "UNPAID",
+      sessionLink: session.url,
+    };
+  } else if (
+    [
+      MollieOrderStatus.authorized,
+      MollieOrderStatus.completed,
+      MollieOrderStatus.paid,
+      MollieOrderStatus.pending,
+      MollieOrderStatus.shipping,
+    ].includes(session.status)
+  ) {
+    // Session was successfully completed but Saleor has not yet registered the payment
+    return {
+      status: "PENDING",
+    };
+  } else if (
+    [MollieOrderStatus.expired, MollieOrderStatus.canceled].includes(
+      session.status
+    )
+  ) {
+    return {
+      status: "UNPAID",
+    };
+  } else {
+    throw new Error("Session status unknown");
+  }
+};
+
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "GET") {
     res.status(405).send({ message: "Only GET requests allowed" });
@@ -41,53 +107,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const data: OrderPaymentMetafield = JSON.parse(order.data.privateMetafield);
 
     if (data.provider === "adyen") {
-      const session = await verifyAdyenSession(data.session);
-
-      const StatusEnum = AdyenTypes.checkout.PaymentLinkResource.StatusEnum;
-
-      if (session.status === StatusEnum.Active) {
-        // Session was previously generated but has not been completed
-        response.status = "UNPAID";
-        response.sessionLink = session.url;
-      } else if (
-        [StatusEnum.Completed, StatusEnum.PaymentPending].includes(
-          session.status
-        )
-      ) {
-        // Session was successfully completed but Saleor has not yet registered the payment
-        response.status = "PENDING";
-      } else if (session.status === StatusEnum.Expired) {
-        response.status = "UNPAID";
-      } else {
-        throw new Error("Session status unknown");
-      }
+      response = await adyenHandler(data.session);
     } else if (data.provider === "mollie") {
-      const session = await verifyMollieSession(data.session);
-
-      if (session.status === MollieOrderStatus.created) {
-        // Session was previously generated but has not been completed
-        response.status = "UNPAID";
-        response.sessionLink = session.url;
-      } else if (
-        [
-          MollieOrderStatus.authorized,
-          MollieOrderStatus.completed,
-          MollieOrderStatus.paid,
-          MollieOrderStatus.pending,
-          MollieOrderStatus.shipping,
-        ].includes(session.status)
-      ) {
-        // Session was successfully completed but Saleor has not yet registered the payment
-        response.status = "PENDING";
-      } else if (
-        [MollieOrderStatus.expired, MollieOrderStatus.canceled].includes(
-          session.status
-        )
-      ) {
-        response.status = "UNPAID";
-      } else {
-        throw new Error("Session status unknown");
-      }
+      response = await mollieHandler(data.session);
     }
   }
 

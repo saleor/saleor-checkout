@@ -34,7 +34,7 @@ export const useCheckoutFinalize = () => {
 
     if (!hasErrors) {
       checkoutPay({
-        provider: "mollie",
+        provider: "mollie", // TODO: Hardcoded payment provider
         checkoutId: checkout?.id,
         totalAmount: checkout?.totalPrice?.gross?.amount as number,
       });

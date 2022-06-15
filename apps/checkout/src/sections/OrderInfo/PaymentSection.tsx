@@ -18,7 +18,7 @@ export const PaymentSection = ({ orderId }: { orderId: string }) => {
 
   const handlePay = () => {
     orderPay({
-      provider: "mollie",
+      provider: "mollie", // TODO: Hardcoded payment provider
       orderId,
     });
   };
@@ -46,7 +46,7 @@ export const PaymentSection = ({ orderId }: { orderId: string }) => {
           <Text color="error">{formatMessage("unpaidOrderMessage")}</Text>
           <Button
             className="mt-2"
-            label="Pay for the order"
+            label={formatMessage("orderPayButtonLabel")}
             onClick={handlePay}
             disabled={orderPayLoading}
           />

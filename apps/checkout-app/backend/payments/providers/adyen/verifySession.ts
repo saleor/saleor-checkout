@@ -12,6 +12,8 @@ export const verifyAdyenSession = async (session: string) => {
     throw "API key not defined";
   }
 
+  // TODO: Remove hardcoded environment value
+  // https://app.clickup.com/t/2549495/SALEOR-7263
   const client = new Client({
     apiKey: adyen.apiKey,
     environment: "TEST",
