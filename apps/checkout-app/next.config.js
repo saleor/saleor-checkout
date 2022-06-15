@@ -6,6 +6,7 @@ module.exports = withTM({
     defaultLocale: "en-US",
   },
   reactStrictMode: true,
+  // eslint-disable-next-line require-await
   async redirects() {
     return [
       {
