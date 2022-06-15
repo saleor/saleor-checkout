@@ -19,4 +19,7 @@ module.exports = withTM({
   experimental: {
     esmExternals: false,
   },
+  eslint: {
+    dirs: ["pages", "backend", "frontend", "config"],
+  },
 });
