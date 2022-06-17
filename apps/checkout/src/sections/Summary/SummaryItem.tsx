@@ -1,11 +1,11 @@
-import { CheckoutLineFragment, OrderLineFragment } from "@/graphql";
+import { CheckoutLineFragment, OrderLineFragment } from "@/checkout/graphql";
 import React from "react";
 import { Text } from "@saleor/ui-kit";
 import { SummaryItemMoneySection } from "./SummaryItemMoneySection";
 import { SummaryItemMoneyEditableSection } from "./SummaryItemMoneyEditableSection";
 import { SummaryItemDelete } from "./SummaryItemDelete";
-import { PhotoIcon } from "@/icons";
-import { useFormattedMessages } from "@/hooks/useFormattedMessages";
+import { PhotoIcon } from "@/checkout/icons";
+import { useFormattedMessages } from "@/checkout/hooks/useFormattedMessages";
 import { getSummaryLineProps, isCheckoutLine, constructJSONAttributes } from "./utils";
 
 interface LineItemProps {
@@ -38,7 +38,7 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line , isOrderConfirmatio
     console.log(remainingAttributes)
 
 
-  const { breakdownItemsPerPassenger, priceItems } = priceItem && constructJSONAttributes(priceItem)
+  // const { breakdownItemsPerPassenger, priceItems } = priceItem && constructJSONAttributes(priceItem)
 
   return (
     <li className="flex flex-row px-6 mb-6">
@@ -74,7 +74,7 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line , isOrderConfirmatio
               return <span key={`${attr}-${index}`} style={{display: 'block'}}>{`${attr}: ${remainingAttributes[attr]}`}</span>
             })}
             <br />
-            {Object.keys(breakdownItemsPerPassenger).map((passenger, index) => {
+            {/* {Object.keys(breakdownItemsPerPassenger).map((passenger, index) => {
               return( <>
                         <span key={`${passenger}-${index}`} style={{display: 'block'}}>
                           {`guest ${passenger} fare: ${breakdownItemsPerPassenger[passenger]['AMCT']['price']}`}
@@ -85,9 +85,9 @@ export const SummaryItem: React.FC<LineItemProps> = ({ line , isOrderConfirmatio
                         <br />
                       </>
                     )
-            })}
+            })} 
             <br />
-            {`total: ${priceItems['totalFarePrice']}`}
+          {`total: ${priceItems['totalFarePrice']}`} */ }
           </Text>
         </div>
         {readOnly && (

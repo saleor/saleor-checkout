@@ -3,9 +3,9 @@ import createMollieClient, {
   OrderLineType,
 } from "@mollie/api-client";
 
-import { getPrivateSettings } from "@/backend/configuration/settings";
-import { envVars } from "@/constants";
-import { OrderFragment, OrderLineFragment } from "@/graphql";
+import { getPrivateSettings } from "@/checkout-app/backend/configuration/settings";
+import { envVars } from "@/checkout-app/constants";
+import { OrderFragment, OrderLineFragment } from "@/checkout-app/graphql";
 
 export const getMollieClient = async () => {
   const metadata = await getPrivateSettings(envVars.apiUrl, false);
@@ -68,7 +68,7 @@ export const getShippingLines = (
   {
     name: data.shippingMethodName || "Shipping",
     quantity: 1,
-    vatRate: parseAmountToString(data.shippingTaxRate),
+    vatRate: parseAmountToString(data.shippingTaxRate * 100),
     vatAmount: {
       currency: data.shippingPrice.tax.currency,
       value: parseAmountToString(data.shippingPrice.tax.amount),
@@ -89,7 +89,7 @@ export const getLines = (lines: OrderFragment["lines"]) =>
   lines.map((line) => ({
     name: line.productName + " - " + line.variantName,
     quantity: line.quantity,
-    vatRate: parseAmountToString(line.taxRate),
+    vatRate: parseAmountToString(line.taxRate * 100),
     vatAmount: {
       currency: line.totalPrice.tax.currency,
       value: parseAmountToString(line.totalPrice.tax.amount),

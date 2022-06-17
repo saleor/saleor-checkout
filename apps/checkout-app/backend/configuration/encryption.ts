@@ -1,5 +1,5 @@
-import { serverEnvVars } from "@/constants";
-import { SettingValue } from "@/types/api";
+import { serverEnvVars } from "@/checkout-app/constants";
+import { SettingValue } from "@/checkout-app/types/api";
 import CryptoJS from "crypto-js";
 
 export const obfuscateValue = (value: string) => {
@@ -7,12 +7,12 @@ export const obfuscateValue = (value: string) => {
 
   // if value is 4 characters or less, obfuscate entire value
   if (unobfuscatedLength <= 0) {
-    return "****";
+    return "••••";
   }
 
   const unobfuscatedValue = value.slice(-unobfuscatedLength);
 
-  return "****" + " " + unobfuscatedValue;
+  return "••••" + " " + unobfuscatedValue;
 };
 
 export const encryptSetting = (settingValue: string): SettingValue => ({

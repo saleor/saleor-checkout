@@ -1,9 +1,12 @@
-import { IconButton } from "@/components/IconButton";
+import { IconButton } from "@/checkout/components/IconButton";
 import React from "react";
-import { CloseIcon as DeleteIcon } from "@/icons";
-import { CheckoutLineFragment, useCheckoutLineDeleteMutation } from "@/graphql";
-import { getDataWithToken } from "@/lib/utils";
-import { useFormattedMessages } from "@/hooks/useFormattedMessages";
+import { CloseIcon as DeleteIcon } from "@/checkout/icons";
+import {
+  CheckoutLineFragment,
+  useCheckoutLineDeleteMutation,
+} from "@/checkout/graphql";
+import { useFormattedMessages } from "@/checkout/hooks/useFormattedMessages";
+import { useCheckout } from "@/checkout/hooks/useCheckout";
 
 interface LineItemDeleteProps {
   line: CheckoutLineFragment;
@@ -14,13 +17,13 @@ export const SummaryItemDelete: React.FC<LineItemDeleteProps> = ({
 }) => {
   const formatMessage = useFormattedMessages();
   const [, deleteLine] = useCheckoutLineDeleteMutation();
+  const { checkout } = useCheckout();
 
   const handleLineDelete = () =>
-    deleteLine(
-      getDataWithToken({
-        lineId,
-      })
-    );
+    deleteLine({
+      id: checkout.id,
+      lineId,
+    });
 
   return (
     <div className="delete-row-button">

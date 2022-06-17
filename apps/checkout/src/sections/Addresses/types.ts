@@ -1,5 +1,5 @@
-import { AddressTypeEnum, CountryCode } from "@/graphql";
-import { AddressField } from "@/lib/globalTypes";
+import { AddressTypeEnum, CountryCode } from "@/checkout/graphql";
+import { AddressField } from "@/checkout/lib/globalTypes";
 
 export interface AddressFormData
   extends Omit<
@@ -17,8 +17,3 @@ export type UserDefaultAddressFragment =
   | null
   | undefined
   | { __typename?: "Address"; id: string };
-
-export interface BillingSameAsShippingAddressProps {
-  isBillingSameAsShippingAddress: boolean;
-  setIsBillingSameAsShippingAddress: (value: boolean) => void;
-}

@@ -2,18 +2,18 @@ import clsx from "clsx";
 import { debounce } from "lodash-es";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { IconButton } from "@/components/IconButton";
-import { MinusIcon, PlusIcon } from "@/icons";
+import { IconButton } from "@/checkout/components/IconButton";
+import { MinusIcon, PlusIcon } from "@/checkout/icons";
 import { Text } from "@saleor/ui-kit";
 import {
   CheckoutLineFragment,
   CheckoutLinesUpdateMutationVariables,
   useCheckoutLinesUpdateMutation,
-} from "@/graphql";
-import { useFormattedMessages } from "@/hooks/useFormattedMessages";
-import { useFormattedMoney } from "@/hooks/useFormattedMoney";
-import { Money } from "@/components/Money";
-import { getDataWithToken } from "@/lib/utils";
+} from "@/checkout/graphql";
+import { useFormattedMessages } from "@/checkout/hooks/useFormattedMessages";
+import { useFormattedMoney } from "@/checkout/hooks/useFormattedMoney";
+import { Money } from "@/checkout/components/Money";
+import { useCheckout } from "@/checkout/hooks/useCheckout";
 
 interface LineItemQuantitySelectorProps {
   line: CheckoutLineFragment;
@@ -23,24 +23,27 @@ export const SummaryItemMoneyEditableSection: React.FC<
   LineItemQuantitySelectorProps
 > = ({ line }) => {
   const {
+    unitPrice,
+    undiscountedUnitPrice,
     variant: { id: variantId, pricing },
   } = line;
 
   const [quantity, setQuantity] = useState(line.quantity);
   const previousQuantity = useRef(line.quantity);
   const [, updateLines] = useCheckoutLinesUpdateMutation();
+  const { checkout } = useCheckout();
 
   const getUpdateLineVars = (
     quantity: number
-  ): CheckoutLinesUpdateMutationVariables =>
-    getDataWithToken({
-      lines: [
-        {
-          quantity,
-          variantId,
-        },
-      ],
-    });
+  ): CheckoutLinesUpdateMutationVariables => ({
+    id: checkout.id,
+    lines: [
+      {
+        quantity,
+        variantId,
+      },
+    ],
+  });
 
   const handleSubmit = (quantity: number) => {
     updateLines(getUpdateLineVars(quantity));
@@ -62,7 +65,7 @@ export const SummaryItemMoneyEditableSection: React.FC<
     debouncedSubmit(quantity);
   }, [quantity, debouncedSubmit]);
 
-  const piecePrice = pricing?.price?.gross;
+  const piecePrice = unitPrice.gross;
   const formatMessage = useFormattedMessages();
   const formattedPiecePrice = useFormattedMoney(piecePrice);
 
@@ -96,9 +99,8 @@ export const SummaryItemMoneyEditableSection: React.FC<
           <Money
             ariaLabel={formatMessage("undiscountedPriceLabel")}
             money={{
-              currency: pricing?.priceUndiscounted?.gross.currency as string,
-              amount:
-                (pricing?.priceUndiscounted?.gross.amount || 0) * quantity,
+              currency: undiscountedUnitPrice.currency,
+              amount: undiscountedUnitPrice.amount * quantity,
             }}
             className="line-through mr-1"
           />
