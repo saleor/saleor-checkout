@@ -2,25 +2,21 @@ import {
   AddressInput,
   useCheckoutBillingAddressUpdateMutation,
   useCheckoutShippingAddressUpdateMutation,
-} from "@/graphql";
-import { useCheckout } from "@/hooks/useCheckout";
-import { extractMutationErrors, getDataWithToken } from "@/lib/utils";
-import { useErrors } from "@/providers/ErrorsProvider";
+} from "@/checkout/graphql";
+import { useCheckout } from "@/checkout/hooks/useCheckout";
+import { extractMutationErrors } from "@/checkout/lib/utils";
+import { useBillingSameAsShipping } from "@/checkout/providers/BillingSameAsShippingProvider";
+import { useErrors } from "@/checkout/providers/ErrorsProvider";
 import { useEffect } from "react";
-import { AddressFormData, BillingSameAsShippingAddressProps } from "./types";
+import { AddressFormData } from "./types";
 import { getAddressFormDataFromAddress, getAddressInputData } from "./utils";
 
 export type UseAddressUpdateFn = (address: AddressFormData) => Promise<void>;
 
-type UseCheckoutAddressUpdateProps = Pick<
-  BillingSameAsShippingAddressProps,
-  "isBillingSameAsShippingAddress"
->;
-
-export const useCheckoutAddressUpdate = ({
-  isBillingSameAsShippingAddress,
-}: UseCheckoutAddressUpdateProps) => {
+export const useCheckoutAddressUpdate = () => {
   const { checkout } = useCheckout();
+  const { isBillingSameAsShippingAddress } = useBillingSameAsShipping();
+
   const { setApiErrors: setShippingApiErrors } = useErrors<AddressFormData>(
     "checkoutShippingUpdate"
   );
@@ -32,9 +28,10 @@ export const useCheckoutAddressUpdate = ({
     useCheckoutShippingAddressUpdateMutation();
 
   const updateShippingAddress = async (address: AddressFormData) => {
-    const result = await checkoutShippingAddressUpdate(
-      getDataWithToken({ shippingAddress: getAddressInputData(address) })
-    );
+    const result = await checkoutShippingAddressUpdate({
+      id: checkout.id,
+      shippingAddress: getAddressInputData(address),
+    });
 
     const [hasErrors, errors] = extractMutationErrors(result);
 
@@ -52,11 +49,10 @@ export const useCheckoutAddressUpdate = ({
     useCheckoutBillingAddressUpdateMutation();
 
   const updateBillingAddress = async (addressInput: AddressInput) => {
-    const result = await checkoutBillingAddressUpdate(
-      getDataWithToken({
-        billingAddress: addressInput,
-      })
-    );
+    const result = await checkoutBillingAddressUpdate({
+      id: checkout.id,
+      billingAddress: addressInput,
+    });
 
     const [hasErrors, errors] = extractMutationErrors(result);
 

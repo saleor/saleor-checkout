@@ -276,6 +276,26 @@ export type AddressCreate = {
   user?: Maybe<User>;
 };
 
+export type AddressCreated = Event & {
+  __typename?: 'AddressCreated';
+  /**
+   * The address the event relates to.
+   *
+   * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  address?: Maybe<Address>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
+};
+
 /**
  * Deletes an address.
  *
@@ -289,6 +309,26 @@ export type AddressDelete = {
   errors: Array<AccountError>;
   /** A user instance for which the address was deleted. */
   user?: Maybe<User>;
+};
+
+export type AddressDeleted = Event & {
+  __typename?: 'AddressDeleted';
+  /**
+   * The address the event relates to.
+   *
+   * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  address?: Maybe<Address>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type AddressInput = {
@@ -348,6 +388,26 @@ export type AddressUpdate = {
   errors: Array<AccountError>;
   /** A user object for which the address was edited. */
   user?: Maybe<User>;
+};
+
+export type AddressUpdated = Event & {
+  __typename?: 'AddressUpdated';
+  /**
+   * The address the event relates to.
+   *
+   * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  address?: Maybe<Address>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type AddressValidationData = {
@@ -587,16 +647,24 @@ export type AppDeleteFailedInstallation = {
   errors: Array<AppError>;
 };
 
-export type AppDeleted = {
+export type AppDeleted = Event & {
   __typename?: 'AppDeleted';
   /**
-   * Look up a app.
+   * The application the event relates to.
    *
    * Added in Saleor 3.4.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   app?: Maybe<App>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type AppError = {
@@ -756,16 +824,24 @@ export type AppInstallation = Job & Node & {
   updatedAt: Scalars['DateTime'];
 };
 
-export type AppInstalled = {
+export type AppInstalled = Event & {
   __typename?: 'AppInstalled';
   /**
-   * Look up a app.
+   * The application the event relates to.
    *
    * Added in Saleor 3.4.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   app?: Maybe<App>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type AppManifestExtension = {
@@ -808,16 +884,24 @@ export type AppSortingInput = {
   field: AppSortField;
 };
 
-export type AppStatusChanged = {
+export type AppStatusChanged = Event & {
   __typename?: 'AppStatusChanged';
   /**
-   * Look up a app.
+   * The application the event relates to.
    *
    * Added in Saleor 3.4.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   app?: Maybe<App>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /** Represents token data. */
@@ -895,16 +979,24 @@ export type AppUpdate = {
   errors: Array<AppError>;
 };
 
-export type AppUpdated = {
+export type AppUpdated = Event & {
   __typename?: 'AppUpdated';
   /**
-   * Look up a app.
+   * The application the event relates to.
    *
    * Added in Saleor 3.4.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   app?: Maybe<App>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /** An enumeration. */
@@ -1246,6 +1338,7 @@ export type AttributeInputTypeEnum =
   | 'FILE'
   | 'MULTISELECT'
   | 'NUMERIC'
+  | 'PLAIN_TEXT'
   | 'REFERENCE'
   | 'RICH_TEXT'
   | 'SWATCH';
@@ -1391,6 +1484,8 @@ export type AttributeValue = Node & {
   inputType?: Maybe<AttributeInputTypeEnum>;
   /** Name of a value displayed in the interface. */
   name?: Maybe<Scalars['String']>;
+  /** Represents the text of the attribute value, plain text without formating. */
+  plainText?: Maybe<Scalars['String']>;
   /** The ID of the attribute reference. */
   reference?: Maybe<Scalars['ID']>;
   /**
@@ -1466,6 +1561,8 @@ export type AttributeValueCreateInput = {
   fileUrl?: InputMaybe<Scalars['String']>;
   /** Name of a value displayed in the interface. */
   name: Scalars['String'];
+  /** Represents the text of the attribute value, plain text without formating. */
+  plainText?: InputMaybe<Scalars['String']>;
   /**
    * Represents the text of the attribute value, includes formatting.
    *
@@ -1509,6 +1606,8 @@ export type AttributeValueInput = {
   file?: InputMaybe<Scalars['String']>;
   /** ID of the selected attribute. */
   id?: InputMaybe<Scalars['ID']>;
+  /** Plain text content. */
+  plainText?: InputMaybe<Scalars['String']>;
   /** List of entity IDs that will be used as references. */
   references?: InputMaybe<Array<Scalars['ID']>>;
   /** Text content in JSON format. */
@@ -1526,6 +1625,8 @@ export type AttributeValueTranslatableContent = Node & {
   attributeValue?: Maybe<AttributeValue>;
   id: Scalars['ID'];
   name: Scalars['String'];
+  /** Attribute plain text value. */
+  plainText?: Maybe<Scalars['String']>;
   /**
    * Attribute value.
    *
@@ -1560,6 +1661,8 @@ export type AttributeValueTranslation = Node & {
   /** Translation language. */
   language: LanguageDisplay;
   name: Scalars['String'];
+  /** Attribute plain text value. */
+  plainText?: Maybe<Scalars['String']>;
   /**
    * Attribute value.
    *
@@ -1570,6 +1673,8 @@ export type AttributeValueTranslation = Node & {
 
 export type AttributeValueTranslationInput = {
   name?: InputMaybe<Scalars['String']>;
+  /** Translated text. */
+  plainText?: InputMaybe<Scalars['String']>;
   /**
    * Translated text.
    *
@@ -1600,6 +1705,8 @@ export type AttributeValueUpdateInput = {
   fileUrl?: InputMaybe<Scalars['String']>;
   /** Name of a value displayed in the interface. */
   name?: InputMaybe<Scalars['String']>;
+  /** Represents the text of the attribute value, plain text without formating. */
+  plainText?: InputMaybe<Scalars['String']>;
   /**
    * Represents the text of the attribute value, includes formatting.
    *
@@ -1861,16 +1968,24 @@ export type CategoryCreate = {
   productErrors: Array<ProductError>;
 };
 
-export type CategoryCreated = {
+export type CategoryCreated = Event & {
   __typename?: 'CategoryCreated';
   /**
-   * Look up a category.
+   * The category the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   category?: Maybe<Category>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /**
@@ -1886,16 +2001,24 @@ export type CategoryDelete = {
   productErrors: Array<ProductError>;
 };
 
-export type CategoryDeleted = {
+export type CategoryDeleted = Event & {
   __typename?: 'CategoryDeleted';
   /**
-   * Look up a category.
+   * The category the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   category?: Maybe<Category>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type CategoryFilterInput = {
@@ -2026,16 +2149,24 @@ export type CategoryUpdate = {
   productErrors: Array<ProductError>;
 };
 
-export type CategoryUpdated = {
+export type CategoryUpdated = Event & {
   __typename?: 'CategoryUpdated';
   /**
-   * Look up a category.
+   * The category the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   category?: Maybe<Category>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /** Represents channel. */
@@ -2106,16 +2237,24 @@ export type ChannelCreateInput = {
   slug: Scalars['String'];
 };
 
-export type ChannelCreated = {
+export type ChannelCreated = Event & {
   __typename?: 'ChannelCreated';
   /**
-   * Look up a channel.
+   * The channel the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   channel?: Maybe<Channel>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /**
@@ -2150,16 +2289,24 @@ export type ChannelDeleteInput = {
   channelId: Scalars['ID'];
 };
 
-export type ChannelDeleted = {
+export type ChannelDeleted = Event & {
   __typename?: 'ChannelDeleted';
   /**
-   * Look up a channel.
+   * The channel the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   channel?: Maybe<Channel>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type ChannelError = {
@@ -2186,16 +2333,24 @@ export type ChannelErrorCode =
   | 'REQUIRED'
   | 'UNIQUE';
 
-export type ChannelStatusChanged = {
+export type ChannelStatusChanged = Event & {
   __typename?: 'ChannelStatusChanged';
   /**
-   * Look up a channel.
+   * The channel the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   channel?: Maybe<Channel>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /**
@@ -2230,16 +2385,24 @@ export type ChannelUpdateInput = {
   slug?: InputMaybe<Scalars['String']>;
 };
 
-export type ChannelUpdated = {
+export type ChannelUpdated = Event & {
   __typename?: 'ChannelUpdated';
   /**
-   * Look up a channel.
+   * The channel the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   channel?: Maybe<Channel>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /** Checkout object. */
@@ -2467,16 +2630,24 @@ export type CheckoutCreateInput = {
   shippingAddress?: InputMaybe<AddressInput>;
 };
 
-export type CheckoutCreated = {
+export type CheckoutCreated = Event & {
   __typename?: 'CheckoutCreated';
   /**
-   * Look up a Checkout.
+   * The checkout the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   checkout?: Maybe<Checkout>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /**
@@ -2604,6 +2775,12 @@ export type CheckoutLine = Node & {
   requiresShipping: Scalars['Boolean'];
   /** The sum of the checkout line price, taxes and discounts. */
   totalPrice: TaxedMoney;
+  /** The sum of the checkout line price, without discounts. */
+  undiscountedTotalPrice: Money;
+  /** The unit price of the checkout line, without discounts. */
+  undiscountedUnitPrice: Money;
+  /** The unit price of the checkout line, with taxes and discounts. */
+  unitPrice: TaxedMoney;
   variant: ProductVariant;
 };
 
@@ -2749,16 +2926,24 @@ export type CheckoutSortingInput = {
   field: CheckoutSortField;
 };
 
-export type CheckoutUpdated = {
+export type CheckoutUpdated = Event & {
   __typename?: 'CheckoutUpdated';
   /**
-   * Look up a Checkout.
+   * The checkout the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   checkout?: Maybe<Checkout>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type ChoiceValue = {
@@ -3030,16 +3215,24 @@ export type CollectionCreateInput = {
   slug?: InputMaybe<Scalars['String']>;
 };
 
-export type CollectionCreated = {
+export type CollectionCreated = Event & {
   __typename?: 'CollectionCreated';
   /**
-   * Look up a collection.
+   * The collection the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   collection?: Maybe<Collection>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -3060,16 +3253,24 @@ export type CollectionDelete = {
   errors: Array<CollectionError>;
 };
 
-export type CollectionDeleted = {
+export type CollectionDeleted = Event & {
   __typename?: 'CollectionDeleted';
   /**
-   * Look up a collection.
+   * The collection the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   collection?: Maybe<Collection>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -3290,16 +3491,24 @@ export type CollectionUpdate = {
   errors: Array<CollectionError>;
 };
 
-export type CollectionUpdated = {
+export type CollectionUpdated = Event & {
   __typename?: 'CollectionUpdated';
   /**
-   * Look up a collection.
+   * The collection the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   collection?: Maybe<Collection>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -3688,16 +3897,24 @@ export type CustomerCreate = {
   user?: Maybe<User>;
 };
 
-export type CustomerCreated = {
+export type CustomerCreated = Event & {
   __typename?: 'CustomerCreated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
   /**
-   * Look up a user.
+   * The user the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /**
@@ -3792,16 +4009,24 @@ export type CustomerUpdate = {
   user?: Maybe<User>;
 };
 
-export type CustomerUpdated = {
+export type CustomerUpdated = Event & {
   __typename?: 'CustomerUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
   /**
-   * Look up a user.
+   * The user the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type DateRangeInput = {
@@ -4163,16 +4388,24 @@ export type DraftOrderCreateInput = {
   voucher?: InputMaybe<Scalars['ID']>;
 };
 
-export type DraftOrderCreated = {
+export type DraftOrderCreated = Event & {
   __typename?: 'DraftOrderCreated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up an order.
+   * The order the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   order?: Maybe<Order>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /**
@@ -4188,16 +4421,24 @@ export type DraftOrderDelete = {
   orderErrors: Array<OrderError>;
 };
 
-export type DraftOrderDeleted = {
+export type DraftOrderDeleted = Event & {
   __typename?: 'DraftOrderDeleted';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up an order.
+   * The order the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   order?: Maybe<Order>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type DraftOrderInput = {
@@ -4250,19 +4491,36 @@ export type DraftOrderUpdate = {
   orderErrors: Array<OrderError>;
 };
 
-export type DraftOrderUpdated = {
+export type DraftOrderUpdated = Event & {
   __typename?: 'DraftOrderUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up an order.
+   * The order the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   order?: Maybe<Order>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
-export type Event = AppDeleted | AppInstalled | AppStatusChanged | AppUpdated | CategoryCreated | CategoryDeleted | CategoryUpdated | ChannelCreated | ChannelDeleted | ChannelStatusChanged | ChannelUpdated | CheckoutCreated | CheckoutUpdated | CollectionCreated | CollectionDeleted | CollectionUpdated | CustomerCreated | CustomerUpdated | DraftOrderCreated | DraftOrderDeleted | DraftOrderUpdated | FulfillmentCanceled | FulfillmentCreated | GiftCardCreated | GiftCardDeleted | GiftCardStatusChanged | GiftCardUpdated | InvoiceDeleted | InvoiceRequested | InvoiceSent | MenuCreated | MenuDeleted | MenuItemCreated | MenuItemDeleted | MenuItemUpdated | MenuUpdated | OrderCancelled | OrderConfirmed | OrderCreated | OrderFulfilled | OrderFullyPaid | OrderUpdated | PageCreated | PageDeleted | PageUpdated | ProductCreated | ProductDeleted | ProductUpdated | ProductVariantBackInStock | ProductVariantCreated | ProductVariantDeleted | ProductVariantOutOfStock | ProductVariantUpdated | SaleCreated | SaleDeleted | SaleUpdated | ShippingPriceCreated | ShippingPriceDeleted | ShippingPriceUpdated | ShippingZoneCreated | ShippingZoneDeleted | ShippingZoneUpdated | TransactionActionRequest | TranslationCreated | TranslationUpdated | VoucherCreated | VoucherDeleted | VoucherUpdated | WarehouseCreated | WarehouseDeleted | WarehouseUpdated;
+export type Event = {
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
+};
 
 /** Event delivery. */
 export type EventDelivery = Node & {
@@ -4818,28 +5076,60 @@ export type FulfillmentCancelInput = {
   warehouseId?: InputMaybe<Scalars['ID']>;
 };
 
-export type FulfillmentCanceled = {
+export type FulfillmentCanceled = Event & {
   __typename?: 'FulfillmentCanceled';
   /**
-   * Look up a Fulfillment.
+   * The fulfillment the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   fulfillment?: Maybe<Fulfillment>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /**
+   * The order the fulfillment belongs to.
+   *
+   * Added in Saleor 3.4.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  order?: Maybe<Order>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
-export type FulfillmentCreated = {
+export type FulfillmentCreated = Event & {
   __typename?: 'FulfillmentCreated';
   /**
-   * Look up a Fulfillment.
+   * The fulfillment the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   fulfillment?: Maybe<Fulfillment>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /**
+   * The order the fulfillment belongs to.
+   *
+   * Added in Saleor 3.4.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  order?: Maybe<Order>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /** Represents line of the fulfillment. */
@@ -5322,16 +5612,24 @@ export type GiftCardCreateInput = {
   userEmail?: InputMaybe<Scalars['String']>;
 };
 
-export type GiftCardCreated = {
+export type GiftCardCreated = Event & {
   __typename?: 'GiftCardCreated';
   /**
-   * Look up a gift card.
+   * The gift card the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   giftCard?: Maybe<GiftCard>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /**
@@ -5365,16 +5663,24 @@ export type GiftCardDelete = {
   giftCardErrors: Array<GiftCardError>;
 };
 
-export type GiftCardDeleted = {
+export type GiftCardDeleted = Event & {
   __typename?: 'GiftCardDeleted';
   /**
-   * Look up a gift card.
+   * The gift card the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   giftCard?: Maybe<GiftCard>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type GiftCardError = {
@@ -5572,16 +5878,24 @@ export type GiftCardSortingInput = {
   field: GiftCardSortField;
 };
 
-export type GiftCardStatusChanged = {
+export type GiftCardStatusChanged = Event & {
   __typename?: 'GiftCardStatusChanged';
   /**
-   * Look up a gift card.
+   * The gift card the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   giftCard?: Maybe<GiftCard>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /**
@@ -5678,16 +5992,24 @@ export type GiftCardUpdateInput = {
   startDate?: InputMaybe<Scalars['Date']>;
 };
 
-export type GiftCardUpdated = {
+export type GiftCardUpdated = Event & {
   __typename?: 'GiftCardUpdated';
   /**
-   * Look up a gift card.
+   * The gift card the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   giftCard?: Maybe<GiftCard>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /** Represents permission group data. */
@@ -5853,16 +6175,24 @@ export type InvoiceDelete = {
   invoiceErrors: Array<InvoiceError>;
 };
 
-export type InvoiceDeleted = {
+export type InvoiceDeleted = Event & {
   __typename?: 'InvoiceDeleted';
   /**
-   * Look up an Invoice.
+   * The invoice the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   invoice?: Maybe<Invoice>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type InvoiceError = {
@@ -5914,16 +6244,24 @@ export type InvoiceRequestDelete = {
   invoiceErrors: Array<InvoiceError>;
 };
 
-export type InvoiceRequested = {
+export type InvoiceRequested = Event & {
   __typename?: 'InvoiceRequested';
   /**
-   * Look up an Invoice.
+   * The invoice the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   invoice?: Maybe<Invoice>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /**
@@ -5939,16 +6277,24 @@ export type InvoiceSendNotification = {
   invoiceErrors: Array<InvoiceError>;
 };
 
-export type InvoiceSent = {
+export type InvoiceSent = Event & {
   __typename?: 'InvoiceSent';
   /**
-   * Look up an Invoice.
+   * The invoice the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   invoice?: Maybe<Invoice>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /**
@@ -5963,6 +6309,8 @@ export type InvoiceUpdate = {
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
   invoiceErrors: Array<InvoiceError>;
 };
+
+export type IssuingPrincipal = App | User;
 
 export type Job = {
   /** Created date time of job in ISO 8601 format. */
@@ -6972,16 +7320,24 @@ export type MenuCreateInput = {
   slug?: InputMaybe<Scalars['String']>;
 };
 
-export type MenuCreated = {
+export type MenuCreated = Event & {
   __typename?: 'MenuCreated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a menu.
+   * The menu the event relates to.
    *
    * Added in Saleor 3.4.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   menu?: Maybe<Menu>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -7002,16 +7358,24 @@ export type MenuDelete = {
   menuErrors: Array<MenuError>;
 };
 
-export type MenuDeleted = {
+export type MenuDeleted = Event & {
   __typename?: 'MenuDeleted';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a menu.
+   * The menu the event relates to.
    *
    * Added in Saleor 3.4.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   menu?: Maybe<Menu>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -7205,16 +7569,24 @@ export type MenuItemCreateInput = {
   url?: InputMaybe<Scalars['String']>;
 };
 
-export type MenuItemCreated = {
+export type MenuItemCreated = Event & {
   __typename?: 'MenuItemCreated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a menu item.
+   * The menu item the event relates to.
    *
    * Added in Saleor 3.4.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   menuItem?: Maybe<MenuItem>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -7235,16 +7607,24 @@ export type MenuItemDelete = {
   menuItem?: Maybe<MenuItem>;
 };
 
-export type MenuItemDeleted = {
+export type MenuItemDeleted = Event & {
   __typename?: 'MenuItemDeleted';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a menu item.
+   * The menu item the event relates to.
    *
    * Added in Saleor 3.4.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   menuItem?: Maybe<MenuItem>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -7352,16 +7732,24 @@ export type MenuItemUpdate = {
   menuItem?: Maybe<MenuItem>;
 };
 
-export type MenuItemUpdated = {
+export type MenuItemUpdated = Event & {
   __typename?: 'MenuItemUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a menu item.
+   * The menu item the event relates to.
    *
    * Added in Saleor 3.4.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   menuItem?: Maybe<MenuItem>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -7399,16 +7787,24 @@ export type MenuUpdate = {
   menuErrors: Array<MenuError>;
 };
 
-export type MenuUpdated = {
+export type MenuUpdated = Event & {
   __typename?: 'MenuUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a menu.
+   * The menu the event relates to.
    *
    * Added in Saleor 3.4.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   menu?: Maybe<Menu>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -9325,6 +9721,7 @@ export type MutationChannelUpdateArgs = {
 
 export type MutationCheckoutAddPromoCodeArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
+  id?: InputMaybe<Scalars['ID']>;
   promoCode: Scalars['String'];
   token?: InputMaybe<Scalars['UUID']>;
 };
@@ -9333,12 +9730,14 @@ export type MutationCheckoutAddPromoCodeArgs = {
 export type MutationCheckoutBillingAddressUpdateArgs = {
   billingAddress: AddressInput;
   checkoutId?: InputMaybe<Scalars['ID']>;
+  id?: InputMaybe<Scalars['ID']>;
   token?: InputMaybe<Scalars['UUID']>;
 };
 
 
 export type MutationCheckoutCompleteArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
+  id?: InputMaybe<Scalars['ID']>;
   paymentData?: InputMaybe<Scalars['JSONString']>;
   redirectUrl?: InputMaybe<Scalars['String']>;
   storeSource?: InputMaybe<Scalars['Boolean']>;
@@ -9354,18 +9753,21 @@ export type MutationCheckoutCreateArgs = {
 export type MutationCheckoutCustomerAttachArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
   customerId?: InputMaybe<Scalars['ID']>;
+  id?: InputMaybe<Scalars['ID']>;
   token?: InputMaybe<Scalars['UUID']>;
 };
 
 
 export type MutationCheckoutCustomerDetachArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
+  id?: InputMaybe<Scalars['ID']>;
   token?: InputMaybe<Scalars['UUID']>;
 };
 
 
 export type MutationCheckoutDeliveryMethodUpdateArgs = {
   deliveryMethodId?: InputMaybe<Scalars['ID']>;
+  id?: InputMaybe<Scalars['ID']>;
   token?: InputMaybe<Scalars['UUID']>;
 };
 
@@ -9373,12 +9775,14 @@ export type MutationCheckoutDeliveryMethodUpdateArgs = {
 export type MutationCheckoutEmailUpdateArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
   email: Scalars['String'];
+  id?: InputMaybe<Scalars['ID']>;
   token?: InputMaybe<Scalars['UUID']>;
 };
 
 
 export type MutationCheckoutLanguageCodeUpdateArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
+  id?: InputMaybe<Scalars['ID']>;
   languageCode: LanguageCodeEnum;
   token?: InputMaybe<Scalars['UUID']>;
 };
@@ -9386,6 +9790,7 @@ export type MutationCheckoutLanguageCodeUpdateArgs = {
 
 export type MutationCheckoutLineDeleteArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
+  id?: InputMaybe<Scalars['ID']>;
   lineId?: InputMaybe<Scalars['ID']>;
   token?: InputMaybe<Scalars['UUID']>;
 };
@@ -9393,19 +9798,22 @@ export type MutationCheckoutLineDeleteArgs = {
 
 export type MutationCheckoutLinesAddArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
+  id?: InputMaybe<Scalars['ID']>;
   lines: Array<CheckoutLineInput>;
   token?: InputMaybe<Scalars['UUID']>;
 };
 
 
 export type MutationCheckoutLinesDeleteArgs = {
+  id?: InputMaybe<Scalars['ID']>;
   linesIds: Array<Scalars['ID']>;
-  token: Scalars['UUID'];
+  token?: InputMaybe<Scalars['UUID']>;
 };
 
 
 export type MutationCheckoutLinesUpdateArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
+  id?: InputMaybe<Scalars['ID']>;
   lines: Array<CheckoutLineUpdateInput>;
   token?: InputMaybe<Scalars['UUID']>;
 };
@@ -9413,6 +9821,7 @@ export type MutationCheckoutLinesUpdateArgs = {
 
 export type MutationCheckoutPaymentCreateArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
+  id?: InputMaybe<Scalars['ID']>;
   input: PaymentInput;
   token?: InputMaybe<Scalars['UUID']>;
 };
@@ -9420,6 +9829,7 @@ export type MutationCheckoutPaymentCreateArgs = {
 
 export type MutationCheckoutRemovePromoCodeArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
+  id?: InputMaybe<Scalars['ID']>;
   promoCode?: InputMaybe<Scalars['String']>;
   promoCodeId?: InputMaybe<Scalars['ID']>;
   token?: InputMaybe<Scalars['UUID']>;
@@ -9428,6 +9838,7 @@ export type MutationCheckoutRemovePromoCodeArgs = {
 
 export type MutationCheckoutShippingAddressUpdateArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
+  id?: InputMaybe<Scalars['ID']>;
   shippingAddress: AddressInput;
   token?: InputMaybe<Scalars['UUID']>;
 };
@@ -9435,6 +9846,7 @@ export type MutationCheckoutShippingAddressUpdateArgs = {
 
 export type MutationCheckoutShippingMethodUpdateArgs = {
   checkoutId?: InputMaybe<Scalars['ID']>;
+  id?: InputMaybe<Scalars['ID']>;
   shippingMethodId: Scalars['ID'];
   token?: InputMaybe<Scalars['UUID']>;
 };
@@ -10714,6 +11126,14 @@ export type Order = Node & ObjectWithMetadata & {
   /** List of actions that can be performed in the current state of an order. */
   actions: Array<OrderAction>;
   /**
+   * The authorize status of the order.
+   *
+   * Added in Saleor 3.4.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  authorizeStatus: OrderAuthorizeStatusEnum;
+  /**
    * Collection points that can be used for this order.
    *
    * Added in Saleor 3.1.
@@ -10731,6 +11151,14 @@ export type Order = Node & ObjectWithMetadata & {
   /** Informs whether a draft order can be finalized(turned into a regular order). */
   canFinalize: Scalars['Boolean'];
   channel: Channel;
+  /**
+   * The charge status of the order.
+   *
+   * Added in Saleor 3.4.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  chargeStatus: OrderChargeStatusEnum;
   collectionPointName?: Maybe<Scalars['String']>;
   created: Scalars['DateTime'];
   customerNote: Scalars['String'];
@@ -10942,6 +11370,27 @@ export type OrderAddNoteInput = {
 };
 
 /**
+ * Determine a current authorize status for order.
+ *
+ *     We treat the order as fully authorized when the sum of authorized and charged funds
+ *     cover the order.total.
+ *     We treat the order as partially authorized when the sum of authorized and charged
+ *     funds covers only part of the order.total
+ *     We treat the order as not authorized when the sum of authorized and charged funds is
+ *     0.
+ *
+ *     NONE - the funds are not authorized
+ *     PARTIAL - the funds that are authorized or charged don't cover fully the order's
+ *     total
+ *     FULL - the funds that are authorized or charged fully cover the order's total
+ *
+ */
+export type OrderAuthorizeStatusEnum =
+  | 'FULL'
+  | 'NONE'
+  | 'PARTIAL';
+
+/**
  * Cancels orders.
  *
  * Requires one of the following permissions: MANAGE_ORDERS.
@@ -10969,16 +11418,24 @@ export type OrderCancel = {
   orderErrors: Array<OrderError>;
 };
 
-export type OrderCancelled = {
+export type OrderCancelled = Event & {
   __typename?: 'OrderCancelled';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up an order.
+   * The order the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   order?: Maybe<Order>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /**
@@ -10996,6 +11453,26 @@ export type OrderCapture = {
 };
 
 /**
+ * Determine the current charge status for the order.
+ *
+ *     We treat the order as overcharged when the charged amount is bigger that order.total
+ *     We treat the order as fully charged when the charged amount is equal to order.total.
+ *     We treat the order as partially charged when the charged amount covers only part of
+ *     the order.total
+ *
+ *     NONE - the funds are not charged.
+ *     PARTIAL - the funds that are charged don't cover the order's total
+ *     FULL - the funds that are charged fully cover the order's total
+ *     OVERCHARGED - the charged funds are bigger than order's total
+ *
+ */
+export type OrderChargeStatusEnum =
+  | 'FULL'
+  | 'NONE'
+  | 'OVERCHARGED'
+  | 'PARTIAL';
+
+/**
  * Confirms an unconfirmed order by changing status to unfulfilled.
  *
  * Requires one of the following permissions: MANAGE_ORDERS.
@@ -11008,16 +11485,24 @@ export type OrderConfirm = {
   orderErrors: Array<OrderError>;
 };
 
-export type OrderConfirmed = {
+export type OrderConfirmed = Event & {
   __typename?: 'OrderConfirmed';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up an order.
+   * The order the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   order?: Maybe<Order>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type OrderCountableConnection = {
@@ -11082,16 +11567,24 @@ export type OrderCreateFromCheckoutErrorCode =
   | 'UNAVAILABLE_VARIANT_IN_CHANNEL'
   | 'VOUCHER_NOT_APPLICABLE';
 
-export type OrderCreated = {
+export type OrderCreated = Event & {
   __typename?: 'OrderCreated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up an order.
+   * The order the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   order?: Maybe<Order>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type OrderDirection =
@@ -11401,7 +11894,9 @@ export type OrderEventsEnum =
   | 'UPDATED_ADDRESS';
 
 export type OrderFilterInput = {
+  authorizeStatus?: InputMaybe<Array<OrderAuthorizeStatusEnum>>;
   channels?: InputMaybe<Array<Scalars['ID']>>;
+  chargeStatus?: InputMaybe<Array<OrderChargeStatusEnum>>;
   created?: InputMaybe<DateRangeInput>;
   customer?: InputMaybe<Scalars['String']>;
   giftCardBought?: InputMaybe<Scalars['Boolean']>;
@@ -11410,6 +11905,7 @@ export type OrderFilterInput = {
   isClickAndCollect?: InputMaybe<Scalars['Boolean']>;
   isPreorder?: InputMaybe<Scalars['Boolean']>;
   metadata?: InputMaybe<Array<MetadataFilter>>;
+  numbers?: InputMaybe<Array<Scalars['String']>>;
   paymentStatus?: InputMaybe<Array<PaymentChargeStatusEnum>>;
   search?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Array<OrderStatusFilter>>;
@@ -11455,28 +11951,44 @@ export type OrderFulfillStockInput = {
   warehouse: Scalars['ID'];
 };
 
-export type OrderFulfilled = {
+export type OrderFulfilled = Event & {
   __typename?: 'OrderFulfilled';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up an order.
+   * The order the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   order?: Maybe<Order>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
-export type OrderFullyPaid = {
+export type OrderFullyPaid = Event & {
   __typename?: 'OrderFullyPaid';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up an order.
+   * The order the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   order?: Maybe<Order>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /** Represents order line of particular order. */
@@ -11778,7 +12290,9 @@ export type OrderSortField =
   /** Sort orders by number. */
   | 'NUMBER'
   /** Sort orders by payment. */
-  | 'PAYMENT';
+  | 'PAYMENT'
+  /** Sort orders by rank. Note: This option is available only with the `search` filter. */
+  | 'RANK';
 
 export type OrderSortingInput = {
   /** Specifies the direction in which to sort products. */
@@ -11848,16 +12362,24 @@ export type OrderUpdateShippingInput = {
   shippingMethod?: InputMaybe<Scalars['ID']>;
 };
 
-export type OrderUpdated = {
+export type OrderUpdated = Event & {
   __typename?: 'OrderUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up an order.
+   * The order the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   order?: Maybe<Order>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /**
@@ -12101,16 +12623,24 @@ export type PageCreateInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
-export type PageCreated = {
+export type PageCreated = Event & {
   __typename?: 'PageCreated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a page.
+   * The page the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   page?: Maybe<Page>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /**
@@ -12126,16 +12656,24 @@ export type PageDelete = {
   pageErrors: Array<PageError>;
 };
 
-export type PageDeleted = {
+export type PageDeleted = Event & {
   __typename?: 'PageDeleted';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a page.
+   * The page the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   page?: Maybe<Page>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type PageError = {
@@ -12488,6 +13026,26 @@ export type PageTypeCreateInput = {
   slug?: InputMaybe<Scalars['String']>;
 };
 
+export type PageTypeCreated = Event & {
+  __typename?: 'PageTypeCreated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /**
+   * The page type the event relates to.
+   *
+   * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  pageType?: Maybe<PageType>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
+};
+
 /**
  * Delete a page type.
  *
@@ -12499,6 +13057,26 @@ export type PageTypeDelete = {
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
   pageErrors: Array<PageError>;
   pageType?: Maybe<PageType>;
+};
+
+export type PageTypeDeleted = Event & {
+  __typename?: 'PageTypeDeleted';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /**
+   * The page type the event relates to.
+   *
+   * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  pageType?: Maybe<PageType>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type PageTypeFilterInput = {
@@ -12556,6 +13134,26 @@ export type PageTypeUpdateInput = {
   slug?: InputMaybe<Scalars['String']>;
 };
 
+export type PageTypeUpdated = Event & {
+  __typename?: 'PageTypeUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /**
+   * The page type the event relates to.
+   *
+   * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  pageType?: Maybe<PageType>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
+};
+
 /**
  * Updates an existing page.
  *
@@ -12569,16 +13167,24 @@ export type PageUpdate = {
   pageErrors: Array<PageError>;
 };
 
-export type PageUpdated = {
+export type PageUpdated = Event & {
   __typename?: 'PageUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a page.
+   * The page the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   page?: Maybe<Page>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /**
@@ -13662,24 +14268,32 @@ export type ProductCreateInput = {
   weight?: InputMaybe<Scalars['WeightScalar']>;
 };
 
-export type ProductCreated = {
+export type ProductCreated = Event & {
   __typename?: 'ProductCreated';
   /**
-   * Look up a category.
+   * The category of the product.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   category?: Maybe<Category>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a product.
+   * The product the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   product?: Maybe<Product>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -13700,24 +14314,32 @@ export type ProductDelete = {
   productErrors: Array<ProductError>;
 };
 
-export type ProductDeleted = {
+export type ProductDeleted = Event & {
   __typename?: 'ProductDeleted';
   /**
-   * Look up a category.
+   * The category of the product.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   category?: Maybe<Category>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a product.
+   * The product the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   product?: Maybe<Product>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -14427,24 +15049,32 @@ export type ProductUpdate = {
   productErrors: Array<ProductError>;
 };
 
-export type ProductUpdated = {
+export type ProductUpdated = Event & {
   __typename?: 'ProductUpdated';
   /**
-   * Look up a category.
+   * The category of the product.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   category?: Maybe<Category>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a product.
+   * The product the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   product?: Maybe<Product>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -14625,16 +15255,24 @@ export type ProductVariantTranslationArgs = {
   languageCode: LanguageCodeEnum;
 };
 
-export type ProductVariantBackInStock = {
+export type ProductVariantBackInStock = Event & {
   __typename?: 'ProductVariantBackInStock';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a product variant.
+   * The product variant the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   productVariant?: Maybe<ProductVariant>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
   /**
    * Look up a warehouse.
    *
@@ -14827,16 +15465,24 @@ export type ProductVariantCreateInput = {
   weight?: InputMaybe<Scalars['WeightScalar']>;
 };
 
-export type ProductVariantCreated = {
+export type ProductVariantCreated = Event & {
   __typename?: 'ProductVariantCreated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a product variant.
+   * The product variant the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   productVariant?: Maybe<ProductVariant>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -14857,16 +15503,24 @@ export type ProductVariantDelete = {
   productVariant?: Maybe<ProductVariant>;
 };
 
-export type ProductVariantDeleted = {
+export type ProductVariantDeleted = Event & {
   __typename?: 'ProductVariantDeleted';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a product variant.
+   * The product variant the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   productVariant?: Maybe<ProductVariant>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -14909,16 +15563,24 @@ export type ProductVariantInput = {
   weight?: InputMaybe<Scalars['WeightScalar']>;
 };
 
-export type ProductVariantOutOfStock = {
+export type ProductVariantOutOfStock = Event & {
   __typename?: 'ProductVariantOutOfStock';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a product variant.
+   * The product variant the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   productVariant?: Maybe<ProductVariant>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
   /**
    * Look up a warehouse.
    *
@@ -15097,16 +15759,24 @@ export type ProductVariantUpdate = {
   productVariant?: Maybe<ProductVariant>;
 };
 
-export type ProductVariantUpdated = {
+export type ProductVariantUpdated = Event & {
   __typename?: 'ProductVariantUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
   /**
-   * Look up a product variant.
+   * The product variant the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   productVariant?: Maybe<ProductVariant>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -15583,6 +16253,7 @@ export type QueryChannelArgs = {
 
 
 export type QueryCheckoutArgs = {
+  id?: InputMaybe<Scalars['ID']>;
   token?: InputMaybe<Scalars['UUID']>;
 };
 
@@ -16326,16 +16997,24 @@ export type SaleCreate = {
   sale?: Maybe<Sale>;
 };
 
-export type SaleCreated = {
+export type SaleCreated = Event & {
   __typename?: 'SaleCreated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
   /**
-   * Look up a sale.
+   * The sale the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   sale?: Maybe<Sale>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -16356,16 +17035,24 @@ export type SaleDelete = {
   sale?: Maybe<Sale>;
 };
 
-export type SaleDeleted = {
+export type SaleDeleted = Event & {
   __typename?: 'SaleDeleted';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
   /**
-   * Look up a sale.
+   * The sale the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   sale?: Maybe<Sale>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -16507,16 +17194,24 @@ export type SaleUpdate = {
   sale?: Maybe<Sale>;
 };
 
-export type SaleUpdated = {
+export type SaleUpdated = Event & {
   __typename?: 'SaleUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
   /**
-   * Look up a sale.
+   * The sale the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   sale?: Maybe<Sale>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -16957,10 +17652,16 @@ export type ShippingPriceCreate = {
   shippingZone?: Maybe<ShippingZone>;
 };
 
-export type ShippingPriceCreated = {
+export type ShippingPriceCreated = Event & {
   __typename?: 'ShippingPriceCreated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
   /**
-   * Look up a shipping method.
+   * The shipping method the event relates to.
    *
    * Added in Saleor 3.2.
    *
@@ -16968,13 +17669,15 @@ export type ShippingPriceCreated = {
    */
   shippingMethod?: Maybe<ShippingMethodType>;
   /**
-   * Look up a shipping zone.
+   * The shipping zone the shipping method belongs to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   shippingZone?: Maybe<ShippingZone>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -17003,10 +17706,16 @@ export type ShippingPriceDelete = {
   shippingZone?: Maybe<ShippingZone>;
 };
 
-export type ShippingPriceDeleted = {
+export type ShippingPriceDeleted = Event & {
   __typename?: 'ShippingPriceDeleted';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
   /**
-   * Look up a shipping method.
+   * The shipping method the event relates to.
    *
    * Added in Saleor 3.2.
    *
@@ -17014,13 +17723,15 @@ export type ShippingPriceDeleted = {
    */
   shippingMethod?: Maybe<ShippingMethodType>;
   /**
-   * Look up a shipping zone.
+   * The shipping zone the shipping method belongs to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   shippingZone?: Maybe<ShippingZone>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -17129,10 +17840,16 @@ export type ShippingPriceUpdate = {
   shippingZone?: Maybe<ShippingZone>;
 };
 
-export type ShippingPriceUpdated = {
+export type ShippingPriceUpdated = Event & {
   __typename?: 'ShippingPriceUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
   /**
-   * Look up a shipping method.
+   * The shipping method the event relates to.
    *
    * Added in Saleor 3.2.
    *
@@ -17140,13 +17857,15 @@ export type ShippingPriceUpdated = {
    */
   shippingMethod?: Maybe<ShippingMethodType>;
   /**
-   * Look up a shipping zone.
+   * The shipping zone the shipping method belongs to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   shippingZone?: Maybe<ShippingZone>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -17302,16 +18021,24 @@ export type ShippingZoneCreateInput = {
   name?: InputMaybe<Scalars['String']>;
 };
 
-export type ShippingZoneCreated = {
+export type ShippingZoneCreated = Event & {
   __typename?: 'ShippingZoneCreated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
   /**
-   * Look up a shipping zone.
+   * The shipping zone the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   shippingZone?: Maybe<ShippingZone>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -17332,16 +18059,24 @@ export type ShippingZoneDelete = {
   shippingZone?: Maybe<ShippingZone>;
 };
 
-export type ShippingZoneDeleted = {
+export type ShippingZoneDeleted = Event & {
   __typename?: 'ShippingZoneDeleted';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
   /**
-   * Look up a shipping zone.
+   * The shipping zone the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   shippingZone?: Maybe<ShippingZone>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -17386,16 +18121,24 @@ export type ShippingZoneUpdateInput = {
   removeWarehouses?: InputMaybe<Array<Scalars['ID']>>;
 };
 
-export type ShippingZoneUpdated = {
+export type ShippingZoneUpdated = Event & {
   __typename?: 'ShippingZoneUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
   /**
-   * Look up a shipping zone.
+   * The shipping zone the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   shippingZone?: Maybe<ShippingZone>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 
@@ -17785,6 +18528,26 @@ export type StaffCreateInput = {
   redirectUrl?: InputMaybe<Scalars['String']>;
 };
 
+export type StaffCreated = Event & {
+  __typename?: 'StaffCreated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /**
+   * The user the event relates to.
+   *
+   * Added in Saleor 3.2.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
+};
+
 /**
  * Deletes a staff user.
  *
@@ -17796,6 +18559,26 @@ export type StaffDelete = {
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
   staffErrors: Array<StaffError>;
   user?: Maybe<User>;
+};
+
+export type StaffDeleted = Event & {
+  __typename?: 'StaffDeleted';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /**
+   * The user the event relates to.
+   *
+   * Added in Saleor 3.2.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type StaffError = {
@@ -17910,6 +18693,26 @@ export type StaffUpdateInput = {
   note?: InputMaybe<Scalars['String']>;
   /** List of permission group IDs from which user should be unassigned. */
   removeGroups?: InputMaybe<Array<Scalars['ID']>>;
+};
+
+export type StaffUpdated = Event & {
+  __typename?: 'StaffUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /**
+   * The user the event relates to.
+   *
+   * Added in Saleor 3.2.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type StaffUserInput = {
@@ -18107,7 +18910,7 @@ export type TransactionActionEnum =
   | 'REFUND'
   | 'VOID';
 
-export type TransactionActionRequest = {
+export type TransactionActionRequest = Event & {
   __typename?: 'TransactionActionRequest';
   /**
    * Requested action data.
@@ -18117,6 +18920,12 @@ export type TransactionActionRequest = {
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   action: TransactionAction;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
   /**
    * Look up a transaction.
    *
@@ -18125,6 +18934,8 @@ export type TransactionActionRequest = {
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   transaction?: Maybe<TransactionItem>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /**
@@ -18462,16 +19273,24 @@ export type TranslatableKinds =
   | 'VARIANT'
   | 'VOUCHER';
 
-export type TranslationCreated = {
+export type TranslationCreated = Event & {
   __typename?: 'TranslationCreated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
   /**
-   * Look up a translation.
+   * The translation the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   translation?: Maybe<TranslationTypes>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type TranslationError = {
@@ -18505,16 +19324,24 @@ export type TranslationInput = {
 
 export type TranslationTypes = AttributeTranslation | AttributeValueTranslation | CategoryTranslation | CollectionTranslation | MenuItemTranslation | PageTranslation | ProductTranslation | ProductVariantTranslation | SaleTranslation | ShippingMethodTranslation | VoucherTranslation;
 
-export type TranslationUpdated = {
+export type TranslationUpdated = Event & {
   __typename?: 'TranslationUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
   /**
-   * Look up a translation.
+   * The translation the event relates to.
    *
    * Added in Saleor 3.2.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   translation?: Maybe<TranslationTypes>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 export type UpdateInvoiceInput = {
@@ -18567,7 +19394,12 @@ export type User = Node & ObjectWithMetadata & {
    * @deprecated This field will be removed in Saleor 4.0. Use the `checkoutTokens` field to fetch the user checkouts.
    */
   checkout?: Maybe<Checkout>;
-  /** Returns the checkout UUID's assigned to this user. */
+  /** Returns the checkout ID's assigned to this user. */
+  checkoutIds?: Maybe<Array<Scalars['ID']>>;
+  /**
+   * Returns the checkout UUID's assigned to this user.
+   * @deprecated This field will be removed in Saleor 4.0. Use `checkoutIds` instead.
+   */
   checkoutTokens?: Maybe<Array<Scalars['UUID']>>;
   dateJoined: Scalars['DateTime'];
   defaultBillingAddress?: Maybe<Address>;
@@ -18652,6 +19484,12 @@ export type User = Node & ObjectWithMetadata & {
 /** Represents user data. */
 export type UserAvatarArgs = {
   size?: InputMaybe<Scalars['Int']>;
+};
+
+
+/** Represents user data. */
+export type UserCheckoutIdsArgs = {
+  channel?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -19179,10 +20017,18 @@ export type VoucherCreate = {
   voucher?: Maybe<Voucher>;
 };
 
-export type VoucherCreated = {
+export type VoucherCreated = Event & {
   __typename?: 'VoucherCreated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
   /**
-   * Look up a voucher.
+   * The voucher the event relates to.
    *
    * Added in Saleor 3.4.
    *
@@ -19209,10 +20055,18 @@ export type VoucherDelete = {
   voucher?: Maybe<Voucher>;
 };
 
-export type VoucherDeleted = {
+export type VoucherDeleted = Event & {
   __typename?: 'VoucherDeleted';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
   /**
-   * Look up a voucher.
+   * The voucher the event relates to.
    *
    * Added in Saleor 3.4.
    *
@@ -19389,10 +20243,18 @@ export type VoucherUpdate = {
   voucher?: Maybe<Voucher>;
 };
 
-export type VoucherUpdated = {
+export type VoucherUpdated = Event & {
   __typename?: 'VoucherUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
   /**
-   * Look up a voucher.
+   * The voucher the event relates to.
    *
    * Added in Saleor 3.4.
    *
@@ -19553,10 +20415,18 @@ export type WarehouseCreateInput = {
   slug?: InputMaybe<Scalars['String']>;
 };
 
-export type WarehouseCreated = {
+export type WarehouseCreated = Event & {
   __typename?: 'WarehouseCreated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
   /**
-   * Look up a warehouse.
+   * The warehouse the event relates to.
    *
    * Added in Saleor 3.4.
    *
@@ -19578,10 +20448,18 @@ export type WarehouseDelete = {
   warehouseErrors: Array<WarehouseError>;
 };
 
-export type WarehouseDeleted = {
+export type WarehouseDeleted = Event & {
   __typename?: 'WarehouseDeleted';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
   /**
-   * Look up a warehouse.
+   * The warehouse the event relates to.
    *
    * Added in Saleor 3.4.
    *
@@ -19693,10 +20571,18 @@ export type WarehouseUpdateInput = {
   slug?: InputMaybe<Scalars['String']>;
 };
 
-export type WarehouseUpdated = {
+export type WarehouseUpdated = Event & {
   __typename?: 'WarehouseUpdated';
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
   /**
-   * Look up a warehouse.
+   * The warehouse the event relates to.
    *
    * Added in Saleor 3.4.
    *
@@ -19847,6 +20733,12 @@ export type WebhookEventSync = {
 
 /** Enum determining type of webhook. */
 export type WebhookEventTypeAsyncEnum =
+  /** A new address created. */
+  | 'ADDRESS_CREATED'
+  /** An address deleted. */
+  | 'ADDRESS_DELETED'
+  /** An address updated. */
+  | 'ADDRESS_UPDATED'
   /** All the events. */
   | 'ANY_EVENTS'
   /** An app deleted. */
@@ -19938,6 +20830,12 @@ export type WebhookEventTypeAsyncEnum =
   | 'PAGE_CREATED'
   /** A page is deleted. */
   | 'PAGE_DELETED'
+  /** A new page type is created. */
+  | 'PAGE_TYPE_CREATED'
+  /** A page type is deleted. */
+  | 'PAGE_TYPE_DELETED'
+  /** A page type is updated. */
+  | 'PAGE_TYPE_UPDATED'
   /** A page is updated. */
   | 'PAGE_UPDATED'
   /** A new product is created. */
@@ -19969,6 +20867,10 @@ export type WebhookEventTypeAsyncEnum =
   | 'SHIPPING_ZONE_DELETED'
   /** A shipping zone is updated. */
   | 'SHIPPING_ZONE_UPDATED'
+  /** A staff user is deleted */
+  | 'STAFF_CREATED'
+  | 'STAFF_DELETED'
+  | 'STAFF_UPDATED'
   | 'TRANSACTION_ACTION_REQUEST'
   | 'TRANSLATION_CREATED'
   | 'TRANSLATION_UPDATED'
@@ -19987,6 +20889,12 @@ export type WebhookEventTypeAsyncEnum =
 
 /** Enum determining type of webhook. */
 export type WebhookEventTypeEnum =
+  /** A new address created. */
+  | 'ADDRESS_CREATED'
+  /** An address deleted. */
+  | 'ADDRESS_DELETED'
+  /** An address updated. */
+  | 'ADDRESS_UPDATED'
   /** All the events. */
   | 'ANY_EVENTS'
   /** An app deleted. */
@@ -20080,6 +20988,12 @@ export type WebhookEventTypeEnum =
   | 'PAGE_CREATED'
   /** A page is deleted. */
   | 'PAGE_DELETED'
+  /** A new page type is created. */
+  | 'PAGE_TYPE_CREATED'
+  /** A page type is deleted. */
+  | 'PAGE_TYPE_DELETED'
+  /** A page type is updated. */
+  | 'PAGE_TYPE_UPDATED'
   /** A page is updated. */
   | 'PAGE_UPDATED'
   | 'PAYMENT_AUTHORIZE'
@@ -20119,6 +21033,10 @@ export type WebhookEventTypeEnum =
   | 'SHIPPING_ZONE_DELETED'
   /** A shipping zone is updated. */
   | 'SHIPPING_ZONE_UPDATED'
+  /** A staff user is deleted */
+  | 'STAFF_CREATED'
+  | 'STAFF_DELETED'
+  | 'STAFF_UPDATED'
   | 'TRANSACTION_ACTION_REQUEST'
   | 'TRANSLATION_CREATED'
   | 'TRANSLATION_UPDATED'
@@ -20150,6 +21068,9 @@ export type WebhookEventTypeSyncEnum =
 
 /** An enumeration. */
 export type WebhookSampleEventTypeEnum =
+  | 'ADDRESS_CREATED'
+  | 'ADDRESS_DELETED'
+  | 'ADDRESS_UPDATED'
   | 'APP_DELETED'
   | 'APP_INSTALLED'
   | 'APP_STATUS_CHANGED'
@@ -20196,6 +21117,9 @@ export type WebhookSampleEventTypeEnum =
   | 'ORDER_UPDATED'
   | 'PAGE_CREATED'
   | 'PAGE_DELETED'
+  | 'PAGE_TYPE_CREATED'
+  | 'PAGE_TYPE_DELETED'
+  | 'PAGE_TYPE_UPDATED'
   | 'PAGE_UPDATED'
   | 'PRODUCT_CREATED'
   | 'PRODUCT_DELETED'
@@ -20214,6 +21138,9 @@ export type WebhookSampleEventTypeEnum =
   | 'SHIPPING_ZONE_CREATED'
   | 'SHIPPING_ZONE_DELETED'
   | 'SHIPPING_ZONE_UPDATED'
+  | 'STAFF_CREATED'
+  | 'STAFF_DELETED'
+  | 'STAFF_UPDATED'
   | 'TRANSACTION_ACTION_REQUEST'
   | 'TRANSLATION_CREATED'
   | 'TRANSLATION_UPDATED'
@@ -20316,11 +21243,20 @@ export type ChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 export type ChannelsQuery = { __typename?: 'Query', channels?: Array<{ __typename?: 'Channel', id: string, name: string, slug: string }> | null };
 
 export type CheckoutQueryVariables = Exact<{
-  token: Scalars['UUID'];
+  id: Scalars['ID'];
 }>;
 
 
 export type CheckoutQuery = { __typename?: 'Query', checkout?: { __typename?: 'Checkout', id: string, totalPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', amount: number } } } | null };
+
+export type FileUploadErrorFragment = { __typename?: 'UploadError', code: UploadErrorCode, message?: string | null, field?: string | null };
+
+export type FileUploadMutationVariables = Exact<{
+  file: Scalars['Upload'];
+}>;
+
+
+export type FileUploadMutation = { __typename?: 'Mutation', fileUpload?: { __typename?: 'FileUpload', uploadedFile?: { __typename?: 'File', url: string, contentType?: string | null } | null, errors: Array<{ __typename?: 'UploadError', code: UploadErrorCode, message?: string | null, field?: string | null }> } | null };
 
 export type MetadataErrorFragment = { __typename?: 'MetadataError', code: MetadataErrorCode, message?: string | null, field?: string | null };
 
@@ -20364,14 +21300,36 @@ export type MoneyFragment = { __typename?: 'Money', currency: string, amount: nu
 
 export type OrderLineFragment = { __typename?: 'OrderLine', id: string, productName: string, variantName: string, quantity: number, taxRate: number, variant?: { __typename?: 'ProductVariant', product: { __typename?: 'Product', category?: { __typename?: 'Category', name: string } | null, productType: { __typename?: 'ProductType', isDigital: boolean, kind: ProductTypeKindEnum } } } | null, unitPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, totalPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, thumbnail?: { __typename?: 'Image', url: string } | null };
 
-export type OrderFragment = { __typename?: 'Order', id: string, number: string, token: string, userEmail?: string | null, shippingTaxRate: number, shippingMethodName?: string | null, billingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, shippingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, total: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, discounts: Array<{ __typename?: 'OrderDiscount', name?: string | null, amount: { __typename?: 'Money', currency: string, amount: number } }>, shippingPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, net: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, lines: Array<{ __typename?: 'OrderLine', id: string, productName: string, variantName: string, quantity: number, taxRate: number, variant?: { __typename?: 'ProductVariant', product: { __typename?: 'Product', category?: { __typename?: 'Category', name: string } | null, productType: { __typename?: 'ProductType', isDigital: boolean, kind: ProductTypeKindEnum } } } | null, unitPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, totalPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, thumbnail?: { __typename?: 'Image', url: string } | null }> };
+export type OrderFragment = { __typename?: 'Order', id: string, number: string, userEmail?: string | null, shippingTaxRate: number, shippingMethodName?: string | null, privateMetafield?: string | null, billingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, shippingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, total: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, discounts: Array<{ __typename?: 'OrderDiscount', name?: string | null, amount: { __typename?: 'Money', currency: string, amount: number } }>, shippingPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, net: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, lines: Array<{ __typename?: 'OrderLine', id: string, productName: string, variantName: string, quantity: number, taxRate: number, variant?: { __typename?: 'ProductVariant', product: { __typename?: 'Product', category?: { __typename?: 'Category', name: string } | null, productType: { __typename?: 'ProductType', isDigital: boolean, kind: ProductTypeKindEnum } } } | null, unitPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, totalPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, thumbnail?: { __typename?: 'Image', url: string } | null }> };
 
 export type OrderCreateMutationVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type OrderCreateMutation = { __typename?: 'Mutation', orderCreateFromCheckout?: { __typename?: 'OrderCreateFromCheckout', order?: { __typename?: 'Order', id: string, number: string, token: string, userEmail?: string | null, shippingTaxRate: number, shippingMethodName?: string | null, billingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, shippingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, total: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, discounts: Array<{ __typename?: 'OrderDiscount', name?: string | null, amount: { __typename?: 'Money', currency: string, amount: number } }>, shippingPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, net: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, lines: Array<{ __typename?: 'OrderLine', id: string, productName: string, variantName: string, quantity: number, taxRate: number, variant?: { __typename?: 'ProductVariant', product: { __typename?: 'Product', category?: { __typename?: 'Category', name: string } | null, productType: { __typename?: 'ProductType', isDigital: boolean, kind: ProductTypeKindEnum } } } | null, unitPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, totalPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, thumbnail?: { __typename?: 'Image', url: string } | null }> } | null, errors: Array<{ __typename?: 'OrderCreateFromCheckoutError', code: OrderCreateFromCheckoutErrorCode, message?: string | null }> } | null };
+export type OrderCreateMutation = { __typename?: 'Mutation', orderCreateFromCheckout?: { __typename?: 'OrderCreateFromCheckout', order?: { __typename?: 'Order', id: string, number: string, userEmail?: string | null, shippingTaxRate: number, shippingMethodName?: string | null, privateMetafield?: string | null, billingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, shippingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, total: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, discounts: Array<{ __typename?: 'OrderDiscount', name?: string | null, amount: { __typename?: 'Money', currency: string, amount: number } }>, shippingPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, net: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, lines: Array<{ __typename?: 'OrderLine', id: string, productName: string, variantName: string, quantity: number, taxRate: number, variant?: { __typename?: 'ProductVariant', product: { __typename?: 'Product', category?: { __typename?: 'Category', name: string } | null, productType: { __typename?: 'ProductType', isDigital: boolean, kind: ProductTypeKindEnum } } } | null, unitPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, totalPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, thumbnail?: { __typename?: 'Image', url: string } | null }> } | null, errors: Array<{ __typename?: 'OrderCreateFromCheckoutError', code: OrderCreateFromCheckoutErrorCode, message?: string | null }> } | null };
+
+export type OrderDetailsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type OrderDetailsQuery = { __typename?: 'Query', order?: { __typename?: 'Order', id: string, number: string, userEmail?: string | null, shippingTaxRate: number, shippingMethodName?: string | null, privateMetafield?: string | null, billingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, shippingAddress?: { __typename?: 'Address', companyName: string, firstName: string, lastName: string, streetAddress1: string, streetAddress2: string, postalCode: string, city: string, countryArea: string, phone?: string | null, country: { __typename?: 'CountryDisplay', code: string } } | null, total: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, discounts: Array<{ __typename?: 'OrderDiscount', name?: string | null, amount: { __typename?: 'Money', currency: string, amount: number } }>, shippingPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, net: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, lines: Array<{ __typename?: 'OrderLine', id: string, productName: string, variantName: string, quantity: number, taxRate: number, variant?: { __typename?: 'ProductVariant', product: { __typename?: 'Product', category?: { __typename?: 'Category', name: string } | null, productType: { __typename?: 'ProductType', isDigital: boolean, kind: ProductTypeKindEnum } } } | null, unitPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, totalPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, thumbnail?: { __typename?: 'Image', url: string } | null }> } | null };
+
+export type OrderPaymentDetailsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type OrderPaymentDetailsQuery = { __typename?: 'Query', order?: { __typename?: 'Order', authorizeStatus: OrderAuthorizeStatusEnum, chargeStatus: OrderChargeStatusEnum, isPaid: boolean, status: OrderStatus, privateMetafield?: string | null } | null };
+
+export type OrderUpdatePaymentMetafieldMutationVariables = Exact<{
+  orderId: Scalars['ID'];
+  data: Scalars['String'];
+}>;
+
+
+export type OrderUpdatePaymentMetafieldMutation = { __typename?: 'Mutation', updatePrivateMetadata?: { __typename?: 'UpdatePrivateMetadata', errors: Array<{ __typename?: 'MetadataError', code: MetadataErrorCode }> } | null };
 
 export type TransactionEventFragment = { __typename?: 'TransactionEvent', name?: string | null, reference: string };
 
@@ -20407,6 +21365,13 @@ export const ChannelFragmentDoc = gql`
   id
   name
   slug
+}
+    `;
+export const FileUploadErrorFragmentDoc = gql`
+    fragment FileUploadErrorFragment on UploadError {
+  code
+  message
+  field
 }
     `;
 export const MetadataErrorFragmentDoc = gql`
@@ -20478,7 +21443,6 @@ export const OrderFragmentDoc = gql`
     fragment Order on Order {
   id
   number
-  token
   userEmail
   billingAddress {
     ...Address
@@ -20510,6 +21474,7 @@ export const OrderFragmentDoc = gql`
   }
   shippingTaxRate
   shippingMethodName
+  privateMetafield(key: "payment")
   lines {
     ...OrderLine
   }
@@ -20580,8 +21545,8 @@ export function useChannelsQuery(options?: Omit<Urql.UseQueryArgs<ChannelsQueryV
   return Urql.useQuery<ChannelsQuery>({ query: ChannelsDocument, ...options });
 };
 export const CheckoutDocument = gql`
-    query Checkout($token: UUID!) {
-  checkout(token: $token) {
+    query Checkout($id: ID!) {
+  checkout(id: $id) {
     id
     totalPrice {
       gross {
@@ -20594,6 +21559,23 @@ export const CheckoutDocument = gql`
 
 export function useCheckoutQuery(options: Omit<Urql.UseQueryArgs<CheckoutQueryVariables>, 'query'>) {
   return Urql.useQuery<CheckoutQuery>({ query: CheckoutDocument, ...options });
+};
+export const FileUploadDocument = gql`
+    mutation FileUpload($file: Upload!) {
+  fileUpload(file: $file) {
+    uploadedFile {
+      url
+      contentType
+    }
+    errors {
+      ...FileUploadErrorFragment
+    }
+  }
+}
+    ${FileUploadErrorFragmentDoc}`;
+
+export function useFileUploadMutation() {
+  return Urql.useMutation<FileUploadMutation, FileUploadMutationVariables>(FileUploadDocument);
 };
 export const PublicMetafieldsDocument = gql`
     query PublicMetafields($id: ID!, $keys: [String!]) {
@@ -20667,6 +21649,45 @@ export const OrderCreateDocument = gql`
 
 export function useOrderCreateMutation() {
   return Urql.useMutation<OrderCreateMutation, OrderCreateMutationVariables>(OrderCreateDocument);
+};
+export const OrderDetailsDocument = gql`
+    query OrderDetails($id: ID!) {
+  order(id: $id) {
+    ...Order
+  }
+}
+    ${OrderFragmentDoc}`;
+
+export function useOrderDetailsQuery(options: Omit<Urql.UseQueryArgs<OrderDetailsQueryVariables>, 'query'>) {
+  return Urql.useQuery<OrderDetailsQuery>({ query: OrderDetailsDocument, ...options });
+};
+export const OrderPaymentDetailsDocument = gql`
+    query OrderPaymentDetails($id: ID!) {
+  order(id: $id) {
+    authorizeStatus
+    chargeStatus
+    isPaid
+    status
+    privateMetafield(key: "payment")
+  }
+}
+    `;
+
+export function useOrderPaymentDetailsQuery(options: Omit<Urql.UseQueryArgs<OrderPaymentDetailsQueryVariables>, 'query'>) {
+  return Urql.useQuery<OrderPaymentDetailsQuery>({ query: OrderPaymentDetailsDocument, ...options });
+};
+export const OrderUpdatePaymentMetafieldDocument = gql`
+    mutation OrderUpdatePaymentMetafield($orderId: ID!, $data: String!) {
+  updatePrivateMetadata(id: $orderId, input: {key: "payment", value: $data}) {
+    errors {
+      code
+    }
+  }
+}
+    `;
+
+export function useOrderUpdatePaymentMetafieldMutation() {
+  return Urql.useMutation<OrderUpdatePaymentMetafieldMutation, OrderUpdatePaymentMetafieldMutationVariables>(OrderUpdatePaymentMetafieldDocument);
 };
 export const OrderTransactionsDocument = gql`
     query OrderTransactions($id: ID!) {

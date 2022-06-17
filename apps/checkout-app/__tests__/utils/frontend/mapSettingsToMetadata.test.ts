@@ -1,10 +1,10 @@
 import {
   defaultPrivateSettings,
   defaultPublicSettings,
-} from "@/config/defaults";
-import { mapPrivateSettingsToMetadata } from "@/backend/configuration/mapPrivateSettingsToMetadata";
-import { mapPublicSettingsToMetadata } from "@/frontend/misc/mapPublicSettingsToMetadata";
-import { PublicSettingsValues } from "@/types/api";
+} from "@/checkout-app/config/defaults";
+import { mapPrivateSettingsToMetadata } from "@/checkout-app/backend/configuration/mapPrivateSettingsToMetadata";
+import { mapPublicSettingsToMetadata } from "@/checkout-app/frontend/misc/mapPublicSettingsToMetadata";
+import { PublicSettingsValues } from "@/checkout-app/types/api";
 
 describe("/utils/frontend/misc/mapSettingsToMetadata", () => {
   it("maps settings to public metadata", async () => {
@@ -29,7 +29,7 @@ describe("/utils/frontend/misc/mapSettingsToMetadata", () => {
       {
         key: "customizations",
         value:
-          '{"branding":{"buttonBgColorPrimary":"#fff","buttonBgColorHover":"#fff","borderColorPrimary":"#FAFAFA","errorColor":"#B65757","successColor":"#2C9B2A","buttonTextColor":"#ffffff","textColor":"#000000","logoUrl":""},"productSettings":{"lowStockThreshold":""}}',
+          '{"branding":{"buttonBgColorPrimary":"#fff","buttonBgColorHover":"#fff","borderColorPrimary":"#394052","errorColor":"#B65757","successColor":"#2C9B2A","buttonTextColor":"#ffffff","textColor":"#000000","logoUrl":""},"productSettings":{"lowStockThreshold":""}}',
       },
       {
         key: "channelActivePaymentProviders",

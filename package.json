@@ -8,6 +8,8 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "build:checkout": "turbo run build --filter=checkout",
+    "build:checkout-app": "turbo run build --filter=checkout-app",
     "dev": "env-cmd turbo run dev --parallel",
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
@@ -23,5 +25,5 @@
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
   },
-  "packageManager": "pnpm@6.19.0"
+  "packageManager": "pnpm@7.2.0"
 }

@@ -1,4 +1,4 @@
-import { ChannelFragment } from "@/graphql";
+import { ChannelFragment } from "@/checkout-app/graphql";
 import {
   CustomizationID,
   CustomizationSettingID,
@@ -8,6 +8,7 @@ import {
   PaymentProviderID,
   PaymentProviderSettingID,
   PrivateSettingID,
+  PublicMetafieldID,
   PublicSettingID,
   SettingsType,
 } from "./common";
@@ -52,6 +53,11 @@ export type CustomizationSettingsValues = {
     [K in CustomizationSettingID<P>]: string;
   };
 };
+export type CustomizationSettingsFiles = {
+  [P in CustomizationID]?: {
+    [K in CustomizationSettingID<P>]?: File;
+  };
+};
 export type UnknownPublicSettingsValues = {
   [P in string]: {
     [K in string]: string;
@@ -85,7 +91,7 @@ export type SettingsValues<
 > = T extends "public" ? PublicSettingsValues : PrivateSettingsValues<E>;
 
 export type PublicMetafieldsValues = {
-  [P in PublicSettingID[number]]?: string;
+  [P in PublicSettingID[number] | PublicMetafieldID[number]]?: string;
 };
 export type PrivateMetafieldsValues = {
   [P in PrivateSettingID[number]]?: string;

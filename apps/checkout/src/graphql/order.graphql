@@ -92,10 +92,9 @@ fragment Shipping on ShippingMethod {
 }
 
 fragment Order on Order {
+  id
   number
   userEmail
-  isPaid
-  paymentStatus
   shippingAddress {
     ...AddressFragment
   }
@@ -128,8 +127,8 @@ fragment Order on Order {
   }
 }
 
-query order($token: UUID!) {
-  orderByToken(token: $token) {
+query order($id: ID!) {
+  order(id: $id) {
     ...Order
   }
 }

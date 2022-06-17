@@ -1,19 +1,16 @@
-import { Checkbox } from "@/components/Checkbox";
-import { AddressFragment } from "@/graphql";
-import { useCheckout } from "@/hooks/useCheckout";
-import { useFormattedMessages } from "@/hooks/useFormattedMessages";
+import { Checkbox } from "@/checkout/components/Checkbox";
+import { AddressFragment } from "@/checkout/graphql";
+import { useCheckout } from "@/checkout/hooks/useCheckout";
+import { useFormattedMessages } from "@/checkout/hooks/useFormattedMessages";
+import { useBillingSameAsShipping } from "@/checkout/providers/BillingSameAsShippingProvider";
 import { useAuthState } from "@saleor/sdk";
 import React from "react";
 import { GuestAddressSection } from "./GuestAddressSection";
-import {
-  BillingSameAsShippingAddressProps,
-  UserDefaultAddressFragment,
-} from "./types";
+import { UserDefaultAddressFragment } from "./types";
 import { useCheckoutAddressUpdate } from "./useCheckoutAddressUpdate";
 import { UserAddressSection } from "./UserAddressSection";
 
-export interface ShippingAddressSectionProps
-  extends BillingSameAsShippingAddressProps {
+export interface ShippingAddressSectionProps {
   addresses?: AddressFragment[] | null;
   defaultShippingAddress: UserDefaultAddressFragment;
 }
@@ -21,18 +18,16 @@ export interface ShippingAddressSectionProps
 export const ShippingAddressSection: React.FC<ShippingAddressSectionProps> = ({
   defaultShippingAddress,
   addresses = [],
-  isBillingSameAsShippingAddress,
-  setIsBillingSameAsShippingAddress,
 }) => {
   const formatMessage = useFormattedMessages();
   const { user: authUser } = useAuthState();
   const { checkout } = useCheckout();
+  const { isBillingSameAsShippingAddress, setIsBillingSameAsShippingAddress } =
+    useBillingSameAsShipping();
 
   const defaultAddress = checkout?.shippingAddress || defaultShippingAddress;
 
-  const { updateShippingAddress } = useCheckoutAddressUpdate({
-    isBillingSameAsShippingAddress,
-  });
+  const { updateShippingAddress } = useCheckoutAddressUpdate();
 
   return (
     <>
@@ -43,7 +38,7 @@ export const ShippingAddressSection: React.FC<ShippingAddressSectionProps> = ({
           onAddressSelect={updateShippingAddress}
           // @ts-ignore TMP
           addresses={addresses as UserAddressFormData[]}
-          defaultAddress={defaultAddress}
+          defaultAddressId={defaultAddress?.id}
         />
       ) : (
         <GuestAddressSection

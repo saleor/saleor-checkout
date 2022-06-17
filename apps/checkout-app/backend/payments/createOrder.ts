@@ -1,11 +1,14 @@
-import { getClient } from "@/backend/client";
-import { envVars, serverEnvVars } from "@/constants";
+import { getClient } from "@/checkout-app/backend/client";
+import { envVars, serverEnvVars } from "@/checkout-app/constants";
 import {
+  CheckoutDocument,
+  CheckoutQuery,
+  CheckoutQueryVariables,
   OrderCreateDocument,
   OrderCreateMutation,
   OrderCreateMutationVariables,
   OrderFragment,
-} from "@/graphql";
+} from "@/checkout-app/graphql";
 
 import { Errors } from "./types";
 
@@ -21,10 +24,32 @@ export const createOrder = async (
     }
 > => {
   console.log("hiyaaaaaa");
-  const { data, error } = await getClient(
-    envVars.apiUrl,
-    serverEnvVars.appToken
-  )
+
+  // Start by checking if total amount is correct
+  const client = await getClient(envVars.apiUrl, serverEnvVars.appToken);
+  const checkout = await client
+    .query<CheckoutQuery, CheckoutQueryVariables>(CheckoutDocument, {
+      id: checkoutId,
+    })
+    .toPromise();
+
+  if (checkout.error) {
+    throw checkout.error;
+  }
+
+  if (!checkout.data?.checkout) {
+    return {
+      errors: ["CHECKOUT_NOT_FOUND"],
+    };
+  }
+
+  if (checkout.data?.checkout?.totalPrice.gross.amount !== totalAmount) {
+    return {
+      errors: ["TOTAL_AMOUNT_MISMATCH"],
+    };
+  }
+
+  const { data, error } = await client
     .mutation<OrderCreateMutation, OrderCreateMutationVariables>(
       OrderCreateDocument,
       { id: checkoutId }
@@ -42,12 +67,6 @@ export const createOrder = async (
       errors: data?.orderCreateFromCheckout?.errors.map((e) => e.code!) || [
         "COULD_NOT_CREATE_ORDER_FROM_CHECKOUT",
       ],
-    };
-  }
-
-  if (data.orderCreateFromCheckout.order.total.gross.amount !== totalAmount) {
-    return {
-      errors: ["TOTAL_AMOUNT_MISMATCH"],
     };
   }
 

@@ -1,10 +1,11 @@
-import AppNavigation from "@/frontend/components/elements/AppNavigation";
-import AppSavebar from "@/frontend/components/elements/AppSavebar";
+import AppNavigation from "@/checkout-app/frontend/components/elements/AppNavigation";
+import AppSavebar from "@/checkout-app/frontend/components/elements/AppSavebar";
 import {
   Typography,
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  TextField,
 } from "@material-ui/core";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import {
@@ -12,46 +13,98 @@ import {
   OffsettedListBody,
   ConfirmButtonTransitionState,
 } from "@saleor/macaw-ui";
-import { Customization, CustomizationID } from "types/common";
-import { CustomizationSettingsValues } from "types/api";
+import {
+  Customization,
+  CustomizationID,
+  PublicMetafieldID,
+  CustomizationSettingID,
+} from "types/common";
+import {
+  CustomizationSettingsFiles,
+  CustomizationSettingsValues,
+} from "types/api";
 import { useStyles } from "./styles";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useForm, Controller } from "react-hook-form";
 import { messages } from "./messages";
-import Setting from "@/frontend/components/elements/Setting";
-import { flattenSettingId, unflattenSettings } from "@/frontend/utils";
+import Setting from "@/checkout-app/frontend/components/elements/Setting";
+import {
+  flattenSettingId,
+  unflattenSettings,
+  unflattenValue,
+} from "@/checkout-app/frontend/utils";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { MetadataErrorFragment } from "@/graphql";
-import { getMetadataErrorMessage } from "@/frontend/misc/errors";
+import { MetadataErrorFragment } from "@/checkout-app/graphql";
+import { getMetadataErrorMessage } from "@/checkout-app/frontend/misc/errors";
 import ErrorAlert from "../../elements/ErrorAlert";
+import CheckoutPreviewFrame from "../../elements/CheckoutPreviewFrame";
+import { isValidHttpUrl, useSettingsFromValues } from "./data";
+import { useState } from "react";
+import { debounce } from "lodash-es";
 
 interface CustomizationDetailsProps {
   options: Customization<CustomizationID>[];
+  checkoutUrl?: string;
   loading: boolean;
   saveButtonBarState: ConfirmButtonTransitionState;
   errors?: Partial<MetadataErrorFragment>[];
   onCancel: () => void;
-  onSubmit: (data: CustomizationSettingsValues) => void;
+  onSubmit: (
+    data: CustomizationSettingsValues,
+    dataFiles?: CustomizationSettingsFiles,
+    checkoutUrl?: string
+  ) => Promise<void>;
 }
 
 const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
   options,
+  checkoutUrl,
   loading,
   saveButtonBarState,
   errors,
   onCancel,
   onSubmit,
 }) => {
+  const intl = useIntl();
   const classes = useStyles();
-  const { control, handleSubmit: handleSubmitForm, formState } = useForm();
+  const {
+    control,
+    handleSubmit: handleSubmitForm,
+    formState,
+    watch,
+  } = useForm();
+  const [files, setFiles] = useState<CustomizationSettingsFiles>();
 
-  const handleSubmit = (flattenedSettings: Record<string, string>) => {
-    onSubmit(
+  const previewSettings = useSettingsFromValues(options, watch);
+  const [previewUrl, setPreviewUrl] = useState(checkoutUrl);
+
+  const handleFileChange = <T extends CustomizationID>(
+    optionId: T,
+    settingId: CustomizationSettingID<T>,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const inputFiles = event.target.files;
+    if (!!inputFiles?.length) {
+      setFiles({
+        ...files,
+        [optionId]: {
+          [settingId]: inputFiles[0],
+        },
+      });
+    }
+  };
+
+  const handleSubmit = async (flattenedValues: Record<string, string>) => {
+    await onSubmit(
       unflattenSettings(
-        flattenedSettings,
+        "customizations",
+        flattenedValues,
         options
-      ) as CustomizationSettingsValues
+      ) as CustomizationSettingsValues,
+      files,
+      unflattenValue("customizationsCheckoutUrl", flattenedValues)
     );
+    setFiles(undefined);
   };
 
   return (
@@ -80,7 +133,11 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
                       option.settings?.map(({ id, type, label, value }) => (
                         <Controller
                           key={id}
-                          name={flattenSettingId(optionIdx, id)}
+                          name={flattenSettingId(
+                            "customizations",
+                            optionIdx,
+                            id
+                          )}
                           control={control}
                           defaultValue={value}
                           render={({ field }) => (
@@ -88,8 +145,11 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
                               name={field.name}
                               type={type}
                               label={label}
-                              value={field.value}
+                              value={type === "image" ? value : field.value}
                               onChange={field.onChange}
+                              onFileChange={(event) =>
+                                handleFileChange(option.id, id, event)
+                              }
                               onBlur={field.onBlur}
                             />
                           )}
@@ -114,7 +174,51 @@ const CustomizationDetails: React.FC<CustomizationDetailsProps> = ({
           <Typography variant="subtitle1">
             <FormattedMessage {...messages.customizationPreview} />
           </Typography>
-          <div className={classes.designPreview}>Customization</div>
+          <div className={classes.designPreview}>
+            {loading ? (
+              <Skeleton className={classes.designSkeleton} />
+            ) : (
+              <>
+                <Controller
+                  name={
+                    "customizationsCheckoutUrl" as PublicMetafieldID[number]
+                  }
+                  control={control}
+                  defaultValue={checkoutUrl}
+                  render={({ field }) => (
+                    <TextField
+                      name={field.name}
+                      value={field.value}
+                      label={intl.formatMessage(messages.checkoutUrl)}
+                      className={classes.designUrlInput}
+                      onChange={(event) => {
+                        field.onChange(event);
+                        debounce(
+                          () => setPreviewUrl(event.target.value),
+                          1000
+                        )();
+                      }}
+                      onBlur={field.onBlur}
+                    />
+                  )}
+                />
+                {previewUrl && isValidHttpUrl(previewUrl) ? (
+                  <CheckoutPreviewFrame
+                    checkoutUrl={previewUrl}
+                    settings={previewSettings}
+                    className={classes.designPreviewFrame}
+                  />
+                ) : (
+                  <Typography
+                    variant="body1"
+                    className={classes.designNoPreview}
+                  >
+                    <FormattedMessage {...messages.noCheckoutUrl} />
+                  </Typography>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
       <AppSavebar
