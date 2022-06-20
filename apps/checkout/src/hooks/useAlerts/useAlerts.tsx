@@ -38,7 +38,6 @@ function useAlerts(globalScope?: any): any {
     const messageKey = camelCase(`${scope}-${field}-${code}-error`);
 
     try {
-      console.log({ messageKey });
       const fullMessage = formatMessage(messageKey as MessageKey);
 
       return fullMessage;
