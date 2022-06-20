@@ -9,6 +9,7 @@ export interface AriaLabel {
 export type ErrorCode =
   | "invalid"
   | "required"
+  | "unique"
   | "quantityGreaterThanLimit"
   | "insufficientStock"
   | "invalidCredentials";

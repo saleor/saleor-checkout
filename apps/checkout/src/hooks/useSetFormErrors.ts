@@ -5,21 +5,17 @@ import { useEffect } from "react";
 
 function useSetFormErrors<TFormData>(data: {
   setError: UseFormSetError<TFormData>;
-  hasErrors?: boolean;
   errors?: Errors<TFormData>;
 }): () => void;
 
-function useSetFormErrors<TFormData>(data: {
-  setError: UseFormSetError<TFormData>;
-}): (hasErrors?: boolean, errors?: Errors<TFormData>) => void;
+function useSetFormErrors<TFormData>({ setError, errors }: any) {
+  const setFormErrors = () => {
+    // because we don't get this prop when setting errors from hook form
+    const hasErrors =
+      typeof errors === "object" ? !!Object.keys(errors).length : false;
 
-function useSetFormErrors<TFormData>({ setError, hasErrors, errors }: any) {
-  const setFormErrors = (
-    hasErrorsArg: boolean = hasErrors,
-    errorsArg: Errors<TFormData> = errors
-  ) => {
-    if (hasErrorsArg) {
-      forEach(errorsArg, (error, key) => {
+    if (hasErrors) {
+      forEach(errors, (error, key) => {
         setError(key as Path<TFormData>, {
           message: (error as unknown as FieldError).message,
         });

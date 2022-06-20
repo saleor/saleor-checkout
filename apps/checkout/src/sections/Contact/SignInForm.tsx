@@ -40,10 +40,10 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
     useFormContext();
 
   const schema = object({
-    password: string().required(errorMessages.requiredValue),
+    password: string().required(errorMessages.required),
     email: string()
-      .email(errorMessages.invalidValue)
-      .required(errorMessages.requiredValue),
+      .email(errorMessages.invalid)
+      .required(errorMessages.required),
   });
 
   const resolver = useValidationResolver(schema);
@@ -77,14 +77,21 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
     try {
       await schema.validateAt("email", { email });
 
-      if (!passwordResetSent) {
-        setPasswordResetSent(true);
-      }
-
-      requestPasswordReset({
+      const result = await requestPasswordReset({
         email,
         redirectUrl: getCurrentHref(),
       });
+
+      const [hasErrors, errors] = extractMutationErrors(result);
+
+      if (hasErrors) {
+        showErrors(errors);
+        return;
+      }
+
+      if (!passwordResetSent) {
+        setPasswordResetSent(true);
+      }
     } catch (error) {
       const { path, type, message } = extractValidationError(
         error as ValidationError

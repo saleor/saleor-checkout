@@ -7,14 +7,16 @@ import { omit } from "lodash-es";
 import { FormData } from "./types";
 import { usePay } from "@/checkout/hooks/usePay";
 import { useAlerts } from "@/checkout/hooks/useAlerts";
+import { PayErrorResult } from "@/checkout/fetch";
+import { ErrorCode } from "@/checkout/lib/globalTypes";
 
 export const useCheckoutFinalize = () => {
   const { checkout } = useCheckout();
   const { register } = useAuth();
   const { user } = useAuthState();
   const { checkoutPay, loading } = usePay();
-  const { showErrors } = useAlerts("userRegister");
-  const { errors, setApiErrors, hasErrors } = useErrors();
+  const { showErrors, showCustomErrors } = useAlerts();
+  const { errors, setApiErrors } = useErrors();
 
   const userRegister = async (formData: FormData): Promise<boolean> => {
     if (user || !formData.createAccount) {
@@ -32,7 +34,7 @@ export const useCheckoutFinalize = () => {
     const [hasErrors, errors] = extractMutationErrors(result);
 
     if (hasErrors) {
-      showErrors(errors);
+      showErrors(errors, "userRegister");
       setApiErrors(errors);
       return hasErrors;
     }
@@ -44,11 +46,15 @@ export const useCheckoutFinalize = () => {
     const userRegisterSuccessOrPassed = await userRegister(formData);
 
     if (userRegisterSuccessOrPassed) {
-      checkoutPay({
-        provider: "mollie", // TODO: Hardcoded payment provider
-        checkoutId: checkout?.id,
-        totalAmount: checkout?.totalPrice?.gross?.amount as number,
-      });
+      // const result = await checkoutPay({
+      //   provider: "mollie", // TODO: Hardcoded payment provider
+      //   checkoutId: checkout?.id,
+      //   totalAmount: checkout?.totalPrice?.gross?.amount as number,
+      // });
+      // if (!(result as PayErrorResult)?.ok) {
+      //   const { errors } = result as PayErrorResult;
+      //   showCustomErrors(errors, "checkoutPay");
+      // }
     }
   };
 
@@ -56,6 +62,5 @@ export const useCheckoutFinalize = () => {
     checkoutFinalize,
     submitting: loading,
     errors,
-    hasErrors,
   };
 };

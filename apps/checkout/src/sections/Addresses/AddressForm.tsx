@@ -46,7 +46,6 @@ export const AddressForm = <TFormData extends AddressFormData>({
   defaultValues,
   onCancel,
   onSave,
-  hasErrors,
   errors,
   clearErrors: onClearErrors,
 }: AddressFormProps<TFormData>) => {
@@ -78,7 +77,7 @@ export const AddressForm = <TFormData extends AddressFormData>({
     defaultValues: defaultValues as DefaultValues<TFormData>,
   });
 
-  useSetFormErrors({ setError, hasErrors, errors });
+  useSetFormErrors({ setError, errors });
 
   const getInputProps = useGetInputProps({ ...rest, formState });
 

@@ -27,7 +27,6 @@ export const CheckoutForm = () => {
   const {
     checkoutFinalize,
     submitting,
-    hasErrors: hasUserRegisterErrors,
     errors: userRegisterErrors,
   } = useCheckoutFinalize();
 
@@ -38,10 +37,10 @@ export const CheckoutForm = () => {
   //   useState<string>();
 
   const schema = object({
-    password: string().required(errorMessages.requiredValue),
+    password: string().required(errorMessages.required),
     email: string()
-      .email(errorMessages.invalidValue)
-      .required(errorMessages.requiredValue),
+      .email(errorMessages.invalid)
+      .required(errorMessages.required),
   });
 
   const resolver = useValidationResolver(schema);
@@ -55,7 +54,6 @@ export const CheckoutForm = () => {
   useSetFormErrors({
     setError: methods.setError,
     errors: userRegisterErrors,
-    hasErrors: hasUserRegisterErrors,
   });
 
   const { getValues } = methods;

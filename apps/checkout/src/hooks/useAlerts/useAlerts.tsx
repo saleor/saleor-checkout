@@ -13,10 +13,12 @@ import {
 import { toast } from "react-toastify";
 import { camelCase } from "lodash-es";
 import { ApiErrors, useGetParsedApiErrors } from "@/checkout/hooks/useErrors";
+import { ErrorCode } from "@/checkout/lib/globalTypes";
 
 export interface ScopedAlertsProps {
   showSuccess: () => void;
   showErrors: (errors: AlertErrorData[]) => void;
+  showCustomErrors: (errors: ErrorCode[]) => void;
 }
 
 function useAlerts(scope: CheckoutScope): ScopedAlertsProps;
@@ -24,6 +26,7 @@ function useAlerts(scope: CheckoutScope): ScopedAlertsProps;
 function useAlerts(): {
   showSuccess: (scope: CheckoutScope) => void;
   showErrors: (errors: AlertErrorData[], scope: CheckoutScope) => void;
+  showCustomErrors: (errors: ErrorCode[], scope: CheckoutScope) => void;
 };
 
 function useAlerts(globalScope?: any): any {
@@ -32,13 +35,16 @@ function useAlerts(globalScope?: any): any {
   const getParsedApiErrors = useGetParsedApiErrors();
 
   const getErrorMessage = ({ scope, code, field }: AlertErrorData): string => {
+    const messageKey = camelCase(`${scope}-${field}-${code}-error`);
+
     try {
-      const fullMessage = formatMessage(
-        camelCase(`${scope}-${field}-${code}-error`) as MessageKey
-      );
+      console.log({ messageKey });
+      const fullMessage = formatMessage(messageKey as MessageKey);
 
       return fullMessage;
     } catch (e) {
+      console.warn(`Missing translation for key: ${messageKey}`);
+
       return `${getMessageByErrorCode(code)}: ${formatMessage(
         field as MessageKey
       )}`;
@@ -88,11 +94,19 @@ function useAlerts(globalScope?: any): any {
     errors: ApiErrors<any>,
     scope: CheckoutScope = globalScope
   ) =>
-    getParsedApiErrors(errors).forEach((error) => {
-      return showAlert({ ...error, scope }, { type: "error" });
-    });
+    getParsedApiErrors(errors).forEach((error) =>
+      showAlert({ ...error, scope }, { type: "error" })
+    );
 
-  return { showSuccess, showErrors };
+  const showCustomErrors = (
+    errors: ErrorCode[],
+    scope: CheckoutScope = globalScope
+  ) =>
+    errors.forEach((code: ErrorCode) =>
+      showAlert({ scope, code, field: "" }, { type: "error" })
+    );
+
+  return { showSuccess, showErrors, showCustomErrors };
 }
 
 export { useAlerts };

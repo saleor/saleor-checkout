@@ -8,7 +8,7 @@ export const alertsContainerProps = {
       ["alert-error"]: data?.type === "error",
       ["alert-success"]: data?.type === "success",
     }),
-  autoClose: 60000,
+  autoClose: 4000,
   hideProgressBar: true,
   closeButton: () => null,
   closeOnClick: false,

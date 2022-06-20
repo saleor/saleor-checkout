@@ -18,6 +18,7 @@ import { Checkbox } from "@/checkout/components/Checkbox";
 import { TextInput } from "@/checkout/components/TextInput";
 import { useCheckout } from "@/checkout/hooks/useCheckout";
 import { useAlerts } from "@/checkout/hooks/useAlerts";
+import { useSetFormErrors } from "@/checkout/hooks/useSetFormErrors";
 
 type AnonymousCustomerFormProps = Pick<
   SignInFormContainerProps,
@@ -36,30 +37,41 @@ export const GuestUserForm: React.FC<AnonymousCustomerFormProps> = ({
   const { errorMessages } = useErrorMessages();
   const { showSuccess, showErrors } = useAlerts("checkoutEmailUpdate");
   const [createAccountSelected, setCreateAccountSelected] = useState(false);
+  const formContext = useFormContext();
   const {
     getValues: getContextValues,
     setValue: setContextValue,
-    ...contextPropsRest
-  } = useFormContext();
+    formState: contextFormState,
+  } = formContext;
 
   const schema = object({
     email: string()
-      .email(errorMessages.invalidValue)
-      .required(errorMessages.requiredValue),
+      .email(errorMessages.invalid)
+      .required(errorMessages.required),
   });
 
   const resolver = useValidationResolver(schema);
-  const { handleSubmit, watch, getValues, ...rest } = useForm<FormData>({
-    resolver,
-    mode: "onBlur",
-    defaultValues: { email: getContextValues("email") },
-  });
+  const { handleSubmit, watch, getValues, setError, ...rest } =
+    useForm<FormData>({
+      resolver,
+      mode: "onBlur",
+      defaultValues: { email: getContextValues("email") },
+    });
   const getInputProps = useGetInputProps(rest);
-  const getContextInputProps = useGetInputProps(contextPropsRest);
+  const getContextInputProps = useGetInputProps(formContext);
+
+  useSetFormErrors({
+    setError: setError,
+    errors: contextFormState.errors,
+  });
 
   const [, updateEmail] = useCheckoutEmailUpdateMutation();
 
   const onSubmit = async ({ email }: FormData) => {
+    if (!email) {
+      return;
+    }
+
     const result = await updateEmail({
       email,
       checkoutId: checkout.id,

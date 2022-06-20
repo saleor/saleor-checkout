@@ -47,6 +47,7 @@
   "providePassword": "Provide a new password for your account",
   "required": "Required field",
   "invalid": "Invalid value",
+  "unique": "Value must be unique",
   "quantity": "Quantity",
   "quantityGreaterThanLimit": "Quantity over allowed limit",
   "invalidCredentials": "Invalid credentials",
@@ -98,7 +99,6 @@
   "missingPaymentStatusOrderMessage": "We could not fetch information about your payment. If you ordered a payment - check for the confirmation and contact the store.",
   "paymentSection": "Payment",
   "passwordTooShort": "Password is too short",
-  "shippingMethodNotApplicable": "Not applicable",
   "checkoutShippingUpdateSuccess": "Successfully updated shipping address!",
   "checkoutBillingUpdateSuccess": "Successfully updated billing address!",
   "checkoutDeliveryMethodUpdateSuccess": "Successfully updated delivery method",
@@ -116,5 +116,13 @@
   "userAddressDeleteSuccess": "Successfully deleted user address",
   "userRegisterPasswordPasswordTooShortError": "Provided password is too short",
   "shippingMethodNotApplicable": "Not applicable",
-  "orderPayButtonLabel": "Pay for the order"
+  "orderPayButtonLabel": "Pay for the order",
+  "checkoutPayShippingMethodNotSetError": "Please choose delivery method before finalizing checkout",
+  "checkoutEmailUpdateEmailRequiredError": "Email cannot be empty",
+  "checkoutPayEmailNotSetError": "Please fill in email before finalizing checkout",
+  "checkoutPayTotalAmountMismatchError": "Couldn't finalize checkout, please try again",
+  "userRegisterEmailUniqueError": "Cannot create account with email that is already used",
+  "loginEmailInactiveError": "Account with provided email is inactive",
+  "loginEmailNotFoundError": "Account with provided email was not found",
+  "loginEmailAccountNotConfirmedError": "Account hasn't been confirmed"
 }
