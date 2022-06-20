@@ -14,7 +14,8 @@ import { PageNotFound } from "@/checkout/sections/PageNotFound";
 import "react-toastify/dist/ReactToastify.css";
 import "@/checkout/hooks/useAlerts/AlertStyles.css";
 import clsx from "clsx";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, TypeOptions } from "react-toastify";
+import { alertsContainerProps } from "./hooks/useAlerts/consts";
 
 const authorizedFetch = createFetch();
 
@@ -42,20 +43,7 @@ export const Root = () => {
         <UrqlProvider value={client}>
           <AppConfigProvider>
             <div className="app">
-              <ToastContainer
-                toastClassName="alert-container"
-                // @ts-ignore to be fixed before merge
-                bodyClassName={({ type }) =>
-                  clsx("alert", {
-                    ["alert-error"]: type === "error",
-                    ["alert-success"]: type === "success",
-                  })
-                }
-                autoClose={60000}
-                hideProgressBar={true}
-                closeButton={() => null}
-                closeOnClick={false}
-              />
+              <ToastContainer {...alertsContainerProps} />
               {/* @ts-ignore React 17 <-> 18 type mismatch */}
               <ErrorBoundary FallbackComponent={PageNotFound}>
                 {orderId ? (

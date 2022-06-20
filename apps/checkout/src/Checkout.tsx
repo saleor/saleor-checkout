@@ -8,10 +8,8 @@ import { ErrorBoundary } from "react-error-boundary";
 import { useCheckout } from "./hooks/useCheckout";
 import { useAuthState } from "@saleor/sdk";
 import "./CheckoutStyles.css";
-import { useAlerts } from "@/checkout/hooks/useAlerts";
 
 export const Checkout = () => {
-  // useAlerts();
   const { checkout, loading } = useCheckout();
   const { authenticating } = useAuthState();
 
