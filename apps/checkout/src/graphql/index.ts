@@ -11529,6 +11529,7 @@ export type OrderFilterInput = {
   isClickAndCollect?: InputMaybe<Scalars["Boolean"]>;
   isPreorder?: InputMaybe<Scalars["Boolean"]>;
   metadata?: InputMaybe<Array<MetadataFilter>>;
+  numbers?: InputMaybe<Array<Scalars["String"]>>;
   paymentStatus?: InputMaybe<Array<PaymentChargeStatusEnum>>;
   search?: InputMaybe<Scalars["String"]>;
   status?: InputMaybe<Array<OrderStatusFilter>>;
@@ -11908,7 +11909,9 @@ export type OrderSortField =
   /** Sort orders by number. */
   | "NUMBER"
   /** Sort orders by payment. */
-  | "PAYMENT";
+  | "PAYMENT"
+  /** Sort orders by rank. Note: This option is available only with the `search` filter. */
+  | "RANK";
 
 export type OrderSortingInput = {
   /** Specifies the direction in which to sort products. */
@@ -17968,6 +17971,26 @@ export type StaffCreateInput = {
   redirectUrl?: InputMaybe<Scalars["String"]>;
 };
 
+export type StaffCreated = Event & {
+  __typename?: "StaffCreated";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /**
+   * The user the event relates to.
+   *
+   * Added in Saleor 3.2.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
 /**
  * Deletes a staff user.
  *
@@ -17979,6 +18002,26 @@ export type StaffDelete = {
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
   staffErrors: Array<StaffError>;
   user?: Maybe<User>;
+};
+
+export type StaffDeleted = Event & {
+  __typename?: "StaffDeleted";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /**
+   * The user the event relates to.
+   *
+   * Added in Saleor 3.2.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
 };
 
 export type StaffError = {
@@ -18093,6 +18136,26 @@ export type StaffUpdateInput = {
   note?: InputMaybe<Scalars["String"]>;
   /** List of permission group IDs from which user should be unassigned. */
   removeGroups?: InputMaybe<Array<Scalars["ID"]>>;
+};
+
+export type StaffUpdated = Event & {
+  __typename?: "StaffUpdated";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /**
+   * The user the event relates to.
+   *
+   * Added in Saleor 3.2.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
 };
 
 export type StaffUserInput = {
@@ -20217,6 +20280,10 @@ export type WebhookEventTypeAsyncEnum =
   | "SHIPPING_ZONE_DELETED"
   /** A shipping zone is updated. */
   | "SHIPPING_ZONE_UPDATED"
+  /** A staff user is deleted */
+  | "STAFF_CREATED"
+  | "STAFF_DELETED"
+  | "STAFF_UPDATED"
   | "TRANSACTION_ACTION_REQUEST"
   | "TRANSLATION_CREATED"
   | "TRANSLATION_UPDATED"
@@ -20379,6 +20446,10 @@ export type WebhookEventTypeEnum =
   | "SHIPPING_ZONE_DELETED"
   /** A shipping zone is updated. */
   | "SHIPPING_ZONE_UPDATED"
+  /** A staff user is deleted */
+  | "STAFF_CREATED"
+  | "STAFF_DELETED"
+  | "STAFF_UPDATED"
   | "TRANSACTION_ACTION_REQUEST"
   | "TRANSLATION_CREATED"
   | "TRANSLATION_UPDATED"
@@ -20480,6 +20551,9 @@ export type WebhookSampleEventTypeEnum =
   | "SHIPPING_ZONE_CREATED"
   | "SHIPPING_ZONE_DELETED"
   | "SHIPPING_ZONE_UPDATED"
+  | "STAFF_CREATED"
+  | "STAFF_DELETED"
+  | "STAFF_UPDATED"
   | "TRANSACTION_ACTION_REQUEST"
   | "TRANSLATION_CREATED"
   | "TRANSLATION_UPDATED"
@@ -20631,7 +20705,7 @@ export type CheckoutFragment = {
     name: string;
     maximumDeliveryDays?: number | null;
     minimumDeliveryDays?: number | null;
-    price: { __typename?: "Money"; amount: number; currency: string };
+    price: { __typename?: "Money"; currency: string; amount: number };
   }>;
   totalPrice: {
     __typename?: "TaxedMoney";
@@ -20640,11 +20714,11 @@ export type CheckoutFragment = {
   };
   shippingPrice: {
     __typename?: "TaxedMoney";
-    gross: { __typename?: "Money"; amount: number; currency: string };
+    gross: { __typename?: "Money"; currency: string; amount: number };
   };
   subtotalPrice: {
     __typename?: "TaxedMoney";
-    gross: { __typename?: "Money"; amount: number; currency: string };
+    gross: { __typename?: "Money"; currency: string; amount: number };
   };
   lines: Array<{
     __typename?: "CheckoutLine";
@@ -20654,6 +20728,15 @@ export type CheckoutFragment = {
       __typename?: "TaxedMoney";
       gross: { __typename?: "Money"; currency: string; amount: number };
     };
+    unitPrice: {
+      __typename?: "TaxedMoney";
+      gross: { __typename?: "Money"; currency: string; amount: number };
+    };
+    undiscountedUnitPrice: {
+      __typename?: "Money";
+      currency: string;
+      amount: number;
+    };
     variant: {
       __typename?: "ProductVariant";
       id: string;
@@ -20661,16 +20744,17 @@ export type CheckoutFragment = {
       pricing?: {
         __typename?: "VariantPricingInfo";
         onSale?: boolean | null;
-        price?: {
-          __typename?: "TaxedMoney";
-          gross: { __typename?: "Money"; currency: string; amount: number };
-        } | null;
-        priceUndiscounted?: {
-          __typename?: "TaxedMoney";
-          gross: { __typename?: "Money"; currency: string; amount: number };
-        } | null;
       } | null;
-      product: { __typename?: "Product"; name: string };
+      product: {
+        __typename?: "Product";
+        name: string;
+        media?: Array<{
+          __typename?: "ProductMedia";
+          alt: string;
+          type: ProductMediaType;
+          url: string;
+        }> | null;
+      };
       media?: Array<{
         __typename?: "ProductMedia";
         alt: string;
@@ -20689,6 +20773,15 @@ export type CheckoutLineFragment = {
     __typename?: "TaxedMoney";
     gross: { __typename?: "Money"; currency: string; amount: number };
   };
+  unitPrice: {
+    __typename?: "TaxedMoney";
+    gross: { __typename?: "Money"; currency: string; amount: number };
+  };
+  undiscountedUnitPrice: {
+    __typename?: "Money";
+    currency: string;
+    amount: number;
+  };
   variant: {
     __typename?: "ProductVariant";
     id: string;
@@ -20696,16 +20789,17 @@ export type CheckoutLineFragment = {
     pricing?: {
       __typename?: "VariantPricingInfo";
       onSale?: boolean | null;
-      price?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
-      priceUndiscounted?: {
-        __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; currency: string; amount: number };
-      } | null;
     } | null;
-    product: { __typename?: "Product"; name: string };
+    product: {
+      __typename?: "Product";
+      name: string;
+      media?: Array<{
+        __typename?: "ProductMedia";
+        alt: string;
+        type: ProductMediaType;
+        url: string;
+      }> | null;
+    };
     media?: Array<{
       __typename?: "ProductMedia";
       alt: string;
@@ -20788,7 +20882,7 @@ export type CheckoutQuery = {
       name: string;
       maximumDeliveryDays?: number | null;
       minimumDeliveryDays?: number | null;
-      price: { __typename?: "Money"; amount: number; currency: string };
+      price: { __typename?: "Money"; currency: string; amount: number };
     }>;
     totalPrice: {
       __typename?: "TaxedMoney";
@@ -20797,11 +20891,11 @@ export type CheckoutQuery = {
     };
     shippingPrice: {
       __typename?: "TaxedMoney";
-      gross: { __typename?: "Money"; amount: number; currency: string };
+      gross: { __typename?: "Money"; currency: string; amount: number };
     };
     subtotalPrice: {
       __typename?: "TaxedMoney";
-      gross: { __typename?: "Money"; amount: number; currency: string };
+      gross: { __typename?: "Money"; currency: string; amount: number };
     };
     lines: Array<{
       __typename?: "CheckoutLine";
@@ -20811,6 +20905,15 @@ export type CheckoutQuery = {
         __typename?: "TaxedMoney";
         gross: { __typename?: "Money"; currency: string; amount: number };
       };
+      unitPrice: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; currency: string; amount: number };
+      };
+      undiscountedUnitPrice: {
+        __typename?: "Money";
+        currency: string;
+        amount: number;
+      };
       variant: {
         __typename?: "ProductVariant";
         id: string;
@@ -20818,16 +20921,17 @@ export type CheckoutQuery = {
         pricing?: {
           __typename?: "VariantPricingInfo";
           onSale?: boolean | null;
-          price?: {
-            __typename?: "TaxedMoney";
-            gross: { __typename?: "Money"; currency: string; amount: number };
-          } | null;
-          priceUndiscounted?: {
-            __typename?: "TaxedMoney";
-            gross: { __typename?: "Money"; currency: string; amount: number };
-          } | null;
         } | null;
-        product: { __typename?: "Product"; name: string };
+        product: {
+          __typename?: "Product";
+          name: string;
+          media?: Array<{
+            __typename?: "ProductMedia";
+            alt: string;
+            type: ProductMediaType;
+            url: string;
+          }> | null;
+        };
         media?: Array<{
           __typename?: "ProductMedia";
           alt: string;
@@ -20892,6 +20996,15 @@ export type CheckoutLinesUpdateMutation = {
           __typename?: "TaxedMoney";
           gross: { __typename?: "Money"; currency: string; amount: number };
         };
+        unitPrice: {
+          __typename?: "TaxedMoney";
+          gross: { __typename?: "Money"; currency: string; amount: number };
+        };
+        undiscountedUnitPrice: {
+          __typename?: "Money";
+          currency: string;
+          amount: number;
+        };
         variant: {
           __typename?: "ProductVariant";
           id: string;
@@ -20899,16 +21012,17 @@ export type CheckoutLinesUpdateMutation = {
           pricing?: {
             __typename?: "VariantPricingInfo";
             onSale?: boolean | null;
-            price?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
-            priceUndiscounted?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
           } | null;
-          product: { __typename?: "Product"; name: string };
+          product: {
+            __typename?: "Product";
+            name: string;
+            media?: Array<{
+              __typename?: "ProductMedia";
+              alt: string;
+              type: ProductMediaType;
+              url: string;
+            }> | null;
+          };
           media?: Array<{
             __typename?: "ProductMedia";
             alt: string;
@@ -20947,6 +21061,15 @@ export type CheckoutLineDeleteMutation = {
           __typename?: "TaxedMoney";
           gross: { __typename?: "Money"; currency: string; amount: number };
         };
+        unitPrice: {
+          __typename?: "TaxedMoney";
+          gross: { __typename?: "Money"; currency: string; amount: number };
+        };
+        undiscountedUnitPrice: {
+          __typename?: "Money";
+          currency: string;
+          amount: number;
+        };
         variant: {
           __typename?: "ProductVariant";
           id: string;
@@ -20954,16 +21077,17 @@ export type CheckoutLineDeleteMutation = {
           pricing?: {
             __typename?: "VariantPricingInfo";
             onSale?: boolean | null;
-            price?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
-            priceUndiscounted?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
           } | null;
-          product: { __typename?: "Product"; name: string };
+          product: {
+            __typename?: "Product";
+            name: string;
+            media?: Array<{
+              __typename?: "ProductMedia";
+              alt: string;
+              type: ProductMediaType;
+              url: string;
+            }> | null;
+          };
           media?: Array<{
             __typename?: "ProductMedia";
             alt: string;
@@ -21050,7 +21174,7 @@ export type CheckoutEmailUpdateMutation = {
         name: string;
         maximumDeliveryDays?: number | null;
         minimumDeliveryDays?: number | null;
-        price: { __typename?: "Money"; amount: number; currency: string };
+        price: { __typename?: "Money"; currency: string; amount: number };
       }>;
       totalPrice: {
         __typename?: "TaxedMoney";
@@ -21059,11 +21183,11 @@ export type CheckoutEmailUpdateMutation = {
       };
       shippingPrice: {
         __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
+        gross: { __typename?: "Money"; currency: string; amount: number };
       };
       subtotalPrice: {
         __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
+        gross: { __typename?: "Money"; currency: string; amount: number };
       };
       lines: Array<{
         __typename?: "CheckoutLine";
@@ -21073,6 +21197,15 @@ export type CheckoutEmailUpdateMutation = {
           __typename?: "TaxedMoney";
           gross: { __typename?: "Money"; currency: string; amount: number };
         };
+        unitPrice: {
+          __typename?: "TaxedMoney";
+          gross: { __typename?: "Money"; currency: string; amount: number };
+        };
+        undiscountedUnitPrice: {
+          __typename?: "Money";
+          currency: string;
+          amount: number;
+        };
         variant: {
           __typename?: "ProductVariant";
           id: string;
@@ -21080,16 +21213,17 @@ export type CheckoutEmailUpdateMutation = {
           pricing?: {
             __typename?: "VariantPricingInfo";
             onSale?: boolean | null;
-            price?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
-            priceUndiscounted?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
           } | null;
-          product: { __typename?: "Product"; name: string };
+          product: {
+            __typename?: "Product";
+            name: string;
+            media?: Array<{
+              __typename?: "ProductMedia";
+              alt: string;
+              type: ProductMediaType;
+              url: string;
+            }> | null;
+          };
           media?: Array<{
             __typename?: "ProductMedia";
             alt: string;
@@ -21176,7 +21310,7 @@ export type CheckoutCustomerAttachMutation = {
         name: string;
         maximumDeliveryDays?: number | null;
         minimumDeliveryDays?: number | null;
-        price: { __typename?: "Money"; amount: number; currency: string };
+        price: { __typename?: "Money"; currency: string; amount: number };
       }>;
       totalPrice: {
         __typename?: "TaxedMoney";
@@ -21185,11 +21319,11 @@ export type CheckoutCustomerAttachMutation = {
       };
       shippingPrice: {
         __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
+        gross: { __typename?: "Money"; currency: string; amount: number };
       };
       subtotalPrice: {
         __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
+        gross: { __typename?: "Money"; currency: string; amount: number };
       };
       lines: Array<{
         __typename?: "CheckoutLine";
@@ -21199,6 +21333,15 @@ export type CheckoutCustomerAttachMutation = {
           __typename?: "TaxedMoney";
           gross: { __typename?: "Money"; currency: string; amount: number };
         };
+        unitPrice: {
+          __typename?: "TaxedMoney";
+          gross: { __typename?: "Money"; currency: string; amount: number };
+        };
+        undiscountedUnitPrice: {
+          __typename?: "Money";
+          currency: string;
+          amount: number;
+        };
         variant: {
           __typename?: "ProductVariant";
           id: string;
@@ -21206,16 +21349,17 @@ export type CheckoutCustomerAttachMutation = {
           pricing?: {
             __typename?: "VariantPricingInfo";
             onSale?: boolean | null;
-            price?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
-            priceUndiscounted?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
           } | null;
-          product: { __typename?: "Product"; name: string };
+          product: {
+            __typename?: "Product";
+            name: string;
+            media?: Array<{
+              __typename?: "ProductMedia";
+              alt: string;
+              type: ProductMediaType;
+              url: string;
+            }> | null;
+          };
           media?: Array<{
             __typename?: "ProductMedia";
             alt: string;
@@ -21301,7 +21445,7 @@ export type CheckoutCustomerDetachMutation = {
         name: string;
         maximumDeliveryDays?: number | null;
         minimumDeliveryDays?: number | null;
-        price: { __typename?: "Money"; amount: number; currency: string };
+        price: { __typename?: "Money"; currency: string; amount: number };
       }>;
       totalPrice: {
         __typename?: "TaxedMoney";
@@ -21310,11 +21454,11 @@ export type CheckoutCustomerDetachMutation = {
       };
       shippingPrice: {
         __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
+        gross: { __typename?: "Money"; currency: string; amount: number };
       };
       subtotalPrice: {
         __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
+        gross: { __typename?: "Money"; currency: string; amount: number };
       };
       lines: Array<{
         __typename?: "CheckoutLine";
@@ -21324,6 +21468,15 @@ export type CheckoutCustomerDetachMutation = {
           __typename?: "TaxedMoney";
           gross: { __typename?: "Money"; currency: string; amount: number };
         };
+        unitPrice: {
+          __typename?: "TaxedMoney";
+          gross: { __typename?: "Money"; currency: string; amount: number };
+        };
+        undiscountedUnitPrice: {
+          __typename?: "Money";
+          currency: string;
+          amount: number;
+        };
         variant: {
           __typename?: "ProductVariant";
           id: string;
@@ -21331,16 +21484,17 @@ export type CheckoutCustomerDetachMutation = {
           pricing?: {
             __typename?: "VariantPricingInfo";
             onSale?: boolean | null;
-            price?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
-            priceUndiscounted?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
           } | null;
-          product: { __typename?: "Product"; name: string };
+          product: {
+            __typename?: "Product";
+            name: string;
+            media?: Array<{
+              __typename?: "ProductMedia";
+              alt: string;
+              type: ProductMediaType;
+              url: string;
+            }> | null;
+          };
           media?: Array<{
             __typename?: "ProductMedia";
             alt: string;
@@ -21525,7 +21679,7 @@ export type CheckoutShippingAddressUpdateMutation = {
         name: string;
         maximumDeliveryDays?: number | null;
         minimumDeliveryDays?: number | null;
-        price: { __typename?: "Money"; amount: number; currency: string };
+        price: { __typename?: "Money"; currency: string; amount: number };
       }>;
       totalPrice: {
         __typename?: "TaxedMoney";
@@ -21534,11 +21688,11 @@ export type CheckoutShippingAddressUpdateMutation = {
       };
       shippingPrice: {
         __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
+        gross: { __typename?: "Money"; currency: string; amount: number };
       };
       subtotalPrice: {
         __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
+        gross: { __typename?: "Money"; currency: string; amount: number };
       };
       lines: Array<{
         __typename?: "CheckoutLine";
@@ -21548,6 +21702,15 @@ export type CheckoutShippingAddressUpdateMutation = {
           __typename?: "TaxedMoney";
           gross: { __typename?: "Money"; currency: string; amount: number };
         };
+        unitPrice: {
+          __typename?: "TaxedMoney";
+          gross: { __typename?: "Money"; currency: string; amount: number };
+        };
+        undiscountedUnitPrice: {
+          __typename?: "Money";
+          currency: string;
+          amount: number;
+        };
         variant: {
           __typename?: "ProductVariant";
           id: string;
@@ -21555,16 +21718,17 @@ export type CheckoutShippingAddressUpdateMutation = {
           pricing?: {
             __typename?: "VariantPricingInfo";
             onSale?: boolean | null;
-            price?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
-            priceUndiscounted?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
           } | null;
-          product: { __typename?: "Product"; name: string };
+          product: {
+            __typename?: "Product";
+            name: string;
+            media?: Array<{
+              __typename?: "ProductMedia";
+              alt: string;
+              type: ProductMediaType;
+              url: string;
+            }> | null;
+          };
           media?: Array<{
             __typename?: "ProductMedia";
             alt: string;
@@ -21651,7 +21815,7 @@ export type CheckoutBillingAddressUpdateMutation = {
         name: string;
         maximumDeliveryDays?: number | null;
         minimumDeliveryDays?: number | null;
-        price: { __typename?: "Money"; amount: number; currency: string };
+        price: { __typename?: "Money"; currency: string; amount: number };
       }>;
       totalPrice: {
         __typename?: "TaxedMoney";
@@ -21660,11 +21824,11 @@ export type CheckoutBillingAddressUpdateMutation = {
       };
       shippingPrice: {
         __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
+        gross: { __typename?: "Money"; currency: string; amount: number };
       };
       subtotalPrice: {
         __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
+        gross: { __typename?: "Money"; currency: string; amount: number };
       };
       lines: Array<{
         __typename?: "CheckoutLine";
@@ -21674,6 +21838,15 @@ export type CheckoutBillingAddressUpdateMutation = {
           __typename?: "TaxedMoney";
           gross: { __typename?: "Money"; currency: string; amount: number };
         };
+        unitPrice: {
+          __typename?: "TaxedMoney";
+          gross: { __typename?: "Money"; currency: string; amount: number };
+        };
+        undiscountedUnitPrice: {
+          __typename?: "Money";
+          currency: string;
+          amount: number;
+        };
         variant: {
           __typename?: "ProductVariant";
           id: string;
@@ -21681,16 +21854,17 @@ export type CheckoutBillingAddressUpdateMutation = {
           pricing?: {
             __typename?: "VariantPricingInfo";
             onSale?: boolean | null;
-            price?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
-            priceUndiscounted?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
           } | null;
-          product: { __typename?: "Product"; name: string };
+          product: {
+            __typename?: "Product";
+            name: string;
+            media?: Array<{
+              __typename?: "ProductMedia";
+              alt: string;
+              type: ProductMediaType;
+              url: string;
+            }> | null;
+          };
           media?: Array<{
             __typename?: "ProductMedia";
             alt: string;
@@ -21777,7 +21951,7 @@ export type CheckoutDeliveryMethodUpdateMutation = {
         name: string;
         maximumDeliveryDays?: number | null;
         minimumDeliveryDays?: number | null;
-        price: { __typename?: "Money"; amount: number; currency: string };
+        price: { __typename?: "Money"; currency: string; amount: number };
       }>;
       totalPrice: {
         __typename?: "TaxedMoney";
@@ -21786,11 +21960,11 @@ export type CheckoutDeliveryMethodUpdateMutation = {
       };
       shippingPrice: {
         __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
+        gross: { __typename?: "Money"; currency: string; amount: number };
       };
       subtotalPrice: {
         __typename?: "TaxedMoney";
-        gross: { __typename?: "Money"; amount: number; currency: string };
+        gross: { __typename?: "Money"; currency: string; amount: number };
       };
       lines: Array<{
         __typename?: "CheckoutLine";
@@ -21800,6 +21974,15 @@ export type CheckoutDeliveryMethodUpdateMutation = {
           __typename?: "TaxedMoney";
           gross: { __typename?: "Money"; currency: string; amount: number };
         };
+        unitPrice: {
+          __typename?: "TaxedMoney";
+          gross: { __typename?: "Money"; currency: string; amount: number };
+        };
+        undiscountedUnitPrice: {
+          __typename?: "Money";
+          currency: string;
+          amount: number;
+        };
         variant: {
           __typename?: "ProductVariant";
           id: string;
@@ -21807,16 +21990,17 @@ export type CheckoutDeliveryMethodUpdateMutation = {
           pricing?: {
             __typename?: "VariantPricingInfo";
             onSale?: boolean | null;
-            price?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
-            priceUndiscounted?: {
-              __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; currency: string; amount: number };
-            } | null;
           } | null;
-          product: { __typename?: "Product"; name: string };
+          product: {
+            __typename?: "Product";
+            name: string;
+            media?: Array<{
+              __typename?: "ProductMedia";
+              alt: string;
+              type: ProductMediaType;
+              url: string;
+            }> | null;
+          };
           media?: Array<{
             __typename?: "ProductMedia";
             alt: string;
@@ -21882,10 +22066,6 @@ export type OrderFragment = {
   id: string;
   number: string;
   userEmail?: string | null;
-  isPaid: boolean;
-  paymentStatus: PaymentChargeStatusEnum;
-  authorizeStatus: OrderAuthorizeStatusEnum;
-  chargeStatus: OrderChargeStatusEnum;
   shippingAddress?: {
     __typename?: "Address";
     id: string;
@@ -21975,10 +22155,6 @@ export type OrderQuery = {
     id: string;
     number: string;
     userEmail?: string | null;
-    isPaid: boolean;
-    paymentStatus: PaymentChargeStatusEnum;
-    authorizeStatus: OrderAuthorizeStatusEnum;
-    chargeStatus: OrderChargeStatusEnum;
     shippingAddress?: {
       __typename?: "Address";
       id: string;
@@ -22091,6 +22267,12 @@ export const AddressFragmentDoc = gql`
     lastName
   }
 `;
+export const MoneyFragmentDoc = gql`
+  fragment Money on Money {
+    currency
+    amount
+  }
+`;
 export const CheckoutLineFragmentDoc = gql`
   fragment CheckoutLineFragment on CheckoutLine {
     id
@@ -22101,26 +22283,27 @@ export const CheckoutLineFragmentDoc = gql`
         amount
       }
     }
+    unitPrice {
+      gross {
+        ...Money
+      }
+    }
+    undiscountedUnitPrice {
+      ...Money
+    }
     variant {
       id
       pricing {
         onSale
-        price {
-          gross {
-            currency
-            amount
-          }
-        }
-        priceUndiscounted {
-          gross {
-            currency
-            amount
-          }
-        }
       }
       name
       product {
         name
+        media {
+          alt
+          type
+          url(size: 72)
+        }
       }
       media {
         alt
@@ -22129,6 +22312,7 @@ export const CheckoutLineFragmentDoc = gql`
       }
     }
   }
+  ${MoneyFragmentDoc}
 `;
 export const CheckoutFragmentDoc = gql`
   fragment CheckoutFragment on Checkout {
@@ -22161,8 +22345,7 @@ export const CheckoutFragmentDoc = gql`
       id
       name
       price {
-        amount
-        currency
+        ...Money
       }
     }
     totalPrice {
@@ -22186,16 +22369,14 @@ export const CheckoutFragmentDoc = gql`
       id
       name
       price {
-        amount
-        currency
+        ...Money
       }
       maximumDeliveryDays
       minimumDeliveryDays
     }
     totalPrice {
       gross {
-        amount
-        currency
+        ...Money
       }
       tax {
         currency
@@ -22204,14 +22385,12 @@ export const CheckoutFragmentDoc = gql`
     }
     shippingPrice {
       gross {
-        amount
-        currency
+        ...Money
       }
     }
     subtotalPrice {
       gross {
-        amount
-        currency
+        ...Money
       }
     }
     lines {
@@ -22219,6 +22398,7 @@ export const CheckoutFragmentDoc = gql`
     }
   }
   ${AddressFragmentDoc}
+  ${MoneyFragmentDoc}
   ${CheckoutLineFragmentDoc}
 `;
 export const ShippingFragmentDoc = gql`
@@ -22226,12 +22406,6 @@ export const ShippingFragmentDoc = gql`
     name
     minimumDeliveryDays
     maximumDeliveryDays
-  }
-`;
-export const MoneyFragmentDoc = gql`
-  fragment Money on Money {
-    currency
-    amount
   }
 `;
 export const OrderLineFragmentDoc = gql`
@@ -22267,10 +22441,6 @@ export const OrderFragmentDoc = gql`
     id
     number
     userEmail
-    isPaid
-    paymentStatus
-    authorizeStatus
-    chargeStatus
     shippingAddress {
       ...AddressFragment
     }

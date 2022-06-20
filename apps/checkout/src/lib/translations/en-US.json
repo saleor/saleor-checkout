@@ -94,6 +94,8 @@
   "shippingDeliveryEstimate": "{deliveryDaysRange} business days",
   "unpaidOrderMessage": "The order has not been paid for. If you ordered a payment - check for the confirmation.",
   "paidOrderMessage": "We've received your payment.",
+  "pendingPaymentOrderMessage": "Your payment is being processed.",
+  "missingPaymentStatusOrderMessage": "We could not fetch information about your payment. If you ordered a payment - check for the confirmation and contact the store.",
   "paymentSection": "Payment",
   "passwordTooShort": "Password is too short",
   "shippingMethodNotApplicable": "Not applicable",
@@ -112,5 +114,7 @@
   "userAddressUpdateSuccess": "Successfully updated user address",
   "userAddressUpdatePostalCodeInvalidError": "Invalid postal code provided to address form",
   "userAddressDeleteSuccess": "Successfully deleted user address",
-  "userRegisterPasswordPasswordTooShortError": "Provided password is too short"
+  "userRegisterPasswordPasswordTooShortError": "Provided password is too short",
+  "shippingMethodNotApplicable": "Not applicable",
+  "orderPayButtonLabel": "Pay for the order"
 }
