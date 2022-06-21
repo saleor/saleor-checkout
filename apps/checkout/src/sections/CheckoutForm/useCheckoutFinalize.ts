@@ -8,7 +8,6 @@ import { FormData } from "./types";
 import { usePay } from "@/checkout/hooks/usePay";
 import { useAlerts } from "@/checkout/hooks/useAlerts";
 import { PayErrorResult } from "@/checkout/fetch";
-import { ErrorCode } from "@/checkout/lib/globalTypes";
 
 export const useCheckoutFinalize = () => {
   const { checkout } = useCheckout();

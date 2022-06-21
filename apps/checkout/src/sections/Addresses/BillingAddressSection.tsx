@@ -1,6 +1,6 @@
 import { AddressFragment } from "@/checkout/graphql";
 import { useCheckout } from "@/checkout/hooks/useCheckout";
-import { UseErrors, useErrors } from "@/checkout/hooks/useErrors";
+import { UseErrors } from "@/checkout/hooks/useErrors";
 import { useFormattedMessages } from "@/checkout/hooks/useFormattedMessages";
 import { useBillingSameAsShipping } from "@/checkout/providers/BillingSameAsShippingProvider";
 import { useCountrySelect } from "@/checkout/providers/CountrySelectProvider";

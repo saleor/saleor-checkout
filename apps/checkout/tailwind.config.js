@@ -34,7 +34,7 @@ const theme = {
       tertiary: "rgba(var(--text-color-rgb), 0.4)",
       button: "var(--button-text-color)",
       error: "var(--error-color)",
-      success: "var(--error-color)",
+      success: "var(--success-color)",
     },
     button: {
       primary: "var(--button-bg-color-primary)",

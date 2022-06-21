@@ -45,7 +45,7 @@ export const useUserAddressSelect = ({
   }, [addressToWatch]);
 
   useEffect(() => {
-    if (!!selectedAddress && selectedAddress !== selectedAddressRef.current) {
+    if (selectedAddress && selectedAddress !== selectedAddressRef.current) {
       onAddressSelect(selectedAddress as unknown as UserAddressFormData);
       selectedAddressRef.current = selectedAddress;
     }

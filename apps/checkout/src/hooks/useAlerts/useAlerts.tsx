@@ -70,7 +70,7 @@ function useAlerts(globalScope?: any): any {
 
     return {
       type,
-      id: `${scope}Success`,
+      id,
       message: formatMessage(id as MessageKey),
     };
   };

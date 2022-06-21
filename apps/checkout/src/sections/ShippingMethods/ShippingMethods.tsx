@@ -23,7 +23,7 @@ export const ShippingMethods: React.FC<ShippingMethodsProps> = ({}) => {
     checkout?.deliveryMethod?.id
   );
 
-  const selectedMthodIdRef = useRef(selectedMethodId);
+  const selectedMethodIdRef = useRef(selectedMethodId);
 
   const [, updateDeliveryMethod] = useCheckoutDeliveryMethodUpdateMutation();
 
@@ -44,7 +44,7 @@ export const ShippingMethods: React.FC<ShippingMethodsProps> = ({}) => {
   };
 
   useEffect(() => {
-    if (selectedMethodId && selectedMethodId !== selectedMthodIdRef.current) {
+    if (selectedMethodId && selectedMethodId !== selectedMethodIdRef.current) {
       handleSubmit();
     }
   }, [selectedMethodId]);
