@@ -12,6 +12,7 @@ import {
   useCheckoutEmailUpdateMutation,
 } from "@/checkout/graphql";
 import { useAlerts } from "@/checkout/hooks/useAlerts";
+import { useFormContext } from "react-hook-form";
 
 type Section = "signedInUser" | "guestUser" | "signIn" | "resetPassword";
 
@@ -25,6 +26,7 @@ export const Contact = () => {
   const { authenticated, user } = useAuthState();
   const hasAuthenticated = useRef(false);
   const { checkout, loading } = useCheckout();
+  const { getValues } = useFormContext();
 
   const changeSection = (section: Section) => () => {
     if (isCurrentSection(section)) {
@@ -40,13 +42,13 @@ export const Contact = () => {
 
   const passwordResetToken = getQueryVariables().passwordResetToken;
 
-  const handleEmailUpdate = async () => {
-    if (user?.email === checkout?.email || updatingEmail) {
+  const handleEmailUpdate = async (email: string) => {
+    if (updatingEmail) {
       return;
     }
 
     const result = await updateEmail({
-      email: user?.email as string,
+      email,
       checkoutId: checkout.id,
     });
 
@@ -58,6 +60,22 @@ export const Contact = () => {
     }
 
     showSuccess("checkoutEmailUpdate");
+  };
+
+  const updateEmailAfterSignIn = () => {
+    if (!user?.email || user?.email === checkout?.email) {
+      return;
+    }
+
+    handleEmailUpdate(user?.email as string);
+  };
+
+  const updateEmailAfterSectionChange = () => {
+    const formEmail = getValues("email");
+
+    if (formEmail !== checkout.email) {
+      handleEmailUpdate(formEmail);
+    }
   };
 
   const handleCustomerAttatch = async () => {
@@ -73,11 +91,17 @@ export const Contact = () => {
 
   useEffect(() => {
     if (authenticated && !hasAuthenticated.current) {
-      handleEmailUpdate();
+      updateEmailAfterSignIn();
       handleCustomerAttatch();
       hasAuthenticated.current = true;
     }
   }, [authenticated]);
+
+  useEffect(() => {
+    if (isCurrentSection("guestUser")) {
+      updateEmailAfterSectionChange();
+    }
+  }, [currentSection]);
 
   useEffect(() => {
     if (loading) {

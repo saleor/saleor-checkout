@@ -65,10 +65,11 @@ export const GuestUserForm: React.FC<AnonymousCustomerFormProps> = ({
     errors: contextFormState.errors,
   });
 
-  const [, updateEmail] = useCheckoutEmailUpdateMutation();
+  const [{ fetching: updatingEmail }, updateEmail] =
+    useCheckoutEmailUpdateMutation();
 
   const onSubmit = async ({ email }: FormData) => {
-    if (!email) {
+    if (!email || updatingEmail || email === checkout.email) {
       return;
     }
 
