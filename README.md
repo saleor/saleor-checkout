@@ -346,6 +346,8 @@ To use payment gateway, you need to provide its credentials. You can do that by 
 
 ![Mollie config inside Saleor dashboard after env variable and profile id were pasted](./docs/config-dashboard-mollie.png)
 
+4. Enable `Payment methods` in your Mollie dashboard, select: Settings -> Website Profiles -> Payment methods
+
 ### Adyen
 
 Saleor Checkout uses Adyen's [Pay by Link flow](https://docs.adyen.com/unified-commerce/pay-by-link)
