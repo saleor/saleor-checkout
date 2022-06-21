@@ -24,8 +24,7 @@ export const useCheckoutFinalize = () => {
     }
 
     const registerFormData = omit(formData, "createAccount");
-    // adding redirect url because api is broken and requires it
-    // despite te types saying otherwise
+    // adding redirect url because some saleor envs require it
     const result = await register({
       ...registerFormData,
       redirectUrl: location.href,

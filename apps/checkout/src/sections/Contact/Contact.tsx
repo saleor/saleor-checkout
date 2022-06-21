@@ -98,6 +98,10 @@ export const Contact = () => {
   }, [authenticated]);
 
   useEffect(() => {
+    if (authenticated) {
+      return;
+    }
+
     if (isCurrentSection("guestUser")) {
       updateEmailAfterSectionChange();
     }

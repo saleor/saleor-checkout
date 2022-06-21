@@ -98,7 +98,6 @@
   "pendingPaymentOrderMessage": "Your payment is being processed.",
   "missingPaymentStatusOrderMessage": "We could not fetch information about your payment. If you ordered a payment - check for the confirmation and contact the store.",
   "paymentSection": "Payment",
-  "passwordTooShort": "Password is too short",
   "checkoutShippingUpdateSuccess": "Successfully updated shipping address!",
   "checkoutBillingUpdateSuccess": "Successfully updated billing address!",
   "checkoutDeliveryMethodUpdateSuccess": "Successfully updated delivery method",
@@ -127,5 +126,10 @@
   "loginEmailAccountNotConfirmedError": "Account hasn't been confirmed",
   "resetPasswordPasswordPasswordTooShortError": "Provided password is too short",
   "resetPasswordSuccess": "Password reset successfully",
-  "resetPasswordTokenInvalidError": "Provided reset password token is expired or invalid"
+  "resetPasswordTokenInvalidError": "Provided reset password token is expired or invalid",
+  "passwordTooShort": "Provided password is too short. Minimum of 8 characters is required.",
+  "passwordTooSimilar": "Provided password is too similar to last one used.",
+  "passwordTooCommon": "Provided password is too common.",
+  "passwordInvalid": "Invalid password",
+  "requestPasswordResetEmailNotFoundError": "User with provided email has not been found"
 }

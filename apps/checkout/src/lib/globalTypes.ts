@@ -12,7 +12,14 @@ export type ErrorCode =
   | "unique"
   | "quantityGreaterThanLimit"
   | "insufficientStock"
-  | "invalidCredentials";
+  | "invalidCredentials"
+  | PasswordErrorCode;
+
+export type PasswordErrorCode =
+  | "passwordTooShort"
+  | "passwordTooSimilar"
+  | "passwordTooCommon"
+  | "passwordInvalid";
 
 export interface ValidationError<TFormData> {
   type: ErrorCode;
