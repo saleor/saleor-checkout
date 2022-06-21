@@ -54,11 +54,11 @@ export const AddressForm = <TFormData extends AddressFormData>({
   const { countryCode } = useCountrySelect();
 
   const schema = object({
-    firstName: string().required(errorMessages.requiredValue),
-    lastName: string().required(errorMessages.requiredValue),
-    streetAddress1: string().required(errorMessages.requiredValue),
-    postalCode: string().required(errorMessages.requiredValue),
-    city: string().required(errorMessages.requiredValue),
+    firstName: string().required(errorMessages.required),
+    lastName: string().required(errorMessages.required),
+    streetAddress1: string().required(errorMessages.required),
+    postalCode: string().required(errorMessages.required),
+    city: string().required(errorMessages.required),
   });
 
   const resolver = useValidationResolver(schema);
