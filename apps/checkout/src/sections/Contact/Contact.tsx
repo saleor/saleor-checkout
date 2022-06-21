@@ -43,7 +43,7 @@ export const Contact = () => {
   const passwordResetToken = getQueryVariables().passwordResetToken;
 
   const handleEmailUpdate = async (email: string) => {
-    if (updatingEmail) {
+    if (updatingEmail || !email?.length) {
       return;
     }
 
