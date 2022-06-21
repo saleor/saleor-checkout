@@ -46,15 +46,15 @@ export const useCheckoutFinalize = () => {
     const userRegisterSuccessOrPassed = await userRegister(formData);
 
     if (userRegisterSuccessOrPassed) {
-      // const result = await checkoutPay({
-      //   provider: "mollie", // TODO: Hardcoded payment provider
-      //   checkoutId: checkout?.id,
-      //   totalAmount: checkout?.totalPrice?.gross?.amount as number,
-      // });
-      // if (!(result as PayErrorResult)?.ok) {
-      //   const { errors } = result as PayErrorResult;
-      //   showCustomErrors(errors, "checkoutPay");
-      // }
+      const result = await checkoutPay({
+        provider: "mollie", // TODO: Hardcoded payment provider
+        checkoutId: checkout?.id,
+        totalAmount: checkout?.totalPrice?.gross?.amount as number,
+      });
+      if (!(result as PayErrorResult)?.ok) {
+        const { errors } = result as PayErrorResult;
+        showCustomErrors(errors, "checkoutPay");
+      }
     }
   };
 
