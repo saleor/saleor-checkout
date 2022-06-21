@@ -124,5 +124,8 @@
   "userRegisterEmailUniqueError": "Cannot create account with email that is already used",
   "loginEmailInactiveError": "Account with provided email is inactive",
   "loginEmailNotFoundError": "Account with provided email was not found",
-  "loginEmailAccountNotConfirmedError": "Account hasn't been confirmed"
+  "loginEmailAccountNotConfirmedError": "Account hasn't been confirmed",
+  "resetPasswordPasswordPasswordTooShortError": "Provided password is too short",
+  "resetPasswordSuccess": "Password reset successfully",
+  "resetPasswordTokenInvalidError": "Provided reset password token is expired or invalid"
 }

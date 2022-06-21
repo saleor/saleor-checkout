@@ -1,18 +1,30 @@
 import { useCheckout } from "@/checkout/hooks/useCheckout";
-import { getQueryVariables } from "@/checkout/lib/utils";
-import React, { useEffect } from "react";
+import { extractMutationErrors, getQueryVariables } from "@/checkout/lib/utils";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { SignInForm } from "./SignInForm";
 import { SignedInUser } from "./SignedInUser";
 import { useAuthState } from "@saleor/sdk";
-import { useCheckoutCustomerAttachMutation } from "@/checkout/graphql";
 import { ResetPassword } from "./ResetPassword";
 import { GuestUserForm } from "./GuestUserForm";
+import {
+  useCheckoutCustomerAttachMutation,
+  useCheckoutEmailUpdateMutation,
+} from "@/checkout/graphql";
+import { useAlerts } from "@/checkout/hooks/useAlerts";
 
 type Section = "signedInUser" | "guestUser" | "signIn" | "resetPassword";
 
 export const Contact = () => {
   const [currentSection, setCurrentSection] = useState<Section>("guestUser");
+  const [{ fetching: attachingCustomer }, customerAttach] =
+    useCheckoutCustomerAttachMutation();
+  const [{ fetching: updatingEmail }, updateEmail] =
+    useCheckoutEmailUpdateMutation();
+  const { showErrors, showSuccess } = useAlerts();
+  const { authenticated, user } = useAuthState();
+  const hasAuthenticated = useRef(false);
+  const { checkout, loading } = useCheckout();
 
   const changeSection = (section: Section) => () => {
     if (isCurrentSection(section)) {
@@ -25,12 +37,47 @@ export const Contact = () => {
   const isCurrentSection = (section: Section) => currentSection === section;
 
   const [passwordResetShown, setPasswordResetShown] = useState(false);
-  const [, customerAttach] = useCheckoutCustomerAttachMutation();
-
-  const { authenticated, user } = useAuthState();
-  const { checkout, loading } = useCheckout();
 
   const passwordResetToken = getQueryVariables().passwordResetToken;
+
+  const handleEmailUpdate = async () => {
+    if (user?.email === checkout?.email || updatingEmail) {
+      return;
+    }
+
+    const result = await updateEmail({
+      email: user?.email as string,
+      checkoutId: checkout.id,
+    });
+
+    const [hasErrors, errors] = extractMutationErrors(result);
+
+    if (hasErrors) {
+      showErrors(errors, "checkoutEmailUpdate");
+      return;
+    }
+
+    showSuccess("checkoutEmailUpdate");
+  };
+
+  const handleCustomerAttatch = async () => {
+    if (checkout?.user?.id === user?.id || attachingCustomer) {
+      return;
+    }
+
+    customerAttach({
+      checkoutId: checkout.id,
+      customerId: user?.id as string,
+    });
+  };
+
+  useEffect(() => {
+    if (authenticated && !hasAuthenticated.current) {
+      handleEmailUpdate();
+      handleCustomerAttatch();
+      hasAuthenticated.current = true;
+    }
+  }, [authenticated]);
 
   useEffect(() => {
     if (loading) {
@@ -39,14 +86,7 @@ export const Contact = () => {
 
     if (authenticated) {
       setCurrentSection("signedInUser");
-
-      if (checkout?.user?.id !== user?.id) {
-        customerAttach({
-          checkoutId: checkout.id,
-          customerId: user?.id as string,
-        });
-      }
-
+      hasAuthenticated.current = true;
       return;
     }
 

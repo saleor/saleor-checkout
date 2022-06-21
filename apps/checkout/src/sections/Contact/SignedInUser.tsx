@@ -16,10 +16,12 @@ export const SignedInUser: React.FC<SignedInUserProps> = ({
   onSectionChange,
 }) => {
   const formatMessage = useFormattedMessages();
-  const { logout } = useAuth();
-  const { user } = useAuthState();
-  const [, customerDetach] = useCheckoutCustomerDetachMutation();
+
   const { checkout } = useCheckout();
+  const { logout } = useAuth();
+  const { authenticated, user } = useAuthState();
+
+  const [, customerDetach] = useCheckoutCustomerDetachMutation();
 
   const handleLogout = async () => {
     await customerDetach({ checkoutId: checkout.id });

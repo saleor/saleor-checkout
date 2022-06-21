@@ -27,6 +27,8 @@ export type CheckoutScope =
   | "userAddressDelete"
   | "checkoutPay"
   | "userRegister"
+  | "requestPasswordReset"
   | "checkoutLinesUpdate"
   | "checkoutEmailUpdate"
+  | "resetPassword"
   | "login";

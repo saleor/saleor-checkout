@@ -32,7 +32,7 @@ interface FormData {
 
 export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
   const formatMessage = useFormattedMessages();
-  const { showSuccess, showErrors } = useAlerts("login");
+  const { showSuccess, showErrors } = useAlerts();
   const { errorMessages } = useErrorMessages();
   const [passwordResetSent, setPasswordResetSent] = useState(false);
   const { login, requestPasswordReset } = useAuth();
@@ -62,11 +62,11 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
     const [hasErrors, errors] = extractMutationErrors(result);
 
     if (hasErrors) {
-      showErrors(errors);
+      showErrors(errors, "login");
       return;
     }
 
-    showSuccess();
+    showSuccess("login");
   };
 
   const onPasswordReset = async () => {
@@ -85,7 +85,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSectionChange }) => {
       const [hasErrors, errors] = extractMutationErrors(result);
 
       if (hasErrors) {
-        showErrors(errors);
+        showErrors(errors, "requestPasswordReset");
         return;
       }
 
