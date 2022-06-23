@@ -42,12 +42,14 @@ export const BillingAddressSection: React.FC<BillingAddressSectionProps> = ({
 
   useEffect(() => {
     if (
+      !checkout?.shippingAddress ||
       isBillingSameAsShippingAddress ||
       hasBillingSameAsShippingAddressChanged
     ) {
       return;
     }
 
+    console.log(666, checkout?.shippingAddress);
     setCountryCodeFromAddress(checkout?.shippingAddress);
 
     setHasBillingSameAsShippingAddressChanged(true);
