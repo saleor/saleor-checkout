@@ -9,6 +9,7 @@ import { ChannelActivePaymentProvidersByChannel } from "checkout-app/types";
 export const getPaymentMethods =
   (): FetchResponse<ChannelActivePaymentProvidersByChannel> =>
     fetch(
+      // TODO: Remove hardcoded channel name
       `${envVars.checkoutApiUrl}/active-payment-providers/Q2hhbm5lbDoyMjQz`
     );
 
