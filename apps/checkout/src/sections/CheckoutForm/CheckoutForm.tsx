@@ -84,7 +84,6 @@ export const CheckoutForm = () => {
       <Suspense fallback={<ShippingMethodsSkeleton />}>
         {isLoading ? <ShippingMethodsSkeleton /> : <ShippingMethods />}
       </Suspense>
-      {/* TMP */}
       <PaymentMethods {...usePaymentProvidersProps} />
       {isLoading ? (
         <Button
