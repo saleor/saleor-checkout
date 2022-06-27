@@ -1,0 +1,19 @@
+subscription TransactionActionRequestSubscription {
+  event {
+    ...TransactionActionPayload
+  }
+}
+
+fragment TransactionActionPayload on TransactionActionRequest {
+  transaction {
+    reference
+    type
+    authorizedAmount {
+      currency
+    }
+  }
+  action {
+    actionType
+    amount
+  }
+}
