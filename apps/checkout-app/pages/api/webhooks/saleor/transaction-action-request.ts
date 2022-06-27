@@ -6,6 +6,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import getRawBody from "raw-body";
 import contentType from "content-type";
 import { isValidSaleorRequest } from "@/checkout-app/backend/saleor/utils";
+import { PaymentStatus } from "@mollie/api-client";
 
 export const config = {
   api: {
@@ -70,6 +71,7 @@ export default async function handler(
         await handleAdyenRefund(refund);
       }
     } catch (e) {
+      console.error("Error while creating refund", e);
       res.status(500).send("Error while processing refund");
       return;
     }
@@ -88,11 +90,22 @@ async function handleMolieRefund(refund: TransactionRefund) {
   const mollieClient = await getMollieClient();
   const { id, amount, currency } = refund;
 
-  debugger;
+  const order = await mollieClient.orders.get(id);
+
+  const payments = await order.getPayments();
+
+  const payment = payments.find(
+    (payment) => payment.status === PaymentStatus.paid && payment.isRefundable()
+  );
+
+  if (!payment) {
+    throw new Error("Couldn't find Mollie payment to refund");
+  }
+
   await mollieClient.payments_refunds.create({
-    paymentId: id,
+    paymentId: payment?.id,
     amount: {
-      value: amount,
+      value: String(amount),
       currency,
     },
   });
