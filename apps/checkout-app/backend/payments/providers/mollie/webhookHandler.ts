@@ -5,6 +5,8 @@ import { TransactionCreateMutationVariables } from "@/checkout-app/graphql";
 import { getMollieClient } from "./utils";
 import { getTransactionAmount } from "../../utils";
 
+export const MOLLIE_PAYMENT_PREFIX = "mollie";
+
 export const verifyPayment = async (
   id: string
 ): Promise<TransactionCreateMutationVariables | undefined> => {
@@ -13,7 +15,7 @@ export const verifyPayment = async (
   const { status, amountCaptured, amountRefunded, metadata, method, amount } =
     await mollieClient.orders.get(id);
 
-  const type = `mollie-${method}`;
+  const type = `${MOLLIE_PAYMENT_PREFIX}-${method}`;
   const reference = id;
   const eventName = `Mollie status update: ${status}`;
 

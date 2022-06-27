@@ -31,14 +31,18 @@ export async function updateOrCreateTransaction(
   const reference = transactionData.transaction.reference;
   const existingTransaction = await findTransactionInOrder(reference, orderId);
 
-  debugger;
   if (existingTransaction) {
+    console.info(
+      `Transaction ${existingTransaction.id} updated`,
+      transactionData
+    );
     return await updateTransaction({
       ...transactionData,
       id: existingTransaction.id,
     });
   }
 
+  console.info("Transaction created", transactionData);
   return await createTransaction({
     ...transactionData,
   });
