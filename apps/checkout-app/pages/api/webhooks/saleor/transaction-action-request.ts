@@ -8,6 +8,9 @@ import contentType from "content-type";
 import { isValidSaleorRequest } from "@/checkout-app/backend/saleor/utils";
 import { PaymentStatus } from "@mollie/api-client";
 
+export const SALEOR_WEBHOOK_TRANSACTION_ENDPOINT =
+  "api/webhooks/saleor/transaction-action-request";
+
 export const config = {
   api: {
     bodyParser: false,
@@ -109,6 +112,9 @@ async function handleMolieRefund(refund: TransactionRefund) {
       currency,
     },
   });
+
+  // TODO: Save in Saleor that the refund was issued to avoid duplicate refunds
+  // Note: Mollie automatically detects duplicate refunds (Adyen - dunno)
 }
 
 async function handleAdyenRefund(refund: TransactionRefund) {
