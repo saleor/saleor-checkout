@@ -21442,6 +21442,21 @@ export type TransactionActionRequestSubscription = { __typename?: 'Subscription'
 
 export type TransactionActionPayloadFragment = { __typename?: 'TransactionActionRequest', transaction?: { __typename?: 'TransactionItem', reference: string, type: string, authorizedAmount: { __typename?: 'Money', currency: string } } | null, action: { __typename?: 'TransactionAction', actionType: TransactionActionEnum, amount?: any | null } };
 
+export type CreateWebhooksMutationVariables = Exact<{
+  targetUrl?: InputMaybe<Scalars['String']>;
+  query?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type CreateWebhooksMutation = { __typename?: 'Mutation', webhookCreate?: { __typename?: 'WebhookCreate', errors: Array<{ __typename?: 'WebhookError', message?: string | null, field?: string | null, code: WebhookErrorCode }> } | null };
+
+export type CheckWebhooksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CheckWebhooksQuery = { __typename?: 'Query', app?: { __typename?: 'App', webhooks?: Array<{ __typename?: 'Webhook', id: string, targetUrl: string }> | null } | null };
+
+export type WebhookErrorFragment = { __typename?: 'WebhookError', message?: string | null, field?: string | null, code: WebhookErrorCode };
+
 export const ChannelFragmentDoc = gql`
     fragment ChannelFragment on Channel {
   id
@@ -21605,6 +21620,13 @@ export const TransactionActionPayloadFragmentDoc = gql`
     actionType
     amount
   }
+}
+    `;
+export const WebhookErrorFragmentDoc = gql`
+    fragment WebhookErrorFragment on WebhookError {
+  message
+  field
+  code
 }
     `;
 export const AppDocument = gql`
@@ -21855,4 +21877,33 @@ export const TransactionActionRequestSubscriptionDocument = gql`
 
 export function useTransactionActionRequestSubscription<TData = TransactionActionRequestSubscription>(options: Omit<Urql.UseSubscriptionArgs<TransactionActionRequestSubscriptionVariables>, 'query'> = {}, handler?: Urql.SubscriptionHandler<TransactionActionRequestSubscription, TData>) {
   return Urql.useSubscription<TransactionActionRequestSubscription, TData, TransactionActionRequestSubscriptionVariables>({ query: TransactionActionRequestSubscriptionDocument, ...options }, handler);
+};
+export const CreateWebhooksDocument = gql`
+    mutation CreateWebhooks($targetUrl: String, $query: String) {
+  webhookCreate(
+    input: {name: "Checkout app payment notifications", targetUrl: $targetUrl, events: [TRANSACTION_ACTION_REQUEST], isActive: true, query: $query}
+  ) {
+    errors {
+      ...WebhookErrorFragment
+    }
+  }
+}
+    ${WebhookErrorFragmentDoc}`;
+
+export function useCreateWebhooksMutation() {
+  return Urql.useMutation<CreateWebhooksMutation, CreateWebhooksMutationVariables>(CreateWebhooksDocument);
+};
+export const CheckWebhooksDocument = gql`
+    query CheckWebhooks {
+  app {
+    webhooks {
+      id
+      targetUrl
+    }
+  }
+}
+    `;
+
+export function useCheckWebhooksQuery(options?: Omit<Urql.UseQueryArgs<CheckWebhooksQueryVariables>, 'query'>) {
+  return Urql.useQuery<CheckWebhooksQuery>({ query: CheckWebhooksDocument, ...options });
 };

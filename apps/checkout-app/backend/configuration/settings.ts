@@ -18,7 +18,7 @@ import {
 import { getClient } from "@/checkout-app/backend/client";
 import { defaultActiveChannelPaymentProviders } from "@/checkout-app/config/defaults";
 import { mergeChannelsWithPaymentProvidersSettings } from "./utils";
-import { envVars, serverEnvVars } from "@/checkout-app/constants";
+import { serverEnvVars } from "@/checkout-app/constants";
 import { PrivateSettingsValues } from "@/checkout-app/types/api";
 import { mapPrivateSettingsToMetadata } from "./mapPrivateSettingsToMetadata";
 import { mapPrivateMetafieldsToSettings } from "./mapPrivateMetafieldsToSettings";
@@ -32,7 +32,7 @@ export const getPrivateSettings = async (
   apiUrl: string,
   obfuscateEncryptedData: boolean
 ) => {
-  const { data, error } = await getClient(apiUrl, serverEnvVars.appToken)
+  const { data, error } = await getClient({ apiUrl })
     .query<PrivateMetafieldsQuery, PrivateMetafieldsQueryVariables>(
       PrivateMetafieldsDocument,
       { id: serverEnvVars.appId, keys: [...allPrivateSettingID] }
@@ -52,10 +52,7 @@ export const getPrivateSettings = async (
 };
 
 export const getPublicSettings = async () => {
-  const { data, error } = await getClient(
-    envVars.apiUrl,
-    serverEnvVars.appToken
-  )
+  const { data, error } = await getClient()
     .query<PublicMetafieldsQuery, PublicMetafieldsQueryVariables>(
       PublicMetafieldsDocument,
       { id: serverEnvVars.appId, keys: [...allPublicSettingID] }
@@ -80,10 +77,7 @@ export const getPublicSettings = async () => {
 export const getActivePaymentProvidersSettings = async () => {
   const settings = await getPublicSettings();
 
-  const { data, error } = await getClient(
-    envVars.apiUrl,
-    serverEnvVars.appToken
-  )
+  const { data, error } = await getClient()
     .query<ChannelsQuery, ChannelsQueryVariables>(ChannelsDocument)
     .toPromise();
 
@@ -104,10 +98,7 @@ export const getChannelActivePaymentProvidersSettings = async (
 ) => {
   const settings = await getPublicSettings();
 
-  const { data, error } = await getClient(
-    envVars.apiUrl,
-    serverEnvVars.appToken
-  )
+  const { data, error } = await getClient()
     .query<ChannelQuery, ChannelQueryVariables>(ChannelDocument, {
       id: channelId,
     })
@@ -132,7 +123,7 @@ export const setPrivateSettings = async (
 ) => {
   const metadata = mapPrivateSettingsToMetadata(settings);
 
-  const { data, error } = await getClient(apiUrl, serverEnvVars.appToken)
+  const { data, error } = await getClient({ apiUrl })
     .mutation<
       UpdatePrivateMetadataMutation,
       UpdatePrivateMetadataMutationVariables
