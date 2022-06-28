@@ -5,12 +5,12 @@ import {
   ChannelsDocument,
   ChannelsQuery,
   ChannelsQueryVariables,
-  PrivateMetafieldsDocument,
-  PrivateMetafieldsQuery,
-  PrivateMetafieldsQueryVariables,
-  PublicMetafieldsDocument,
-  PublicMetafieldsQuery,
-  PublicMetafieldsQueryVariables,
+  PrivateMetafieldsInferedDocument,
+  PrivateMetafieldsInferedQuery,
+  PrivateMetafieldsInferedQueryVariables,
+  PublicMetafieldsInferedDocument,
+  PublicMetafieldsInferedQuery,
+  PublicMetafieldsInferedQueryVariables,
   UpdatePrivateMetadataDocument,
   UpdatePrivateMetadataMutation,
   UpdatePrivateMetadataMutationVariables,
@@ -18,7 +18,6 @@ import {
 import { getClient } from "@/checkout-app/backend/client";
 import { defaultActiveChannelPaymentProviders } from "@/checkout-app/config/defaults";
 import { mergeChannelsWithPaymentProvidersSettings } from "./utils";
-import { serverEnvVars } from "@/checkout-app/constants";
 import { PrivateSettingsValues } from "@/checkout-app/types/api";
 import { mapPrivateSettingsToMetadata } from "./mapPrivateSettingsToMetadata";
 import { mapPrivateMetafieldsToSettings } from "./mapPrivateMetafieldsToSettings";
@@ -27,16 +26,19 @@ import {
   allPrivateSettingID,
   allPublicSettingID,
 } from "@/checkout-app/types/common";
+import { getAppId } from "../environment";
 
 export const getPrivateSettings = async (
   apiUrl: string,
   obfuscateEncryptedData: boolean
 ) => {
   const { data, error } = await getClient({ apiUrl })
-    .query<PrivateMetafieldsQuery, PrivateMetafieldsQueryVariables>(
-      PrivateMetafieldsDocument,
-      { id: serverEnvVars.appId, keys: [...allPrivateSettingID] }
-    )
+    .query<
+      PrivateMetafieldsInferedQuery,
+      PrivateMetafieldsInferedQueryVariables
+    >(PrivateMetafieldsInferedDocument, {
+      keys: [...allPrivateSettingID],
+    })
     .toPromise();
 
   if (error) {
@@ -53,9 +55,9 @@ export const getPrivateSettings = async (
 
 export const getPublicSettings = async () => {
   const { data, error } = await getClient()
-    .query<PublicMetafieldsQuery, PublicMetafieldsQueryVariables>(
-      PublicMetafieldsDocument,
-      { id: serverEnvVars.appId, keys: [...allPublicSettingID] }
+    .query<PublicMetafieldsInferedQuery, PublicMetafieldsInferedQueryVariables>(
+      PublicMetafieldsInferedDocument,
+      { keys: [...allPublicSettingID] }
     )
     .toPromise();
 
@@ -123,12 +125,14 @@ export const setPrivateSettings = async (
 ) => {
   const metadata = mapPrivateSettingsToMetadata(settings);
 
+  const appId = await getAppId();
+
   const { data, error } = await getClient({ apiUrl })
     .mutation<
       UpdatePrivateMetadataMutation,
       UpdatePrivateMetadataMutationVariables
     >(UpdatePrivateMetadataDocument, {
-      id: serverEnvVars.appId!,
+      id: appId,
       input: metadata,
       keys: [...allPrivateSettingID],
     })

@@ -5,7 +5,7 @@ export const saleorDomainHeader = "x-saleor-domain";
 export const saleorTokenHeader = "x-saleor-token";
 
 export type EnvVar = "apiUrl";
-export type ServerEnvVar = "appId" | "appToken" | "settingsEncryptionSecret";
+export type ServerEnvVar = "appToken" | "settingsEncryptionSecret";
 export type DebugEnvVar = "appUrl";
 
 export type EnvVars = Record<EnvVar, string>;
@@ -19,7 +19,6 @@ export const envVars: EnvVars = {
 };
 
 export const serverEnvVars: ServerEnvVars = {
-  appId: process.env.SALEOR_APP_ID!,
   appToken: process.env.SALEOR_APP_TOKEN!,
   settingsEncryptionSecret: process.env.SETTINGS_ENCRYPTION_SECRET!,
 };

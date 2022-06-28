@@ -1,5 +1,7 @@
 import fs from "fs";
 import { serverEnvVars } from "../constants";
+import { AppDocument, AppQuery, AppQueryVariables } from "../graphql";
+import { getClient } from "./client";
 
 const maskToken = (token: string) =>
   "*".repeat(Math.max(token.length - 4, 0)) + token.slice(-4);
@@ -40,4 +42,20 @@ export const setAuthToken = async (token: string) => {
     console.log("Setting authToken: ", maskToken(token));
     fs.writeFileSync(".auth_token", token);
   }
+};
+
+export const getAppId = async () => {
+  const { data, error } = await getClient()
+    .query<AppQuery, AppQueryVariables>(AppDocument)
+    .toPromise();
+  if (error) {
+    throw new Error("Couldn't fetch app id", { cause: error });
+  }
+  const id = data?.app?.id;
+
+  if (!id) {
+    throw new Error("App id is empty");
+  }
+
+  return id;
 };

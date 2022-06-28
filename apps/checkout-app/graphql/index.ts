@@ -21296,9 +21296,7 @@ export type _Service = {
   sdl?: Maybe<Scalars['String']>;
 };
 
-export type AppQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ID']>;
-}>;
+export type AppQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type AppQuery = { __typename?: 'Query', app?: { __typename?: 'App', id: string, name?: string | null } | null };
@@ -21350,6 +21348,20 @@ export type PrivateMetafieldsQueryVariables = Exact<{
 
 
 export type PrivateMetafieldsQuery = { __typename?: 'Query', app?: { __typename?: 'App', id: string, privateMetafields?: any | null } | null };
+
+export type PublicMetafieldsInferedQueryVariables = Exact<{
+  keys?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
+}>;
+
+
+export type PublicMetafieldsInferedQuery = { __typename?: 'Query', app?: { __typename?: 'App', id: string, metafields?: any | null } | null };
+
+export type PrivateMetafieldsInferedQueryVariables = Exact<{
+  keys?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
+}>;
+
+
+export type PrivateMetafieldsInferedQuery = { __typename?: 'Query', app?: { __typename?: 'App', id: string, privateMetafields?: any | null } | null };
 
 export type UpdatePublicMetadataMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -21630,8 +21642,8 @@ export const WebhookErrorFragmentDoc = gql`
 }
     `;
 export const AppDocument = gql`
-    query App($id: ID) {
-  app(id: $id) {
+    query App {
+  app {
     id
     name
   }
@@ -21719,6 +21731,30 @@ export const PrivateMetafieldsDocument = gql`
 
 export function usePrivateMetafieldsQuery(options: Omit<Urql.UseQueryArgs<PrivateMetafieldsQueryVariables>, 'query'>) {
   return Urql.useQuery<PrivateMetafieldsQuery>({ query: PrivateMetafieldsDocument, ...options });
+};
+export const PublicMetafieldsInferedDocument = gql`
+    query PublicMetafieldsInfered($keys: [String!]) {
+  app {
+    id
+    metafields(keys: $keys)
+  }
+}
+    `;
+
+export function usePublicMetafieldsInferedQuery(options?: Omit<Urql.UseQueryArgs<PublicMetafieldsInferedQueryVariables>, 'query'>) {
+  return Urql.useQuery<PublicMetafieldsInferedQuery>({ query: PublicMetafieldsInferedDocument, ...options });
+};
+export const PrivateMetafieldsInferedDocument = gql`
+    query PrivateMetafieldsInfered($keys: [String!]) {
+  app {
+    id
+    privateMetafields(keys: $keys)
+  }
+}
+    `;
+
+export function usePrivateMetafieldsInferedQuery(options?: Omit<Urql.UseQueryArgs<PrivateMetafieldsInferedQueryVariables>, 'query'>) {
+  return Urql.useQuery<PrivateMetafieldsInferedQuery>({ query: PrivateMetafieldsInferedDocument, ...options });
 };
 export const UpdatePublicMetadataDocument = gql`
     mutation UpdatePublicMetadata($id: ID!, $input: [MetadataInput!]!, $keys: [String!]) {
