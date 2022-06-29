@@ -1,5 +1,5 @@
 import fs from "fs";
-import { serverEnvVars } from "../constants";
+import { envVars, serverEnvVars } from "../constants";
 import { AppDocument, AppQuery, AppQueryVariables } from "../graphql";
 import { getClient } from "./client";
 
@@ -58,4 +58,9 @@ export const getAppId = async () => {
   }
 
   return id;
+};
+
+export const getAppDomain = () => {
+  const url = new URL(envVars.apiUrl);
+  return url.host;
 };

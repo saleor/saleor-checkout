@@ -14,19 +14,32 @@ import {
 } from "@/checkout-app/graphql";
 import { getBaseUrl } from "@/checkout-app/backend/utils";
 import { SALEOR_WEBHOOK_TRANSACTION_ENDPOINT } from "./webhooks/saleor/transaction-action-request";
-import { setAuthToken } from "@/checkout-app/backend/environment";
+import { getAppDomain, setAuthToken } from "@/checkout-app/backend/environment";
 
-const handler = (
+const handler = async (
   request: NextApiRequest,
   response: NextApiResponse
-): undefined => {
-  console.log(request); // for deployment debug pusposes
+): Promise<undefined> => {
+  console.debug(request);
 
   const saleorDomain = request.headers[saleorDomainHeader];
   if (!saleorDomain) {
     response
       .status(400)
       .json({ success: false, message: "Missing saleor domain token." });
+    return;
+  }
+
+  if (getAppDomain() !== saleorDomain) {
+    console.error(`App instalation tried from non-matching Saleor domain.
+Expected ${getAppDomain()} (defined in NEXT_PUBLIC_SALEOR_API_URL).
+Received: ${saleorDomain}`);
+
+    response.status(400).json({
+      success: false,
+      message:
+        "Saleor domain doesn't match configured NEXT_PUBLIC_SALEOR_API_URL domain",
+    });
     return;
   }
 
