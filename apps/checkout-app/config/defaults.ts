@@ -27,6 +27,10 @@ export const defaultPaymentProviderSettings: PaymentProviderSettingsValues<"unen
       password: "",
       username: "",
     },
+    stripe: {
+      publishableKey: "",
+      secretKey: "",
+    },
   };
 
 export const defaultCustomizationSettings: CustomizationSettingsValues = {

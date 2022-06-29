@@ -33,11 +33,18 @@ type AdyenResponse = {
   };
 };
 
+type StripeResponse = {
+  provider: "stripe";
+  data: {
+    paymentUrl: string;
+  };
+};
+
 export type PayRequestSuccessResponse = {
   provider: PaymentProviderID;
   ok: true;
   orderId: string;
-} & (MollieResponse | AdyenResponse);
+} & (MollieResponse | AdyenResponse | StripeResponse);
 
 export type PayRequestErrorResponse = {
   ok: false;

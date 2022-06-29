@@ -3,7 +3,7 @@ import { defineMessages } from "react-intl";
 
 export const paymentMethodsMessages = defineMessages<PaymentMethodID>({
   creditCard: {
-    defaultMessage: "Credit card",
+    defaultMessage: "Credit Card",
     description: "payment method",
   },
   applePay: {

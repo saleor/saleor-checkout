@@ -68,6 +68,7 @@
     "json-easy-strip": "^1.0.6",
     "next-transpile-modules": "9.0.0",
     "node-mocks-http": "^1.11.0",
+    "stripe": "^9.10.0",
     "ts-jest": "^27.1.4",
     "tsconfig": "workspace:*",
     "typescript": "^4.7.3"

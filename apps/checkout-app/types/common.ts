@@ -33,7 +33,7 @@ export interface PaymentMethod {
   logo?: IconComponent;
 }
 
-export type PaymentProviderID = "mollie" | "adyen";
+export type PaymentProviderID = "mollie" | "adyen" | "stripe";
 export type MollieProviderSettingID = "profileId" | "apiKey";
 export type AdyenProviderSettingID =
   | "merchantAccount"
@@ -42,12 +42,15 @@ export type AdyenProviderSettingID =
   | "password"
   | "apiKey"
   | "clientKey";
+export type StripeProviderSettingID = "publishableKey" | "secretKey";
 
 export type PaymentProviderSettingID<P extends PaymentProviderID> =
   P extends "mollie"
     ? MollieProviderSettingID
     : P extends "adyen"
     ? AdyenProviderSettingID
+    : P extends "stripe"
+    ? StripeProviderSettingID
     : never;
 
 export interface PaymentProviderSettings<P extends PaymentProviderID> {
