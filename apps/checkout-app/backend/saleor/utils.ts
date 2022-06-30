@@ -1,7 +1,6 @@
-import { NextApiRequest } from "next";
 import * as jose from "jose";
 import crypto from "crypto";
-import { envVars, serverEnvVars } from "@/checkout-app/constants";
+import { envVars } from "@/checkout-app/constants";
 
 const getSaleorDomain = () => {
   const url = new URL(envVars.apiUrl);
@@ -12,11 +11,15 @@ const JWKS = jose.createRemoteJWKSet(
   new URL(getSaleorDomain() + "/.well-known/jwks.json")
 );
 
+/** Validates Saleor webhook request.
+ * Saleor version 3.5+ is required
+ */
 export async function isValidSaleorRequest(
   bodyBuffer: Buffer,
   signature: string
 ): Promise<boolean> {
   // TODO: Use JWS (JSON Web Signature) when implemented in core
+  // PR: https://github.com/saleor/saleor/pull/10080
 
   let key;
   try {

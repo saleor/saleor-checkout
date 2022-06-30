@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import { verifyPayment } from "@/checkout-app/backend/payments/providers/mollie";
-import { createTransaction } from "@/checkout-app/backend/payments/createTransaction";
 import { updateOrCreateTransaction } from "@/checkout-app/backend/payments/updateOrCreateTransaction";
 
 /**

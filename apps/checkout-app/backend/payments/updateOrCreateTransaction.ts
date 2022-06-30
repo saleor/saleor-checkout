@@ -1,6 +1,4 @@
-import { envVars, serverEnvVars } from "@/checkout-app/constants";
 import { TransactionCreateMutationVariables } from "@/checkout-app/graphql";
-import { getClient } from "../client";
 import { createTransaction } from "./createTransaction";
 import { getOrderTransactions } from "./getOrderTransactions";
 import { updateTransaction } from "./updateTransaction";
