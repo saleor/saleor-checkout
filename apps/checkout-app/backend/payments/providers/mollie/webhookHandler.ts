@@ -2,7 +2,7 @@ import { OrderStatus } from "@mollie/api-client";
 
 import { TransactionCreateMutationVariables } from "@/checkout-app/graphql";
 
-import { getMollieClient } from "./utils";
+import { getMollieEventName, getMollieClient } from "./utils";
 import { getTransactionAmount } from "../../utils";
 
 export const MOLLIE_PAYMENT_PREFIX = "mollie";
@@ -17,7 +17,7 @@ export const verifyPayment = async (
 
   const type = `${MOLLIE_PAYMENT_PREFIX}-${method}`;
   const reference = id;
-  const eventName = `Mollie status update: ${status}`;
+  const eventName = getMollieEventName(status);
 
   const getAmount = getTransactionAmount({
     authorized: amount?.value,
@@ -103,7 +103,7 @@ export const verifyPayment = async (
         },
         transactionEvent: {
           status: "FAILURE",
-          name: "Mollie status update - payment was refunded",
+          name: getMollieEventName("payment refunded"),
         },
       };
     }
