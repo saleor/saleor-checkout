@@ -176,5 +176,6 @@ async function handleMolieRefund(
 }
 
 async function handleAdyenRefund(refund: TransactionRefund) {
+  await new Promise((resolve) => resolve(null));
   throw new Error("Not implemented");
 }
