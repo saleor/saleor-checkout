@@ -182,6 +182,7 @@ importers:
       ts-jest: ^27.1.4
       tsconfig: workspace:*
       typescript: ^4.7.3
+      url-join: ^5.0.0
       urql: ^2.2.0
     dependencies:
       '@adyen/api-library': 10.3.0
@@ -215,6 +216,7 @@ importers:
       react-intl: 5.25.1_ncsd6cfs7j5o4bjouwnervdxhm
       react-is: 17.0.2
       retes: 0.27.2
+      url-join: 5.0.0
       urql: 2.2.2_mnlteiidv5se4zpyvopwg4rohq
     devDependencies:
       '@formatjs/cli': 4.8.4_ts-jest@27.1.5

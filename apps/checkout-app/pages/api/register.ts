@@ -15,6 +15,7 @@ import {
 import { getBaseUrl } from "@/checkout-app/backend/utils";
 import { SALEOR_WEBHOOK_TRANSACTION_ENDPOINT } from "./webhooks/saleor/transaction-action-request";
 import { getAppDomain, setAuthToken } from "@/checkout-app/backend/environment";
+import urlJoin from "url-join";
 
 const handler = async (
   request: NextApiRequest,
@@ -70,7 +71,10 @@ Received: ${saleorDomain}`);
   }
 
   const webhooks = data?.app?.webhooks ?? [];
-  const webhookUrl = getBaseUrl(request) + SALEOR_WEBHOOK_TRANSACTION_ENDPOINT;
+  const webhookUrl = urlJoin(
+    getBaseUrl(request),
+    SALEOR_WEBHOOK_TRANSACTION_ENDPOINT
+  );
   const existingWebhook = webhooks.find(
     (webhook) => webhook.targetUrl === webhookUrl
   );
