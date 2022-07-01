@@ -202,6 +202,7 @@ export const AddressForm = <TFormData extends AddressFormData>({
         )}
         <Button
           ariaLabel={formatMessage("saveLabel")}
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onClick={handleSubmit(handleSave)}
           label={formatMessage("saveAddress")}
         />

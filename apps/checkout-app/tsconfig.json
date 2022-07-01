@@ -1,5 +1,5 @@
 {
-  "_comment": "https://github.com/facebook/react/issues/24304. Remove when this gets updated to React 18"
+  "_comment": "https://github.com/facebook/react/issues/24304. Remove when this gets updated to React 18",
   "compilerOptions": {
     "baseUrl": ".",
     "strict": true,

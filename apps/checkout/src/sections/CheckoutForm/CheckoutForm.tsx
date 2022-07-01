@@ -61,7 +61,7 @@ export const CheckoutForm = () => {
 
   // not using form handleSubmit on purpose
   const handleSubmit = () =>
-    checkoutFinalize({
+    void checkoutFinalize({
       ...getValues(),
       paymentProviderId: selectedPaymentProvider as PaymentProviderID,
     });
