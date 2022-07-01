@@ -22,7 +22,6 @@ import {
   Path,
   Resolver,
   SubmitHandler,
-  UnpackNestedValue,
   useForm,
 } from "react-hook-form";
 import { object, string } from "yup";
@@ -102,7 +101,7 @@ export const AddressForm = <TFormData extends AddressFormData>({
     }
   };
 
-  const handleSave = (address: UnpackNestedValue<TFormData>) => {
+  const handleSave = (address: TFormData) => {
     onClearErrors();
     onSave(countryArea ? { ...address, countryArea } : address);
   };

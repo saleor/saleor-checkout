@@ -52,7 +52,7 @@ export const CheckoutForm = () => {
     defaultValues: { email: checkout?.email || "", createAccount: false },
   });
 
-  useSetFormErrors({
+  useSetFormErrors<FormData>({
     setError: methods.setError,
     errors: userRegisterErrors,
   });
