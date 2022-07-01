@@ -1,8 +1,13 @@
 module.exports = {
   extends: ["checkout", "next"],
   parserOptions: {
-    tsconfigRootDir: __dirname,
+    tsconfigRootDir: "./",
     project: ["./tsconfig.json"],
+  },
+  settings: {
+    next: {
+      rootDir: ["."],
+    },
   },
   rules: {
     "require-await": ["error"],
