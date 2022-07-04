@@ -27,7 +27,7 @@ export const PaymentSection = ({
 
   const handlePay = () => {
     orderPay({
-      provider: "adyen",
+      provider: "mollie",
       orderId,
     });
   };

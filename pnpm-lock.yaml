@@ -29,6 +29,8 @@ importers:
       '@react-types/button': ^3.4.1
       '@saleor/sdk': ^0.4.3
       '@saleor/ui-kit': workspace:*
+      '@stripe/react-stripe-js': ^1.9.0
+      '@stripe/stripe-js': ^1.32.0
       '@testing-library/jest-dom': ^5.16.1
       '@testing-library/react': ^12.1.2
       '@testing-library/user-event': ^13.5.0
@@ -107,6 +109,8 @@ importers:
       '@graphql-codegen/typescript-operations': 2.2.3_graphql@16.5.0
       '@graphql-codegen/typescript-urql': 3.5.12_ubrtutz2urcxyhwqr2zvlqjzha
       '@graphql-codegen/urql-introspection': 2.1.1_graphql@16.5.0
+      '@stripe/react-stripe-js': 1.9.0_w4l7jdlsr7baziwsdelrzrxwu4
+      '@stripe/stripe-js': 1.32.0
       '@types/webpack-env': 1.17.0
       checkout-app: link:../checkout-app
       eslint: 8.17.0
@@ -167,6 +171,7 @@ importers:
       react-intl: ^5.24.6
       react-is: ^17.0.2
       retes: ^0.27.1
+      stripe: ^9.10.0
       ts-jest: ^27.1.4
       tsconfig: workspace:*
       typescript: ^4.7.3
@@ -224,6 +229,7 @@ importers:
       json-easy-strip: 1.0.6
       next-transpile-modules: 9.0.0
       node-mocks-http: 1.11.0
+      stripe: 9.10.0
       ts-jest: 27.1.5_zydwki6ztrgm452or5cw6tjo5q
       tsconfig: link:../../packages/tsconfig
       typescript: 4.7.3
@@ -5702,6 +5708,23 @@ packages:
       react-dom: 18.1.0_react@18.1.0
       regenerator-runtime: 0.13.9
       resolve-from: 5.0.0
+    dev: true
+
+  /@stripe/react-stripe-js/1.9.0_w4l7jdlsr7baziwsdelrzrxwu4:
+    resolution: {integrity: sha512-Fn49X+Gu5fOTxhPOita1cPMi0jw+0v4xfJ3FCXbbvmfuuDl3M7ZvpRkoijBjql11NXsaXO3TMm3rkN3mEolJzw==}
+    peerDependencies:
+      '@stripe/stripe-js': ^1.32.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@stripe/stripe-js': 1.32.0
+      prop-types: 15.8.1
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
+    dev: true
+
+  /@stripe/stripe-js/1.32.0:
+    resolution: {integrity: sha512-7EvBnbBfS1aynfLRmBFcuumHNGjKxnNkO47rorFBktqDYHwo7Yw6pfDW2iqq0R8r7i7XiJEdWPvvEgQAiDrx3A==}
     dev: true
 
   /@surma/rollup-plugin-off-main-thread/2.2.3:
@@ -16850,6 +16873,7 @@ packages:
   /qs/6.10.5:
     resolution: {integrity: sha512-O5RlPh0VFtR78y79rgcgKK4wbAI0C5zGVLztOIdpWX6ep368q5Hv6XRxDvXuZ9q3C6v+e3n8UfZZJw7IIG27eQ==}
     engines: {node: '>=0.6'}
+    deprecated: when using stringify with arrayFormat comma, `[]` is appended on single-item arrays. Upgrade to v6.11.0 or downgrade to v6.10.4 to fix.
     dependencies:
       side-channel: 1.0.4
     dev: true
@@ -18809,6 +18833,14 @@ packages:
   /strip-json-comments/3.1.1:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
+
+  /stripe/9.10.0:
+    resolution: {integrity: sha512-ZRJenPgLQk1xdDnTpLNDl06WOD342YsRnMay03D6jkozKTjuWcfVZB/hng4eYfAdPDF07RNpNT+CX6AT2Ir7ew==}
+    engines: {node: ^8.1 || >=10.*}
+    dependencies:
+      '@types/node': 16.11.39
+      qs: 6.10.5
+    dev: true
 
   /style-inject/0.3.0:
     resolution: {integrity: sha512-IezA2qp+vcdlhJaVm5SOdPPTUu0FCEqfNSli2vRuSIBbu5Nq5UvygTk/VzeCqfLz2Atj3dVII5QBKGZRZ0edzw==}
