@@ -36,7 +36,7 @@ export const getAuthToken = () => {
 export const setAuthToken = (token: string) => {
   if (process.env.VERCEL === "1") {
     console.warn(
-      "App was installed in Saleor, please update SALEOR_APP_TOKEN and SALEOR_APP_ID environment variables in Vercel"
+      "App was installed in Saleor, please update SALEOR_APP_TOKEN environment variables in Vercel"
     );
   } else {
     console.log("Setting authToken: ", maskToken(token));
