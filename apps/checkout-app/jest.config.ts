@@ -5,6 +5,7 @@ const requireJSON = require("json-easy-strip");
 const { compilerOptions } = requireJSON("./tsconfig.json");
 
 delete compilerOptions.paths["react"];
+delete compilerOptions["_comment"];
 
 export default {
   // All imported modules in your tests should be mocked automatically

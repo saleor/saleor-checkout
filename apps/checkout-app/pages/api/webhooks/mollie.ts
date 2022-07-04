@@ -3,6 +3,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { verifyPayment } from "@/checkout-app/backend/payments/providers/mollie";
 import { updateOrCreateTransaction } from "@/checkout-app/backend/payments/updateOrCreateTransaction";
 
+jest.setTimeout(1000000);
+
 /**
   Webhooks endpoint for mollie payment gateway.
   It's called after any change in the payment (paid, expired, failed, refunded, etc.)

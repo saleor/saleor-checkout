@@ -1,0 +1,42 @@
+
+<<<<<<-- cut here -->>>>>>
+
+nock('http://localhost:53703', {"encodedQueryParams":true})
+  .post('/', {"id":"123"})
+  .reply(500, "Internal Server Error", [
+  'Date',
+  'Mon, 04 Jul 2022 15:40:01 GMT',
+  'Connection',
+  'close',
+  'Content-Length',
+  '21'
+]);
+<<<<<<-- cut here -->>>>>>
+
+<<<<<<-- cut here -->>>>>>
+
+nock('http://localhost:53989', {"encodedQueryParams":true})
+  .post('/', {"id":"123"})
+  .reply(500, "Internal Server Error", [
+  'Date',
+  'Mon, 04 Jul 2022 15:43:43 GMT',
+  'Connection',
+  'close',
+  'Content-Length',
+  '21'
+]);
+<<<<<<-- cut here -->>>>>>
+
+<<<<<<-- cut here -->>>>>>
+
+nock('http://localhost:54208', {"encodedQueryParams":true})
+  .post('/', {"id":"123"})
+  .reply(500, "Internal Server Error", [
+  'Date',
+  'Mon, 04 Jul 2022 15:45:46 GMT',
+  'Connection',
+  'close',
+  'Content-Length',
+  '21'
+]);
+<<<<<<-- cut here -->>>>>>
