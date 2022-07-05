@@ -78,7 +78,7 @@ export const getMetafield = (
   metafieldId: PublicMetafieldID[number]
 ) => metafields[metafieldId];
 
-export const getRawAppPath = (path: string) => {
+export const getRawAppPath = (path: string): string => {
   const trimmedQueryParams = path.split("?")[0];
 
   const trimmedLanguage = trimmedQueryParams.replace(

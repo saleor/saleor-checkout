@@ -5,13 +5,13 @@ import { NextRouter } from "next/router";
 
 export const handleRedirectEvent = (router: NextRouter, path: string) => {
   if (path && path !== router.pathname) {
-    router.push(path);
+    void router.push(path);
   }
 };
 
 export const handleRouteChange = (path: string) => {
   const rawPath = getRawAppPath(path);
-  app?.dispatch(
+  void app?.dispatch(
     actions.Redirect({
       to: `/apps/${encodeURIComponent(app.getState().id)}/app${rawPath}`,
     })
