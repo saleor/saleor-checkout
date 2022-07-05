@@ -13,7 +13,14 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if ("id" in req.body) {
-    const paymentData = await verifyPayment(req.body.id);
+    let paymentData;
+    try {
+      paymentData = await verifyPayment(req.body.id);
+    } catch (e) {
+      res.status(500).json({ error: "error while checking order" });
+      return;
+    }
+
     // Save transaction id from mollie in Saleor
     // Check if trasaction was already created in Saleor
     // If status of that transaction changed, update tramsaction in Saleor
