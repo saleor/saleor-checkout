@@ -131,10 +131,12 @@ importers:
       '@graphql-codegen/add': ^3.1.1
       '@graphql-codegen/cli': ^2.6.2
       '@graphql-codegen/introspection': ^2.1.1
+      '@graphql-codegen/schema-ast': ^2.4.1
       '@graphql-codegen/typescript': ^2.4.8
       '@graphql-codegen/typescript-operations': ^2.3.5
       '@graphql-codegen/typescript-urql': ^3.5.6
       '@graphql-codegen/urql-introspection': ^2.1.1
+      '@graphql-mocks/network-nock': ^0.3.3
       '@material-ui/core': ^4.12.3
       '@material-ui/icons': ^4.11.3
       '@material-ui/lab': ^4.0.0-alpha.60
@@ -166,6 +168,8 @@ importers:
       eslint-plugin-react: ^7.29.4
       eslint-plugin-react-hooks: ^4.3.0
       graphql: ^16.3.0
+      graphql-import-node: ^0.0.5
+      graphql-mocks: ^0.8.4
       graphql-tag: ^2.12.6
       isomorphic-unfetch: ^3.1.0
       jest: ^27.5.1
@@ -229,10 +233,12 @@ importers:
       '@graphql-codegen/add': 3.1.1_graphql@16.5.0
       '@graphql-codegen/cli': 2.6.4_zvyo26mm3dskkv223wvaqmkj2y
       '@graphql-codegen/introspection': 2.1.1_graphql@16.5.0
+      '@graphql-codegen/schema-ast': 2.4.1_graphql@16.5.0
       '@graphql-codegen/typescript': 2.5.1_graphql@16.5.0
       '@graphql-codegen/typescript-operations': 2.4.2_graphql@16.5.0
       '@graphql-codegen/typescript-urql': 3.5.12_ubrtutz2urcxyhwqr2zvlqjzha
       '@graphql-codegen/urql-introspection': 2.1.1_graphql@16.5.0
+      '@graphql-mocks/network-nock': 0.3.3_jm3ixbef6vvo7555jrhn64hcgq
       '@types/content-type': 1.1.5
       '@types/crypto-js': 4.1.1
       '@types/jest': 27.5.2
@@ -247,6 +253,8 @@ importers:
       eslint: 7.32.0
       eslint-config-checkout: link:../../packages/eslint-config-checkout
       eslint-config-next: 12.1.6_nbvgvzz3q537vw4tosqzgfscaq
+      graphql-import-node: 0.0.5_graphql@16.5.0
+      graphql-mocks: 0.8.4_graphql@16.5.0
       isomorphic-unfetch: 3.1.0
       jest: 27.5.1
       json-easy-strip: 1.0.6
@@ -2640,6 +2648,17 @@ packages:
       - supports-color
     dev: true
 
+  /@graphql-mocks/network-nock/0.3.3_jm3ixbef6vvo7555jrhn64hcgq:
+    resolution: {integrity: sha512-vgIS1KEaXZSvOVcrrcCFb2/M9LDElO4Wpn8TQ4YKQmiDrpVhmo3a+ysM6T3q4A1ZAEilZsbECpbthEvXvSWKyQ==}
+    engines: {node: '>= 12.0.0'}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql-mocks: '>=0.8.1'
+    dependencies:
+      graphql: 16.5.0
+      graphql-mocks: 0.8.4_graphql@16.5.0
+    dev: true
+
   /@graphql-tools/apollo-engine-loader/7.3.0_graphql@16.5.0:
     resolution: {integrity: sha512-ItYIgnnsuhR7DBY2TjsDT0ryvdzHqHvT9T5pHoMz8iJM4liBbSyjpWVtjdTeZoVJ00+sqvKc5BudInN6Oml2Yw==}
     peerDependencies:
@@ -4144,10 +4163,31 @@ packages:
     dependencies:
       type-detect: 4.0.8
 
+  /@sinonjs/fake-timers/6.0.1:
+    resolution: {integrity: sha512-MZPUxrmFubI36XS1DI3qmI0YdN1gks62JtFZvxR67ljjSNCeK6U08Zx4msEWOXuofgqUt6zPHSi1H9fbjR/NRA==}
+    dependencies:
+      '@sinonjs/commons': 1.8.3
+    dev: true
+    optional: true
+
   /@sinonjs/fake-timers/8.1.0:
     resolution: {integrity: sha512-OAPJUAtgeINhh/TAlUID4QTs53Njm7xzddaVlEs/SXwgtiD1tW22zAB/W1wdqfrpmikgaWQ9Fw6Ws+hsiRm5Vg==}
     dependencies:
       '@sinonjs/commons': 1.8.3
+
+  /@sinonjs/samsam/5.3.1:
+    resolution: {integrity: sha512-1Hc0b1TtyfBu8ixF/tpfSHTVWKwCBLY4QJbkgnE7HcwyvT2xArDxb4K7dMgqRm3szI+LJbzmW/s4xxEhv6hwDg==}
+    dependencies:
+      '@sinonjs/commons': 1.8.3
+      lodash.get: 4.4.2
+      type-detect: 4.0.8
+    dev: true
+    optional: true
+
+  /@sinonjs/text-encoding/0.7.1:
+    resolution: {integrity: sha512-+iTbntw2IZPb/anVDbypzfQa+ay64MW0Zo8aJ8gZPWMMK6/OubMVb6lUPMagqjOPnmtauXnFCACVl3O7ogjeqQ==}
+    dev: true
+    optional: true
 
   /@storybook/addon-actions/6.5.9_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-wDYm3M1bN+zcYZV3Q24M03b/P8DDpvj1oSoY6VLlxDAi56h8qZB/voeIS2I6vWXOB79C5tbwljYNQO0GsufS0g==}
@@ -6558,6 +6598,7 @@ packages:
       debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /@typescript-eslint/parser/5.27.1_b5e7v2qnwxfo6hmiq56u52mz3e:
     resolution: {integrity: sha512-7Va2ZOkHi5NP+AZwb5ReLgNF6nWLGTeUJfxdkVUAPPSaAdbWNnFZzLZ4EGGmmiCTg+AwlbE1KyUYTBglosSLHQ==}
@@ -6597,7 +6638,6 @@ packages:
       typescript: 4.7.4
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /@typescript-eslint/scope-manager/5.27.1:
     resolution: {integrity: sha512-fQEOSa/QroWE6fAEg+bJxtRZJTH8NTskggybogHt4H9Da8zd4cJji76gA5SBlR0MgtwF7rebxTbDKB49YUCpAg==}
@@ -6677,6 +6717,7 @@ packages:
       tsutils: 3.21.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /@typescript-eslint/typescript-estree/5.27.1_typescript@4.7.4:
     resolution: {integrity: sha512-DnZvvq3TAJ5ke+hk0LklvxwYsnXpRdqUY5gaVS0D4raKtbznPz71UJGnPTHEFo0GDxqLOLdMkkmVZjSpET1hFw==}
@@ -10338,6 +10379,7 @@ packages:
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
       - supports-color
+    dev: false
 
   /eslint-config-next/12.1.6_nbvgvzz3q537vw4tosqzgfscaq:
     resolution: {integrity: sha512-qoiS3g/EPzfCTkGkaPBSX9W0NGE/B1wNO3oWrd76QszVGrdpLggNqcO8+LR6MB0CNqtp9Q8NoeVrxNVbzM9hqA==}
@@ -10431,6 +10473,7 @@ packages:
       tsconfig-paths: 3.14.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /eslint-import-resolver-typescript/2.7.1_hpmu7kn6tcn2vnxpfzvv33bxmy:
     resolution: {integrity: sha512-00UbgGwV8bSgUv34igBDbTOtKhqoRMy9bFjNehT40bXg6585PNIct8HhXZ0SybqB9rWtXj9crcku8ndDn/gIqQ==}
@@ -10448,7 +10491,6 @@ packages:
       tsconfig-paths: 3.14.1
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /eslint-module-utils/2.7.3_4wf6ctbofaywkfx7kzk32kp7ge:
     resolution: {integrity: sha512-088JEC7O3lDZM9xGe0RerkOMd0EjFl+Yvd1jPWIkMT5u3H9+HC34mWWPnqPrN13gieT9pBOO+Qt07Nb/6TresQ==}
@@ -10468,10 +10510,10 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.27.1
+      '@typescript-eslint/parser': 5.27.1_hxadhbs2xogijvk7vq4t2azzbu
       debug: 3.2.7
       eslint-import-resolver-node: 0.3.6
-      eslint-import-resolver-typescript: 2.7.1_fkfqfehjtk7sk2efaqbgxsuasa
+      eslint-import-resolver-typescript: 2.7.1_hpmu7kn6tcn2vnxpfzvv33bxmy
       find-up: 2.1.0
     transitivePeerDependencies:
       - supports-color
@@ -10574,6 +10616,7 @@ packages:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
       - supports-color
+    dev: false
 
   /eslint-plugin-import/2.26.0_wpehoe7sv7ux6tdegk3fwlchdi:
     resolution: {integrity: sha512-hYfi3FXaM8WPLf4S1cikh/r4IxnO6zrhZbEGz2b660EJRbuxgpDS5gkCuYgGWg2xxh2rBuIr4Pvhve/7c31koA==}
@@ -10604,7 +10647,6 @@ packages:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
       - supports-color
-    dev: true
 
   /eslint-plugin-jest/25.7.0_wae3veybaz4u6lgdhccg7yzcsu:
     resolution: {integrity: sha512-PWLUEXeeF7C9QGKqvdSbzLOiLTx+bno7/HC9eefePfEb257QFHg7ye3dh80AZVkaa/RQsBB1Q/ORQvg2X7F0NQ==}
@@ -12093,6 +12135,26 @@ packages:
       - encoding
       - typescript
       - utf-8-validate
+    dev: true
+
+  /graphql-import-node/0.0.5_graphql@16.5.0:
+    resolution: {integrity: sha512-OXbou9fqh9/Lm7vwXT0XoRN9J5+WCYKnbiTalgFDvkQERITRmcfncZs6aVABedd5B85yQU5EULS4a5pnbpuI0Q==}
+    peerDependencies:
+      graphql: '*'
+    dependencies:
+      graphql: 16.5.0
+    dev: true
+
+  /graphql-mocks/0.8.4_graphql@16.5.0:
+    resolution: {integrity: sha512-z/18snu2ZjDVjYo1q+dmT1G0o86SE52yJggrYQIIXnVSF+hBPnxmhjUmO22bMC+naMdEy0GMyGK6msp+wwgA3A==}
+    engines: {node: '>= 12.0.0'}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      graphql: 16.5.0
+      ramda: 0.28.0
+    optionalDependencies:
+      sinon: 9.2.4
     dev: true
 
   /graphql-request/4.3.0_graphql@16.5.0:
@@ -14260,6 +14322,11 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /just-extend/4.2.1:
+    resolution: {integrity: sha512-g3UB796vUFIY90VIv/WX3L2c8CS2MdWUww3CNrYmqza1Fg0DURc2K/O4YrnklBdQarSJ/y8JnJYDGc+1iumQjg==}
+    dev: true
+    optional: true
+
   /jwa/1.4.1:
     resolution: {integrity: sha512-qiLX/xhEEFKUAJ6FiBMbes3w9ATzyk5W7Hvzpa/SLYdxNtng+gcurvrI7TbACjIXlsJyr05/S1oUhZrc63evQA==}
     dependencies:
@@ -15261,6 +15328,17 @@ packages:
     resolution: {integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==}
     dev: true
 
+  /nise/4.1.0:
+    resolution: {integrity: sha512-eQMEmGN/8arp0xsvGoQ+B1qvSkR73B1nWSCh7nOt5neMCtwcQVYQGdzQMhcNscktTsWB54xnlSQFzOAPJD8nXA==}
+    dependencies:
+      '@sinonjs/commons': 1.8.3
+      '@sinonjs/fake-timers': 6.0.1
+      '@sinonjs/text-encoding': 0.7.1
+      just-extend: 4.2.1
+      path-to-regexp: 1.8.0
+    dev: true
+    optional: true
+
   /no-case/3.0.4:
     resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
     dependencies:
@@ -16024,6 +16102,13 @@ packages:
 
   /path-to-regexp/0.1.7:
     resolution: {integrity: sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=}
+
+  /path-to-regexp/1.8.0:
+    resolution: {integrity: sha512-n43JRhlUKUAlibEJhPeir1ncUID16QnEjNpwzNdO3Lm4ywrBpBZ5oLD0I6br9evr1Y9JTqwRtAh7JLoOzAQdVA==}
+    dependencies:
+      isarray: 0.0.1
+    dev: true
+    optional: true
 
   /path-type/1.1.0:
     resolution: {integrity: sha512-S4eENJz1pkiQn9Znv33Q+deTOKmbl+jj1Fl+qiP/vYezj+S8x+J3Uo0ISrx/QoEvIlOaDWJhPaRd1flJ9HXZqg==}
@@ -18740,6 +18825,19 @@ packages:
     resolution: {integrity: sha512-6+eerH9fEnNmi/hyM1DXcRK3pWdoMQtlkQ+ns0ntzunjKqp5i3sKCc80ym8Fib3iaYhdJUOPdhlJWj1tvge2Ww==}
     dev: true
 
+  /sinon/9.2.4:
+    resolution: {integrity: sha512-zljcULZQsJxVra28qIAL6ow1Z9tpattkCTEJR4RBP3TGc00FcttsP5pK284Nas5WjMZU5Yzy3kAIp3B3KRf5Yg==}
+    requiresBuild: true
+    dependencies:
+      '@sinonjs/commons': 1.8.3
+      '@sinonjs/fake-timers': 6.0.1
+      '@sinonjs/samsam': 5.3.1
+      diff: 4.0.2
+      nise: 4.1.0
+      supports-color: 7.2.0
+    dev: true
+    optional: true
+
   /sisteransi/1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
@@ -19985,6 +20083,7 @@ packages:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
     dependencies:
       tslib: 1.14.1
+    dev: false
 
   /tsutils/3.21.0_typescript@4.7.4:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}

@@ -3,10 +3,15 @@ import fs from "fs";
 import nock from "nock";
 import { PageConfig } from "next";
 import { testApiHandler } from "next-test-api-route-handler";
+import { GraphQLHandler } from "graphql-mocks";
+import "graphql-import-node";
+import * as graphqlSchema from "@/checkout-app/schema.graphql";
+import { nockHandler } from "@graphql-mocks/network-nock";
+import { envVars } from "@/checkout-app/constants";
 
 const handler: typeof endpoint & { cofnig?: PageConfig } = endpoint;
 
-const appendLogToFile = (content) => {
+const appendLogToFile = (content: string) => {
   fs.appendFile("record.txt", content, {}, () => {});
 };
 
@@ -18,8 +23,25 @@ nock.recorder.rec({
   logging: appendLogToFile,
 });
 
-test.only("it handles completed payments", async () => {
-  // const scope = nock("https://api.mollie.com/v2")
+const graphqlHandler = new GraphQLHandler({
+  dependencies: { graphqlSchema },
+});
+
+test("it handles invalid API calls", async () => {
+  nock(envVars.apiUrl).post("/").reply(nockHandler(graphqlHandler));
+
+  await testApiHandler({
+    handler,
+    test: async ({ fetch }) => {
+      const res = await fetch({
+        method: "POST",
+        body: "", // empty body
+      });
+    },
+  });
+});
+
+test("it handles invalid order ids", async () => {
   const orderId = "123";
 
   await testApiHandler({
@@ -37,9 +59,3 @@ test.only("it handles completed payments", async () => {
     },
   });
 });
-
-test("handles refunded payments in Mollie dashboard", async () => {
-  // TODO
-});
-
-test("it handles invalid API calls", async () => {});

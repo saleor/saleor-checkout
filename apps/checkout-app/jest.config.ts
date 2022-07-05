@@ -86,6 +86,8 @@ export default {
   //   "node"
   // ],
 
+  // moduleFileExtensions: ["graphql", "gql", "js", "jsx", "ts", "tsx", "json"],
+
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
     ...pathsToModuleNameMapper(compilerOptions.paths, {
@@ -184,6 +186,11 @@ export default {
 
   // A map from regular expressions to paths to transformers
   // transform: undefined,
+  transform: {
+    "\\.(gql|graphql)$": "@jagi/jest-transform-graphql",
+  },
+
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node", "graphql"],
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: ["<rootDir>/node_modules/(?!lodash-es)"],
