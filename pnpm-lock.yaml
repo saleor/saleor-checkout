@@ -167,6 +167,7 @@ importers:
       eslint-plugin-react-hooks: ^4.3.0
       graphql: ^16.3.0
       graphql-tag: ^2.12.6
+      isomorphic-unfetch: ^3.1.0
       jest: ^27.5.1
       jose: ^4.8.1
       json-easy-strip: ^1.0.6
@@ -244,6 +245,7 @@ importers:
       eslint: 7.32.0
       eslint-config-checkout: link:../../packages/eslint-config-checkout
       eslint-config-next: 12.1.6_nbvgvzz3q537vw4tosqzgfscaq
+      isomorphic-unfetch: 3.1.0
       jest: 27.5.1
       json-easy-strip: 1.0.6
       next-transpile-modules: 9.0.0
@@ -10332,7 +10334,6 @@ packages:
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
       - supports-color
-    dev: false
 
   /eslint-config-next/12.1.6_nbvgvzz3q537vw4tosqzgfscaq:
     resolution: {integrity: sha512-qoiS3g/EPzfCTkGkaPBSX9W0NGE/B1wNO3oWrd76QszVGrdpLggNqcO8+LR6MB0CNqtp9Q8NoeVrxNVbzM9hqA==}
