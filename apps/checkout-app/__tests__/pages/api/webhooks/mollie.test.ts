@@ -37,6 +37,9 @@ test("it handles invalid API calls", async () => {
         method: "POST",
         body: "", // empty body
       });
+
+      expect(res.ok).toBe(false);
+      expect(res.status).toBe(405);
     },
   });
 });
@@ -56,6 +59,9 @@ test("it handles invalid order ids", async () => {
           id: orderId,
         }),
       });
+
+      expect(res.ok).toBe(false);
+      expect(res.status).toBe(500);
     },
   });
 });
