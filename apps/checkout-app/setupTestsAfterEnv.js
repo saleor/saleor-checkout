@@ -1,1 +1,1 @@
-import "isomorphic-unfetch";
+import "next";
