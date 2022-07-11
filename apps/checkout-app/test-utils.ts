@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { PollyConfig, PollyServer } from "@pollyjs/core";
 import omitDeep from "omit-deep-lodash";
 import path from "path";
-import { Context, setupPolly } from "setup-polly-jest";
+import { setupPolly } from "setup-polly-jest";
 import { createMocks, RequestMethod } from "node-mocks-http";
 
 export const mockRequest = (method: RequestMethod = "GET") => {
@@ -63,7 +63,7 @@ export const setupPollyMiddleware = (server: PollyServer) => {
   });
 };
 
-export const setupRecording = (): Context => {
+export const setupRecording = () => {
   // use replay mode by default, override if POLLY_MODE env variable is passed
   let mode: PollyConfig["mode"] = "replay";
   let recordIfMissing = true;

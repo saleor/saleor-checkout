@@ -9,8 +9,7 @@ describe("/api/webhooks/mollie", () => {
   const context = setupRecording();
 
   beforeEach(() => {
-    const { server } = context.polly;
-    setupPollyMiddleware(server);
+    setupPollyMiddleware(context.polly.server);
   });
 
   it("handles invalid requests payments", async () => {

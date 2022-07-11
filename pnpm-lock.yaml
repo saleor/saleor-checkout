@@ -156,6 +156,7 @@ importers:
       '@types/omit-deep-lodash': ^1.1.1
       '@types/react': 17.0.37
       '@types/react-dom': 17.0.11
+      '@types/setup-polly-jest': ^0.5.1
       '@urql/exchange-auth': ^0.1.7
       '@urql/exchange-multipart-fetch': ^0.1.14
       babel-plugin-formatjs: ^10.3.18
@@ -251,6 +252,7 @@ importers:
       '@types/omit-deep-lodash': 1.1.1
       '@types/react': 17.0.37
       '@types/react-dom': 17.0.11
+      '@types/setup-polly-jest': 0.5.1
       babel-plugin-formatjs: 10.3.24_ts-jest@27.1.5
       dotenv: 16.0.1
       env-vars: link:../../packages/env-vars
@@ -6393,6 +6395,23 @@ packages:
     resolution: {integrity: sha512-kUNnecmtkunAoQ3CnjmMkzNU/gtxG8guhi+Fk2U/kOpIKjIMKnXGp4IJCgQJrXSgMsWYimYG4TGjz/UzbGEBTw==}
     dev: true
 
+  /@types/pollyjs__adapter/4.3.1:
+    resolution: {integrity: sha512-aQXE2CDxaNV/doHMBaYMsGTj1Xn6GihD7owLRN2kd+rCw6YBRSWXEirtkwuutJYquWU2lbBl2m4usTQearpr6Q==}
+    dependencies:
+      '@types/pollyjs__core': 4.3.3
+    dev: true
+
+  /@types/pollyjs__core/4.3.3:
+    resolution: {integrity: sha512-qPLLq+be0L45z/EawTWXdsQZINCHgRxqQJUDQsvLTDGvnnV6y5rjK3c8mYtCxkVFmKxNIBsicI1+ldHPgPBAjA==}
+    dependencies:
+      '@types/pollyjs__adapter': 4.3.1
+      '@types/pollyjs__persister': 4.3.1
+    dev: true
+
+  /@types/pollyjs__persister/4.3.1:
+    resolution: {integrity: sha512-h8MNPbBGM5fRCXGA/xAw6bFZT1oJhnPaoTpDp07PHN63YZvRR0NdeJYphFod+PX1GOhDHrIXxtB912JlwJwGHw==}
+    dev: true
+
   /@types/prettier/2.6.3:
     resolution: {integrity: sha512-ymZk3LEC/fsut+/Q5qejp6R9O1rMxz3XaRHDV6kX8MrGAhOSPqVARbDi+EZvInBpw+BnCX3TD240byVkOfQsHg==}
 
@@ -6516,6 +6535,12 @@ packages:
     resolution: {integrity: sha512-fBZgytwhYAUkj/jC/FAV4RQ5EerRup1YQsXQCh8rZfiHkc4UahC192oH0smGwsXol3cL3A5oETuAHeQHmhXM4w==}
     dependencies:
       '@types/node': 16.11.42
+    dev: true
+
+  /@types/setup-polly-jest/0.5.1:
+    resolution: {integrity: sha512-YNyz4ANZOtmZxQMQOU2q43jjacEGKWywDTL8CkIBSosmRL7HEgoelcI3GyXSrmlennCCmvC/NEenHYFSqYMg+A==}
+    dependencies:
+      '@types/pollyjs__core': 4.3.3
     dev: true
 
   /@types/sockjs/0.3.33:
