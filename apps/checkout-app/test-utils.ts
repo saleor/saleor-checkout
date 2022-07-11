@@ -4,6 +4,9 @@ import omitDeep from "omit-deep-lodash";
 import path from "path";
 import { setupPolly } from "setup-polly-jest";
 import { createMocks, RequestMethod } from "node-mocks-http";
+import { handlers } from "./mocks/handlers";
+import { Headers } from "headers-polyfill";
+import { MockedRequest } from "msw";
 
 export const mockRequest = (method: RequestMethod = "GET") => {
   const { req, res } = createMocks({ method });
@@ -41,7 +44,8 @@ export const removeBlacklistedVariables = (obj: {}): {} => {
 };
 
 export const setupPollyMiddleware = (server: PollyServer) => {
-  server.any().on("beforePersist", (_, recording) => {
+  // Hide sensitive data in headers or in body
+  server.any().on("beforePersist", (_, recording, event) => {
     const requestJson = JSON.parse(recording.request.postData.text);
     const requestHeaders = recording.request.headers.filter(
       (el: Record<string, string>) => !HEADERS_BLACKLIST.has(el.name)
@@ -61,6 +65,55 @@ export const setupPollyMiddleware = (server: PollyServer) => {
     recording.response.content.text = JSON.stringify(filteredResponseJson);
     recording.response.headers = responseHeaders;
   });
+
+  // Check if request is handled by msw
+  server
+    .any()
+    .filter((req) => {
+      const { url, method, headers, body, id } = req;
+
+      let reqBody: any;
+      if (typeof body === "string") {
+        try {
+          reqBody = JSON.parse(body);
+        } catch (e) {
+          reqBody = body ?? "";
+        }
+      } else {
+        reqBody = body ?? "";
+      }
+
+      const fakeReq: MockedRequest = {
+        id: id ?? "",
+        url: new URL(url),
+        body: reqBody,
+        mode: "cors",
+        cache: "default",
+        method,
+        cookies: {},
+        headers: new Headers(headers),
+        redirect: "manual",
+        bodyUsed: false,
+        referrerPolicy: "no-referrer",
+        destination: "document",
+        credentials: "same-origin",
+        referrer: "",
+        integrity: "",
+        keepalive: false,
+        passthrough: () => ({
+          passthrough: false,
+          headers: new Headers(),
+          body: reqBody,
+          once: false,
+          status: 200,
+          statusText: "",
+          delay: 0,
+        }),
+      };
+
+      return handlers.some((handler) => handler.test(fakeReq));
+    })
+    .passthrough();
 };
 
 export const setupRecording = () => {
@@ -82,9 +135,9 @@ export const setupRecording = () => {
   }
 
   return setupPolly({
-    // Fix for Jest runtime issues
+    // Fix for Jest runtime issues (inline require)
     // https://github.com/gribnoysup/setup-polly-jest/issues/23#issuecomment-890494186
-    adapters: [require("@pollyjs/adapter-node-http")],
+    adapters: [require("@pollyjs/adapter-fetch")],
     persister: require("@pollyjs/persister-fs"),
     mode,
     recordIfMissing,
