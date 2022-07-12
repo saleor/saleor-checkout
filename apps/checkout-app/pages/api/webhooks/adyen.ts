@@ -102,7 +102,7 @@ export default async function handler(
       adyen.hmac!
     );
   } catch (error) {
-    return res.status(401).send(error);
+    return res.status(401).send(error instanceof Error ? error.message : String(error));
   }
 
   await notificationHandler(notificationItem, adyen.apiKey!);
