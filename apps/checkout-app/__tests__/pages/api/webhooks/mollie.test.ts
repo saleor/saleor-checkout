@@ -4,7 +4,7 @@ import {
   mockRequest,
   setupPollyMiddleware,
   setupRecording,
-} from "@/checkout-app/test-utils";
+} from "@/checkout-app/mocks/setup";
 
 describe("/api/webhooks/mollie", () => {
   const context = setupRecording();

@@ -4,9 +4,9 @@ import omitDeep from "omit-deep-lodash";
 import path from "path";
 import { setupPolly } from "setup-polly-jest";
 import { createMocks, RequestMethod } from "node-mocks-http";
-import { handlers } from "./mocks/handlers";
-import { Headers } from "headers-polyfill";
-import { MockedRequest } from "msw";
+import { getFilterPollyRequests } from "./utils";
+import { handlePrivateMetafieldsInfered } from "./handlers/saleor";
+import { envVars } from "../constants";
 
 export const mockRequest = (method: RequestMethod = "GET") => {
   const { req, res } = createMocks({ method });
@@ -66,54 +66,10 @@ export const setupPollyMiddleware = (server: PollyServer) => {
     recording.response.headers = responseHeaders;
   });
 
-  // Check if request is handled by msw
   server
-    .any()
-    .filter((req) => {
-      const { url, method, headers, body, id } = req;
-
-      let reqBody: any;
-      if (typeof body === "string") {
-        try {
-          reqBody = JSON.parse(body);
-        } catch (e) {
-          reqBody = body ?? "";
-        }
-      } else {
-        reqBody = body ?? "";
-      }
-
-      const fakeReq: MockedRequest = {
-        id: id ?? "",
-        url: new URL(url),
-        body: reqBody,
-        mode: "cors",
-        cache: "default",
-        method,
-        cookies: {},
-        headers: new Headers(headers),
-        redirect: "manual",
-        bodyUsed: false,
-        referrerPolicy: "no-referrer",
-        destination: "document",
-        credentials: "same-origin",
-        referrer: "",
-        integrity: "",
-        keepalive: false,
-        passthrough: () => ({
-          passthrough: false,
-          headers: new Headers(),
-          body: reqBody,
-          once: false,
-          status: 200,
-          statusText: "",
-          delay: 0,
-        }),
-      };
-
-      return handlers.some((handler) => handler.test(fakeReq));
-    })
-    .passthrough();
+    .post(envVars.apiUrl)
+    .filter(getFilterPollyRequests("PrivateMetafieldsInfered", "query"))
+    .intercept(handlePrivateMetafieldsInfered);
 };
 
 export const setupRecording = () => {
