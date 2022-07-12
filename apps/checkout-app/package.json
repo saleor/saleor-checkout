@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
-    "test": "jest --runInBand",
+    "test": "jest",
     "test:record": "POLLY_MODE=record jest --runInBand --verbose",
     "build": "npm run i18n && next build",
     "start": "next start",

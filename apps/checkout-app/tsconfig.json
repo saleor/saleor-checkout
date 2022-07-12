@@ -3,6 +3,7 @@
     "baseUrl": ".",
     "strict": true,
     "noEmit": true,
+    "allowJs": true,
     "paths": {
       "@/checkout-app/*": [
         "./*"

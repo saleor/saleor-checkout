@@ -1,3 +1,4 @@
+import { testingVars } from "@/checkout-app/mocks/consts";
 import handler from "@/checkout-app/pages/api/webhooks/mollie";
 import {
   mockRequest,
@@ -30,5 +31,17 @@ describe("/api/webhooks/mollie", () => {
     await handler(req, res);
 
     expect(res.statusCode).toBe(500);
+  });
+
+  test.only("handles request with completed payment", async () => {
+    const { req, res } = mockRequest("POST");
+
+    req.body = {
+      id: testingVars.mollieCompletedOrderId,
+    };
+
+    await handler(req, res);
+
+    expect(res.statusCode).toBe(200);
   });
 });

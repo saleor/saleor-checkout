@@ -134,6 +134,11 @@ export const setupRecording = () => {
       break;
   }
 
+  if (process.env.CI) {
+    mode = "replay";
+    recordIfMissing = false;
+  }
+
   return setupPolly({
     // Fix for Jest runtime issues (inline require)
     // https://github.com/gribnoysup/setup-polly-jest/issues/23#issuecomment-890494186

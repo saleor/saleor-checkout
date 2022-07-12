@@ -147,7 +147,7 @@ export default {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "setup-polly-jest/jest-environment-jsdom",
+  testEnvironment: "setup-polly-jest/jest-environment-node",
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
