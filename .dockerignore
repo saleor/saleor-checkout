@@ -1,0 +1,15 @@
+node_modules
+
+apps/checkout/.turbo
+apps/checkout/build
+apps/checkout/node_modules
+
+apps/checkout-app/.next
+apps/checkout-app/.turbo
+apps/checkout-app/node_modules
+
+packages/env-vars/node_modules
+packages/eslint-config-checkout/node_modules
+packages/ui-kit/.turbo
+packages/ui-kit/dist
+packages/ui-kit/node_modules
