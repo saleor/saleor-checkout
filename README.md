@@ -138,7 +138,7 @@ pnpm dlx turbo link
 
 > Note: Vercel now doesn't support importing the entire monorepo, you will need to set up a project yourself for each app inside `/apps` folder
 
-![Create project on Vercel by selecting your cloned GitHub repository in the menu](./docs/setup-vercel-1.png)
+![Create project on Vercel by selecting your cloned GitHub repository in the menu](./docs/screenshots/screenshots/setup-vercel-1.png)
 
 2. From the configuration page:
 
@@ -157,7 +157,7 @@ cd ../.. && pnpm run build:checkout-app
 
 Here's the final result on configuration page:
 
-![Vercel "Configure project" page with all settings filled out](./docs/setup-vercel-2.png)
+![Vercel "Configure project" page with all settings filled out](./docs/screenshots/screenshots/setup-vercel-2.png)
 
 Click deploy and wait until the app is deployed
 
@@ -213,7 +213,7 @@ saleor app install
 > ```
 >
 > To see which domain is used for production go to [Vercel Dashboard](https://vercel.com) > Settings > Domains:
-> ![Vercel dashboard settings page that shows which domain is connected to production deployment](./docs/setup-vercel-domain.png)
+> ![Vercel dashboard settings page that shows which domain is connected to production deployment](./docs/screenshots/screenshots/setup-vercel-domain.png)
 
 5. Generate app token
 
@@ -280,7 +280,7 @@ You have to add additional environment variables for Checkout App in Vercel:
 Make sure that you also have "Automatically expose System Environment Variables" selected
 
 Here's how the configuration should look like in the end:
-![Vercel env variable final configuration](./docs/setup-vercel-3.png)
+![Vercel env variable final configuration](./docs/screenshots/setup-vercel-3.png)
 
 After you're done, re-deploy the app
 
@@ -311,7 +311,7 @@ cd ../.. && pnpm run build:checkout
 
 Here's the final result on configuration page:
 
-![Vercel "Configure project" page with all settings filled out for Checkout frontend deployment](./docs/setup-vercel-4.png)
+![Vercel "Configure project" page with all settings filled out for Checkout frontend deployment](./docs/screenshots/setup-vercel-4.png)
 
 Click deploy and wait until the app is deployed
 
@@ -336,11 +336,11 @@ Go to **Apps > Third party apps > Checkout**.
 
 You can toggle, which payment gateway handles each different payment options per channel:
 
-![Configuration options: Credit Card, Apple Pay, PayPal that are available in checkout app dashboard](./docs/config-dashboard-1.png)
+![Configuration options: Credit Card, Apple Pay, PayPal that are available in checkout app dashboard](./docs/screenshots/config-dashboard-1.png)
 
 To use payment gateway, you need to provide its credentials. You can do that by clicking settings icon in channel configuration page
 
-![Payment gateway configuration in Saleor dashboard](./docs/config-dashboard-2.png)
+![Payment gateway configuration in Saleor dashboard](./docs/screenshots/config-dashboard-2.png)
 
 ### Mollie
 
@@ -348,8 +348,8 @@ To use payment gateway, you need to provide its credentials. You can do that by 
 
 2. Make sure you've enabled at least 1 payment provider in Mollie dashboard (Settings > Website profiles > Payment methods):
 
-![Getting to payment providers settings in Mollie dashboard](./docs/setup-mollie-1.png)
-![At least one payment method is enabled on Payment methods page](./docs/setup-mollie-2.png)
+![Getting to payment providers settings in Mollie dashboard](./docs/screenshots/setup-mollie-1.png)
+![At least one payment method is enabled on Payment methods page](./docs/screenshots/setup-mollie-2.png)
 
 > Note: Don't worry about "You need to complete the boarding before this payment method can be activated." message if you only want to test. Enabled payment methods will still work in test mode, even without completing verification of your Mollie account
 
@@ -360,7 +360,7 @@ To use payment gateway, you need to provide its credentials. You can do that by 
 
 4. In Checkout app configuration, enter the data you've just copied
 
-![Mollie config inside Saleor dashboard after env variable and profile id were pasted](./docs/config-dashboard-mollie.png)
+![Mollie config inside Saleor dashboard after env variable and profile id were pasted](./docs/screenshots/config-dashboard-mollie.png)
 
 5. Enable `Payment methods` in your Mollie dashboard, select: Settings -> Website Profiles -> Payment methods
 
@@ -376,29 +376,29 @@ Saleor Checkout uses Adyen's [Pay by Link flow](https://docs.adyen.com/unified-c
 
 Select "Web service user" and enter some description (for example "Saleor Checkout")
 
-![Setup Adyen API credentials modal in Customer Area](./docs/setup-adyen-1.png)
+![Setup Adyen API credentials modal in Customer Area](./docs/screenshots/setup-adyen-1.png)
 
 4. Copy **API key** from newly generated API credentials and paste it in Checkout app configuration > Adyen > **Private API key**
 
-![Copy API key from Adyen Customer Area](./docs/setup-adyen-2.png)
+![Copy API key from Adyen Customer Area](./docs/screenshots/setup-adyen-2.png)
 
-![Paste API key in Checkout app configuration](./docs/setup-adyen-3.png)
+![Paste API key in Checkout app configuration](./docs/screenshots/setup-adyen-3.png)
 
 5. Click **"Generate client key"** and copy it to clipboard, paste it in Checkout app configuration > Adyen > **Public client key**
 
-![Copy client key from Adyen's Customer Area](./docs/setup-adyen-4.png)
+![Copy client key from Adyen's Customer Area](./docs/screenshots/setup-adyen-4.png)
 
-![Paste client key in Checkout app configuration](./docs/setup-adyen-5.png)
+![Paste client key in Checkout app configuration](./docs/screenshots/setup-adyen-5.png)
 
 6. **Add allowed origin** to your Client key, paste URL of your deployed [Checkout SPA](#checkout-spa) and click **"Add"**
 
-![Pasted deployed URL of Checkout SPA in client key's allowed origin](./docs/setup-adyen-6.png)
+![Pasted deployed URL of Checkout SPA in client key's allowed origin](./docs/screenshots/setup-adyen-6.png)
 
 7. **Save changes** you've made to API credential
 
 8. [Create standard notification webhook](https://docs.adyen.com/unified-commerce/pay-by-link/payment-links/api#webhooks). Go to Developers > [Webhooks](https://ca-test.adyen.com/ca/ca/config/showthirdparty.shtml) > "+ Webhook" > ["Standard notification"](https://ca-test.adyen.com/ca/ca/config/configurethirdparty.shtml?method:add&selectedMimetype=notifications)
 
-![Creating new Standard notification webhook in Adyen portal](./docs/setup-adyen-7.png)
+![Creating new Standard notification webhook in Adyen portal](./docs/screenshots/setup-adyen-7.png)
 
 Fill out the webhook details:
 
@@ -415,13 +415,13 @@ Fill out the webhook details:
   - **SSL version**: TLSv1.2
   - **Service version** - 1
 
-![Webhook Server configuration config](./docs/setup-adyen-webhook-1.png)
+![Webhook Server configuration config](./docs/screenshots/setup-adyen-webhook-1.png)
 
 - **Merchant accounts** - choose "Include only specific merchant accounts" and select the merchant account you'll use for checkout, the name must be provided in Checkout App configuration
 
-![Webhook Merchant accounts configuration](./docs/setup-adyen-webhook-2.png)
+![Webhook Merchant accounts configuration](./docs/screenshots/setup-adyen-webhook-2.png)
 
-![Merchant account configuration in Checkout app settings](./docs/setup-adyen-webhook-3.png)
+![Merchant account configuration in Checkout app settings](./docs/screenshots/setup-adyen-webhook-3.png)
 
 - **Events** - leave events selected by default
 - **Security**
@@ -431,11 +431,11 @@ Fill out the webhook details:
 
 This is how your webhook configuration should look like in Adyen:
 
-![Final adyen webhook configuration](./docs/setup-adyen-webhook-4.png)
+![Final adyen webhook configuration](./docs/screenshots/setup-adyen-webhook-4.png)
 
 This is how your Checkout App configuration should look like in Saleor dashboard:
 
-![Final checkout app configuration in Saleor dashboard](./docs/setup-adyen-webhook-5.png)
+![Final checkout app configuration in Saleor dashboard](./docs/screenshots/setup-adyen-webhook-5.png)
 
 9. Save settings in Adyen and in Checkout App configuration
 
@@ -445,20 +445,20 @@ Click "Test configuration" button after you've saved the configuration.
 
 Select **"AUTHORISATION"** from the list and click "Test"
 
-![Selecting what webhook event should be sent to Checkout App](./docs/setup-adyen-webhook-test-1.png)
+![Selecting what webhook event should be sent to Checkout App](./docs/screenshots/setup-adyen-webhook-test-1.png)
 
 Adyen will make a call to your webhook. If everything is configured properly you'll see that the test was successful:
 
-![Successful webhook test in Adyen](./docs/setup-adyen-webhook-test-2.png)
+![Successful webhook test in Adyen](./docs/screenshots/setup-adyen-webhook-test-2.png)
 
 > Note: It can take a while for your webhook configuration to propagate in Adyen after you save it. If the test failed, give it a few minutes before you try again
 
 If the response failed because of invalid configuration in Adyen, Checkout App will return the reason in response:
 
-![Failed test because of invalid HMAC Key](./docs/setup-adyen-webhook-test-3.png)
+![Failed test because of invalid HMAC Key](./docs/screenshots/setup-adyen-webhook-test-3.png)
 
 11. After you've tested your webhook, enable it, by clicking the toggle button
 
-![Enabling the webhook in Adyen](./docs/setup-adyen-webhook-6.png)
+![Enabling the webhook in Adyen](./docs/screenshots/setup-adyen-webhook-6.png)
 
 12. 🥳 Congrats! You've finished configuration of Adyen payment gateway
