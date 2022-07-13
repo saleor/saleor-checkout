@@ -16,9 +16,15 @@ Select "Web service user" and enter some description (for example "Saleor Checko
 
 ![Setup Adyen API credentials modal in Customer Area](./screenshots/setup-adyen-1.png)
 
-4. Copy **API key** from newly generated API credentials and paste it in Checkout app configuration > Adyen > **Private API key**
+4. Copy **API key** from newly generated API credentials:
 
 ![Copy API key from Adyen Customer Area](./screenshots/setup-adyen-2.png)
+
+Go to Checkout app configuration. It can be found in Saleor dashboard in: **Apps > Third party apps > Checkout**. Once you open the app, select one of the channels and click the gears icon:
+
+![Payment gateway configuration in Saleor dashboard](./screenshots/config-dashboard-2.png)
+
+To configure API key go to: Adyen > **Private API key** and paste what you've copied from Adyen.
 
 ![Paste API key in Checkout app configuration](./screenshots/setup-adyen-3.png)
 
