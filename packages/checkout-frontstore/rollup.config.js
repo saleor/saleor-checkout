@@ -6,12 +6,14 @@ import external from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
 import dts from "rollup-plugin-dts";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
+import json from "@rollup/plugin-json";
+import image from "@rollup/plugin-image";
 
 const packageJson = require("./package.json");
 
 export default [
   {
-    input: "src/index.ts",
+    input: "src/index.tsx",
     output: [
       {
         file: packageJson.main,
@@ -24,19 +26,23 @@ export default [
         sourcemap: true,
       },
     ],
-    external: ["react", "react-dom"],
+    external: ["react", "react-dom", "graphql"],
     plugins: [
       external(),
       resolve(),
       commonjs(),
       typescript({ tsconfig: "./tsconfig.json" }),
-      postcss(require("tailwindcss")(), require("autoprefixer")()),
+      json(),
+      image(),
+      postcss({
+        plugins: [require("tailwindcss")(), require("autoprefixer")()],
+      }),
       terser(),
       nodeResolve(),
     ],
   },
   {
-    input: "dist/esm/types/index.d.ts",
+    input: "./dist/esm/types/packages/checkout-frontstore/src/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "esm" }],
     external: [/\.css$/],
     plugins: [dts()],

@@ -54,7 +54,7 @@ importers:
       eslint-config-next: ^12.0.7
       eslint-plugin-react: ^7.29.4
       eslint-plugin-react-hooks: ^4.3.0
-      graphql: ^16.3.0
+      graphql: '15'
       graphql-tag: ^2.12.6
       jest: ^27.5.1
       jose: ^4.8.1
@@ -87,16 +87,16 @@ importers:
       '@saleor/app-bridge': 0.1.9
       '@saleor/app-sdk': 0.5.0
       '@saleor/macaw-ui': 0.4.0_5odizlazo43az5tdnuqhyoidii
-      '@urql/exchange-auth': 0.1.7_graphql@16.5.0
-      '@urql/exchange-multipart-fetch': 0.1.14_graphql@16.5.0
+      '@urql/exchange-auth': 0.1.7_graphql@15.8.0
+      '@urql/exchange-multipart-fetch': 0.1.14_graphql@15.8.0
       clsx: 1.1.1
       content-type: 1.0.4
       crypto-js: 4.1.1
       currency.js: 2.0.4
       eslint-plugin-react: 7.30.0_eslint@7.32.0
       eslint-plugin-react-hooks: 4.5.0_eslint@7.32.0
-      graphql: 16.5.0
-      graphql-tag: 2.12.6_graphql@16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
+      graphql-tag: 2.12.6_graphql@15.8.0
       jose: 4.8.1
       jsonwebtoken: 8.5.1
       jwks-rsa: 2.1.4
@@ -109,16 +109,16 @@ importers:
       react-is: 17.0.2
       retes: 0.27.2
       url-join: 5.0.0
-      urql: 2.2.2_mnlteiidv5se4zpyvopwg4rohq
+      urql: 2.2.2_77h5kg6422vos5a7c32osaaxh4
     devDependencies:
       '@formatjs/cli': 4.8.4_ts-jest@27.1.5
-      '@graphql-codegen/add': registry.npmjs.org/@graphql-codegen/add/3.2.0_graphql@16.5.0
-      '@graphql-codegen/cli': registry.npmjs.org/@graphql-codegen/cli/2.8.1_zvyo26mm3dskkv223wvaqmkj2y
-      '@graphql-codegen/introspection': registry.npmjs.org/@graphql-codegen/introspection/2.2.0_graphql@16.5.0
-      '@graphql-codegen/typescript': registry.npmjs.org/@graphql-codegen/typescript/2.7.1_graphql@16.5.0
-      '@graphql-codegen/typescript-operations': registry.npmjs.org/@graphql-codegen/typescript-operations/2.5.1_graphql@16.5.0
-      '@graphql-codegen/typescript-urql': registry.npmjs.org/@graphql-codegen/typescript-urql/3.6.1_ubrtutz2urcxyhwqr2zvlqjzha
-      '@graphql-codegen/urql-introspection': registry.npmjs.org/@graphql-codegen/urql-introspection/2.2.0_graphql@16.5.0
+      '@graphql-codegen/add': registry.npmjs.org/@graphql-codegen/add/3.2.0_graphql@15.8.0
+      '@graphql-codegen/cli': registry.npmjs.org/@graphql-codegen/cli/2.8.1_k447ummemgr72ow2533ucobqvi
+      '@graphql-codegen/introspection': registry.npmjs.org/@graphql-codegen/introspection/2.2.0_graphql@15.8.0
+      '@graphql-codegen/typescript': registry.npmjs.org/@graphql-codegen/typescript/2.7.1_graphql@15.8.0
+      '@graphql-codegen/typescript-operations': registry.npmjs.org/@graphql-codegen/typescript-operations/2.5.1_graphql@15.8.0
+      '@graphql-codegen/typescript-urql': registry.npmjs.org/@graphql-codegen/typescript-urql/3.6.1_3jt5ibhtazvod5hvf7xqhzsx4q
+      '@graphql-codegen/urql-introspection': registry.npmjs.org/@graphql-codegen/urql-introspection/2.2.0_graphql@15.8.0
       '@types/content-type': 1.1.5
       '@types/crypto-js': 4.1.1
       '@types/jest': 27.5.2
@@ -155,9 +155,11 @@ importers:
       '@hookform/error-message': ^2.0.0
       '@react-aria/i18n': ^3.3.4
       '@react-types/button': ^3.4.1
-      '@rollup/plugin-commonjs': ^22.0.0
-      '@rollup/plugin-node-resolve': ^13.2.1
-      '@rollup/plugin-typescript': ^8.3.2
+      '@rollup/plugin-commonjs': ^22.0.1
+      '@rollup/plugin-image': 2.1.1
+      '@rollup/plugin-json': 4.1.0
+      '@rollup/plugin-node-resolve': ^13.3.0
+      '@rollup/plugin-typescript': ^8.3.3
       '@saleor/sdk': ^0.4.3
       '@saleor/ui-kit': workspace:*
       '@testing-library/jest-dom': ^5.16.1
@@ -179,7 +181,6 @@ importers:
       eslint-config-checkout: workspace:*
       eslint-plugin-react: ^7.29.4
       eslint-plugin-react-hooks: ^4.3.0
-      graphql: ^16.5.0
       graphql-tag: ^2.12.6
       hex-rgb: ^5.0.0
       lodash-es: ^4.17.21
@@ -191,27 +192,26 @@ importers:
       react-scripts: 5.0.0
       react-toastify: ^9.0.4
       rollup: ^2.70.2
-      rollup-plugin-dts: ^4.2.1
+      rollup-plugin-dts: ^4.2.2
       rollup-plugin-peer-deps-external: ^2.2.4
       rollup-plugin-postcss: ^4.0.2
       rollup-plugin-terser: ^7.0.2
       tailwindcss: ^3.0.18
+      tslib: ^2.4.0
       typescript: ^4.7.3
       url-join: ^5.0.0
       urql: ^2.1.3
       web-vitals: ^2.1.4
       yup: ^0.32.11
     dependencies:
-      '@apollo/client': registry.npmjs.org/@apollo/client/3.6.9_mnlteiidv5se4zpyvopwg4rohq
+      '@apollo/client': registry.npmjs.org/@apollo/client/3.6.9_77h5kg6422vos5a7c32osaaxh4
       '@headlessui/react': registry.npmjs.org/@headlessui/react/1.6.5_sfoxds7t5ydpegc3knd667wn6m
       '@hookform/error-message': registry.npmjs.org/@hookform/error-message/2.0.0_onszr5frzoryg73fc7pdny7j6y
       '@react-aria/i18n': registry.npmjs.org/@react-aria/i18n/3.4.1_react@17.0.2
       '@react-types/button': registry.npmjs.org/@react-types/button/3.5.1_react@17.0.2
-      '@saleor/sdk': registry.npmjs.org/@saleor/sdk/0.4.4_t7pc5qr6xsnqqk3kd2s6irm7ju
+      '@saleor/sdk': registry.npmjs.org/@saleor/sdk/0.4.4_uddzq55m5sbnmadag24rmxjpwa
       '@saleor/ui-kit': link:../ui-kit
       clsx: registry.npmjs.org/clsx/1.1.1
-      graphql: registry.npmjs.org/graphql/16.5.0
-      graphql-tag: registry.npmjs.org/graphql-tag/2.12.6_graphql@16.5.0
       hex-rgb: registry.npmjs.org/hex-rgb/5.0.0
       lodash-es: registry.npmjs.org/lodash-es/4.17.21
       query-string: registry.npmjs.org/query-string/7.1.1
@@ -221,19 +221,21 @@ importers:
       react-toastify: registry.npmjs.org/react-toastify/9.0.5_sfoxds7t5ydpegc3knd667wn6m
       tailwindcss: registry.npmjs.org/tailwindcss/3.1.4
       url-join: registry.npmjs.org/url-join/5.0.0
-      urql: registry.npmjs.org/urql/2.2.2_mnlteiidv5se4zpyvopwg4rohq
+      urql: registry.npmjs.org/urql/2.2.2_77h5kg6422vos5a7c32osaaxh4
       yup: registry.npmjs.org/yup/0.32.11
     devDependencies:
-      '@graphql-codegen/add': registry.npmjs.org/@graphql-codegen/add/3.2.0_graphql@16.5.0
-      '@graphql-codegen/cli': registry.npmjs.org/@graphql-codegen/cli/2.8.1_zvyo26mm3dskkv223wvaqmkj2y
-      '@graphql-codegen/introspection': registry.npmjs.org/@graphql-codegen/introspection/2.2.0_graphql@16.5.0
-      '@graphql-codegen/typescript': registry.npmjs.org/@graphql-codegen/typescript/2.7.1_graphql@16.5.0
-      '@graphql-codegen/typescript-operations': registry.npmjs.org/@graphql-codegen/typescript-operations/2.5.1_graphql@16.5.0
-      '@graphql-codegen/typescript-urql': registry.npmjs.org/@graphql-codegen/typescript-urql/3.6.1_ubrtutz2urcxyhwqr2zvlqjzha
-      '@graphql-codegen/urql-introspection': registry.npmjs.org/@graphql-codegen/urql-introspection/2.2.0_graphql@16.5.0
+      '@graphql-codegen/add': registry.npmjs.org/@graphql-codegen/add/3.2.0_graphql@15.8.0
+      '@graphql-codegen/cli': registry.npmjs.org/@graphql-codegen/cli/2.8.1_k447ummemgr72ow2533ucobqvi
+      '@graphql-codegen/introspection': registry.npmjs.org/@graphql-codegen/introspection/2.2.0_graphql@15.8.0
+      '@graphql-codegen/typescript': registry.npmjs.org/@graphql-codegen/typescript/2.7.1_graphql@15.8.0
+      '@graphql-codegen/typescript-operations': registry.npmjs.org/@graphql-codegen/typescript-operations/2.5.1_graphql@15.8.0
+      '@graphql-codegen/typescript-urql': registry.npmjs.org/@graphql-codegen/typescript-urql/3.6.1_3jt5ibhtazvod5hvf7xqhzsx4q
+      '@graphql-codegen/urql-introspection': registry.npmjs.org/@graphql-codegen/urql-introspection/2.2.0_graphql@15.8.0
       '@rollup/plugin-commonjs': registry.npmjs.org/@rollup/plugin-commonjs/22.0.1_rollup@2.75.7
+      '@rollup/plugin-image': registry.npmjs.org/@rollup/plugin-image/2.1.1_rollup@2.75.7
+      '@rollup/plugin-json': registry.npmjs.org/@rollup/plugin-json/4.1.0_rollup@2.75.7
       '@rollup/plugin-node-resolve': registry.npmjs.org/@rollup/plugin-node-resolve/13.3.0_rollup@2.75.7
-      '@rollup/plugin-typescript': registry.npmjs.org/@rollup/plugin-typescript/8.3.3_okefoyb4o5sittgqayreuhurei
+      '@rollup/plugin-typescript': registry.npmjs.org/@rollup/plugin-typescript/8.3.3_g4qkabtmybowem44p7ts7jnbqm
       '@testing-library/jest-dom': registry.npmjs.org/@testing-library/jest-dom/5.16.4
       '@testing-library/react': registry.npmjs.org/@testing-library/react/12.1.5_sfoxds7t5ydpegc3knd667wn6m
       '@testing-library/user-event': registry.npmjs.org/@testing-library/user-event/13.5.0_ihvo3xlg2d6kwqju3os3zitn3y
@@ -252,6 +254,7 @@ importers:
       eslint-config-checkout: link:../eslint-config-checkout
       eslint-plugin-react: registry.npmjs.org/eslint-plugin-react/7.30.0_eslint@8.18.0
       eslint-plugin-react-hooks: registry.npmjs.org/eslint-plugin-react-hooks/4.5.0_eslint@8.18.0
+      graphql-tag: registry.npmjs.org/graphql-tag/2.12.6_graphql@15.8.0
       postcss: registry.npmjs.org/postcss/8.4.14
       prettier: registry.npmjs.org/prettier/2.7.1
       rollup: registry.npmjs.org/rollup/2.75.7
@@ -259,6 +262,7 @@ importers:
       rollup-plugin-peer-deps-external: registry.npmjs.org/rollup-plugin-peer-deps-external/2.2.4_rollup@2.75.7
       rollup-plugin-postcss: registry.npmjs.org/rollup-plugin-postcss/4.0.2_postcss@8.4.14
       rollup-plugin-terser: registry.npmjs.org/rollup-plugin-terser/7.0.2_rollup@2.75.7
+      tslib: registry.npmjs.org/tslib/2.4.0
       typescript: registry.npmjs.org/typescript/4.7.4
       web-vitals: registry.npmjs.org/web-vitals/2.1.4
 
@@ -2128,12 +2132,12 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
     dev: true
 
-  /@graphql-typed-document-node/core/3.1.1_graphql@16.5.0:
+  /@graphql-typed-document-node/core/3.1.1_graphql@15.8.0:
     resolution: {integrity: sha512-NQ17ii0rK1b34VZonlmT2QMJFI70m0TRwbknO/ihlbatXyaktDhN/98vBiUU6kNBPljqGqyIrl2T4nY2RpFANg==}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
     dev: false
 
   /@headlessui/react/1.6.0_biqbaboplfbrettd7655fr4n2y:
@@ -2939,7 +2943,7 @@ packages:
     resolution: {integrity: sha512-leC0xb8hdBHzwZ8FHwJfGANxy3JzDjJL5t+vNa/7YLa51MerSHPOGvvr0bJUVMDbpHs+8RzKTfVbFuwBMpAqTg==}
     dependencies:
       fast-glob: 3.2.11
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/16.5.0
       retes: 0.27.2
     dev: false
 
@@ -5209,34 +5213,34 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: false
 
-  /@urql/core/2.5.0_graphql@16.5.0:
+  /@urql/core/2.5.0_graphql@15.8.0:
     resolution: {integrity: sha512-xXdcgb0H3nNTP4OfC+5T3CHJ0iz7Jj0QQYSYhN/hvKrzFnisPz2n6WXmvsHmMXk5bJHsr39kx4eOHcpsJuyCew==}
     peerDependencies:
       graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-typed-document-node/core': 3.1.1_graphql@16.5.0
-      graphql: 16.5.0
+      '@graphql-typed-document-node/core': 3.1.1_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       wonka: 4.0.15
     dev: false
 
-  /@urql/exchange-auth/0.1.7_graphql@16.5.0:
+  /@urql/exchange-auth/0.1.7_graphql@15.8.0:
     resolution: {integrity: sha512-4Bmmi6YMW1YjZnTdr0Gfp9IoIY1fpNGq/fo1XHWEFEYe+IEOEDQhKT1CyhztyvvKpFw2C46D32MJRWJHQUPo/g==}
     peerDependencies:
       graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@urql/core': 2.5.0_graphql@16.5.0
-      graphql: 16.5.0
+      '@urql/core': 2.5.0_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       wonka: 4.0.15
     dev: false
 
-  /@urql/exchange-multipart-fetch/0.1.14_graphql@16.5.0:
+  /@urql/exchange-multipart-fetch/0.1.14_graphql@15.8.0:
     resolution: {integrity: sha512-JdffZtfsJHQ4v0IevimPWbteXT1C5OH3PPbNJrbLigC9aCZB9dp2ZOjMXTvpP+3SIjJRFRguuRaL7hAGB04vgw==}
     peerDependencies:
       graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@urql/core': 2.5.0_graphql@16.5.0
+      '@urql/core': 2.5.0_graphql@15.8.0
       extract-files: 11.0.0
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       wonka: 4.0.15
     dev: false
 
@@ -8174,6 +8178,7 @@ packages:
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
       - supports-color
+    dev: false
 
   /eslint-config-prettier/8.5.0_eslint@8.18.0:
     resolution: {integrity: sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==}
@@ -9471,18 +9476,15 @@ packages:
     resolution: {integrity: sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==}
     dev: true
 
-  /graphql-tag/2.12.6_graphql@16.5.0:
+  /graphql-tag/2.12.6_graphql@15.8.0:
     resolution: {integrity: sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==}
     engines: {node: '>=10'}
     peerDependencies:
       graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: 2.4.0
-
-  /graphql/16.5.0:
-    resolution: {integrity: sha512-qbHgh8Ix+j/qY+a/ZcJnFQ+j8ezakqPiHwPiZhV/3PgGlgf96QMBB5/f2rkiC9sgLoy/xvT6TSiaf2nTHJh5iA==}
-    engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
+    dev: false
 
   /handlebars/4.7.7:
     resolution: {integrity: sha512-aAcXm5OAfE/8IXkcZvCepKU3VzW1/39Fb5ZuqMtgI/hT8X2YgoMvBY5dLhq/cpOvw7Lk1nK/UF71aLG/ZnVYRA==}
@@ -15998,14 +16000,14 @@ packages:
       querystring: 0.2.0
     dev: true
 
-  /urql/2.2.2_mnlteiidv5se4zpyvopwg4rohq:
+  /urql/2.2.2_77h5kg6422vos5a7c32osaaxh4:
     resolution: {integrity: sha512-jaVhDxWS2gfJLWWupFXtRkTCuGeRX+b9v19PU6TnKIJ7VP+xyrgpNHghHcTBGo58F+rxvCXVNEvSvdlKFMiHhg==}
     peerDependencies:
       graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
       react: '>= 16.8.0'
     dependencies:
-      '@urql/core': 2.5.0_graphql@16.5.0
-      graphql: 16.5.0
+      '@urql/core': 2.5.0_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       react: 17.0.2
       wonka: 4.0.15
     dev: false
@@ -16618,7 +16620,7 @@ packages:
       leven: registry.npmjs.org/leven/3.1.0
     dev: false
 
-  registry.npmjs.org/@apollo/client/3.6.9_mnlteiidv5se4zpyvopwg4rohq:
+  registry.npmjs.org/@apollo/client/3.6.9_77h5kg6422vos5a7c32osaaxh4:
     resolution: {integrity: sha512-Y1yu8qa2YeaCUBVuw08x8NHenFi0sw2I3KCu7Kw9mDSu86HmmtHJkCAifKVrN2iPgDTW/BbP3EpSV8/EQCcxZA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@apollo/client/-/client-3.6.9.tgz}
     id: registry.npmjs.org/@apollo/client/3.6.9
     name: '@apollo/client'
@@ -16636,12 +16638,12 @@ packages:
       subscriptions-transport-ws:
         optional: true
     dependencies:
-      '@graphql-typed-document-node/core': registry.npmjs.org/@graphql-typed-document-node/core/3.1.1_graphql@16.5.0
+      '@graphql-typed-document-node/core': registry.npmjs.org/@graphql-typed-document-node/core/3.1.1_graphql@15.8.0
       '@wry/context': registry.npmjs.org/@wry/context/0.6.1
       '@wry/equality': registry.npmjs.org/@wry/equality/0.5.2
       '@wry/trie': registry.npmjs.org/@wry/trie/0.3.1
-      graphql: registry.npmjs.org/graphql/16.5.0
-      graphql-tag: registry.npmjs.org/graphql-tag/2.12.6_graphql@16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
+      graphql-tag: registry.npmjs.org/graphql-tag/2.12.6_graphql@15.8.0
       hoist-non-react-statics: registry.npmjs.org/hoist-non-react-statics/3.3.2
       optimism: registry.npmjs.org/optimism/0.16.1
       prop-types: registry.npmjs.org/prop-types/15.8.1
@@ -16652,7 +16654,7 @@ packages:
       zen-observable-ts: registry.npmjs.org/zen-observable-ts/1.2.5
     dev: false
 
-  registry.npmjs.org/@ardatan/relay-compiler/12.0.0_graphql@16.5.0:
+  registry.npmjs.org/@ardatan/relay-compiler/12.0.0_graphql@15.8.0:
     resolution: {integrity: sha512-9anThAaj1dQr6IGmzBMcfzOQKTa5artjuPmw8NYK/fiGEMjADbSguBY2FMDykt+QhilR3wc9VA/3yVju7JHg7Q==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@ardatan/relay-compiler/-/relay-compiler-12.0.0.tgz}
     id: registry.npmjs.org/@ardatan/relay-compiler/12.0.0
     name: '@ardatan/relay-compiler'
@@ -16672,7 +16674,7 @@ packages:
       fb-watchman: registry.npmjs.org/fb-watchman/2.0.1
       fbjs: registry.npmjs.org/fbjs/3.0.4
       glob: registry.npmjs.org/glob/7.2.3
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       immutable: registry.npmjs.org/immutable/3.7.6
       invariant: registry.npmjs.org/invariant/2.2.4
       nullthrows: registry.npmjs.org/nullthrows/1.1.1
@@ -18621,7 +18623,7 @@ packages:
       tslib: registry.npmjs.org/tslib/2.4.0
     dev: false
 
-  registry.npmjs.org/@graphql-codegen/add/3.2.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-codegen/add/3.2.0_graphql@15.8.0:
     resolution: {integrity: sha512-8hyr5XvTDGnpiT4nH2yH8PP4SWtUEIUdkFaZbkpkFkU0Ud9dplvSviOCdxdArffZ1FHy0XYLTMa2it+UJOtszg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-codegen/add/-/add-3.2.0.tgz}
     id: registry.npmjs.org/@graphql-codegen/add/3.2.0
     name: '@graphql-codegen/add'
@@ -18629,12 +18631,12 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@16.5.0
-      graphql: 16.5.0
+      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
     dev: true
 
-  registry.npmjs.org/@graphql-codegen/cli/2.8.1_zvyo26mm3dskkv223wvaqmkj2y:
+  registry.npmjs.org/@graphql-codegen/cli/2.8.1_k447ummemgr72ow2533ucobqvi:
     resolution: {integrity: sha512-o+Za1483WhnbMA5G4JJq72EeqXROsdEiDTfUTxtX1iPPebv+VMekTFfHnBCUXpes0XTeZViXTd16AX6cmtUF4Q==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-codegen/cli/-/cli-2.8.1.tgz}
     id: registry.npmjs.org/@graphql-codegen/cli/2.8.1
     name: '@graphql-codegen/cli'
@@ -18643,18 +18645,18 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-codegen/core': registry.npmjs.org/@graphql-codegen/core/2.6.0_graphql@16.5.0
-      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@16.5.0
-      '@graphql-tools/apollo-engine-loader': registry.npmjs.org/@graphql-tools/apollo-engine-loader/7.3.1_graphql@16.5.0
-      '@graphql-tools/code-file-loader': registry.npmjs.org/@graphql-tools/code-file-loader/7.3.0_graphql@16.5.0
-      '@graphql-tools/git-loader': registry.npmjs.org/@graphql-tools/git-loader/7.2.0_graphql@16.5.0
-      '@graphql-tools/github-loader': registry.npmjs.org/@graphql-tools/github-loader/7.3.1_graphql@16.5.0
-      '@graphql-tools/graphql-file-loader': registry.npmjs.org/@graphql-tools/graphql-file-loader/7.4.0_graphql@16.5.0
-      '@graphql-tools/json-file-loader': registry.npmjs.org/@graphql-tools/json-file-loader/7.4.0_graphql@16.5.0
-      '@graphql-tools/load': registry.npmjs.org/@graphql-tools/load/7.7.0_graphql@16.5.0
-      '@graphql-tools/prisma-loader': registry.npmjs.org/@graphql-tools/prisma-loader/7.2.2_jmz7sikjgmpappczemw7lkhkri
-      '@graphql-tools/url-loader': registry.npmjs.org/@graphql-tools/url-loader/7.12.1_jmz7sikjgmpappczemw7lkhkri
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
+      '@graphql-codegen/core': registry.npmjs.org/@graphql-codegen/core/2.6.0_graphql@15.8.0
+      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@15.8.0
+      '@graphql-tools/apollo-engine-loader': registry.npmjs.org/@graphql-tools/apollo-engine-loader/7.3.1_graphql@15.8.0
+      '@graphql-tools/code-file-loader': registry.npmjs.org/@graphql-tools/code-file-loader/7.3.0_graphql@15.8.0
+      '@graphql-tools/git-loader': registry.npmjs.org/@graphql-tools/git-loader/7.2.0_graphql@15.8.0
+      '@graphql-tools/github-loader': registry.npmjs.org/@graphql-tools/github-loader/7.3.1_graphql@15.8.0
+      '@graphql-tools/graphql-file-loader': registry.npmjs.org/@graphql-tools/graphql-file-loader/7.4.0_graphql@15.8.0
+      '@graphql-tools/json-file-loader': registry.npmjs.org/@graphql-tools/json-file-loader/7.4.0_graphql@15.8.0
+      '@graphql-tools/load': registry.npmjs.org/@graphql-tools/load/7.7.0_graphql@15.8.0
+      '@graphql-tools/prisma-loader': registry.npmjs.org/@graphql-tools/prisma-loader/7.2.2_75qpgwf3t74hpebe6v5lyz4rme
+      '@graphql-tools/url-loader': registry.npmjs.org/@graphql-tools/url-loader/7.12.1_75qpgwf3t74hpebe6v5lyz4rme
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
       ansi-escapes: registry.npmjs.org/ansi-escapes/4.3.2
       chalk: registry.npmjs.org/chalk/4.1.2
       chokidar: registry.npmjs.org/chokidar/3.5.3
@@ -18662,8 +18664,8 @@ packages:
       cross-undici-fetch: registry.npmjs.org/cross-undici-fetch/0.4.11
       debounce: registry.npmjs.org/debounce/1.2.1
       detect-indent: registry.npmjs.org/detect-indent/6.1.0
-      graphql: 16.5.0
-      graphql-config: registry.npmjs.org/graphql-config/4.3.1_zvyo26mm3dskkv223wvaqmkj2y
+      graphql: registry.npmjs.org/graphql/15.8.0
+      graphql-config: registry.npmjs.org/graphql-config/4.3.1_k447ummemgr72ow2533ucobqvi
       inquirer: registry.npmjs.org/inquirer/8.2.4
       is-glob: registry.npmjs.org/is-glob/4.0.3
       json-to-pretty-yaml: registry.npmjs.org/json-to-pretty-yaml/1.2.2
@@ -18685,7 +18687,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  registry.npmjs.org/@graphql-codegen/core/2.6.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-codegen/core/2.6.0_graphql@15.8.0:
     resolution: {integrity: sha512-7uZGnLCMR/pnh/5CsyI4y5bBvRndNHFs+AWpMUUjDBcjMRrMaavu37VyyYDz4/ob0BnQJt8RTBN9eArS9PLYAQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-codegen/core/-/core-2.6.0.tgz}
     id: registry.npmjs.org/@graphql-codegen/core/2.6.0
     name: '@graphql-codegen/core'
@@ -18693,14 +18695,14 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@16.5.0
-      '@graphql-tools/schema': registry.npmjs.org/@graphql-tools/schema/8.5.0_graphql@16.5.0
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
-      graphql: 16.5.0
+      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@15.8.0
+      '@graphql-tools/schema': registry.npmjs.org/@graphql-tools/schema/8.5.0_graphql@15.8.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
     dev: true
 
-  registry.npmjs.org/@graphql-codegen/introspection/2.2.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-codegen/introspection/2.2.0_graphql@15.8.0:
     resolution: {integrity: sha512-duIRd/o3SHEEwnxc+lx6v5y/DZEeesxCOusY+u8Bjh8ZBssh3wXcWsGSGhH1amfNMRTby+xsz7HiLW6Q4x7Qwg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-codegen/introspection/-/introspection-2.2.0.tgz}
     id: registry.npmjs.org/@graphql-codegen/introspection/2.2.0
     name: '@graphql-codegen/introspection'
@@ -18708,16 +18710,16 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@16.5.0
-      '@graphql-codegen/visitor-plugin-common': registry.npmjs.org/@graphql-codegen/visitor-plugin-common/2.11.1_graphql@16.5.0
-      graphql: 16.5.0
+      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@15.8.0
+      '@graphql-codegen/visitor-plugin-common': registry.npmjs.org/@graphql-codegen/visitor-plugin-common/2.11.1_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
     transitivePeerDependencies:
       - encoding
       - supports-color
     dev: true
 
-  registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@15.8.0:
     resolution: {integrity: sha512-0jM5/14EdM4yow5v8OGOnUmRqfA1gaWkh+J5berqQUpcFYfSQXD6+Idnkiju/jjIypEN7UvbPkC7BgryWVxexA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-codegen/plugin-helpers/-/plugin-helpers-2.5.0.tgz}
     id: registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0
     name: '@graphql-codegen/plugin-helpers'
@@ -18725,16 +18727,16 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
       change-case-all: registry.npmjs.org/change-case-all/1.0.14
       common-tags: registry.npmjs.org/common-tags/1.8.2
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       import-from: registry.npmjs.org/import-from/4.0.0
       lodash: registry.npmjs.org/lodash/4.17.21
       tslib: registry.npmjs.org/tslib/2.4.0
     dev: true
 
-  registry.npmjs.org/@graphql-codegen/schema-ast/2.5.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-codegen/schema-ast/2.5.0_graphql@15.8.0:
     resolution: {integrity: sha512-nlF4Yc7h90nmogG2E11TeFJ3/hCkb4SDMSdbJX68b1mhvVEji/kq3zWYKAQ+lAzjZ7HF94Eylm3MrZAjjpCKIA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-codegen/schema-ast/-/schema-ast-2.5.0.tgz}
     id: registry.npmjs.org/@graphql-codegen/schema-ast/2.5.0
     name: '@graphql-codegen/schema-ast'
@@ -18742,13 +18744,13 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@16.5.0
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
-      graphql: 16.5.0
+      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@15.8.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
     dev: true
 
-  registry.npmjs.org/@graphql-codegen/typescript-operations/2.5.1_graphql@16.5.0:
+  registry.npmjs.org/@graphql-codegen/typescript-operations/2.5.1_graphql@15.8.0:
     resolution: {integrity: sha512-lGv+sPDXGcp/vDdIh7SoQjz8BRCZhLats4Hbqnf6gB7UtIasMvGuFDQyrKb3XAkQQYWqx/xtmEo0rBN8syV+Wg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-codegen/typescript-operations/-/typescript-operations-2.5.1.tgz}
     id: registry.npmjs.org/@graphql-codegen/typescript-operations/2.5.1
     name: '@graphql-codegen/typescript-operations'
@@ -18756,18 +18758,18 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@16.5.0
-      '@graphql-codegen/typescript': registry.npmjs.org/@graphql-codegen/typescript/2.7.1_graphql@16.5.0
-      '@graphql-codegen/visitor-plugin-common': registry.npmjs.org/@graphql-codegen/visitor-plugin-common/2.11.1_graphql@16.5.0
+      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@15.8.0
+      '@graphql-codegen/typescript': registry.npmjs.org/@graphql-codegen/typescript/2.7.1_graphql@15.8.0
+      '@graphql-codegen/visitor-plugin-common': registry.npmjs.org/@graphql-codegen/visitor-plugin-common/2.11.1_graphql@15.8.0
       auto-bind: registry.npmjs.org/auto-bind/4.0.0
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
     transitivePeerDependencies:
       - encoding
       - supports-color
     dev: true
 
-  registry.npmjs.org/@graphql-codegen/typescript-urql/3.6.1_ubrtutz2urcxyhwqr2zvlqjzha:
+  registry.npmjs.org/@graphql-codegen/typescript-urql/3.6.1_3jt5ibhtazvod5hvf7xqhzsx4q:
     resolution: {integrity: sha512-9EYclD5VTRFQ2vvAlYhovpv9Hp8Qln2JGczSKRUi5HBaiGmHGn3EIk34XQ2lPQMGBc0Z9mMgQzyXblVPzG7VWg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-codegen/typescript-urql/-/typescript-urql-3.6.1.tgz}
     id: registry.npmjs.org/@graphql-codegen/typescript-urql/3.6.1
     name: '@graphql-codegen/typescript-urql'
@@ -18776,18 +18778,18 @@ packages:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
       graphql-tag: ^2.0.0
     dependencies:
-      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@16.5.0
-      '@graphql-codegen/visitor-plugin-common': registry.npmjs.org/@graphql-codegen/visitor-plugin-common/2.11.1_graphql@16.5.0
+      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@15.8.0
+      '@graphql-codegen/visitor-plugin-common': registry.npmjs.org/@graphql-codegen/visitor-plugin-common/2.11.1_graphql@15.8.0
       auto-bind: registry.npmjs.org/auto-bind/4.0.0
-      graphql: 16.5.0
-      graphql-tag: 2.12.6_graphql@16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
+      graphql-tag: registry.npmjs.org/graphql-tag/2.12.6_graphql@15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
     transitivePeerDependencies:
       - encoding
       - supports-color
     dev: true
 
-  registry.npmjs.org/@graphql-codegen/typescript/2.7.1_graphql@16.5.0:
+  registry.npmjs.org/@graphql-codegen/typescript/2.7.1_graphql@15.8.0:
     resolution: {integrity: sha512-qF4SBMgBnLcegba2s9+zC3NwgRhU0Kv+eS8kl9G5ldEHx9Bpu2tft+lk6fjqqhExDzJT+MEOU3Ecog3BzL2R1g==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-codegen/typescript/-/typescript-2.7.1.tgz}
     id: registry.npmjs.org/@graphql-codegen/typescript/2.7.1
     name: '@graphql-codegen/typescript'
@@ -18795,18 +18797,18 @@ packages:
     peerDependencies:
       graphql: ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@16.5.0
-      '@graphql-codegen/schema-ast': registry.npmjs.org/@graphql-codegen/schema-ast/2.5.0_graphql@16.5.0
-      '@graphql-codegen/visitor-plugin-common': registry.npmjs.org/@graphql-codegen/visitor-plugin-common/2.11.1_graphql@16.5.0
+      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@15.8.0
+      '@graphql-codegen/schema-ast': registry.npmjs.org/@graphql-codegen/schema-ast/2.5.0_graphql@15.8.0
+      '@graphql-codegen/visitor-plugin-common': registry.npmjs.org/@graphql-codegen/visitor-plugin-common/2.11.1_graphql@15.8.0
       auto-bind: registry.npmjs.org/auto-bind/4.0.0
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
     transitivePeerDependencies:
       - encoding
       - supports-color
     dev: true
 
-  registry.npmjs.org/@graphql-codegen/urql-introspection/2.2.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-codegen/urql-introspection/2.2.0_graphql@15.8.0:
     resolution: {integrity: sha512-QinRBTfH2vSjoL3Lv2a8p+SjgZJFHIdkbncpvQw8i5+KyxMKIP8OGk8m+mZ/nYz8+i+2ZIf42wROBhKkG50OTA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-codegen/urql-introspection/-/urql-introspection-2.2.0.tgz}
     id: registry.npmjs.org/@graphql-codegen/urql-introspection/2.2.0
     name: '@graphql-codegen/urql-introspection'
@@ -18814,13 +18816,13 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@16.5.0
-      '@urql/introspection': registry.npmjs.org/@urql/introspection/0.3.3_graphql@16.5.0
-      graphql: 16.5.0
+      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@15.8.0
+      '@urql/introspection': registry.npmjs.org/@urql/introspection/0.3.3_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
     dev: true
 
-  registry.npmjs.org/@graphql-codegen/visitor-plugin-common/2.11.1_graphql@16.5.0:
+  registry.npmjs.org/@graphql-codegen/visitor-plugin-common/2.11.1_graphql@15.8.0:
     resolution: {integrity: sha512-AlrtGWKn2o89SPna75ATEHYAu95MUMucgBqLgcRvK9n/PHhVAbkDrNCH5pL03fE0HLOup3GpjX8DcnFBMU46IA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-codegen/visitor-plugin-common/-/visitor-plugin-common-2.11.1.tgz}
     id: registry.npmjs.org/@graphql-codegen/visitor-plugin-common/2.11.1
     name: '@graphql-codegen/visitor-plugin-common'
@@ -18828,15 +18830,15 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@16.5.0
-      '@graphql-tools/optimize': registry.npmjs.org/@graphql-tools/optimize/1.3.0_graphql@16.5.0
-      '@graphql-tools/relay-operation-optimizer': registry.npmjs.org/@graphql-tools/relay-operation-optimizer/6.5.0_graphql@16.5.0
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
+      '@graphql-codegen/plugin-helpers': registry.npmjs.org/@graphql-codegen/plugin-helpers/2.5.0_graphql@15.8.0
+      '@graphql-tools/optimize': registry.npmjs.org/@graphql-tools/optimize/1.3.0_graphql@15.8.0
+      '@graphql-tools/relay-operation-optimizer': registry.npmjs.org/@graphql-tools/relay-operation-optimizer/6.5.0_graphql@15.8.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
       auto-bind: registry.npmjs.org/auto-bind/4.0.0
       change-case-all: registry.npmjs.org/change-case-all/1.0.14
       dependency-graph: registry.npmjs.org/dependency-graph/0.11.0
-      graphql: 16.5.0
-      graphql-tag: registry.npmjs.org/graphql-tag/2.12.6_graphql@16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
+      graphql-tag: registry.npmjs.org/graphql-tag/2.12.6_graphql@15.8.0
       parse-filepath: registry.npmjs.org/parse-filepath/1.0.2
       tslib: registry.npmjs.org/tslib/2.4.0
     transitivePeerDependencies:
@@ -18844,7 +18846,7 @@ packages:
       - supports-color
     dev: true
 
-  registry.npmjs.org/@graphql-tools/apollo-engine-loader/7.3.1_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/apollo-engine-loader/7.3.1_graphql@15.8.0:
     resolution: {integrity: sha512-PJhX4gQeoPtR2BJFYHYVLdLYkqQHB94r9IC64GamFV+kxR+jzQYZJdDTgnFZxvpvGJ7rEgYKNjcfWS+r+CQisQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/apollo-engine-loader/-/apollo-engine-loader-7.3.1.tgz}
     id: registry.npmjs.org/@graphql-tools/apollo-engine-loader/7.3.1
     name: '@graphql-tools/apollo-engine-loader'
@@ -18852,16 +18854,16 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
       cross-undici-fetch: registry.npmjs.org/cross-undici-fetch/0.4.11
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       sync-fetch: registry.npmjs.org/sync-fetch/0.4.1
       tslib: registry.npmjs.org/tslib/2.4.0
     transitivePeerDependencies:
       - encoding
     dev: true
 
-  registry.npmjs.org/@graphql-tools/batch-execute/8.5.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/batch-execute/8.5.0_graphql@15.8.0:
     resolution: {integrity: sha512-S9/76X4uYIbVlJyRzXhCBbTJvVD0VvaWNqGiKgkITxlq4aBsTOHVuE84OSi3E1QKP3PTiJYrgMIn220iFOkyQw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/batch-execute/-/batch-execute-8.5.0.tgz}
     id: registry.npmjs.org/@graphql-tools/batch-execute/8.5.0
     name: '@graphql-tools/batch-execute'
@@ -18869,14 +18871,14 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
       dataloader: registry.npmjs.org/dataloader/2.1.0
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
       value-or-promise: registry.npmjs.org/value-or-promise/1.0.11
     dev: true
 
-  registry.npmjs.org/@graphql-tools/code-file-loader/7.3.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/code-file-loader/7.3.0_graphql@15.8.0:
     resolution: {integrity: sha512-mzevVv5JYyyRIbE6R0mxIniCAZWUGdoNYX97HdVgqChLOl2XRf9I8MarVPewHLmjLTZuWrdQx4ta4sPTLk4tUQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/code-file-loader/-/code-file-loader-7.3.0.tgz}
     id: registry.npmjs.org/@graphql-tools/code-file-loader/7.3.0
     name: '@graphql-tools/code-file-loader'
@@ -18884,17 +18886,17 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/graphql-tag-pluck': registry.npmjs.org/@graphql-tools/graphql-tag-pluck/7.3.0_graphql@16.5.0
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
+      '@graphql-tools/graphql-tag-pluck': registry.npmjs.org/@graphql-tools/graphql-tag-pluck/7.3.0_graphql@15.8.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
       globby: registry.npmjs.org/globby/11.1.0
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
       unixify: registry.npmjs.org/unixify/1.0.0
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  registry.npmjs.org/@graphql-tools/delegate/8.8.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/delegate/8.8.0_graphql@15.8.0:
     resolution: {integrity: sha512-dbhfOI8rQXPcowXrbwHLOBY9oGi7qxtlrXF4RuRXmjqGTs2AgogdOE3Ep1+6wFD7qYTuFmHXZ8Cl0PmhoZUgrg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/delegate/-/delegate-8.8.0.tgz}
     id: registry.npmjs.org/@graphql-tools/delegate/8.8.0
     name: '@graphql-tools/delegate'
@@ -18902,16 +18904,16 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/batch-execute': registry.npmjs.org/@graphql-tools/batch-execute/8.5.0_graphql@16.5.0
-      '@graphql-tools/schema': registry.npmjs.org/@graphql-tools/schema/8.5.0_graphql@16.5.0
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
+      '@graphql-tools/batch-execute': registry.npmjs.org/@graphql-tools/batch-execute/8.5.0_graphql@15.8.0
+      '@graphql-tools/schema': registry.npmjs.org/@graphql-tools/schema/8.5.0_graphql@15.8.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
       dataloader: registry.npmjs.org/dataloader/2.1.0
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
       value-or-promise: registry.npmjs.org/value-or-promise/1.0.11
     dev: true
 
-  registry.npmjs.org/@graphql-tools/git-loader/7.2.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/git-loader/7.2.0_graphql@15.8.0:
     resolution: {integrity: sha512-aFJ5Py9sCIhiSyE+EK4zC+mQ4zRUNGGNwosqlCYNcmhtGFwlXArB13/rdj2b4p3RsmTe31Mso9VfsEZXQ6CGCw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/git-loader/-/git-loader-7.2.0.tgz}
     id: registry.npmjs.org/@graphql-tools/git-loader/7.2.0
     name: '@graphql-tools/git-loader'
@@ -18919,9 +18921,9 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/graphql-tag-pluck': registry.npmjs.org/@graphql-tools/graphql-tag-pluck/7.3.0_graphql@16.5.0
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
-      graphql: 16.5.0
+      '@graphql-tools/graphql-tag-pluck': registry.npmjs.org/@graphql-tools/graphql-tag-pluck/7.3.0_graphql@15.8.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       is-glob: registry.npmjs.org/is-glob/4.0.3
       micromatch: registry.npmjs.org/micromatch/4.0.5
       tslib: registry.npmjs.org/tslib/2.4.0
@@ -18930,7 +18932,7 @@ packages:
       - supports-color
     dev: true
 
-  registry.npmjs.org/@graphql-tools/github-loader/7.3.1_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/github-loader/7.3.1_graphql@15.8.0:
     resolution: {integrity: sha512-sus/YOZKhhbcBQTCWFvUdIzFThm/LiAlSh9+Bt+hNz2K05PWzR6XD7Fo2ejh6bSAZvevJBvsH/4xf1YSK86Fkg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/github-loader/-/github-loader-7.3.1.tgz}
     id: registry.npmjs.org/@graphql-tools/github-loader/7.3.1
     name: '@graphql-tools/github-loader'
@@ -18938,10 +18940,10 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/graphql-tag-pluck': registry.npmjs.org/@graphql-tools/graphql-tag-pluck/7.3.0_graphql@16.5.0
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
+      '@graphql-tools/graphql-tag-pluck': registry.npmjs.org/@graphql-tools/graphql-tag-pluck/7.3.0_graphql@15.8.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
       cross-undici-fetch: registry.npmjs.org/cross-undici-fetch/0.4.11
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       sync-fetch: registry.npmjs.org/sync-fetch/0.4.1
       tslib: registry.npmjs.org/tslib/2.4.0
     transitivePeerDependencies:
@@ -18949,7 +18951,7 @@ packages:
       - supports-color
     dev: true
 
-  registry.npmjs.org/@graphql-tools/graphql-file-loader/7.4.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/graphql-file-loader/7.4.0_graphql@15.8.0:
     resolution: {integrity: sha512-r1lslE5GlWO/nbDX82enHjvva7qQiZEIPm+LC9JSgKaYuVoYHuIuIAVYkpBHeaRK1Kbh/86pEhL7PuBZ/cIWSA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/graphql-file-loader/-/graphql-file-loader-7.4.0.tgz}
     id: registry.npmjs.org/@graphql-tools/graphql-file-loader/7.4.0
     name: '@graphql-tools/graphql-file-loader'
@@ -18957,15 +18959,15 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/import': registry.npmjs.org/@graphql-tools/import/6.7.0_graphql@16.5.0
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
+      '@graphql-tools/import': registry.npmjs.org/@graphql-tools/import/6.7.0_graphql@15.8.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
       globby: registry.npmjs.org/globby/11.1.0
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
       unixify: registry.npmjs.org/unixify/1.0.0
     dev: true
 
-  registry.npmjs.org/@graphql-tools/graphql-tag-pluck/7.3.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/graphql-tag-pluck/7.3.0_graphql@15.8.0:
     resolution: {integrity: sha512-GxtgGTSOiQuFc/yNWXsPJ5QEgGlH+4qBf1paqUJtjFpm89dZA+VkdjoIDiFg8fyXGivjZ37+XAUbuu6UlsT+6Q==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/graphql-tag-pluck/-/graphql-tag-pluck-7.3.0.tgz}
     id: registry.npmjs.org/@graphql-tools/graphql-tag-pluck/7.3.0
     name: '@graphql-tools/graphql-tag-pluck'
@@ -18976,14 +18978,14 @@ packages:
       '@babel/parser': registry.npmjs.org/@babel/parser/7.18.6
       '@babel/traverse': registry.npmjs.org/@babel/traverse/7.18.6
       '@babel/types': registry.npmjs.org/@babel/types/7.18.7
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
-      graphql: 16.5.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  registry.npmjs.org/@graphql-tools/import/6.7.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/import/6.7.0_graphql@15.8.0:
     resolution: {integrity: sha512-u9JL4fClKKyBTQpgb4QFacYUwgBCs4lW1NaHX0hD2zBdahIYidokBY0QkOqOCEAnWeFqpEmAjB62ulLiAJWc2g==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/import/-/import-6.7.0.tgz}
     id: registry.npmjs.org/@graphql-tools/import/6.7.0
     name: '@graphql-tools/import'
@@ -18991,13 +18993,13 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
-      graphql: 16.5.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       resolve-from: registry.npmjs.org/resolve-from/5.0.0
       tslib: registry.npmjs.org/tslib/2.4.0
     dev: true
 
-  registry.npmjs.org/@graphql-tools/json-file-loader/7.4.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/json-file-loader/7.4.0_graphql@15.8.0:
     resolution: {integrity: sha512-6oR7Ulc5iZc5SM3g1Yj91DqSu3TNbfGK/0baE8KyUlvq6KiIuWFWDy13RGnNesftt4RSWvZqGzu/kzXcBHtt+A==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/json-file-loader/-/json-file-loader-7.4.0.tgz}
     id: registry.npmjs.org/@graphql-tools/json-file-loader/7.4.0
     name: '@graphql-tools/json-file-loader'
@@ -19005,14 +19007,14 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
       globby: registry.npmjs.org/globby/11.1.0
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
       unixify: registry.npmjs.org/unixify/1.0.0
     dev: true
 
-  registry.npmjs.org/@graphql-tools/load/7.7.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/load/7.7.0_graphql@15.8.0:
     resolution: {integrity: sha512-6KX7Z8BtlFScDr0pIac92QZWlPGbHcpNMesX/6Y3Vsp3FeFnAYfzZldXZQcJoW7Yl+gHdFwYVq683wSH64kNrw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/load/-/load-7.7.0.tgz}
     id: registry.npmjs.org/@graphql-tools/load/7.7.0
     name: '@graphql-tools/load'
@@ -19020,14 +19022,14 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/schema': registry.npmjs.org/@graphql-tools/schema/8.5.0_graphql@16.5.0
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
-      graphql: 16.5.0
+      '@graphql-tools/schema': registry.npmjs.org/@graphql-tools/schema/8.5.0_graphql@15.8.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       p-limit: registry.npmjs.org/p-limit/3.1.0
       tslib: registry.npmjs.org/tslib/2.4.0
     dev: true
 
-  registry.npmjs.org/@graphql-tools/merge/8.3.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/merge/8.3.0_graphql@15.8.0:
     resolution: {integrity: sha512-xRa7RAQok/0DD2YnjuqikMrr7dUAxTpdGtZ7BkvUUGhYs3B3p7reCAfvOVr1DJAqVToP7hdlMk+S5+Ylk+AaqA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/merge/-/merge-8.3.0.tgz}
     id: registry.npmjs.org/@graphql-tools/merge/8.3.0
     name: '@graphql-tools/merge'
@@ -19035,12 +19037,12 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
-      graphql: 16.5.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
     dev: true
 
-  registry.npmjs.org/@graphql-tools/optimize/1.3.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/optimize/1.3.0_graphql@15.8.0:
     resolution: {integrity: sha512-30QOWJoMJEt1De7tAFtWJ6VPrP6SLq+tSQrA3x+WMvCW3q2exq5wPDpvAXOakVKu0y8L2E+YkipC0hcQPBQdLg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/optimize/-/optimize-1.3.0.tgz}
     id: registry.npmjs.org/@graphql-tools/optimize/1.3.0
     name: '@graphql-tools/optimize'
@@ -19048,11 +19050,11 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
     dev: true
 
-  registry.npmjs.org/@graphql-tools/prisma-loader/7.2.2_jmz7sikjgmpappczemw7lkhkri:
+  registry.npmjs.org/@graphql-tools/prisma-loader/7.2.2_75qpgwf3t74hpebe6v5lyz4rme:
     resolution: {integrity: sha512-f5txUBRwwZmPQYL5g5CNdOjOglFE/abtnEVOvUCq+nET0BRuxcuxUD5vykfZnkql9sNvnCFAfrZuBVe5S2n3bA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/prisma-loader/-/prisma-loader-7.2.2.tgz}
     id: registry.npmjs.org/@graphql-tools/prisma-loader/7.2.2
     name: '@graphql-tools/prisma-loader'
@@ -19060,16 +19062,16 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/url-loader': registry.npmjs.org/@graphql-tools/url-loader/7.12.1_jmz7sikjgmpappczemw7lkhkri
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
+      '@graphql-tools/url-loader': registry.npmjs.org/@graphql-tools/url-loader/7.12.1_75qpgwf3t74hpebe6v5lyz4rme
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
       '@types/js-yaml': registry.npmjs.org/@types/js-yaml/4.0.5
       '@types/json-stable-stringify': registry.npmjs.org/@types/json-stable-stringify/1.0.34
       '@types/jsonwebtoken': registry.npmjs.org/@types/jsonwebtoken/8.5.8
       chalk: registry.npmjs.org/chalk/4.1.2
       debug: registry.npmjs.org/debug/4.3.4
       dotenv: registry.npmjs.org/dotenv/16.0.1
-      graphql: 16.5.0
-      graphql-request: registry.npmjs.org/graphql-request/4.3.0_graphql@16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
+      graphql-request: registry.npmjs.org/graphql-request/4.3.0_graphql@15.8.0
       http-proxy-agent: registry.npmjs.org/http-proxy-agent/5.0.0
       https-proxy-agent: registry.npmjs.org/https-proxy-agent/5.0.1
       isomorphic-fetch: registry.npmjs.org/isomorphic-fetch/3.0.0
@@ -19089,7 +19091,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  registry.npmjs.org/@graphql-tools/relay-operation-optimizer/6.5.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/relay-operation-optimizer/6.5.0_graphql@15.8.0:
     resolution: {integrity: sha512-snqmdPiM2eBex6pijRFx4H9MPumVd8ZWM3y+aaRwzc73VUNnjHE4NyVZEEIdlbmJ2HoQ9Zrm9aFlHVMK7B59zg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/relay-operation-optimizer/-/relay-operation-optimizer-6.5.0.tgz}
     id: registry.npmjs.org/@graphql-tools/relay-operation-optimizer/6.5.0
     name: '@graphql-tools/relay-operation-optimizer'
@@ -19097,16 +19099,16 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@ardatan/relay-compiler': registry.npmjs.org/@ardatan/relay-compiler/12.0.0_graphql@16.5.0
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
-      graphql: 16.5.0
+      '@ardatan/relay-compiler': registry.npmjs.org/@ardatan/relay-compiler/12.0.0_graphql@15.8.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
     transitivePeerDependencies:
       - encoding
       - supports-color
     dev: true
 
-  registry.npmjs.org/@graphql-tools/schema/8.5.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/schema/8.5.0_graphql@15.8.0:
     resolution: {integrity: sha512-VeFtKjM3SA9/hCJJfr95aEdC3G0xIKM9z0Qdz4i+eC1g2fdZYnfWFt2ucW4IME+2TDd0enHlKzaV0qk2SLVUww==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/schema/-/schema-8.5.0.tgz}
     id: registry.npmjs.org/@graphql-tools/schema/8.5.0
     name: '@graphql-tools/schema'
@@ -19114,14 +19116,14 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/merge': registry.npmjs.org/@graphql-tools/merge/8.3.0_graphql@16.5.0
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
-      graphql: 16.5.0
+      '@graphql-tools/merge': registry.npmjs.org/@graphql-tools/merge/8.3.0_graphql@15.8.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
       value-or-promise: registry.npmjs.org/value-or-promise/1.0.11
     dev: true
 
-  registry.npmjs.org/@graphql-tools/url-loader/7.12.1_jmz7sikjgmpappczemw7lkhkri:
+  registry.npmjs.org/@graphql-tools/url-loader/7.12.1_75qpgwf3t74hpebe6v5lyz4rme:
     resolution: {integrity: sha512-Fd3ZZLEEr9GGFHEbdrcaMHFQu01BLpFnNDBkISupvjokd497O5Uh0xZvsZGC6mxVt0WWQWpgaK2ef+oLuOdLqQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/url-loader/-/url-loader-7.12.1.tgz}
     id: registry.npmjs.org/@graphql-tools/url-loader/7.12.1
     name: '@graphql-tools/url-loader'
@@ -19129,16 +19131,16 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/delegate': registry.npmjs.org/@graphql-tools/delegate/8.8.0_graphql@16.5.0
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
-      '@graphql-tools/wrap': registry.npmjs.org/@graphql-tools/wrap/8.5.0_graphql@16.5.0
-      '@n1ru4l/graphql-live-query': registry.npmjs.org/@n1ru4l/graphql-live-query/0.9.0_graphql@16.5.0
+      '@graphql-tools/delegate': registry.npmjs.org/@graphql-tools/delegate/8.8.0_graphql@15.8.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
+      '@graphql-tools/wrap': registry.npmjs.org/@graphql-tools/wrap/8.5.0_graphql@15.8.0
+      '@n1ru4l/graphql-live-query': registry.npmjs.org/@n1ru4l/graphql-live-query/0.9.0_graphql@15.8.0
       '@types/ws': registry.npmjs.org/@types/ws/8.5.3
       cross-undici-fetch: registry.npmjs.org/cross-undici-fetch/0.4.11
       dset: registry.npmjs.org/dset/3.1.2
       extract-files: registry.npmjs.org/extract-files/11.0.0
-      graphql: 16.5.0
-      graphql-ws: registry.npmjs.org/graphql-ws/5.9.0_graphql@16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
+      graphql-ws: registry.npmjs.org/graphql-ws/5.9.0_graphql@15.8.0
       isomorphic-ws: registry.npmjs.org/isomorphic-ws/5.0.0_ws@8.8.0
       meros: registry.npmjs.org/meros/1.2.0_@types+node@16.11.42
       sync-fetch: registry.npmjs.org/sync-fetch/0.4.1
@@ -19152,7 +19154,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0:
     resolution: {integrity: sha512-KJrtx05uSM/cPYFdTnGAS1doL5bftJLAiFCDMZ8Vkifztz3BFn3gpFiy/o4wDtM8s39G46mxmt2Km/RmeltfGw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/utils/-/utils-8.8.0.tgz}
     id: registry.npmjs.org/@graphql-tools/utils/8.8.0
     name: '@graphql-tools/utils'
@@ -19160,11 +19162,11 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
     dev: true
 
-  registry.npmjs.org/@graphql-tools/wrap/8.5.0_graphql@16.5.0:
+  registry.npmjs.org/@graphql-tools/wrap/8.5.0_graphql@15.8.0:
     resolution: {integrity: sha512-I+x9dBNzC135WWPi04ejqurR/zDmhfeGbCftCaYKF4CvgWd+ZaJx4Uc74n1SBegQtrj+KDrOS4HgKwf9vAVR7A==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-tools/wrap/-/wrap-8.5.0.tgz}
     id: registry.npmjs.org/@graphql-tools/wrap/8.5.0
     name: '@graphql-tools/wrap'
@@ -19172,15 +19174,15 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/delegate': registry.npmjs.org/@graphql-tools/delegate/8.8.0_graphql@16.5.0
-      '@graphql-tools/schema': registry.npmjs.org/@graphql-tools/schema/8.5.0_graphql@16.5.0
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
-      graphql: 16.5.0
+      '@graphql-tools/delegate': registry.npmjs.org/@graphql-tools/delegate/8.8.0_graphql@15.8.0
+      '@graphql-tools/schema': registry.npmjs.org/@graphql-tools/schema/8.5.0_graphql@15.8.0
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
       value-or-promise: registry.npmjs.org/value-or-promise/1.0.11
     dev: true
 
-  registry.npmjs.org/@graphql-typed-document-node/core/3.1.1_graphql@16.5.0:
+  registry.npmjs.org/@graphql-typed-document-node/core/3.1.1_graphql@15.8.0:
     resolution: {integrity: sha512-NQ17ii0rK1b34VZonlmT2QMJFI70m0TRwbknO/ihlbatXyaktDhN/98vBiUU6kNBPljqGqyIrl2T4nY2RpFANg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphql-typed-document-node/core/-/core-3.1.1.tgz}
     id: registry.npmjs.org/@graphql-typed-document-node/core/3.1.1
     name: '@graphql-typed-document-node/core'
@@ -19188,7 +19190,7 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      graphql: registry.npmjs.org/graphql/16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
     dev: false
 
   registry.npmjs.org/@headlessui/react/1.6.5_sfoxds7t5ydpegc3knd667wn6m:
@@ -19653,7 +19655,7 @@ packages:
     version: 1.6.22
     dev: true
 
-  registry.npmjs.org/@n1ru4l/graphql-live-query/0.9.0_graphql@16.5.0:
+  registry.npmjs.org/@n1ru4l/graphql-live-query/0.9.0_graphql@15.8.0:
     resolution: {integrity: sha512-BTpWy1e+FxN82RnLz4x1+JcEewVdfmUhV1C6/XYD5AjS7PQp9QFF7K8bCD6gzPTr2l+prvqOyVueQhFJxB1vfg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@n1ru4l/graphql-live-query/-/graphql-live-query-0.9.0.tgz}
     id: registry.npmjs.org/@n1ru4l/graphql-live-query/0.9.0
     name: '@n1ru4l/graphql-live-query'
@@ -19661,7 +19663,7 @@ packages:
     peerDependencies:
       graphql: ^15.4.0 || ^16.0.0
     dependencies:
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
     dev: true
 
   registry.npmjs.org/@next/env/12.1.6:
@@ -19977,6 +19979,32 @@ packages:
       rollup: registry.npmjs.org/rollup/2.75.7
     dev: true
 
+  registry.npmjs.org/@rollup/plugin-image/2.1.1_rollup@2.75.7:
+    resolution: {integrity: sha512-AgP4U85zuQJdUopLUCM+hTf45RepgXeTb8EJsleExVy99dIoYpt3ZlDYJdKmAc2KLkNntCDg6BPJvgJU3uGF+g==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@rollup/plugin-image/-/plugin-image-2.1.1.tgz}
+    id: registry.npmjs.org/@rollup/plugin-image/2.1.1
+    name: '@rollup/plugin-image'
+    version: 2.1.1
+    engines: {node: '>= 8.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0 || ^2.0.0
+    dependencies:
+      '@rollup/pluginutils': registry.npmjs.org/@rollup/pluginutils/3.1.0_rollup@2.75.7
+      mini-svg-data-uri: registry.npmjs.org/mini-svg-data-uri/1.4.4
+      rollup: registry.npmjs.org/rollup/2.75.7
+    dev: true
+
+  registry.npmjs.org/@rollup/plugin-json/4.1.0_rollup@2.75.7:
+    resolution: {integrity: sha512-yfLbTdNS6amI/2OpmbiBoW12vngr5NW2jCJVZSBEz+H5KfUJZ2M7sDjk0U6GOOdCWFVScShte29o9NezJ53TPw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@rollup/plugin-json/-/plugin-json-4.1.0.tgz}
+    id: registry.npmjs.org/@rollup/plugin-json/4.1.0
+    name: '@rollup/plugin-json'
+    version: 4.1.0
+    peerDependencies:
+      rollup: ^1.20.0 || ^2.0.0
+    dependencies:
+      '@rollup/pluginutils': registry.npmjs.org/@rollup/pluginutils/3.1.0_rollup@2.75.7
+      rollup: registry.npmjs.org/rollup/2.75.7
+    dev: true
+
   registry.npmjs.org/@rollup/plugin-node-resolve/11.2.1_rollup@2.75.7:
     resolution: {integrity: sha512-yc2n43jcqVyGE2sqV5/YCmocy9ArjVAP/BeXyTtADTBBX6V0e5UMqwO8CdQ0kzjb6zu5P1qMzsScCMRvE9OlVg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@rollup/plugin-node-resolve/-/plugin-node-resolve-11.2.1.tgz}
     id: registry.npmjs.org/@rollup/plugin-node-resolve/11.2.1
@@ -20026,7 +20054,7 @@ packages:
       rollup: registry.npmjs.org/rollup/2.75.7
     dev: false
 
-  registry.npmjs.org/@rollup/plugin-typescript/8.3.3_okefoyb4o5sittgqayreuhurei:
+  registry.npmjs.org/@rollup/plugin-typescript/8.3.3_g4qkabtmybowem44p7ts7jnbqm:
     resolution: {integrity: sha512-55L9SyiYu3r/JtqdjhwcwaECXP7JeJ9h1Sg1VWRJKIutla2MdZQodTgcCNybXLMCnqpNLEhS2vGENww98L1npg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@rollup/plugin-typescript/-/plugin-typescript-8.3.3.tgz}
     id: registry.npmjs.org/@rollup/plugin-typescript/8.3.3
     name: '@rollup/plugin-typescript'
@@ -20043,6 +20071,7 @@ packages:
       '@rollup/pluginutils': registry.npmjs.org/@rollup/pluginutils/3.1.0_rollup@2.75.7
       resolve: registry.npmjs.org/resolve/1.22.0
       rollup: registry.npmjs.org/rollup/2.75.7
+      tslib: registry.npmjs.org/tslib/2.4.0
       typescript: registry.npmjs.org/typescript/4.7.4
     dev: true
 
@@ -20066,7 +20095,7 @@ packages:
     version: 1.1.4
     dev: false
 
-  registry.npmjs.org/@saleor/sdk/0.4.4_t7pc5qr6xsnqqk3kd2s6irm7ju:
+  registry.npmjs.org/@saleor/sdk/0.4.4_uddzq55m5sbnmadag24rmxjpwa:
     resolution: {integrity: sha512-VQe4jQTZ4GSemQhgIETXf4Mt2Vy271H/MMwklhQISJWwVXqMPV6X892dOcAnqIvxexWbQQW43+4xKJVtRPFNCg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@saleor/sdk/-/sdk-0.4.4.tgz}
     id: registry.npmjs.org/@saleor/sdk/0.4.4
     name: '@saleor/sdk'
@@ -20077,9 +20106,9 @@ packages:
       graphql: ^15.5.0
       react: ^16.8.0 || ^17.0.0
     dependencies:
-      '@apollo/client': registry.npmjs.org/@apollo/client/3.6.9_mnlteiidv5se4zpyvopwg4rohq
+      '@apollo/client': registry.npmjs.org/@apollo/client/3.6.9_77h5kg6422vos5a7c32osaaxh4
       cross-fetch: registry.npmjs.org/cross-fetch/3.1.5
-      graphql: registry.npmjs.org/graphql/16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       jwt-decode: registry.npmjs.org/jwt-decode/3.1.2
       react: registry.npmjs.org/react/17.0.2
     transitivePeerDependencies:
@@ -21031,7 +21060,7 @@ packages:
       eslint-visitor-keys: registry.npmjs.org/eslint-visitor-keys/3.3.0
     dev: false
 
-  registry.npmjs.org/@urql/core/2.5.0_graphql@16.5.0:
+  registry.npmjs.org/@urql/core/2.5.0_graphql@15.8.0:
     resolution: {integrity: sha512-xXdcgb0H3nNTP4OfC+5T3CHJ0iz7Jj0QQYSYhN/hvKrzFnisPz2n6WXmvsHmMXk5bJHsr39kx4eOHcpsJuyCew==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@urql/core/-/core-2.5.0.tgz}
     id: registry.npmjs.org/@urql/core/2.5.0
     name: '@urql/core'
@@ -21039,12 +21068,12 @@ packages:
     peerDependencies:
       graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-typed-document-node/core': registry.npmjs.org/@graphql-typed-document-node/core/3.1.1_graphql@16.5.0
-      graphql: registry.npmjs.org/graphql/16.5.0
+      '@graphql-typed-document-node/core': registry.npmjs.org/@graphql-typed-document-node/core/3.1.1_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       wonka: registry.npmjs.org/wonka/4.0.15
     dev: false
 
-  registry.npmjs.org/@urql/introspection/0.3.3_graphql@16.5.0:
+  registry.npmjs.org/@urql/introspection/0.3.3_graphql@15.8.0:
     resolution: {integrity: sha512-tekSLLqWnusfV6V7xaEnLJQSdXOD/lWy7f8JYQwrX+88Md+voGSCSx5WJXI7KLBN3Tat2OV08tAr8UROykls4Q==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@urql/introspection/-/introspection-0.3.3.tgz}
     id: registry.npmjs.org/@urql/introspection/0.3.3
     name: '@urql/introspection'
@@ -21052,7 +21081,7 @@ packages:
     peerDependencies:
       graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
     dev: true
 
   registry.npmjs.org/@webassemblyjs/ast/1.11.1:
@@ -23773,7 +23802,7 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.27.1_b5e7v2qnwxfo6hmiq56u52mz3e
+      '@typescript-eslint/parser': registry.npmjs.org/@typescript-eslint/parser/5.27.1_b5e7v2qnwxfo6hmiq56u52mz3e
       debug: registry.npmjs.org/debug/3.2.7
       eslint-import-resolver-node: registry.npmjs.org/eslint-import-resolver-node/0.3.6
       find-up: registry.npmjs.org/find-up/2.1.0
@@ -23812,7 +23841,7 @@ packages:
       '@typescript-eslint/parser':
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.27.1_b5e7v2qnwxfo6hmiq56u52mz3e
+      '@typescript-eslint/parser': registry.npmjs.org/@typescript-eslint/parser/5.27.1_b5e7v2qnwxfo6hmiq56u52mz3e
       array-includes: registry.npmjs.org/array-includes/3.1.5
       array.prototype.flat: registry.npmjs.org/array.prototype.flat/1.3.0
       debug: registry.npmjs.org/debug/2.6.9
@@ -24775,7 +24804,7 @@ packages:
     version: 4.2.10
     requiresBuild: true
 
-  registry.npmjs.org/graphql-config/4.3.1_zvyo26mm3dskkv223wvaqmkj2y:
+  registry.npmjs.org/graphql-config/4.3.1_k447ummemgr72ow2533ucobqvi:
     resolution: {integrity: sha512-czBWzJSGaLJfOHBLuUTZVRTjfgohPfvlaeN1B5nXBVptFARpiFuS7iI4FnRhCGwm6qt1h2j1g05nkg0OIGA6bg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/graphql-config/-/graphql-config-4.3.1.tgz}
     id: registry.npmjs.org/graphql-config/4.3.1
     name: graphql-config
@@ -24785,15 +24814,15 @@ packages:
       graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       '@endemolshinegroup/cosmiconfig-typescript-loader': registry.npmjs.org/@endemolshinegroup/cosmiconfig-typescript-loader/3.0.2_zmjss6mecb4soo3dpdlecld3xa
-      '@graphql-tools/graphql-file-loader': registry.npmjs.org/@graphql-tools/graphql-file-loader/7.4.0_graphql@16.5.0
-      '@graphql-tools/json-file-loader': registry.npmjs.org/@graphql-tools/json-file-loader/7.4.0_graphql@16.5.0
-      '@graphql-tools/load': registry.npmjs.org/@graphql-tools/load/7.7.0_graphql@16.5.0
-      '@graphql-tools/merge': registry.npmjs.org/@graphql-tools/merge/8.3.0_graphql@16.5.0
-      '@graphql-tools/url-loader': registry.npmjs.org/@graphql-tools/url-loader/7.12.1_jmz7sikjgmpappczemw7lkhkri
-      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@16.5.0
+      '@graphql-tools/graphql-file-loader': registry.npmjs.org/@graphql-tools/graphql-file-loader/7.4.0_graphql@15.8.0
+      '@graphql-tools/json-file-loader': registry.npmjs.org/@graphql-tools/json-file-loader/7.4.0_graphql@15.8.0
+      '@graphql-tools/load': registry.npmjs.org/@graphql-tools/load/7.7.0_graphql@15.8.0
+      '@graphql-tools/merge': registry.npmjs.org/@graphql-tools/merge/8.3.0_graphql@15.8.0
+      '@graphql-tools/url-loader': registry.npmjs.org/@graphql-tools/url-loader/7.12.1_75qpgwf3t74hpebe6v5lyz4rme
+      '@graphql-tools/utils': registry.npmjs.org/@graphql-tools/utils/8.8.0_graphql@15.8.0
       cosmiconfig: registry.npmjs.org/cosmiconfig/7.0.1
       cosmiconfig-toml-loader: registry.npmjs.org/cosmiconfig-toml-loader/1.0.0
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       minimatch: registry.npmjs.org/minimatch/4.2.1
       string-env-interpolation: registry.npmjs.org/string-env-interpolation/1.0.1
     transitivePeerDependencies:
@@ -24804,7 +24833,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  registry.npmjs.org/graphql-request/4.3.0_graphql@16.5.0:
+  registry.npmjs.org/graphql-request/4.3.0_graphql@15.8.0:
     resolution: {integrity: sha512-2v6hQViJvSsifK606AliqiNiijb1uwWp6Re7o0RTyH+uRTv/u7Uqm2g4Fjq/LgZIzARB38RZEvVBFOQOVdlBow==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/graphql-request/-/graphql-request-4.3.0.tgz}
     id: registry.npmjs.org/graphql-request/4.3.0
     name: graphql-request
@@ -24815,12 +24844,12 @@ packages:
       cross-fetch: registry.npmjs.org/cross-fetch/3.1.5
       extract-files: registry.npmjs.org/extract-files/9.0.0
       form-data: registry.npmjs.org/form-data/3.0.1
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
     transitivePeerDependencies:
       - encoding
     dev: true
 
-  registry.npmjs.org/graphql-tag/2.12.6_graphql@16.5.0:
+  registry.npmjs.org/graphql-tag/2.12.6_graphql@15.8.0:
     resolution: {integrity: sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/graphql-tag/-/graphql-tag-2.12.6.tgz}
     id: registry.npmjs.org/graphql-tag/2.12.6
     name: graphql-tag
@@ -24829,10 +24858,10 @@ packages:
     peerDependencies:
       graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       tslib: registry.npmjs.org/tslib/2.4.0
 
-  registry.npmjs.org/graphql-ws/5.9.0_graphql@16.5.0:
+  registry.npmjs.org/graphql-ws/5.9.0_graphql@15.8.0:
     resolution: {integrity: sha512-CXv0l0nI1bgChwl4Rm+BqNOAKwL/C9T2N8RfmTkhQ38YLFdUXCi2WNW4oFp8BJP+t75nCLzjHHgR04sP1oF02w==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/graphql-ws/-/graphql-ws-5.9.0.tgz}
     id: registry.npmjs.org/graphql-ws/5.9.0
     name: graphql-ws
@@ -24841,8 +24870,14 @@ packages:
     peerDependencies:
       graphql: '>=0.11 <=16'
     dependencies:
-      graphql: 16.5.0
+      graphql: registry.npmjs.org/graphql/15.8.0
     dev: true
+
+  registry.npmjs.org/graphql/15.8.0:
+    resolution: {integrity: sha512-5gghUc24tP9HRznNpV2+FIoq3xKkj5dTQqf4v0CpdPbFVwFkWoxOM+o+2OC9ZSvjEMTjfmG9QT+gcvggTwW1zw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/graphql/-/graphql-15.8.0.tgz}
+    name: graphql
+    version: 15.8.0
+    engines: {node: '>= 10.x'}
 
   registry.npmjs.org/graphql/16.5.0:
     resolution: {integrity: sha512-qbHgh8Ix+j/qY+a/ZcJnFQ+j8ezakqPiHwPiZhV/3PgGlgf96QMBB5/f2rkiC9sgLoy/xvT6TSiaf2nTHJh5iA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/graphql/-/graphql-16.5.0.tgz}
@@ -27185,7 +27220,7 @@ packages:
       '@types/node':
         optional: true
     dependencies:
-      '@types/node': 16.11.42
+      '@types/node': registry.npmjs.org/@types/node/16.11.42
     dev: true
 
   registry.npmjs.org/methods/1.1.2:
@@ -27251,6 +27286,13 @@ packages:
       schema-utils: registry.npmjs.org/schema-utils/4.0.0
       webpack: registry.npmjs.org/webpack/5.73.0
     dev: false
+
+  registry.npmjs.org/mini-svg-data-uri/1.4.4:
+    resolution: {integrity: sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/mini-svg-data-uri/-/mini-svg-data-uri-1.4.4.tgz}
+    name: mini-svg-data-uri
+    version: 1.4.4
+    hasBin: true
+    dev: true
 
   registry.npmjs.org/minimalistic-assert/1.0.1:
     resolution: {integrity: sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/minimalistic-assert/-/minimalistic-assert-1.0.1.tgz}
@@ -31229,7 +31271,7 @@ packages:
       diff: registry.npmjs.org/diff/4.0.2
       make-error: registry.npmjs.org/make-error/1.3.6
       source-map-support: registry.npmjs.org/source-map-support/0.5.21
-      typescript: 4.7.4
+      typescript: registry.npmjs.org/typescript/4.7.4
       yn: registry.npmjs.org/yn/3.1.1
     dev: true
 
@@ -31726,7 +31768,7 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: false
 
-  registry.npmjs.org/urql/2.2.2_mnlteiidv5se4zpyvopwg4rohq:
+  registry.npmjs.org/urql/2.2.2_77h5kg6422vos5a7c32osaaxh4:
     resolution: {integrity: sha512-jaVhDxWS2gfJLWWupFXtRkTCuGeRX+b9v19PU6TnKIJ7VP+xyrgpNHghHcTBGo58F+rxvCXVNEvSvdlKFMiHhg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/urql/-/urql-2.2.2.tgz}
     id: registry.npmjs.org/urql/2.2.2
     name: urql
@@ -31735,8 +31777,8 @@ packages:
       graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
       react: '>= 16.8.0'
     dependencies:
-      '@urql/core': registry.npmjs.org/@urql/core/2.5.0_graphql@16.5.0
-      graphql: registry.npmjs.org/graphql/16.5.0
+      '@urql/core': registry.npmjs.org/@urql/core/2.5.0_graphql@15.8.0
+      graphql: registry.npmjs.org/graphql/15.8.0
       react: registry.npmjs.org/react/17.0.2
       wonka: registry.npmjs.org/wonka/4.0.15
     dev: false

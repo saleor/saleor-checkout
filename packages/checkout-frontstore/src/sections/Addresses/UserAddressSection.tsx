@@ -15,7 +15,7 @@ import {
   useUserAddressSelect,
   UseUserAddressSelectProps,
 } from "./useUserAddressSelect";
-import { AddressesSkeleton } from ".";
+import { AddressesSkeleton } from "./AddressesSkeleton";
 import { UseErrors } from "@/checkout-frontstore/hooks/useErrors";
 
 export interface UserAddressSectionProps

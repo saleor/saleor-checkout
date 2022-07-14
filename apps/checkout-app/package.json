@@ -33,7 +33,7 @@
     "currency.js": "^2.0.4",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "graphql": "^16.3.0",
+    "graphql": "15",
     "graphql-tag": "^2.12.6",
     "jose": "^4.8.1",
     "jsonwebtoken": "^8.5.1",

@@ -9,6 +9,7 @@
     "node_modules"
   ],
   "compilerOptions": {
+    "rootDir": "../..",
     "lib": [
       "dom"
     ],
@@ -19,7 +20,9 @@
       "@/checkout-app/*": ["../../apps/checkout-app/*"],
       "@saleor/ui-kit/*": ["../ui-kit/*"],
     },
+    "moduleResolution": "Node",
     "emitDeclarationOnly": true,
+    "declaration": true,
     "declarationMap": false,
     "declarationDir": "types",
     "outDir": "dist",
