@@ -34,11 +34,12 @@ export default [
       typescript({ tsconfig: "./tsconfig.json" }),
       json(),
       image(),
-      postcss({
-        plugins: [require("tailwindcss")(), require("autoprefixer")()],
-      }),
       terser(),
       nodeResolve(),
+      postcss({
+        extract: true,
+        plugins: [require("tailwindcss")(), require("autoprefixer")()],
+      }),
     ],
   },
   {

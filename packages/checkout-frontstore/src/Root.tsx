@@ -1,4 +1,4 @@
-import "@/checkout-frontstore/index.css";
+import "./index.css";
 
 import { createClient, Provider as UrqlProvider, ClientOptions } from "urql";
 import { ErrorBoundary } from "react-error-boundary";
@@ -12,7 +12,7 @@ import { AppConfigProvider } from "@/checkout-frontstore/providers/AppConfigProv
 import { OrderConfirmation } from "@/checkout-frontstore/sections/OrderConfirmation";
 import { PageNotFound } from "@/checkout-frontstore/sections/PageNotFound";
 import "react-toastify/dist/ReactToastify.css";
-import "@/checkout-frontstore/hooks/useAlerts/AlertStyles.css";
+import "./hooks/useAlerts/AlertStyles.css";
 import clsx from "clsx";
 import { ToastContainer, TypeOptions } from "react-toastify";
 import { alertsContainerProps } from "./hooks/useAlerts/consts";
