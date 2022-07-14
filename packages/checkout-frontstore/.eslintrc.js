@@ -6,4 +6,5 @@ module.exports = {
   },
   plugins: ["react", "react-hooks"],
   extends: ["checkout"],
+  ignorePatterns: "*.js",
 };
