@@ -1,0 +1,29 @@
+{
+  "extends": "../tsconfig/react-library.json",
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "dist",
+    "build",
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "lib": [
+      "dom"
+    ],
+    "paths": {
+      "@/checkout-frontstore/icons": ["./src/assets/icons"],
+      "@/checkout-frontstore/images": ["./src/assets/images"],
+      "@/checkout-frontstore/*": ["./src/*"],
+      "@/checkout-app/*": ["../../apps/checkout-app/*"],
+      "@saleor/ui-kit/*": ["../ui-kit/*"],
+    },
+    "emitDeclarationOnly": true,
+    "declarationMap": false,
+    "declarationDir": "types",
+    "outDir": "dist",
+    "composite": false,
+    "resolveJsonModule": true
+  }
+}
