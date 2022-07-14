@@ -6,6 +6,7 @@ export type EnvVars = Record<EnvVar, string>;
 
 const env = process.env;
 
+// @TODO: REPLACE THESE VARS WITH A PROP TO <Root />
 export const envVars: EnvVars = {
   apiUrl: env.REACT_APP_SALEOR_API_URL,
   checkoutApiUrl: `${env.REACT_APP_CHECKOUT_APP_URL}/api`,

@@ -5,7 +5,6 @@ import { terser } from "rollup-plugin-terser";
 import external from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
 import dts from "rollup-plugin-dts";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
 import json from "@rollup/plugin-json";
 import image from "@rollup/plugin-image";
 
@@ -29,13 +28,14 @@ export default [
     external: ["react", "react-dom", "graphql"],
     plugins: [
       external(),
-      resolve(),
+      resolve({
+        browser: true,
+      }),
       commonjs(),
       typescript({ tsconfig: "./tsconfig.json" }),
       json(),
       image(),
-      terser(),
-      nodeResolve(),
+      // terser(),
       postcss({
         extract: true,
         plugins: [require("tailwindcss")(), require("autoprefixer")()],
