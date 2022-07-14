@@ -1,11 +1,11 @@
 import { PermissionEnum } from "@/checkout-app/graphql";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { debugEnvVars, envVars } from "../constants";
 import { isAuthenticated, isAuthorized } from "./auth";
 
 export const allowCors =
-  (fn: (req: NextApiRequest, res: NextApiResponse) => Promise<void>) =>
-  async (req: NextApiRequest, res: NextApiResponse) => {
+  (fn: NextApiHandler): NextApiHandler =>
+  async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "*");
     res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,POST");
     res.setHeader(
@@ -23,10 +23,10 @@ export const allowCors =
 
 export const requireAuthorization =
   (
-    fn: (req: NextApiRequest, res: NextApiResponse) => Promise<void>,
+    fn: NextApiHandler,
     requiredPermissions?: PermissionEnum[]
-  ) =>
-  async (req: NextApiRequest, res: NextApiResponse) => {
+  ): NextApiHandler =>
+  async (req, res) => {
     const authenticated = await isAuthenticated(req);
 
     if (!authenticated) {
