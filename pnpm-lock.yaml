@@ -141,7 +141,7 @@ importers:
       '@material-ui/styles': ^4.11.5
       '@mollie/api-client': ^3.6.0
       '@saleor/app-bridge': ^0.1.9
-      '@saleor/app-sdk': ^0.5.0
+      '@saleor/app-sdk': ^0.7.0
       '@saleor/macaw-ui': ^0.4.0
       '@types/content-type': ^1.1.5
       '@types/crypto-js': ^4.1.1
@@ -156,7 +156,6 @@ importers:
       babel-plugin-formatjs: ^10.3.18
       clsx: ^1.1.1
       content-type: ^1.0.4
-      crypto-js: ^4.1.1
       currency.js: ^2.0.4
       dotenv: ^16.0.1
       env-vars: workspace:*
@@ -181,7 +180,7 @@ importers:
       react-hook-form: ^7.27.1
       react-intl: ^5.24.6
       react-is: ^17.0.2
-      retes: ^0.27.1
+      retes: ^0.29.4
       ts-jest: ^27.1.4
       tsconfig: workspace:*
       typescript: ^4.7.3
@@ -196,13 +195,12 @@ importers:
       '@material-ui/styles': 4.11.5_ku44vyaqhfvsakybl42wrekosu
       '@mollie/api-client': 3.6.0
       '@saleor/app-bridge': 0.1.9
-      '@saleor/app-sdk': 0.5.0
+      '@saleor/app-sdk': 0.7.0
       '@saleor/macaw-ui': 0.4.0_dtofy765xmqwrloztbonstq6rm
       '@urql/exchange-auth': 0.1.7_graphql@16.5.0
       '@urql/exchange-multipart-fetch': 0.1.14_graphql@16.5.0
       clsx: 1.1.1
       content-type: 1.0.4
-      crypto-js: 4.1.1
       currency.js: 2.0.4
       eslint-plugin-react: 7.30.0_eslint@7.32.0
       eslint-plugin-react-hooks: 4.5.0_eslint@7.32.0
@@ -218,7 +216,7 @@ importers:
       react-hook-form: 7.33.0_react@17.0.2
       react-intl: 5.25.1_s7dhm7uhgnhsqh75wuilf3r4wi
       react-is: 17.0.2
-      retes: 0.27.2
+      retes: 0.29.4
       url-join: 5.0.0
       urql: 2.2.2_mnlteiidv5se4zpyvopwg4rohq
     devDependencies:
@@ -4056,12 +4054,13 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /@saleor/app-sdk/0.5.0:
-    resolution: {integrity: sha512-leC0xb8hdBHzwZ8FHwJfGANxy3JzDjJL5t+vNa/7YLa51MerSHPOGvvr0bJUVMDbpHs+8RzKTfVbFuwBMpAqTg==}
+  /@saleor/app-sdk/0.7.0:
+    resolution: {integrity: sha512-e2an48MV7608xJIewQzaUaqN8fwmZmQrQx9rY25cjEWjvbM6TuF3YdkZyGH/1M8dsIFaQJmJnv0+uZIChOyywQ==}
     dependencies:
       fast-glob: 3.2.11
       graphql: 16.5.0
-      retes: 0.27.2
+      jose: 4.8.3
+      retes: 0.29.4
     dev: false
 
   /@saleor/macaw-ui/0.4.0_dtofy765xmqwrloztbonstq6rm:
@@ -6552,6 +6551,7 @@ packages:
       debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /@typescript-eslint/parser/5.27.1_b5e7v2qnwxfo6hmiq56u52mz3e:
     resolution: {integrity: sha512-7Va2ZOkHi5NP+AZwb5ReLgNF6nWLGTeUJfxdkVUAPPSaAdbWNnFZzLZ4EGGmmiCTg+AwlbE1KyUYTBglosSLHQ==}
@@ -6591,7 +6591,6 @@ packages:
       typescript: 4.7.4
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /@typescript-eslint/scope-manager/5.27.1:
     resolution: {integrity: sha512-fQEOSa/QroWE6fAEg+bJxtRZJTH8NTskggybogHt4H9Da8zd4cJji76gA5SBlR0MgtwF7rebxTbDKB49YUCpAg==}
@@ -6671,6 +6670,7 @@ packages:
       tsutils: 3.21.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /@typescript-eslint/typescript-estree/5.27.1_typescript@4.7.4:
     resolution: {integrity: sha512-DnZvvq3TAJ5ke+hk0LklvxwYsnXpRdqUY5gaVS0D4raKtbznPz71UJGnPTHEFo0GDxqLOLdMkkmVZjSpET1hFw==}
@@ -9278,10 +9278,6 @@ packages:
       randomfill: 1.0.4
     dev: true
 
-  /crypto-js/4.1.1:
-    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
-    dev: false
-
   /crypto-random-string/2.0.0:
     resolution: {integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==}
     engines: {node: '>=8'}
@@ -10426,6 +10422,7 @@ packages:
       tsconfig-paths: 3.14.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /eslint-import-resolver-typescript/2.7.1_hpmu7kn6tcn2vnxpfzvv33bxmy:
     resolution: {integrity: sha512-00UbgGwV8bSgUv34igBDbTOtKhqoRMy9bFjNehT40bXg6585PNIct8HhXZ0SybqB9rWtXj9crcku8ndDn/gIqQ==}
@@ -10443,7 +10440,6 @@ packages:
       tsconfig-paths: 3.14.1
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /eslint-module-utils/2.7.3_4wf6ctbofaywkfx7kzk32kp7ge:
     resolution: {integrity: sha512-088JEC7O3lDZM9xGe0RerkOMd0EjFl+Yvd1jPWIkMT5u3H9+HC34mWWPnqPrN13gieT9pBOO+Qt07Nb/6TresQ==}
@@ -10463,10 +10459,10 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.27.1
+      '@typescript-eslint/parser': 5.27.1_hxadhbs2xogijvk7vq4t2azzbu
       debug: 3.2.7
       eslint-import-resolver-node: 0.3.6
-      eslint-import-resolver-typescript: 2.7.1_fkfqfehjtk7sk2efaqbgxsuasa
+      eslint-import-resolver-typescript: 2.7.1_hpmu7kn6tcn2vnxpfzvv33bxmy
       find-up: 2.1.0
     transitivePeerDependencies:
       - supports-color
@@ -10569,6 +10565,7 @@ packages:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
       - supports-color
+    dev: false
 
   /eslint-plugin-import/2.26.0_wpehoe7sv7ux6tdegk3fwlchdi:
     resolution: {integrity: sha512-hYfi3FXaM8WPLf4S1cikh/r4IxnO6zrhZbEGz2b660EJRbuxgpDS5gkCuYgGWg2xxh2rBuIr4Pvhve/7c31koA==}
@@ -10599,7 +10596,6 @@ packages:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
       - supports-color
-    dev: true
 
   /eslint-plugin-jest/25.7.0_wae3veybaz4u6lgdhccg7yzcsu:
     resolution: {integrity: sha512-PWLUEXeeF7C9QGKqvdSbzLOiLTx+bno7/HC9eefePfEb257QFHg7ye3dh80AZVkaa/RQsBB1Q/ORQvg2X7F0NQ==}
@@ -14003,6 +13999,10 @@ packages:
 
   /jose/4.8.1:
     resolution: {integrity: sha512-+/hpTbRcCw9YC0TOfN1W47pej4a9lRmltdOVdRLz5FP5UvUq3CenhXjQK7u/8NdMIIShMXYAh9VLPhc7TjhvFw==}
+    dev: false
+
+  /jose/4.8.3:
+    resolution: {integrity: sha512-7rySkpW78d8LBp4YU70Wb7+OTgE3OwAALNVZxhoIhp4Kscp+p/fBkdpxGAMKxvCAMV4QfXBU9m6l9nX/vGwd2g==}
     dev: false
 
   /js-string-escape/1.0.1:
@@ -18217,8 +18217,8 @@ packages:
     engines: {node: '>=0.12'}
     dev: true
 
-  /retes/0.27.2:
-    resolution: {integrity: sha512-O+d+L/MyvbB4fJjMUiSzU1z3vPUn1z5lwUkkNfI+tiULmJFREP+0OVcn7jbSyTs3oQTzVcTOW+3uN35lSUnnbQ==}
+  /retes/0.29.4:
+    resolution: {integrity: sha512-c6Ji2oGfXN/abuLRVLUT0/eklLuAlargjBR0Ru/FAhgmL2TtEhNl2OQ3UnFSUYXa8a6v9qrEb6UvIp0A6KlJ5w==}
     dependencies:
       busboy: 1.6.0
     dev: false
@@ -19946,6 +19946,7 @@ packages:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
     dependencies:
       tslib: 1.14.1
+    dev: false
 
   /tsutils/3.21.0_typescript@4.7.4:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}

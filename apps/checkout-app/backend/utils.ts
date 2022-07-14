@@ -1,54 +1,54 @@
 import { PermissionEnum } from "@/checkout-app/graphql";
 import { NextApiRequest, NextApiResponse } from "next";
-import { debugEnvVars } from "../constants";
+import { debugEnvVars, envVars } from "../constants";
 import { isAuthenticated, isAuthorized } from "./auth";
 
 export const allowCors =
   (fn: (req: NextApiRequest, res: NextApiResponse) => Promise<void>) =>
-    async (req: NextApiRequest, res: NextApiResponse) => {
-      res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "*");
-      res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,POST");
-      res.setHeader(
-        "Access-Control-Allow-Headers",
-        "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-      );
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,POST");
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+    );
 
-      if (req.method === "OPTIONS") {
-        res.status(200).end();
-        return;
-      }
+    if (req.method === "OPTIONS") {
+      res.status(200).end();
+      return;
+    }
 
-      return await fn(req, res);
-    };
+    return await fn(req, res);
+  };
 
 export const requireAuthorization =
   (
     fn: (req: NextApiRequest, res: NextApiResponse) => Promise<void>,
     requiredPermissions?: PermissionEnum[]
   ) =>
-    async (req: NextApiRequest, res: NextApiResponse) => {
-      const authenticated = await isAuthenticated(req);
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    const authenticated = await isAuthenticated(req);
 
-      if (!authenticated) {
-        return res.status(401).json({
-          error: {
-            message: "Unauthenticated",
-          },
-        });
-      }
+    if (!authenticated) {
+      return res.status(401).json({
+        error: {
+          message: "Unauthenticated",
+        },
+      });
+    }
 
-      const authorized = isAuthorized(req, requiredPermissions);
+    const authorized = isAuthorized(req, requiredPermissions);
 
-      if (!authorized) {
-        return res.status(403).json({
-          error: {
-            message: "Unauthorized",
-          },
-        });
-      }
+    if (!authorized) {
+      return res.status(403).json({
+        error: {
+          message: "Unauthorized",
+        },
+      });
+    }
 
-      return await fn(req, res);
-    };
+    return await fn(req, res);
+  };
 
 export const getBaseUrl = (req: NextApiRequest) => {
   if (debugEnvVars?.appUrl) {
@@ -59,4 +59,12 @@ export const getBaseUrl = (req: NextApiRequest) => {
   const { host, "x-forwarded-proto": protocol = "http" } = req.headers;
 
   return `${protocol}://${host}`;
+};
+
+export const getSaleorDomain = () => {
+  if (!envVars.apiUrl) {
+    throw new Error("Mising NEXT_PUBLIC_SALEOR_API_URL env variable");
+  }
+  const url = new URL(envVars.apiUrl);
+  return url.hostname;
 };
