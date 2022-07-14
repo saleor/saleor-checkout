@@ -63,7 +63,7 @@ export const getBaseUrl = (req: NextApiRequest) => {
 
 export const getSaleorDomain = () => {
   if (!envVars.apiUrl) {
-    throw new Error("Mising NEXT_PUBLIC_SALEOR_API_URL env variable");
+    return null;
   }
   const url = new URL(envVars.apiUrl);
   return url.hostname;
