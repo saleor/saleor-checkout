@@ -1,4 +1,4 @@
-import { Root } from "../../../packages/checkout-storefront/dist";
+import { Root } from "@saleor/checkout-storefront";
 import "@saleor/checkout-storefront/dist/esm/index.css";
 import invariant from "ts-invariant";
 
