@@ -62,7 +62,7 @@ const handler: Handler<TransactionActionPayloadFragment> = async (req) => {
 export default toNextHandler([
   withMethod(HTTPMethod.POST),
   withSaleorDomainMatch,
-  withSaleorEventMatch<WebhookEventTypeAsyncEnum>("transaction_action_request"),
+  withSaleorEventMatch("transaction_action_request"),
   withWebhookSignatureVerified(),
   handler,
 ]);
