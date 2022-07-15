@@ -1,6 +1,6 @@
 import { PermissionEnum } from "@/checkout-app/graphql";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { debugEnvVars, envVars } from "../constants";
+import { debugEnvVars, envVars, envVarsNames } from "../constants";
 import { isAuthenticated, isAuthorized } from "./auth";
 
 export const allowCors =
@@ -63,7 +63,7 @@ export const getBaseUrl = (req: NextApiRequest) => {
 
 export const getSaleorDomain = () => {
   if (!envVars.apiUrl) {
-    return null;
+    throw new Error(`Missing ${envVarsNames.apiUrl} environment variable`);
   }
   const url = new URL(envVars.apiUrl);
   return url.hostname;

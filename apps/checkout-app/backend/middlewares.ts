@@ -3,15 +3,18 @@ import { Response } from "retes/response";
 import { withSaleorDomainPresent } from "@saleor/app-sdk/middleware";
 import { SALEOR_DOMAIN_HEADER } from "@saleor/app-sdk/const";
 import { getSaleorDomain } from "./utils";
+import { getErrorMessage } from "@/checkout-app/utils/errors";
 
 export const withSaleorDomainMatch: Middleware = (handler) =>
   withSaleorDomainPresent((request) => {
-    const saleorDomain = getSaleorDomain();
+    let saleorDomain: string;
 
-    if (saleorDomain === undefined) {
+    try {
+      saleorDomain = getSaleorDomain();
+    } catch (error) {
       return Response.InternalServerError({
         success: false,
-        message: "Missing NEXT_PUBLIC_SALEOR_API_URL environment variable.",
+        message: getErrorMessage(error),
       });
     }
 
