@@ -12,12 +12,15 @@ export interface UsePaymentMethods {
   availablePaymentMethods: AvailablePaymentMethods;
 }
 
-export const usePaymentMethods = (channelId: string) => {
+export const usePaymentMethods = (
+  checkoutApiUrl: string,
+  channelId: string
+) => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
     useState<PaymentMethodID>();
 
   const [{ data: allPaymentMethods, loading }] = useFetch(getPaymentMethods, {
-    args: { channelId },
+    args: { channelId, checkoutApiUrl },
     skip: !channelId,
   });
 

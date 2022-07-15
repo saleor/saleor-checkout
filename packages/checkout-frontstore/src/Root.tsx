@@ -7,41 +7,58 @@ import { createFetch, createSaleorClient, SaleorProvider } from "@saleor/sdk";
 
 import { Checkout } from "@/checkout-frontstore/Checkout";
 import { getCurrentRegion } from "@/checkout-frontstore/lib/regions";
-import { envVars, getQueryVariables } from "@/checkout-frontstore/lib/utils";
+import { getQueryVariables } from "@/checkout-frontstore/lib/utils";
 import { AppConfigProvider } from "@/checkout-frontstore/providers/AppConfigProvider";
 import { OrderConfirmation } from "@/checkout-frontstore/sections/OrderConfirmation";
 import { PageNotFound } from "@/checkout-frontstore/sections/PageNotFound";
 import "react-toastify/dist/ReactToastify.css";
 import "./hooks/useAlerts/AlertStyles.css";
-import clsx from "clsx";
-import { ToastContainer, TypeOptions } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { alertsContainerProps } from "./hooks/useAlerts/consts";
+import { useMemo } from "react";
 
-const authorizedFetch = createFetch();
+export interface RootProps {
+  apiUrl: string;
+  checkoutApiUrl: string;
+  checkoutAppUrl: string;
+}
 
-const client = createClient({
-  url: envVars.apiUrl,
-  suspense: true,
-  requestPolicy: "network-only",
-  fetch: authorizedFetch as ClientOptions["fetch"],
-});
-
-// temporarily need to use @apollo/client because saleor sdk
-// is based on apollo. to be changed
-const saleorClient = createSaleorClient({
-  apiUrl: envVars.apiUrl,
-  channel: "default-channel",
-});
-
-export const Root = () => {
+export const Root = ({ apiUrl, checkoutApiUrl, checkoutAppUrl }: RootProps) => {
   const orderId = getQueryVariables().orderId;
+
+  const authorizedFetch = useMemo(() => createFetch(), []);
+
+  const client = useMemo(
+    () =>
+      createClient({
+        url: apiUrl,
+        suspense: true,
+        requestPolicy: "network-only",
+        fetch: authorizedFetch as ClientOptions["fetch"],
+      }),
+    []
+  );
+
+  // temporarily need to use @apollo/client because saleor sdk
+  // is based on apollo. to be changed
+  const saleorClient = useMemo(
+    () =>
+      createSaleorClient({
+        apiUrl: apiUrl,
+        channel: "default-channel",
+      }),
+    []
+  );
 
   return (
     // @ts-ignore React 17 <-> 18 type mismatch
     <SaleorProvider client={saleorClient}>
       <I18nProvider locale={getCurrentRegion()}>
         <UrqlProvider value={client}>
-          <AppConfigProvider>
+          <AppConfigProvider
+            checkoutApiUrl={checkoutApiUrl}
+            checkoutAppUrl={checkoutAppUrl}
+          >
             <div className="app">
               <ToastContainer {...alertsContainerProps} />
               {/* @ts-ignore React 17 <-> 18 type mismatch */}

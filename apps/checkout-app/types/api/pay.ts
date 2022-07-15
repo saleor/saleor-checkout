@@ -3,6 +3,7 @@ import { Errors } from "@/checkout-app/backend/payments/types";
 import { PaymentProviderID } from "../common";
 
 type BaseBody = {
+  checkoutApiUrl: string;
   provider: PaymentProviderID;
   redirectUrl: string;
   // captureAmount?: number; // support for partial payments

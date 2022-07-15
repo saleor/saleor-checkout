@@ -16,11 +16,13 @@ interface AppConfigContextConsumerProps {
 export const [useContext, Provider] =
   createSafeContext<AppConfigContextConsumerProps>();
 
-export const AppConfigProvider: React.FC<PropsWithChildren<{}>> = ({
-  children,
-}) => {
-  const [{ data: storedAppConfig, loading }] = useFetch(getAppConfig);
-  const dynamicAppConfig = useDynamicAppConfig<AppConfig>();
+export const AppConfigProvider: React.FC<
+  PropsWithChildren<{ checkoutApiUrl: string; checkoutAppUrl: string }>
+> = ({ children, checkoutApiUrl, checkoutAppUrl }) => {
+  const [{ data: storedAppConfig, loading }] = useFetch(getAppConfig, {
+    args: { checkoutApiUrl },
+  });
+  const dynamicAppConfig = useDynamicAppConfig<AppConfig>({ checkoutAppUrl });
   const appConfig = dynamicAppConfig || storedAppConfig;
   const stylingRef = useRef(appConfig?.branding);
 

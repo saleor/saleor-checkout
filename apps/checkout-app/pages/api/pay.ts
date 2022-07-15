@@ -153,8 +153,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
   }
 
-  let response: PayRequestResponse;
-
   if (body.provider === "mollie") {
     const appUrl = getBaseUrl(req);
     const { url, id } = await createMolliePayment({
@@ -164,7 +162,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     });
 
     if (url) {
-      response = {
+      const response: PayRequestResponse = {
         ok: true,
         provider: "mollie",
         orderId: order.id,
@@ -186,7 +184,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { url, id } = await createAdyenPayment(order, body.redirectUrl);
 
     if (url) {
-      response = {
+      const response: PayRequestResponse = {
         ok: true,
         provider: "adyen",
         orderId: order.id,

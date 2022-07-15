@@ -1,4 +1,3 @@
-import { envVars } from "@/checkout-frontstore/lib/utils";
 import { useEffect, useState } from "react";
 
 const inIframe = () => {
@@ -9,7 +8,11 @@ const inIframe = () => {
   }
 };
 
-export const useDynamicAppConfig = <T>() => {
+export const useDynamicAppConfig = <T>({
+  checkoutAppUrl,
+}: {
+  checkoutAppUrl: string;
+}) => {
   const [previewSettings, setPreviewSettings] = useState<T>();
 
   useEffect(() => {
@@ -18,14 +21,14 @@ export const useDynamicAppConfig = <T>() => {
     }
 
     const eventListener = (event: MessageEvent<T | undefined>) => {
-      if (event.origin === envVars.checkoutAppUrl) {
+      if (event.origin === checkoutAppUrl) {
         setPreviewSettings(event.data);
       }
     };
 
     window.addEventListener("message", eventListener);
 
-    window.parent.postMessage("mounted", envVars.checkoutAppUrl);
+    window.parent.postMessage("mounted", checkoutAppUrl);
 
     return () => {
       window.removeEventListener("message", eventListener);

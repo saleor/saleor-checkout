@@ -1,4 +1,7 @@
-import { pay as payRequest, PaySuccessResult } from "@/checkout-frontstore/fetch";
+import {
+  pay as payRequest,
+  PaySuccessResult,
+} from "@/checkout-frontstore/fetch";
 import { useFetch } from "@/checkout-frontstore/hooks/useFetch";
 import { OrderBody, CheckoutBody } from "checkout-app/types/api/pay";
 
@@ -15,7 +18,7 @@ const getRedirectUrl = () => {
   return location.origin + location.pathname;
 };
 
-export const usePay = () => {
+export const usePay = (checkoutApiUrl: string) => {
   const [{ loading }, pay] = useFetch(payRequest, { skip: true });
 
   const checkoutPay = async ({
@@ -25,6 +28,7 @@ export const usePay = () => {
   }: Omit<CheckoutBody, "redirectUrl">) => {
     const redirectUrl = getRedirectUrl();
     const result = await pay({
+      checkoutApiUrl,
       provider,
       checkoutId,
       totalAmount,
@@ -53,9 +57,11 @@ export const usePay = () => {
   const orderPay = async ({
     provider,
     orderId,
+    checkoutApiUrl,
   }: Omit<OrderBody, "redirectUrl">) => {
     const redirectUrl = getRedirectUrl();
     const result = await pay({
+      checkoutApiUrl,
       provider,
       orderId,
       redirectUrl,
