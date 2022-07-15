@@ -26,17 +26,7 @@ export const config = {
   },
 };
 
-const isValidReqType = (
-  body: any
-): body is TransactionActionPayloadFragment => {
-  return body?.transaction && body?.action;
-};
-
-const handler: Handler = async (req) => {
-  if (!isValidReqType(req.params)) {
-    return Response.BadRequest({ success: false });
-  }
-
+const handler: Handler<TransactionActionPayloadFragment> = async (req) => {
   const { transaction, action } = req.params;
 
   if (action.actionType === "REFUND") {
