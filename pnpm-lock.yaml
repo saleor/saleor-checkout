@@ -26,6 +26,7 @@ importers:
       react: ^18.2.0
       react-dom: ^18.2.0
       react-scripts: 5.0.1
+      ts-invariant: 0.10.3
       tsconfig: workspace:*
       typescript: 4.7.4
       web-vitals: 2.1.4
@@ -34,6 +35,7 @@ importers:
       graphql: registry.npmjs.org/graphql/15.8.0
       react: registry.npmjs.org/react/18.2.0
       react-dom: registry.npmjs.org/react-dom/18.2.0_react@18.2.0
+      ts-invariant: registry.npmjs.org/ts-invariant/0.10.3
       web-vitals: registry.npmjs.org/web-vitals/2.1.4
     devDependencies:
       '@testing-library/jest-dom': registry.npmjs.org/@testing-library/jest-dom/5.16.4

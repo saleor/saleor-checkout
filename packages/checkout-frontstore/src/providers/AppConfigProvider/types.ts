@@ -14,3 +14,9 @@ export type BrandingColorsData = Partial<BrandingColors>;
 export interface AppConfig {
   branding: BrandingColorsData;
 }
+
+export interface AppEnv {
+  apiUrl: string;
+  checkoutApiUrl: string;
+  checkoutAppUrl: string;
+}

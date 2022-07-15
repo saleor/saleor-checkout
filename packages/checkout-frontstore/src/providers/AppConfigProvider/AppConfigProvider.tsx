@@ -2,27 +2,35 @@ import { useFetch } from "@/checkout-frontstore/hooks/useFetch";
 import { createSafeContext } from "@/checkout-frontstore/providers/createSafeContext";
 import { getAppConfig } from "@/checkout-frontstore/fetch";
 import { PropsWithChildren, useEffect, useRef } from "react";
-import { AppConfig, BrandingColors, BrandingColorsData } from "./types";
+import type {
+  AppConfig,
+  AppEnv,
+  BrandingColors,
+  BrandingColorsData,
+} from "./types";
 import { getParsedCssBody } from "./utils";
 import { defaultAppColors, STYLE_ELEMENT_ID } from "./consts";
 import { isEqual } from "lodash-es";
 import { useDynamicAppConfig } from "@/checkout-frontstore/hooks/useDynamicAppConfig";
-
 interface AppConfigContextConsumerProps {
   config?: AppConfig | null;
   loading: boolean;
+  env: AppEnv;
 }
 
-export const [useContext, Provider] =
+const [useAppConfig, Provider] =
   createSafeContext<AppConfigContextConsumerProps>();
+export { useAppConfig };
 
 export const AppConfigProvider: React.FC<
-  PropsWithChildren<{ checkoutApiUrl: string; checkoutAppUrl: string }>
-> = ({ children, checkoutApiUrl, checkoutAppUrl }) => {
+  PropsWithChildren<{ env: AppEnv }>
+> = ({ children, env }) => {
   const [{ data: storedAppConfig, loading }] = useFetch(getAppConfig, {
-    args: { checkoutApiUrl },
+    args: { checkoutApiUrl: env.checkoutApiUrl },
   });
-  const dynamicAppConfig = useDynamicAppConfig<AppConfig>({ checkoutAppUrl });
+  const dynamicAppConfig = useDynamicAppConfig<AppConfig>({
+    checkoutAppUrl: env.checkoutAppUrl,
+  });
   const appConfig = dynamicAppConfig || storedAppConfig;
   const stylingRef = useRef(appConfig?.branding);
 
@@ -72,5 +80,7 @@ export const AppConfigProvider: React.FC<
 
   useEffect(handleAppStylingUpdate, [appConfig]);
 
-  return <Provider value={{ config: appConfig, loading }}>{children}</Provider>;
+  return (
+    <Provider value={{ config: appConfig, env, loading }}>{children}</Provider>
+  );
 };

@@ -16,14 +16,13 @@ import "./hooks/useAlerts/AlertStyles.css";
 import { ToastContainer } from "react-toastify";
 import { alertsContainerProps } from "./hooks/useAlerts/consts";
 import { useMemo } from "react";
+import type { AppEnv } from "./providers/AppConfigProvider/types";
 
 export interface RootProps {
-  apiUrl: string;
-  checkoutApiUrl: string;
-  checkoutAppUrl: string;
+  env: AppEnv;
 }
 
-export const Root = ({ apiUrl, checkoutApiUrl, checkoutAppUrl }: RootProps) => {
+export const Root = ({ env }: RootProps) => {
   const orderId = getQueryVariables().orderId;
 
   const authorizedFetch = useMemo(() => createFetch(), []);
@@ -31,7 +30,7 @@ export const Root = ({ apiUrl, checkoutApiUrl, checkoutAppUrl }: RootProps) => {
   const client = useMemo(
     () =>
       createClient({
-        url: apiUrl,
+        url: env.apiUrl,
         suspense: true,
         requestPolicy: "network-only",
         fetch: authorizedFetch as ClientOptions["fetch"],
@@ -44,7 +43,7 @@ export const Root = ({ apiUrl, checkoutApiUrl, checkoutAppUrl }: RootProps) => {
   const saleorClient = useMemo(
     () =>
       createSaleorClient({
-        apiUrl: apiUrl,
+        apiUrl: env.apiUrl,
         channel: "default-channel",
       }),
     []
@@ -55,10 +54,7 @@ export const Root = ({ apiUrl, checkoutApiUrl, checkoutAppUrl }: RootProps) => {
     <SaleorProvider client={saleorClient}>
       <I18nProvider locale={getCurrentRegion()}>
         <UrqlProvider value={client}>
-          <AppConfigProvider
-            checkoutApiUrl={checkoutApiUrl}
-            checkoutAppUrl={checkoutAppUrl}
-          >
+          <AppConfigProvider env={env}>
             <div className="app">
               <ToastContainer {...alertsContainerProps} />
               {/* @ts-ignore React 17 <-> 18 type mismatch */}

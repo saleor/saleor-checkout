@@ -1,11 +1,17 @@
 import { Divider } from "@/checkout-frontstore/components/Divider";
 import { useCheckout } from "@/checkout-frontstore/hooks/useCheckout";
-import { Contact, ContactSkeleton } from "@/checkout-frontstore/sections/Contact";
+import {
+  Contact,
+  ContactSkeleton,
+} from "@/checkout-frontstore/sections/Contact";
 import {
   ShippingMethods,
   ShippingMethodsSkeleton,
 } from "@/checkout-frontstore/sections/ShippingMethods";
-import { Addresses, AddressesSkeleton } from "@/checkout-frontstore/sections/Addresses";
+import {
+  Addresses,
+  AddressesSkeleton,
+} from "@/checkout-frontstore/sections/Addresses";
 import { useErrorMessages } from "@/checkout-frontstore/hooks/useErrorMessages";
 import { useValidationResolver } from "@/checkout-frontstore/lib/utils";
 import { Suspense } from "react";

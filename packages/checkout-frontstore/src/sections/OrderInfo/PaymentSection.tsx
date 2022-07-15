@@ -8,14 +8,8 @@ import { Skeleton } from "@/checkout-frontstore/components/Skeleton";
 
 import { Section, SectionTitle } from "./Section";
 
-export const PaymentSection = ({
-  orderId,
-  checkoutApiUrl,
-}: {
-  orderId: string;
-  checkoutApiUrl: string;
-}) => {
-  const { loading: orderPayLoading, orderPay } = usePay(checkoutApiUrl);
+export const PaymentSection = ({ orderId }: { orderId: string }) => {
+  const { loading: orderPayLoading, orderPay } = usePay();
   const [{ data: paymentData, loading: paymentStatusLoading }] = useFetch(
     getOrderPaymentStatus,
     { args: { orderId } }
@@ -24,7 +18,6 @@ export const PaymentSection = ({
 
   const handlePay = async () => {
     await orderPay({
-      checkoutApiUrl,
       provider: "mollie", // TODO: Hardcoded payment provider
       orderId,
     });

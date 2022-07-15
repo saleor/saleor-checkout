@@ -1,6 +1,7 @@
 import { PaymentMethodID } from "@/checkout-app/types";
 import { getPaymentMethods } from "@/checkout-frontstore/fetch";
 import { useFetch } from "@/checkout-frontstore/hooks/useFetch";
+import { useAppConfig } from "@/checkout-frontstore/providers/AppConfigProvider";
 import { reduce } from "lodash-es";
 import { useEffect, useState } from "react";
 
@@ -12,10 +13,10 @@ export interface UsePaymentMethods {
   availablePaymentMethods: AvailablePaymentMethods;
 }
 
-export const usePaymentMethods = (
-  checkoutApiUrl: string,
-  channelId: string
-) => {
+export const usePaymentMethods = (channelId: string) => {
+  const {
+    env: { checkoutApiUrl },
+  } = useAppConfig();
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
     useState<PaymentMethodID>();
 

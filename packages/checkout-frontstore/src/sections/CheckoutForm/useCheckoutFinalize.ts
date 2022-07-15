@@ -8,12 +8,16 @@ import { FormData } from "./types";
 import { usePay } from "@/checkout-frontstore/hooks/usePay";
 import { useAlerts } from "@/checkout-frontstore/hooks/useAlerts";
 import { PayErrorResult } from "@/checkout-frontstore/fetch";
+import { useAppConfig } from "@/checkout-frontstore/providers/AppConfigProvider";
 
 export const useCheckoutFinalize = () => {
   const { checkout } = useCheckout();
   const { register } = useAuth();
   const { user } = useAuthState();
   const { checkoutPay, loading } = usePay();
+  const {
+    env: { checkoutApiUrl },
+  } = useAppConfig();
   const { showErrors, showCustomErrors } = useAlerts();
   const { errors, setApiErrors } = useErrors();
 
@@ -45,6 +49,7 @@ export const useCheckoutFinalize = () => {
 
     if (userRegisterSuccessOrPassed) {
       const result = await checkoutPay({
+        checkoutApiUrl,
         provider: formData.paymentProviderId,
         checkoutId: checkout?.id,
         totalAmount: checkout?.totalPrice?.gross?.amount as number,
