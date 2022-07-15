@@ -1,5 +1,5 @@
-import { Root } from "@saleor/checkout-frontstore";
-import "@saleor/checkout-frontstore/dist/esm/index.css";
+import { Root } from "../../../packages/checkout-storefront/dist";
+import "@saleor/checkout-storefront/dist/esm/index.css";
 import invariant from "ts-invariant";
 
 export function App() {
