@@ -1,29 +1,72 @@
 import { withSaleorDomainMatch } from "@/checkout-app/backend/middlewares";
 import { getSaleorDomain } from "@/checkout-app/backend/utils";
-
-jest.mock("@/checkout-app/backend/utils.ts");
-
-const mockedGetSaleorDomain = <jest.Mock>getSaleorDomain;
+import { SALEOR_DOMAIN_HEADER } from "@saleor/app-sdk/const";
+import type { Request } from "retes";
 
 const TEST_SALEOR_DOMAIN = "master.staging.saleor.cloud";
 
+jest.mock("@/checkout-app/backend/utils.ts");
+
+const mockedGetSaleorDomain = getSaleorDomain as jest.MockedFunction<
+  typeof getSaleorDomain
+>;
+
+const mockRequest: Request = {
+  params: {},
+  url: "",
+  // @ts-expect-error Expects IncomingMessage, but object will do fine
+  body: {},
+  host: TEST_SALEOR_DOMAIN,
+  method: "POST",
+  context: {},
+  headers: {},
+};
+
 describe("withSaleorDomainMatch", () => {
-  mockedGetSaleorDomain.mockImplementation(() => TEST_SALEOR_DOMAIN);
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("handles missing Saleor domain in configuration", async () => {
     const handler = jest.fn();
-    mockedGetSaleorDomain.mockImplementationOnce(() => null);
+    mockedGetSaleorDomain.mockImplementationOnce(() => {
+      throw new Error("Missing value");
+    });
 
-    const result = await withSaleorDomainMatch(handler)({});
+    const result = await withSaleorDomainMatch(handler)({
+      ...mockRequest,
+      headers: {
+        [SALEOR_DOMAIN_HEADER]: TEST_SALEOR_DOMAIN,
+      },
+    });
     expect(result.body).toHaveProperty("success", false);
     expect(result.body).toHaveProperty("message");
     expect(result.status).toBe(500);
     expect(handler).not.toHaveBeenCalled();
+    mockedGetSaleorDomain.mockRestore();
   });
 
   it("handles missing Saleor domain in request", async () => {
     const handler = jest.fn();
+    mockedGetSaleorDomain.mockImplementationOnce(() => TEST_SALEOR_DOMAIN);
 
-    const result = await withSaleorDomainMatch(handler)({});
+    const result = await withSaleorDomainMatch(handler)(mockRequest);
+    expect(result.body).toHaveProperty("success", false);
+    expect(result.body).toHaveProperty("message");
+    expect(result.status).toBe(400);
+    expect(handler).not.toHaveBeenCalled();
+  });
+
+  it("handles empty Saleor domain in request", async () => {
+    const handler = jest.fn();
+    mockedGetSaleorDomain.mockImplementationOnce(() => TEST_SALEOR_DOMAIN);
+
+    const result = await withSaleorDomainMatch(handler)({
+      ...mockRequest,
+      headers: {
+        [SALEOR_DOMAIN_HEADER]: "",
+      },
+    });
     expect(result.body).toHaveProperty("success", false);
     expect(result.body).toHaveProperty("message");
     expect(result.status).toBe(400);
@@ -32,8 +75,10 @@ describe("withSaleorDomainMatch", () => {
 
   it("handles mismatched Saleor domain in request", async () => {
     const handler = jest.fn();
+    mockedGetSaleorDomain.mockImplementationOnce(() => TEST_SALEOR_DOMAIN);
 
     const result = await withSaleorDomainMatch(handler)({
+      ...mockRequest,
       headers: {
         [SALEOR_DOMAIN_HEADER]: "some-other-comain.com",
       },
@@ -46,8 +91,10 @@ describe("withSaleorDomainMatch", () => {
 
   it("handles correct Saleor domain in request", async () => {
     const handler = jest.fn();
+    mockedGetSaleorDomain.mockImplementationOnce(() => TEST_SALEOR_DOMAIN);
 
-    const result = await withSaleorDomainMatch(handler)({
+    await withSaleorDomainMatch(handler)({
+      ...mockRequest,
       headers: {
         [SALEOR_DOMAIN_HEADER]: TEST_SALEOR_DOMAIN,
       },
