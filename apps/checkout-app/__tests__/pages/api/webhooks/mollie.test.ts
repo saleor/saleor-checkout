@@ -13,8 +13,9 @@ describe("/api/webhooks/mollie", () => {
     setupPollyMiddleware(context.polly.server);
   });
 
-  it("handles invalid requests payments", async () => {
+  it("handles invalid (empty) requests payments", async () => {
     const { req, res } = mockRequest("POST");
+    req.body = {};
 
     await handler(req, res);
 
