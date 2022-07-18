@@ -1,17 +1,4 @@
-export type TestingEnvVar =
-  | "mollieKey"
-  | "mollieProfileId"
-  | "mollieCompletedOrderId"
-  | "adyenMarchantAccount"
-  | "adyenClientKey"
-  | "adyenApiKey"
-  | "adyenHmac"
-  | "adyenWebhookPassword"
-  | "adyenWebhookUsername";
-
-export type TestingEnvVars = Record<TestingEnvVar, string>;
-
-export const testingVars: TestingEnvVars = {
+export const testingVars = {
   mollieKey: process.env.TEST_MOLLIE_KEY ?? "",
   mollieProfileId: process.env.TEST_MOLLIE_PROFILE_ID ?? "",
   mollieCompletedOrderId: process.env.TEST_MOLLIE_COMPLETED_ORDER_ID ?? "",
@@ -23,3 +10,7 @@ export const testingVars: TestingEnvVars = {
   adyenWebhookPassword: process.env.TEST_ADYEN_WEBHOOK_PASSWORD ?? "",
   adyenWebhookUsername: process.env.TEST_ADYEN_WEBHOOK_USERNAME ?? "",
 };
+
+export type TestingEnvVar = keyof typeof testingVars;
+
+export type TestingEnvVars = Record<TestingEnvVar, string>;
