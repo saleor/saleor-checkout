@@ -81,14 +81,16 @@ export const CheckoutForm = () => {
   return (
     <div className="checkout-form">
       <FormProvider {...methods}>
-        {isLoading ? <ContactSkeleton /> : <Contact />}
+        <Suspense fallback={<ContactSkeleton />}>
+          <Contact />
+        </Suspense>
       </FormProvider>
       <Divider className="mt-4" />
       <Suspense fallback={<AddressesSkeleton />}>
-        {isLoading ? <AddressesSkeleton /> : <Addresses />}
+        <Addresses />
       </Suspense>
       <Suspense fallback={<ShippingMethodsSkeleton />}>
-        {isLoading ? <ShippingMethodsSkeleton /> : <ShippingMethods />}
+        <ShippingMethods />
       </Suspense>
       <PaymentMethods {...usePaymentProvidersProps} />
       {isLoading ? (
