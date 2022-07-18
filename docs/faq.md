@@ -62,3 +62,9 @@ Check solutions for ["Unauthorized" error](#i-get-unauthorized-error-message-in-
 ## I get "Checkout not found" error after clicking "Pay"
 
 The checkout was turned into an order in Saleor, thus deleting checkout session. You need to create a new checkout session.
+
+## I get `No matching version found for checkout-app@* inside the workspace` in Vercel deployment
+
+Check in your project settings if you have "Include source files outside of the Root Directory in the Build Step" option enabled:
+
+![](./screenshots/faq/vercel-include-source-files.png)
