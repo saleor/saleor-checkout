@@ -11,7 +11,7 @@ export const saleorHandlers = [
     PrivateMetafieldsInferedQueryVariables
   >("PrivateMetafieldsInfered", (req, res, ctx) => {
     const { keys } = req.variables;
-    console.log(keys);
+
     if (!keys || typeof keys === "string" || keys?.length === 0) {
       return res(
         ctx.errors([
@@ -22,7 +22,7 @@ export const saleorHandlers = [
         ])
       );
     }
-    console.log(prepareGraphqlMetafields(keys, appPrivateMetafields));
+
     return res(
       ctx.data({
         app: {
