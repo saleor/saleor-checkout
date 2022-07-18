@@ -29,6 +29,7 @@
     "@urql/exchange-multipart-fetch": "^0.1.14",
     "clsx": "^1.1.1",
     "content-type": "^1.0.4",
+    "crypto-js": "^4.1.1",
     "currency.js": "^2.0.4",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.3.0",

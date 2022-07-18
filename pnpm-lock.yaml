@@ -156,6 +156,7 @@ importers:
       babel-plugin-formatjs: ^10.3.18
       clsx: ^1.1.1
       content-type: ^1.0.4
+      crypto-js: ^4.1.1
       currency.js: ^2.0.4
       dotenv: ^16.0.1
       env-vars: workspace:*
@@ -201,6 +202,7 @@ importers:
       '@urql/exchange-multipart-fetch': 0.1.14_graphql@16.5.0
       clsx: 1.1.1
       content-type: 1.0.4
+      crypto-js: 4.1.1
       currency.js: 2.0.4
       eslint-plugin-react: 7.30.0_eslint@7.32.0
       eslint-plugin-react-hooks: 4.5.0_eslint@7.32.0
@@ -9277,6 +9279,10 @@ packages:
       randombytes: 2.1.0
       randomfill: 1.0.4
     dev: true
+
+  /crypto-js/4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
+    dev: false
 
   /crypto-random-string/2.0.0:
     resolution: {integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==}
