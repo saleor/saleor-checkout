@@ -68,3 +68,12 @@ The checkout was turned into an order in Saleor, thus deleting checkout session.
 Check in your project settings if you have "Include source files outside of the Root Directory in the Build Step" option enabled:
 
 ![](./screenshots/faq/vercel-include-source-files.png)
+
+## I get `"Error: No Output Directory named "build"` in my Vercel deployments.
+
+Check in your project settings if you've correctly selected the Root Directory.
+
+If you need to know what Root Directory should be set, check the [deployment guide](./vercel.md) for:
+
+- [checkout](./vercel.md#2-configure-new-project-for-checkout)
+- [checkout-app](./vercel.md#2-configuring-new-project-for-checkout-app)
