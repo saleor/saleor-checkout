@@ -1,9 +1,6 @@
 import { ADYEN_PAYMENT_PREFIX } from "@/checkout-app/backend/payments/providers/adyen";
 import { MOLLIE_PAYMENT_PREFIX } from "@/checkout-app/backend/payments/providers/mollie";
-import {
-  TransactionActionPayloadFragment,
-  WebhookEventTypeAsyncEnum,
-} from "@/checkout-app/graphql";
+import { TransactionActionPayloadFragment } from "@/checkout-app/graphql";
 import { TransactionRefund } from "@/checkout-app/types/refunds";
 import { handleMolieRefund } from "@/checkout-app/backend/payments/providers/mollie";
 import { handleAdyenRefund } from "@/checkout-app/backend/payments/providers/adyen";
@@ -64,5 +61,5 @@ export default toNextHandler([
   withSaleorDomainMatch,
   withSaleorEventMatch("transaction_action_request"),
   withWebhookSignatureVerified(),
-  handler,
+  handler as Handler,
 ]);
