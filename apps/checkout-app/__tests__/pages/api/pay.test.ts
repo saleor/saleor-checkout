@@ -58,7 +58,7 @@ describe("/api/pay", () => {
     expect(mockedCreateOrder).not.toHaveBeenCalled();
     expect(mockedCreateMolliePayment).not.toHaveBeenCalled();
 
-    const data: PayRequestErrorResponse = res._getJSONData();
+    const data = res._getJSONData<PayRequestErrorResponse>();
     expect(res.statusCode).toBe(400);
     expect(data.ok).toBe(false);
     expect(data.errors.length).toBe(1);
@@ -100,7 +100,7 @@ describe("/api/pay", () => {
     });
     expect(mockedCreateMolliePayment).toHaveBeenCalledTimes(1);
 
-    const data: PayRequestSuccessResponse = res._getJSONData();
+    const data = res._getJSONData<PayRequestSuccessResponse>();
 
     expect(res.statusCode).toBe(200);
     expect(data.ok).toBe(true);
@@ -142,7 +142,7 @@ describe("/api/pay", () => {
     expect(mockedCreateMolliePayment).not.toHaveBeenCalled();
     expect(mockedUpdatePaymentMetafield).not.toHaveBeenCalled();
 
-    const data: PayRequestSuccessResponse = res._getJSONData();
+    const data = res._getJSONData<PayRequestSuccessResponse>();
 
     expect(res.statusCode).toBe(200);
     expect(data.ok).toBe(true);
@@ -180,7 +180,7 @@ describe("/api/pay", () => {
     );
     expect(mockedCreateAdyenPayment).toHaveBeenCalledTimes(1);
 
-    const data: PayRequestSuccessResponse = res._getJSONData();
+    const data = res._getJSONData<PayRequestSuccessResponse>();
     expect(res.statusCode).toBe(200);
     expect(data.ok).toBe(true);
     expect(data.provider).toBe("adyen");
@@ -221,7 +221,7 @@ describe("/api/pay", () => {
     expect(mockedCreateAdyenPayment).not.toHaveBeenCalled();
     expect(mockedUpdatePaymentMetafield).not.toHaveBeenCalled();
 
-    const data: PayRequestSuccessResponse = res._getJSONData();
+    const data = res._getJSONData<PayRequestSuccessResponse>();
 
     expect(res.statusCode).toBe(200);
     expect(data.ok).toBe(true);
