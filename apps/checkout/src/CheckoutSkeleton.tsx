@@ -22,8 +22,9 @@ export const CheckoutSkeleton: React.FC<CheckoutSkeletonProps> = ({}) => {
             <AddressesSkeleton />
             <ShippingMethodsSkeleton />
             <Button
+              disabled
               ariaLabel={formatMessage("finalizeCheckoutLabel")}
-              label=""
+              label={formatMessage("pay")}
               className="pay-button"
             />
           </div>
