@@ -12,8 +12,8 @@ Here's the list of each app and shared package in the monorepo (click to see a R
 
 #### Apps
 
-- [`apps/checkout`](apps/checkout/README.md): an SPA React 18 checkout app, ready to be extended/modified
-- [`apps/saleor-app-checkout`](apps/saleor-app-checkout/README.md): an Next.js Saleor app with dashboard for managing settings and theme, backend for checkout SPA, ready to be extended/modified
+- [`apps/saleor-app-checkout`](apps/saleor-app-checkout/README.md): a Next.js Saleor app with dashboard for managing settings and theme, backend for Checkout, and the Checkout Storefront – ready to be extended/modified
+- [`apps/checkout`](apps/checkout/README.md): an SPA React 18 checkout app, currently deprecated (kept for backward compatibility)
 
 #### Packages
 
@@ -21,7 +21,7 @@ Here's the list of each app and shared package in the monorepo (click to see a R
 - `packages/config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `packages/tsconfig`: `tsconfig.json`s used throughout the monorepo
 - `packages/checkout-storefront`: Checkout store front component
-- `packages/checkout-common`: Common types used by `checkout-storefront` and `apps/checkout`
+- `packages/checkout-common`: Common types and utils
 
 ### Install dependencies
 
@@ -40,7 +40,7 @@ pnpm run build
 You can also build a specific app or package by running this command:
 
 ```bash
-pnpm run build:checkout
+pnpm run build --filter=checkout
 ```
 
 In this example, we'll only build `apps/checkout`
@@ -58,7 +58,6 @@ cd apps/saleor-app-checkout && npx saleor app tunnel 3000
 Before you start the server, you need to change default environment variables. Create `.env.local` file in each app:
 
 - [`apps/saleor-app-checkout`](./apps/saleor-app-checkout/README.md#env-variables)
-- [`apps/checkout`](./apps/checkout/README.md#local-development)
 
 To run the development server for all the apps, use the following command:
 
@@ -109,7 +108,7 @@ Change environment variables inside `.env` file:
   Example:
 
   ```
-  https://saleor-saleor-app-checkout.vercel.app
+  https://saleor-app-checkout.vercel.app
   ```
 
   > See [guide below](#vercel) on how to deploy the Checkout App

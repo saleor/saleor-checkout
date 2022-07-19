@@ -28,7 +28,7 @@ Choose **Yes** when asked if the app should be installed.
 > lsof -i :3000
 > ```
 
-> Note: You can also use [`ngrook`](https://ngrok.com/), but you would need to update env variables each time you open tunnel (on free plan) with new domain `ngrook` assigned you.
+> Note: You can also use [`ngrok`](https://ngrok.com/), but you would need to update env variables each time you open tunnel (on free plan) with new domain `ngrok` assigned you.
 >
 > After you do that use `saleor app install` to install the app in your Saleor instance.
 >
@@ -88,5 +88,49 @@ openssl rand -hex 256
 Each variable starting with [`NEXT_PUBLIC`](https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables-to-the-browser) is exposed to frontend
 
 - `NEXT_PUBLIC_SALEOR_API_URL` — URL of your Saleor GraphQL API
+- `NEXT_PUBLIC_CHECKOUT_APP_URL` – URL of this application (i.e. https://saleor-app-checkout.vercel.app)
 
-> Note: by default `SALEOR_API_URL` env variable from root of monorepo is used for the value. If you want to customise it, you can add a separate `.env.local` file, which won't be stored in git repository
+> Note: by default `SALEOR_API_URL` and `CHECKOUT_APP_URL` env variables from the root of the monorepo are used for these values. If you want to customise them, you can add a separate `.env.local` file which won't be stored in the git repository.
+
+> **PROTIP 💡**: If you need Saleor instance for tesitng, create one using [Saleor CLI](https://github.com/saleor/saleor-cli):
+>
+> ```bash
+> npx saleor project create && npx saleor environment create
+> ```
+>
+> This will create new Saleor sandbox in [Saleor Cloud](https://cloud.saleor.io/)
+>
+> ⚠️ You need to use the same Saleor instance in `saleor-app-checkout`. Make sure you have the same value of `NEXT_PUBLIC_SALEOR_API_URL` variable in `apps/saleor-app-checkout/.env.local`
+
+## Checkout Storefront
+
+Checkout Storefront is available at [/checkout-spa](../saleor-app-checkout/pages/checkout-spa.tsx).
+
+You'll need a token to use the checkout. A new checkout session can be generated either in your storefront or in the GraphQL Playground. You could use a preexisting checkout as well.
+
+> ⚠️ Note that if a given checkout has customer already attached, it'll become private, and **you won't be able to fetch its data from the api** without the same customer being logged in your current browser. Checkout uses [Saleor SDK](https://github.com/saleor/saleor-sdk) for authentication.
+
+To generate checkout in GraphQL API and retrieve its `id`:
+
+```graphql
+mutation {
+  checkoutCreate(
+    input: {
+      channel: "default-channel"
+      lines: [{ variantId: "UHJvZHVjdFZhcmlhbnQ6MjAz", quantity: 1 }]
+    }
+  ) {
+    checkout {
+      id
+    }
+  }
+}
+```
+
+Learn more about creating checkout sessions in [Saleor docs](https://docs.saleor.io/docs/3.x/developer/checkout#creating-a-checkout-session)
+
+Open [localhost:3000/checkout-spa?checkout=<ID>](http://localhost:3000/checkout-spa?checkout=) in your browser and add the your token to the url.
+
+### More info
+
+See [checkout-storefront package](../../packages/checkout-storefront/README.md) for more information.

@@ -36,7 +36,7 @@ Start by [creating new project](https://vercel.com/docs/concepts/projects/overvi
 
 On the configuration page:
 
-- Provide your project name (for example `saleor-saleor-app-checkout`)
+- Provide your project name (for example `saleor-app-checkout`)
 - Select framework to Next.js
 - Choose the root directory to be `apps/saleor-app-checkout`
 - Override the build command to:
@@ -62,7 +62,7 @@ Update `CHECKOUT_APP_URL` in `.env` file located at the root of monorepo to be y
 Example:
 
 ```
-CHECKOUT_APP_URL=https://saleor-saleor-app-checkout.vercel.app
+CHECKOUT_APP_URL=https://saleor-app-checkout.vercel.app
 ```
 
 ### 4. Install the app in Saleor
@@ -97,13 +97,13 @@ saleor app install
 > ❌ Deployment domain (won't update app after push):
 >
 > ```
-> https://saleor-saleor-app-checkout-jluy793b2-myusername.vercel.app/api/manifest
+> https://saleor-app-checkout-jluy793b2-myusername.vercel.app/api/manifest
 > ```
 >
 > ✅ Production domain:
 >
 > ```
-> https://saleor-saleor-app-checkout.vercel.app/api/manifest
+> https://saleor-app-checkout.vercel.app/api/manifest
 > ```
 >
 > To see which domain is used for production go to [Vercel Dashboard](https://vercel.com) > Settings > Domains:
