@@ -57,6 +57,10 @@ export const GuestUserForm: React.FC<AnonymousCustomerFormProps> = ({
       mode: "onBlur",
       defaultValues: { email: getContextValues("email") },
     });
+
+  // @todo this used to work before making the typescript config more strict
+  // please, fix me
+  // @ts-expect-error
   const getInputProps = useGetInputProps(rest);
   const getContextInputProps = useGetInputProps(formContext);
 

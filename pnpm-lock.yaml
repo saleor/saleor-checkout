@@ -189,10 +189,12 @@ importers:
   packages/checkout-common:
     specifiers:
       '@material-ui/core': ^4.12.3
+      tsconfig: workspace:*
       typescript: 4.7.4
     dependencies:
       '@material-ui/core': registry.npmjs.org/@material-ui/core/4.12.4_sfoxds7t5ydpegc3knd667wn6m
     devDependencies:
+      tsconfig: link:../tsconfig
       typescript: registry.npmjs.org/typescript/4.7.4
 
   packages/checkout-storefront:
@@ -244,7 +246,7 @@ importers:
       prettier: ^2.5.1
       query-string: ^7.1.1
       react-error-boundary: ^3.1.4
-      react-hook-form: ^7.27.1
+      react-hook-form: ^7.33.1
       react-scripts: 5.0.0
       react-toastify: ^9.0.4
       rollup: ^2.70.2
@@ -253,6 +255,7 @@ importers:
       rollup-plugin-postcss: ^4.0.2
       rollup-plugin-terser: ^7.0.2
       tailwindcss: ^3.0.18
+      tsconfig: workspace:*
       tslib: ^2.4.0
       typescript: ^4.7.4
       url-join: ^5.0.0
@@ -320,6 +323,7 @@ importers:
       rollup-plugin-peer-deps-external: registry.npmjs.org/rollup-plugin-peer-deps-external/2.2.4_rollup@2.77.0
       rollup-plugin-postcss: registry.npmjs.org/rollup-plugin-postcss/4.0.2_postcss@8.4.14
       rollup-plugin-terser: registry.npmjs.org/rollup-plugin-terser/7.0.2_rollup@2.77.0
+      tsconfig: link:../tsconfig
       tslib: registry.npmjs.org/tslib/2.4.0
       typescript: registry.npmjs.org/typescript/4.7.4
       web-vitals: registry.npmjs.org/web-vitals/2.1.4
@@ -368,7 +372,6 @@ importers:
       '@types/node': ^16.11.22
       '@types/react': ^18.0.5
       '@types/react-dom': ^18.0.1
-      '@types/tailwindcss': ^3.0.9
       autoprefixer: ^10.4.4
       babel-loader: ^8.2.4
       clsx: ^1.1.1
@@ -388,7 +391,7 @@ importers:
       rollup-plugin-terser: ^7.0.2
       style-loader: ^1.3.0
       tailwindcss: 3.0.18
-      tsconfig: '*'
+      tsconfig: workspace:*
       tslib: ^2.4.0
       typescript: ^4.5.3
     dependencies:
@@ -411,7 +414,6 @@ importers:
       '@types/node': registry.npmjs.org/@types/node/16.11.45
       '@types/react': registry.npmjs.org/@types/react/18.0.15
       '@types/react-dom': registry.npmjs.org/@types/react-dom/18.0.6
-      '@types/tailwindcss': registry.npmjs.org/@types/tailwindcss/3.1.0_ugi4xkrfysqkt4c4y6hkyfj344
       autoprefixer: registry.npmjs.org/autoprefixer/10.4.7_postcss@8.4.14
       babel-loader: registry.npmjs.org/babel-loader/8.2.5_sqoqrlbh4fciq6urcohea2fb5a
       css-loader: registry.npmjs.org/css-loader/3.6.0_webpack@5.73.0
@@ -429,7 +431,7 @@ importers:
       rollup-plugin-terser: registry.npmjs.org/rollup-plugin-terser/7.0.2_rollup@2.77.0
       style-loader: registry.npmjs.org/style-loader/1.3.0_webpack@5.73.0
       tailwindcss: registry.npmjs.org/tailwindcss/3.0.18_ugi4xkrfysqkt4c4y6hkyfj344
-      tsconfig: registry.npmjs.org/tsconfig/7.0.0
+      tsconfig: link:../tsconfig
       typescript: registry.npmjs.org/typescript/4.7.4
 
 packages:
@@ -7688,32 +7690,6 @@ packages:
     name: '@types/stack-utils'
     version: 2.0.1
 
-  registry.npmjs.org/@types/strip-bom/3.0.0:
-    resolution: {integrity: sha512-xevGOReSYGM7g/kUBZzPqCrR/KYAo+F0yiPc85WFTJa0MSLtyFTVTU6cJu/aV4mid7IffDIWqo69THF2o4JiEQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@types/strip-bom/-/strip-bom-3.0.0.tgz}
-    name: '@types/strip-bom'
-    version: 3.0.0
-    dev: true
-
-  registry.npmjs.org/@types/strip-json-comments/0.0.30:
-    resolution: {integrity: sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz}
-    name: '@types/strip-json-comments'
-    version: 0.0.30
-    dev: true
-
-  registry.npmjs.org/@types/tailwindcss/3.1.0_ugi4xkrfysqkt4c4y6hkyfj344:
-    resolution: {integrity: sha512-JxPzrm609hzvF4nmOI3StLjbBEP3WWQxDDJESqR1nh94h7gyyy3XSl0hn5RBMJ9mPudlLjtaXs5YEBtLw7CnPA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@types/tailwindcss/-/tailwindcss-3.1.0.tgz}
-    id: registry.npmjs.org/@types/tailwindcss/3.1.0
-    name: '@types/tailwindcss'
-    version: 3.1.0
-    deprecated: This is a stub types definition. tailwindcss provides its own type definitions, so you do not need this installed.
-    dependencies:
-      tailwindcss: registry.npmjs.org/tailwindcss/3.0.18_ugi4xkrfysqkt4c4y6hkyfj344
-    transitivePeerDependencies:
-      - autoprefixer
-      - postcss
-      - ts-node
-    dev: true
-
   registry.npmjs.org/@types/tapable/1.0.8:
     resolution: {integrity: sha512-ipixuVrh2OdNmauvtT51o3d8z12p6LtFW9in7U79der/kwejjdNchQC5UMn5u/KxNoM7VHHOs/l8KS8uHxhODQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@types/tapable/-/tapable-1.0.8.tgz}
     name: '@types/tapable'
@@ -12531,6 +12507,7 @@ packages:
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
       - supports-color
+    dev: false
 
   registry.npmjs.org/eslint-config-next/12.2.2_hxadhbs2xogijvk7vq4t2azzbu:
     resolution: {integrity: sha512-oJhWBLC4wDYYUFv/5APbjHUFd0QRFCojMdj/QnMoOEktmeTvwnnoA8F8uaXs0fQgsaTK0tbUxBRv9/Y4/rpxOA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/eslint-config-next/-/eslint-config-next-12.2.2.tgz}
@@ -24724,17 +24701,6 @@ packages:
       json5: registry.npmjs.org/json5/1.0.1
       minimist: registry.npmjs.org/minimist/1.2.6
       strip-bom: registry.npmjs.org/strip-bom/3.0.0
-
-  registry.npmjs.org/tsconfig/7.0.0:
-    resolution: {integrity: sha512-vZXmzPrL+EmC4T/4rVlT2jNVMWCi/O4DIiSj3UHg1OE5kCKbk4mfrXc6dZksLgRM/TZlKnousKH9bbTazUWRRw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/tsconfig/-/tsconfig-7.0.0.tgz}
-    name: tsconfig
-    version: 7.0.0
-    dependencies:
-      '@types/strip-bom': registry.npmjs.org/@types/strip-bom/3.0.0
-      '@types/strip-json-comments': registry.npmjs.org/@types/strip-json-comments/0.0.30
-      strip-bom: registry.npmjs.org/strip-bom/3.0.0
-      strip-json-comments: registry.npmjs.org/strip-json-comments/2.0.1
-    dev: true
 
   registry.npmjs.org/tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz}

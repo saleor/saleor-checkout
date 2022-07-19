@@ -3,7 +3,7 @@ import NextDocument, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheets } from "@material-ui/styles";
 
 class Document extends NextDocument {
-  render() {
+  override render() {
     return (
       <Html>
         <Head>

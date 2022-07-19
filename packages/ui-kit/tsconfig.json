@@ -12,6 +12,7 @@
     "declarationMap": false,
     "declarationDir": "types",
     "outDir": "dist",
-    "composite": false
+    "composite": false,
+    "noUncheckedIndexedAccess": false
   }
 }

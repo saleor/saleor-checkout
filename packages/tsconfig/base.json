@@ -2,6 +2,8 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Default",
   "compilerOptions": {
+    "lib": ["ES2021"],
+    "target": "es2021",
     "composite": false,
     "declaration": true,
     "declarationMap": true,
@@ -10,7 +12,6 @@
     "inlineSources": false,
     "isolatedModules": true,
     "moduleResolution": "node",
-    "noUnusedLocals": true,
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
     "skipLibCheck": true,
@@ -24,14 +25,17 @@
     "noImplicitThis": true,
     "useUnknownInCatchVariables": true,
     "alwaysStrict": true,
-    "exactOptionalPropertyTypes": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
+    "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "allowUnreachableCode": false
+
+    /* @todo */
+    "noUnusedLocals": false,
+    "exactOptionalPropertyTypes": false,
+    "noPropertyAccessFromIndexSignature": false
   },
   "exclude": ["node_modules"]
 }

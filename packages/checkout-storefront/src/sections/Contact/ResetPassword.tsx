@@ -11,7 +11,7 @@ import {
 } from "@/checkout-storefront/lib/utils";
 import { useAuth } from "@saleor/sdk";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { Control, useForm } from "react-hook-form";
 import { object, string } from "yup";
 import {
   SignInFormContainer,
@@ -38,6 +38,10 @@ export const ResetPassword: React.FC<ResetPasswordProps> = ({
 
   const resolver = useValidationResolver(schema);
   const { handleSubmit, ...rest } = useForm<FormData>({ resolver });
+
+  // @todo this used to work before making the typescript config more strict
+  // please, fix me
+  // @ts-expect-error
   const getInputProps = useGetInputProps(rest);
 
   const onSubmit = async ({ password }: FormData) => {
