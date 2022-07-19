@@ -10,7 +10,7 @@ export const paymentProviders = {
     apiKey: encryptSetting(testingVars.mollieKey),
     profileId: {
       encrypted: false,
-      value: "pfl_G6PauFyC84",
+      value: testingVars.mollieProfileId,
     },
   },
   adyen: {
