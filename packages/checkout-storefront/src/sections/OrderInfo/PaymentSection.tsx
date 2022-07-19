@@ -1,4 +1,4 @@
-import { Button, Text } from "@saleor/ui-kit";
+import { Text } from "@saleor/ui-kit";
 
 import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
 import { usePay } from "@/checkout-storefront/hooks/usePay";
@@ -7,6 +7,7 @@ import { getOrderPaymentStatus } from "@/checkout-storefront/fetch";
 import { Skeleton } from "@/checkout-storefront/components/Skeleton";
 
 import { Section, SectionTitle } from "./Section";
+import { Button } from "@/checkout/components/Button";
 
 export const PaymentSection = ({ orderId }: { orderId: string }) => {
   const { loading: orderPayLoading, orderPay } = usePay();
@@ -45,9 +46,10 @@ export const PaymentSection = ({ orderId }: { orderId: string }) => {
         <div>
           <Text color="error">{formatMessage("unpaidOrderMessage")}</Text>
           <Button
+            ariaLabel={formatMessage("orderPayButtonLabel")}
             className="mt-2"
             label={formatMessage("orderPayButtonLabel")}
-            onClick={void handlePay}
+            onClick={handlePay}
             disabled={orderPayLoading}
           />
         </div>
