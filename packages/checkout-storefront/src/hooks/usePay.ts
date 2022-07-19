@@ -3,7 +3,7 @@ import {
   PaySuccessResult,
 } from "@/checkout-storefront/fetch";
 import { useFetch } from "@/checkout-storefront/hooks/useFetch";
-import { OrderBody, CheckoutBody } from "@saleor/checkout-common";
+import { OrderBody, CheckoutBody } from "checkout-common";
 import { useAppConfig } from "../providers/AppConfigProvider";
 
 const getRedirectUrl = () => {

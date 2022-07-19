@@ -1,6 +1,6 @@
 import { Errors } from "@/saleor-app-checkout/backend/payments/types";
 
-import { PaymentProviderID } from "@saleor/checkout-common";
+import { PaymentProviderID } from "checkout-common";
 
 type MollieResponse = {
   provider: "mollie";

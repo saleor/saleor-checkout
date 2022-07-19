@@ -25,7 +25,7 @@
     "@react-aria/i18n": "^3.3.4",
     "@react-types/button": "^3.4.1",
     "@saleor/sdk": "^0.4.3",
-    "@saleor/checkout-common": "workspace:*",
+    "checkout-common": "workspace:*",
     "@saleor/ui-kit": "workspace:*",
     "clsx": "^1.1.1",
     "hex-rgb": "^5.0.0",

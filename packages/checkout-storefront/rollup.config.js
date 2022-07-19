@@ -35,7 +35,7 @@ export default [
       typescript({ tsconfig: "./tsconfig.json" }),
       json(),
       image(),
-      // terser(),
+      ...(process.env.NODE_ENV === "production" ? [terser()] : []),
       postcss({
         extract: true,
         plugins: [require("tailwindcss")(), require("autoprefixer")()],

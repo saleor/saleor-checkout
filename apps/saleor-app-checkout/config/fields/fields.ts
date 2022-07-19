@@ -10,7 +10,7 @@ import {
   PaymentProvider,
   PaymentProviderSettings,
   PaymentProviderID,
-} from "@saleor/checkout-common";
+} from "checkout-common";
 import {
   brandingCustomizationMessages,
   customizationMessages,

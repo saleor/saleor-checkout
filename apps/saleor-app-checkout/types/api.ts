@@ -14,7 +14,7 @@ import {
   PaymentProvider,
   PaymentProviderID,
   PaymentProviderSettingID,
-} from "@saleor/checkout-common";
+} from "checkout-common";
 
 export interface SettingValue {
   value: string;

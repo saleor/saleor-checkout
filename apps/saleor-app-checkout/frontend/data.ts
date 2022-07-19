@@ -20,7 +20,7 @@ import {
   PaymentProvider,
   PaymentProviderID,
   PaymentProviderSettings,
-} from "@saleor/checkout-common";
+} from "checkout-common";
 
 export const useCustomizationSettings = (
   settingsValues: UnknownPublicSettingsValues

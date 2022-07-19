@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig/react-library.json",
+  "extends": "tsconfig/react-library.json",
   "include": ["src"],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
@@ -10,12 +10,10 @@
       "@/checkout-storefront/images": ["./src/assets/images"],
       "@/checkout-storefront/*": ["./src/*"]
     },
-    "moduleResolution": "Node",
     "declaration": true,
     "declarationMap": false,
     "declarationDir": "types",
     "outDir": "dist",
-    "composite": false,
-    "resolveJsonModule": true
+    "composite": false
   }
 }

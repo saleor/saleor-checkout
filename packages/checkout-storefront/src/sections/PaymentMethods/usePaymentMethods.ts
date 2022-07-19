@@ -1,4 +1,4 @@
-import { PaymentMethodID } from "@saleor/checkout-common";
+import { PaymentMethodID } from "checkout-common";
 import { getPaymentMethods } from "@/checkout-storefront/fetch";
 import { useFetch } from "@/checkout-storefront/hooks/useFetch";
 import { useAppConfig } from "@/checkout-storefront/providers/AppConfigProvider";
