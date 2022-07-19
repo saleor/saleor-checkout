@@ -1,3 +1,4 @@
 .env.local
 .envrc
 .auth_token
+tsconfig.tsbuildinfo
