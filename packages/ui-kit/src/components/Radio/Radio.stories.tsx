@@ -1,20 +1,22 @@
-import { ComponentMeta } from "@storybook/react";
+import { ComponentMeta, Story } from "@storybook/react";
 import { useState } from "react";
 
-import { Radio } from "./Radio";
+import { Radio, RadioProps } from "./Radio";
 
 export default {
   title: "Components/Radio",
   component: Radio,
 } as ComponentMeta<typeof Radio>;
 
-const options = [
+const options: RadioProps[] = [
   { label: "Apple", value: "apple" },
   { label: "Banana", value: "banana" },
 ];
 
-const Template = ({ customOptions = [] }) => {
-  const [selected, setSelected] = useState(null);
+const Template: Story<{ customOptions: RadioProps[] }> = ({
+  customOptions = [],
+}) => {
+  const [selected, setSelected] = useState<string | null>(null);
 
   const radioOptions = [...options, ...customOptions];
 
@@ -23,7 +25,7 @@ const Template = ({ customOptions = [] }) => {
       {radioOptions.map((option) => (
         <Radio
           {...option}
-          key={option.value}
+          key={option.value as string}
           checked={option.value === selected}
           onChange={(event) => {
             console.log(event.target);
