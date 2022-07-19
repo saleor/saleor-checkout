@@ -43,7 +43,7 @@ export default [
     ],
   },
   {
-    input: "./dist/esm/types/packages/checkout-storefront/src/index.d.ts",
+    input: "dist/esm/types/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "esm" }],
     external: [/\.css$/],
     plugins: [dts()],
