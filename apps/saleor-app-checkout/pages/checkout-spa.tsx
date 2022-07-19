@@ -1,4 +1,16 @@
-import { Root } from "@saleor/checkout-storefront";
+import Dynamic from "next/dynamic";
+import { Suspense } from "react";
+
+const CheckoutStoreFront = Dynamic(
+  async () => {
+    const { Root } = await import("@saleor/checkout-storefront");
+    return Root;
+  },
+  {
+    ssr: false,
+    suspense: true,
+  }
+);
 
 const apiUrl = process.env["NEXT_PUBLIC_SALEOR_API_URL"];
 const checkoutApiUrl = process.env["NEXT_PUBLIC_CHECKOUT_APP_URL"] + `/api`;
@@ -18,5 +30,9 @@ export default function CheckoutSpa() {
     return null;
   }
 
-  return <Root env={{ apiUrl, checkoutApiUrl, checkoutAppUrl }} />;
+  return (
+    <Suspense fallback={null}>
+      <CheckoutStoreFront env={{ apiUrl, checkoutApiUrl, checkoutAppUrl }} />
+    </Suspense>
+  );
 }
