@@ -70,7 +70,7 @@ Rest requests are defined in `src/fetch/requests.ts` and all use `useFetch` hook
 
 ### Theming and styles
 
-You can configure your styling (colors, font sizes, etc.) in your `checkout configuration app` (called checkout-app in this repository). The branding config is being fetched from the checkout app in `AppConfigProvider` as a `AppConfig` object. Then the styles are parsed and injected into the css. Check implementation of AppConfigProvider.
+You can configure your styling (colors, font sizes, etc.) in your `checkout configuration app` (called saleor-app-checkout in this repository). The branding config is being fetched from the checkout app in `AppConfigProvider` as a `AppConfig` object. Then the styles are parsed and injected into the css. Check implementation of AppConfigProvider.
 
 Checkout uses [tailwindcss](https://tailwindcss.com/) for styling. You can find tailwind config in `tailwind.config.js`. In the config, the css variables are mapped to tailwind styles like so:
 
@@ -93,12 +93,12 @@ By default those environment variables values are taken from `.env` file in root
 
 Checkout uses the following environment variables:
 
-- `REACT_APP_CHECKOUT_APP_URL` — URL of the deployed [Checkout App](../checkout-app/README.md)
+- `REACT_APP_CHECKOUT_APP_URL` — URL of the deployed [Checkout App](../saleor-app-checkout/README.md)
 
 > Example:
 >
 > ```
-> REACT_APP_CHECKOUT_APP_URL=https://saleor-checkout-app.vercel.app
+> REACT_APP_CHECKOUT_APP_URL=https://saleor-saleor-app-checkout.vercel.app
 > ```
 
 - `REACT_APP_SALEOR_API_URL` — URL of Saleor GraphQL API endpoint
@@ -111,4 +111,4 @@ Checkout uses the following environment variables:
 >
 > This will create new Saleor sandbox in [Saleor Cloud](https://cloud.saleor.io/)
 >
-> ⚠️ You need to use the same Saleor instance in `checkout-app`. Make sure you have the same value of `NEXT_PUBLIC_SALEOR_API_URL` variable in `apps/checkout-app/.env.local`
+> ⚠️ You need to use the same Saleor instance in `saleor-app-checkout`. Make sure you have the same value of `NEXT_PUBLIC_SALEOR_API_URL` variable in `apps/saleor-app-checkout/.env.local`

@@ -8,8 +8,8 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "build:checkout": "turbo run build --filter=checkout",
-    "build:checkout-app": "turbo run build --filter=checkout-app",
+    "build:checkout-store": "turbo run build --filter=checkout",
+    "build:saleor-app-checkout": "turbo run build --filter=saleor-app-checkout",
     "generate": "turbo run generate",
     "dev": "env-cmd turbo run dev --parallel",
     "lint": "turbo run lint",

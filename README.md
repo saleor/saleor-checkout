@@ -13,7 +13,7 @@ Here's the list of each app and shared package in the monorepo (click to see a R
 #### Apps
 
 - [`apps/checkout`](apps/checkout/README.md): an SPA React 18 checkout app, ready to be extended/modified
-- [`apps/checkout-app`](apps/checkout-app/README.md): an Next.js Saleor app with dashboard for managing settings and theme, backend for checkout SPA, ready to be extended/modified
+- [`apps/saleor-app-checkout`](apps/saleor-app-checkout/README.md): an Next.js Saleor app with dashboard for managing settings and theme, backend for checkout SPA, ready to be extended/modified
 
 #### Packages
 
@@ -47,17 +47,17 @@ In this example, we'll only build `apps/checkout`
 
 ### Develop
 
-Create a tunnel for `checkout-app`:
+Create a tunnel for `saleor-app-checkout`:
 
 ```bash
-cd apps/checkout-app && npx saleor app tunnel 3000
+cd apps/saleor-app-checkout && npx saleor app tunnel 3000
 ```
 
 > Note: the process needs to be running in the background
 
 Before you start the server, you need to change default environment variables. Create `.env.local` file in each app:
 
-- [`apps/checkout-app`](./apps/checkout-app/README.md#env-variables)
+- [`apps/saleor-app-checkout`](./apps/saleor-app-checkout/README.md#env-variables)
 - [`apps/checkout`](./apps/checkout/README.md#local-development)
 
 To run the development server for all the apps, use the following command:
@@ -109,7 +109,7 @@ Change environment variables inside `.env` file:
   Example:
 
   ```
-  https://saleor-checkout-app.vercel.app
+  https://saleor-saleor-app-checkout.vercel.app
   ```
 
   > See [guide below](#vercel) on how to deploy the Checkout App
