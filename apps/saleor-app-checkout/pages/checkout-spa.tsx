@@ -8,7 +8,7 @@ const CheckoutStoreFront = Dynamic(
   },
   {
     ssr: false,
-    suspense: true,
+    loading: () => null,
   }
 );
 
@@ -31,8 +31,6 @@ export default function CheckoutSpa() {
   }
 
   return (
-    <Suspense fallback={null}>
-      <CheckoutStoreFront env={{ apiUrl, checkoutApiUrl, checkoutAppUrl }} />
-    </Suspense>
+    <CheckoutStoreFront env={{ apiUrl, checkoutApiUrl, checkoutAppUrl }} />
   );
 }
