@@ -98,3 +98,27 @@ To test React components you must use `jsdom` runtime (the default is `node`). A
 ```js
 /** @jest-environment setup-polly-jest/jest-environment-node */
 ```
+
+### Mocking requests
+
+Mocking configuration works both in browser and Node environment
+
+#### Recording
+
+For mocking requests made in tests we use [Polly.js](https://netflix.github.io/pollyjs/#/). By default, if requests are made in tests and are not mocked the test will fail.
+
+To record requests run tests by using the `test:record` command:
+
+```
+pnpm run test:record
+```
+
+This command sets `POLLY_MODE` env variable to `record`.
+
+Recordings are stored in `recordings` folder.
+
+#### Manual mocks
+
+To write manual mocks we use [Mock Service Worker](https://mswjs.io/) library. Any REST API route or GraphQL operation that is mocked using `msw` won't be recorded by Polly.js.
+
+Mocks for msw are located in `mocks/handlers`
