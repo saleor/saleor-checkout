@@ -2,16 +2,19 @@ import { ChannelFragment } from "@/checkout-app/graphql";
 import {
   CustomizationID,
   CustomizationSettingID,
-  PaymentMethod,
-  PaymentMethodID,
-  PaymentProvider,
-  PaymentProviderID,
-  PaymentProviderSettingID,
   PrivateSettingID,
   PublicMetafieldID,
   PublicSettingID,
   SettingsType,
 } from "./common";
+
+import {
+  PaymentMethod,
+  PaymentMethodID,
+  PaymentProvider,
+  PaymentProviderID,
+  PaymentProviderSettingID,
+} from "@saleor/checkout-common-types";
 
 export interface SettingValue {
   value: string;
@@ -36,9 +39,7 @@ export type ChannelActivePaymentProviders = {
     [K in PaymentMethodID]: PaymentProviderID | "";
   };
 };
-export type ChannelActivePaymentProvidersByChannel = {
-  [P in PaymentMethodID]: PaymentProviderID | "";
-};
+
 export type PaymentProviderSettingsValues<E extends SettingReadMode> = {
   [P in PaymentProviderID]: E extends "unencrypted"
     ? Partial<{

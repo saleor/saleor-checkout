@@ -1,7 +1,7 @@
 module.exports = {
   extends: ["checkout", "next"],
   parserOptions: {
-    tsconfigRootDir: "./",
+    tsconfigRootDir: __dirname,
     project: ["./tsconfig.json"],
   },
   settings: {

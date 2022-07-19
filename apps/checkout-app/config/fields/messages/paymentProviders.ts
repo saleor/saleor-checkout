@@ -2,7 +2,7 @@ import {
   AdyenProviderSettingID,
   MollieProviderSettingID,
   PaymentProviderID,
-} from "@/checkout-app/types/common";
+} from "@saleor/checkout-common-types";
 import { defineMessages } from "react-intl";
 
 export const paymentProvidersMessages = defineMessages<PaymentProviderID>({

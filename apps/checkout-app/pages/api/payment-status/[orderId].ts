@@ -6,7 +6,7 @@ import { allowCors } from "@/checkout-app/backend/utils";
 import { getOrderPaymentDetails } from "@/checkout-app/backend/payments/getOrderPaymentDetails";
 import { OrderPaymentMetafield } from "@/checkout-app/types";
 import { verifyAdyenSession } from "@/checkout-app/backend/payments/providers/adyen/verifySession";
-import { PaymentStatusResponse } from "@/checkout-app/types/api/payment-status";
+import { PaymentStatusResponse } from "@saleor/checkout-common-types";
 import { verifyMollieSession } from "@/checkout-app/backend/payments/providers/mollie/verifySession";
 
 const adyenHandler = async (

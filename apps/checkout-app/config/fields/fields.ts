@@ -1,14 +1,16 @@
 import { useIntl } from "react-intl";
 import {
   Customization,
-  PaymentMethod,
-  PaymentProvider,
-  PaymentProviderSettings,
   CustomizationSettings,
   SettingID,
   CustomizationID,
-  PaymentProviderID,
 } from "types/common";
+import {
+  PaymentMethod,
+  PaymentProvider,
+  PaymentProviderSettings,
+  PaymentProviderID,
+} from "@saleor/checkout-common-types";
 import {
   brandingCustomizationMessages,
   customizationMessages,

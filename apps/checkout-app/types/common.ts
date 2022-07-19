@@ -1,5 +1,8 @@
-import { SvgIconTypeMap } from "@material-ui/core";
-import { OverridableComponent } from "@material-ui/core/OverridableComponent";
+import {
+  IconComponent,
+  PaymentProviderID,
+  SettingType,
+} from "@saleor/checkout-common-types";
 
 export type SettingsType = "public" | "private";
 export const allPublicMetafieldID = ["customizationsCheckoutUrl"] as const;
@@ -17,52 +20,8 @@ export type PublicSettingID = typeof allPublicSettingID;
 export type PrivateSettingID = typeof allPrivateSettingID;
 export type MetafieldID = PublicMetafieldID;
 export type SettingID = PublicSettingID | PrivateSettingID;
-export type SettingType = "string" | "color" | "image";
 
 export type ThemeVariant = "dark" | "light";
-
-export type IconComponent = OverridableComponent<SvgIconTypeMap<{}, "svg">>;
-
-/**
- * Payment types
- */
-export type PaymentMethodID = "creditCard" | "applePay" | "paypal";
-export interface PaymentMethod {
-  id: PaymentMethodID;
-  name: string;
-  logo?: IconComponent;
-}
-
-export type PaymentProviderID = "mollie" | "adyen";
-export type MollieProviderSettingID = "profileId" | "apiKey";
-export type AdyenProviderSettingID =
-  | "merchantAccount"
-  | "hmac"
-  | "username"
-  | "password"
-  | "apiKey"
-  | "clientKey";
-
-export type PaymentProviderSettingID<P extends PaymentProviderID> =
-  P extends "mollie"
-    ? MollieProviderSettingID
-    : P extends "adyen"
-    ? AdyenProviderSettingID
-    : never;
-
-export interface PaymentProviderSettings<P extends PaymentProviderID> {
-  id: PaymentProviderSettingID<P>;
-  label: string;
-  type: SettingType;
-  value?: string;
-  encrypt: boolean;
-}
-export interface PaymentProvider<P extends PaymentProviderID> {
-  id: P;
-  label: string;
-  logo?: IconComponent;
-  settings: PaymentProviderSettings<P>[];
-}
 
 /**
  * Customization types

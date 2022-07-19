@@ -8,12 +8,9 @@
     "paths": {
       "@/checkout-storefront/icons": ["./src/assets/icons"],
       "@/checkout-storefront/images": ["./src/assets/images"],
-      "@/checkout-storefront/*": ["./src/*"],
-      "@/checkout-app/*": ["../../apps/checkout-app/*"],
-      "@saleor/ui-kit/*": ["../ui-kit/*"]
+      "@/checkout-storefront/*": ["./src/*"]
     },
     "moduleResolution": "Node",
-    "emitDeclarationOnly": true,
     "declaration": true,
     "declarationMap": false,
     "declarationDir": "types",

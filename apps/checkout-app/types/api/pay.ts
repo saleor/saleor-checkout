@@ -1,24 +1,6 @@
 import { Errors } from "@/checkout-app/backend/payments/types";
 
-import { PaymentProviderID } from "../common";
-
-type BaseBody = {
-  checkoutApiUrl: string;
-  provider: PaymentProviderID;
-  redirectUrl: string;
-  // captureAmount?: number; // support for partial payments
-};
-
-export type OrderBody = {
-  orderId: string;
-} & BaseBody;
-
-export type CheckoutBody = {
-  checkoutId: string;
-  totalAmount: number;
-} & BaseBody;
-
-export type PayRequestBody = OrderBody | CheckoutBody;
+import { PaymentProviderID } from "@saleor/checkout-common-types";
 
 type MollieResponse = {
   provider: "mollie";

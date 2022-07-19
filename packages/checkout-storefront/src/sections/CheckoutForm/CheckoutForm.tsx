@@ -26,7 +26,7 @@ import "./CheckoutFormStyles.css";
 import { useSetFormErrors } from "@/checkout-storefront/hooks/useSetFormErrors";
 import { usePaymentMethods } from "../PaymentMethods/usePaymentMethods";
 import { PaymentMethods } from "../PaymentMethods";
-import { PaymentProviderID } from "@/checkout-app/types";
+import { PaymentProviderID } from "@saleor/checkout-common-types";
 
 export const CheckoutForm = () => {
   const formatMessage = useFormattedMessages();

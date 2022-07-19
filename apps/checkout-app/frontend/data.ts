@@ -15,10 +15,12 @@ import {
   Customization,
   CustomizationID,
   CustomizationSettings,
+} from "types/common";
+import {
   PaymentProvider,
   PaymentProviderID,
   PaymentProviderSettings,
-} from "types/common";
+} from "@saleor/checkout-common-types";
 
 export const useCustomizationSettings = (
   settingsValues: UnknownPublicSettingsValues

@@ -1,10 +1,11 @@
 import { FetchResponse } from "@/checkout-storefront/hooks/useFetch";
-import {} from "@/checkout-storefront/lib/utils";
 import { AppConfig } from "@/checkout-storefront/providers/AppConfigProvider/types";
-import { PayRequestBody } from "checkout-app/types/api/pay";
-import { PaymentStatusResponse } from "checkout-app/types/api/payment-status";
+import {
+  PayRequestBody,
+  PaymentStatusResponse,
+  ChannelActivePaymentProvidersByChannel,
+} from "@saleor/checkout-common-types";
 import { PayResult } from "./types";
-import { ChannelActivePaymentProvidersByChannel } from "checkout-app/types";
 import urlJoin from "url-join";
 
 export type PaymentMethodsRequestArgs = {

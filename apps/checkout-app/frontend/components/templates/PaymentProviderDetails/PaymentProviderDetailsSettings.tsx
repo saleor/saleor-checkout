@@ -1,5 +1,8 @@
 import { CardContent, Typography } from "@material-ui/core";
-import { PaymentProviderID, PaymentProviderSettings } from "types/common";
+import {
+  PaymentProviderID,
+  PaymentProviderSettings,
+} from "@saleor/checkout-common-types";
 import VerticalSpacer from "@/checkout-app/frontend/components/elements/VerticalSpacer";
 import { FormattedMessage } from "react-intl";
 import { useStyles } from "./styles";

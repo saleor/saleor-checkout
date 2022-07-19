@@ -1,5 +1,5 @@
-import { PaymentMethodID } from "@/checkout-app/types/common";
 import { defineMessages } from "react-intl";
+import { PaymentMethodID } from "@saleor/checkout-common-types";
 
 export const paymentMethodsMessages = defineMessages<PaymentMethodID>({
   creditCard: {
