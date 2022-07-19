@@ -119,18 +119,15 @@ export const setupPollyMiddleware = (server: PollyServer) => {
 export const setupRecording = () => {
   // use replay mode by default, override if POLLY_MODE env variable is passed
   let mode: PollyConfig["mode"] = "replay";
-  let recordIfMissing = true;
+  let recordIfMissing = false;
 
   switch (process.env.POLLY_MODE) {
     case "record":
       mode = "record";
+      recordIfMissing = true;
       break;
     case "replay":
       mode = "replay";
-      break;
-    case "offline":
-      mode = "replay";
-      recordIfMissing = false;
       break;
   }
 
@@ -157,6 +154,22 @@ export const setupRecording = () => {
       fs: {
         recordingsDir: path.resolve("./recordings"),
       },
+    },
+    matchRequestsBy: {
+      url: {
+        protocol: true,
+        username: true,
+        password: true,
+        hostname: true,
+        port: true,
+        pathname: true,
+        query: true,
+        hash: false,
+      },
+      body: true,
+      order: true,
+      method: true,
+      headers: false,
     },
   });
 };
