@@ -8,7 +8,7 @@ import { camelCase } from "lodash-es";
 import { RadioBoxGroup } from "@/checkout-storefront/components/RadioBoxGroup";
 import { RadioBox } from "@/checkout-storefront/components/RadioBox";
 import { UsePaymentMethods } from "./usePaymentMethods";
-import { PaymentMethodID } from "@saleor/checkout-common-types";
+import { PaymentMethodID } from "@saleor/checkout-common";
 
 export const PaymentMethods: React.FC<UsePaymentMethods> = ({
   availablePaymentMethods,

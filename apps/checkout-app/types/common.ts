@@ -2,7 +2,7 @@ import {
   IconComponent,
   PaymentProviderID,
   SettingType,
-} from "@saleor/checkout-common-types";
+} from "@saleor/checkout-common";
 
 export type SettingsType = "public" | "private";
 export const allPublicMetafieldID = ["customizationsCheckoutUrl"] as const;

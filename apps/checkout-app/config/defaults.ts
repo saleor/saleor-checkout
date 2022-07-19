@@ -4,7 +4,7 @@ import {
   PrivateSettingsValues,
   PublicSettingsValues,
 } from "types/api";
-import { ChannelActivePaymentProvidersByChannel } from "@saleor/checkout-common-types";
+import { ChannelActivePaymentProvidersByChannel } from "@saleor/checkout-common";
 
 export const defaultActiveChannelPaymentProviders: ChannelActivePaymentProvidersByChannel =
   {

@@ -1,7 +1,7 @@
 import ColorInput from "@/checkout-app/frontend/components/elements/ColorInput";
 import FileInput from "@/checkout-app/frontend/components/elements/FileInput";
 import { TextField } from "@material-ui/core";
-import { SettingType } from "@saleor/checkout-common-types";
+import { SettingType } from "@saleor/checkout-common";
 
 interface SettingProps {
   name: string;

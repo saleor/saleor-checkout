@@ -5,7 +5,7 @@ import { OrderStatus as MollieOrderStatus } from "@mollie/api-client";
 import { createMolliePayment } from "@/checkout-app/backend/payments/providers/mollie";
 import { createOrder } from "@/checkout-app/backend/payments/createOrder";
 import { OrderPaymentMetafield } from "@/checkout-app/types/common";
-import { PaymentProviderID } from "@saleor/checkout-common-types";
+import { PaymentProviderID } from "@saleor/checkout-common";
 import { createAdyenPayment } from "@/checkout-app/backend/payments/providers/adyen";
 import { OrderFragment } from "@/checkout-app/graphql";
 import { getOrderDetails } from "@/checkout-app/backend/payments/getOrderDetails";
@@ -13,7 +13,7 @@ import {
   PayRequestResponse,
   PayRequestErrorResponse,
 } from "@/checkout-app/types/api/pay";
-import { PayRequestBody } from "@saleor/checkout-common-types";
+import { PayRequestBody } from "@saleor/checkout-common";
 import { allowCors, getBaseUrl } from "@/checkout-app/backend/utils";
 import { updatePaymentMetafield } from "@/checkout-app/backend/payments/updatePaymentMetafield";
 import { verifyMollieSession } from "@/checkout-app/backend/payments/providers/mollie/verifySession";

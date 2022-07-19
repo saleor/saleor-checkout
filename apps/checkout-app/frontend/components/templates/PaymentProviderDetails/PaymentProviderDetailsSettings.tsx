@@ -2,7 +2,7 @@ import { CardContent, Typography } from "@material-ui/core";
 import {
   PaymentProviderID,
   PaymentProviderSettings,
-} from "@saleor/checkout-common-types";
+} from "@saleor/checkout-common";
 import VerticalSpacer from "@/checkout-app/frontend/components/elements/VerticalSpacer";
 import { FormattedMessage } from "react-intl";
 import { useStyles } from "./styles";

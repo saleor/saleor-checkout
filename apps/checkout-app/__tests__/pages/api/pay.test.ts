@@ -2,7 +2,7 @@ import {
   PayRequestErrorResponse,
   PayRequestSuccessResponse,
 } from "@/checkout-app/types/api/pay";
-import { PayRequestBody } from "@saleor/checkout-common-types";
+import { PayRequestBody } from "@saleor/checkout-common";
 import pay from "@/checkout-app/pages/api/pay";
 import { mockRequest } from "@/checkout-app/test-utils";
 

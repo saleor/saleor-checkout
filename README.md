@@ -21,7 +21,7 @@ Here's the list of each app and shared package in the monorepo (click to see a R
 - `packages/config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `packages/tsconfig`: `tsconfig.json`s used throughout the monorepo
 - `packages/checkout-storefront`: Checkout store front component
-- `packages/checkout-common-types`: Common types used by `checkout-storefront` and `apps/checkout`
+- `packages/checkout-common`: Common types used by `checkout-storefront` and `apps/checkout`
 
 ### Install dependencies
 

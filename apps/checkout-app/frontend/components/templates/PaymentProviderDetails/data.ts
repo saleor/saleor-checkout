@@ -1,7 +1,4 @@
-import {
-  PaymentProvider,
-  PaymentProviderID,
-} from "@saleor/checkout-common-types";
+import { PaymentProvider, PaymentProviderID } from "@saleor/checkout-common";
 
 export const getFormDefaultValues = (
   selectedPaymentProvider: PaymentProvider<PaymentProviderID> | undefined

@@ -1,10 +1,7 @@
 import { useRouter } from "next/router";
 import { Card, Divider } from "@material-ui/core";
 import { Item } from "types/common";
-import {
-  PaymentProvider,
-  PaymentProviderID,
-} from "@saleor/checkout-common-types";
+import { PaymentProvider, PaymentProviderID } from "@saleor/checkout-common";
 import { channelListPath, channelPath, paymentProviderPath } from "routes";
 import { sectionMessages } from "@/checkout-app/frontend/misc/commonMessages";
 import AppLayout from "@/checkout-app/frontend/components/elements/AppLayout";
