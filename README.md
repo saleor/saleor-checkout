@@ -20,7 +20,8 @@ Here's the list of each app and shared package in the monorepo (click to see a R
 - `packages/ui-kit`: UI kit for checkout and [React Storefront](https://github.com/saleor/react-storefront)
 - `packages/config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `packages/tsconfig`: `tsconfig.json`s used throughout the monorepo
-- `packages/checkout-spa`: Checkout SPA Component
+- `packages/checkout-storefront`: Checkout store front component
+- `packages/checkout-common-types`: Common types used by `checkout-storefront` and `apps/checkout`
 
 ### Install dependencies
 
