@@ -1,9 +1,8 @@
 {
   "extends": "tsconfig/react-library.json",
-  "include": ["src"],
+  "include": ["src", "types.d.ts"],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
-    "rootDir": "../..",
     "lib": ["dom"],
     "paths": {
       "@/checkout-storefront/icons": ["./src/assets/icons"],
