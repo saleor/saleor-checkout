@@ -9,7 +9,7 @@ export default function CheckoutSpa() {
     console.warn(
       `Missing one of the env variables: REACT_APP_SALEOR_API_URL, REACT_APP_CHECKOUT_APP_URL, REACT_APP_CHECKOUT_APP_URL`
     );
-    return;
+    return null;
   }
 
   return <Root env={{ apiUrl, checkoutApiUrl, checkoutAppUrl }} />;
