@@ -4,10 +4,10 @@
   "private": true,
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/esm/types/index.d.ts",
   "scripts": {
     "dev": "rollup -c -w",
-    "build": "rollup -c",
+    "build": "NODE_ENV=production rollup -c",
     "generate": "DOTENV_CONFIG_PATH=.env graphql-codegen -r env-vars --config codegen.yml",
     "check-types": "tsc --noEmit",
     "lint": "eslint --max-warnings=0 \"src/**/*.@(tsx|ts|jsx|js)\" --fix",
