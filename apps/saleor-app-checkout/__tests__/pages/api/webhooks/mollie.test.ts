@@ -34,7 +34,7 @@ describe("/api/webhooks/mollie", () => {
     expect(res.statusCode).toBe(500);
   });
 
-  test.only("handles request with completed payment", async () => {
+  it("handles request with completed payment", async () => {
     const { req, res } = mockRequest("POST");
 
     req.body = {

@@ -126,11 +126,13 @@ export const setupRecording = () => {
   // use replay mode by default, override if POLLY_MODE env variable is passed
   let mode: PollyConfig["mode"] = "replay";
   let recordIfMissing = false;
+  let recordFailedRequests = false;
 
   switch (process.env.POLLY_MODE) {
     case "record":
       mode = "record";
       recordIfMissing = true;
+      recordFailedRequests = true;
       break;
     case "replay":
       mode = "replay";
@@ -150,7 +152,7 @@ export const setupRecording = () => {
     mode,
     recordIfMissing,
     flushRequestsOnStop: true,
-    recordFailedRequests: true,
+    recordFailedRequests,
     adapterOptions: {
       fetch: {
         context: globalThis,
