@@ -117,7 +117,13 @@ export const setupPollyMiddleware = (server: PollyServer) => {
         }),
       };
 
-      return handlers.some((handler) => handler.test(fakeReq));
+      const isHandledByMsw = handlers.some((handler) => handler.test(fakeReq));
+
+      if (isHandledByMsw) {
+        console.debug("(from Polly.js) Passing request to msw\n", body);
+      }
+
+      return isHandledByMsw;
     })
     .passthrough();
 };
