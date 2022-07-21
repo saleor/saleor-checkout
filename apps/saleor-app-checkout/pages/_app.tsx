@@ -9,7 +9,7 @@ import AppContainer from "@/saleor-app-checkout/frontend/components/elements/App
 import AppProvider from "@/saleor-app-checkout/frontend/components/elements/AppProvider";
 import { client } from "@/saleor-app-checkout/frontend/misc/client";
 import PrivateSettingsProvider from "@/saleor-app-checkout/frontend/components/elements/PrivateSettingsProvider";
-import "@saleor/checkout-storefront/dist/esm/index.css";
+import "@saleor/checkout-storefront/dist/style.css";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;

@@ -1,23 +1,17 @@
 {
   "extends": "tsconfig/react-library.json",
-  "include": ["src", "types.d.ts"],
+  "include": ["src", "types.d.ts", "package.json"],
   "exclude": ["dist", "build", "node_modules"],
+  "references": [{ "path": "./tsconfig.node.json" }],
   "compilerOptions": {
-    "baseUrl": ".",
-    "lib": ["dom"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "noEmit": true,
     "paths": {
       "@/checkout-storefront/icons": ["./src/assets/icons"],
       "@/checkout-storefront/images": ["./src/assets/images"],
       "@/checkout-storefront/*": ["./src/*"]
-    },
-    "declaration": true,
-    "declarationMap": false,
-    "declarationDir": "types",
-    "outDir": "dist",
-    "composite": false,
-    "allowJs": true,
-    "noEmit": true,
-    "incremental": true,
-    "jsx": "preserve"
+    }
   }
 }
