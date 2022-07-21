@@ -8,6 +8,7 @@ export const paymentProviders = {
       encrypted: false,
       value: testingVars.mollieProfileId,
     },
+    completedOrderId: "ord_kr6ltl",
   },
   adyen: {
     merchantAccount: {
