@@ -1,5 +1,6 @@
 // We're using Next.js here just as a development tool because it's fast and reliable
 // For the production, this package is built with `rollup`.
+// https://github.com/saleor/saleor-checkout/pull/161
 import Dynamic from "next/dynamic";
 import "../index.css";
 

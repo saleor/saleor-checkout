@@ -11,27 +11,27 @@ const packageJson = require("./package.json");
 
 const isProd = process.env.NODE_ENV === "production";
 
+const __ = (arr) => arr.filter(Boolean);
+
 export default [
   {
     input: "src/index.tsx",
-    output: [
+    output: __([
       {
         file: packageJson.module,
         format: "esm",
         sourcemap: isProd,
       },
-      ...(isProd
-        ? [
-            {
-              file: packageJson.main,
-              format: "cjs",
-              sourcemap: true,
-            },
-          ]
-        : []),
-    ],
+      isProd && [
+        {
+          file: packageJson.main,
+          format: "cjs",
+          sourcemap: true,
+        },
+      ],
+    ]),
     external: ["react", "react-dom", "graphql"],
-    plugins: [
+    plugins: __([
       external(),
       resolve({
         browser: true,
@@ -44,7 +44,7 @@ export default [
       }),
       json(),
       image(),
-      ...(isProd ? [terser()] : []),
+      isProd && terser(),
       postcss({
         extract: true,
         plugins: [
@@ -53,6 +53,6 @@ export default [
           require("postcss-import")(),
         ],
       }),
-    ],
+    ]),
   },
 ];
