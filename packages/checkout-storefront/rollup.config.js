@@ -11,7 +11,7 @@ const packageJson = require("./package.json");
 
 const isProd = process.env.NODE_ENV === "production";
 
-const __ = (arr) => arr.filter(Boolean);
+const __ = (arr) => arr.filter((x) => !!x);
 
 export default [
   {
@@ -22,13 +22,11 @@ export default [
         format: "esm",
         sourcemap: isProd,
       },
-      isProd && [
-        {
-          file: packageJson.main,
-          format: "cjs",
-          sourcemap: true,
-        },
-      ],
+      isProd && {
+        file: packageJson.main,
+        format: "cjs",
+        sourcemap: true,
+      },
     ]),
     external: ["react", "react-dom", "graphql"],
     plugins: __([
