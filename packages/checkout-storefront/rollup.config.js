@@ -37,13 +37,21 @@ export default [
         browser: true,
       }),
       commonjs({ sourceMap: !isDev }),
-      typescript({ tsconfig: "./tsconfig.json" }),
+      typescript({
+        tsconfig: "./tsconfig.json",
+        noEmit: false,
+        jsx: "react-jsx",
+      }),
       json(),
       image(),
       ...(!isDev ? [terser()] : []),
       postcss({
         extract: true,
-        plugins: [require("tailwindcss")(), require("autoprefixer")()],
+        plugins: [
+          require("tailwindcss")(),
+          require("autoprefixer")(),
+          require("postcss-import")(),
+        ],
       }),
     ],
   },
