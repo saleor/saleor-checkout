@@ -1,4 +1,4 @@
-import { envVars } from "@/checkout-app/constants";
+import { envVars } from "@/saleor-app-checkout/constants";
 import { graphql } from "msw";
 
 export const saleorApi = graphql.link(envVars.apiUrl);

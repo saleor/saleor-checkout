@@ -1,10 +1,10 @@
-import { testingVars } from "@/checkout-app/mocks/consts";
-import handler from "@/checkout-app/pages/api/webhooks/mollie";
+import { testingVars } from "@/saleor-app-checkout/mocks/consts";
+import handler from "@/saleor-app-checkout/pages/api/webhooks/mollie";
 import {
   mockRequest,
   setupPollyMiddleware,
   setupRecording,
-} from "@/checkout-app/test-utils";
+} from "@/saleor-app-checkout/test-utils";
 
 describe("/api/webhooks/mollie", () => {
   const context = setupRecording();

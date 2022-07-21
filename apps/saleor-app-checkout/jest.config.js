@@ -5,7 +5,7 @@ const { compilerOptions } = requireJSON("./tsconfig.json");
 
 delete compilerOptions.paths["react"];
 
-export default {
+module.exports = {
   clearMocks: false,
   collectCoverage: false,
   coverageDirectory: "coverage",

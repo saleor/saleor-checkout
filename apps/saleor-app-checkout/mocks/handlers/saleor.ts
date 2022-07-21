@@ -1,7 +1,7 @@
 import {
   PrivateMetafieldsInferedQuery,
   PrivateMetafieldsInferedQueryVariables,
-} from "@/checkout-app/graphql";
+} from "@/saleor-app-checkout/graphql";
 import { appPrivateMetafields } from "../fixtures/saleor";
 import { prepareGraphqlMetafields, saleorApi } from "../utils";
 

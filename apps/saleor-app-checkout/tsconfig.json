@@ -12,7 +12,7 @@
       // Remove when this gets updated to React 18"
       "react": [
         "./node_modules/@types/react"
-      ]
+      ],
       // Types mismatch between setup-polly-jest and @pollyjs/core
       "@pollyjs/core": [
         "./node_modules/@pollyjs/core"

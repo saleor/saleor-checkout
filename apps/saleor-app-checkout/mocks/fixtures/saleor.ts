@@ -1,4 +1,4 @@
-import { encryptSetting } from "@/checkout-app/backend/configuration/encryption";
+import { encryptSetting } from "@/saleor-app-checkout/backend/configuration/encryption";
 import { testingVars } from "../consts";
 
 export const paymentProviders = {
