@@ -15,19 +15,31 @@ export const obfuscateValue = (value: string) => {
   return "••••" + " " + unobfuscatedValue;
 };
 
-export const encryptSetting = (settingValue: string): SettingValue => ({
-  encrypted: true,
-  value:
-    CryptoJS.AES.encrypt(
-      settingValue,
-      serverEnvVars.settingsEncryptionSecret
-    ).toString() || "",
-});
+export const encryptSetting = (settingValue: string): SettingValue => {
+  if (!serverEnvVars.settingsEncryptionSecret) {
+    throw new Error(
+      "Cannot encrypt settings when SETTINGS_ENCRYPTION_SECRET is not configured"
+    );
+  }
+  return {
+    encrypted: true,
+    value:
+      CryptoJS.AES.encrypt(
+        settingValue,
+        serverEnvVars.settingsEncryptionSecret
+      ).toString() || "",
+  };
+};
 
 export const decryptSetting = (
   settingValue: SettingValue,
   obfuscateEncryptedData: boolean
 ) => {
+  if (!serverEnvVars.settingsEncryptionSecret) {
+    throw new Error(
+      "Cannot decrypt settings when SETTINGS_ENCRYPTION_SECRET is not configured"
+    );
+  }
   const decrypted =
     CryptoJS.AES.decrypt(
       settingValue.value,
