@@ -12,6 +12,7 @@ interface CheckoutSkeletonProps {}
 export const CheckoutSkeleton: React.FC<CheckoutSkeletonProps> = ({}) => {
   const formatMessage = useFormattedMessages();
 
+  console.log("YAYYY");
   return (
     <div className="app">
       <div className="page">

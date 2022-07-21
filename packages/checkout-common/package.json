@@ -12,12 +12,7 @@
   },
   "devDependencies": {
     "typescript": "4.7.4",
-<<<<<<< HEAD
     "eslint-config-checkout": "workspace:*",
     "tsconfig": "workspace:*"
-=======
-    "tsconfig": "workspace:*",
-    "eslint-config-checkout": "workspace:*"
->>>>>>> Fix eslint
   }
 }
