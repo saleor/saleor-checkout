@@ -16,7 +16,9 @@ if (fs.statSync(".env.local").isFile()) {
 const env = dotenv.config();
 
 // Load env variables from root of monorepo
+dotenv.config({ path: findConfig(".env.local", { cwd: ".." }) });
 dotenv.config({ path: findConfig(".env", { cwd: ".." }) });
 
 // Replace $ in .env with loaded env variables
-dotenvExpand.expand(env);
+dotenvExpand.expand(dotenv.config({ path: ".env.local" }));
+dotenvExpand.expand(dotenv.config({ path: ".env" }));

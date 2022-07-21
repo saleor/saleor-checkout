@@ -1,4 +1,4 @@
-import { ComponentMeta, Story } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { useState } from "react";
 
 import { Radio, RadioProps } from "./Radio";
@@ -13,8 +13,14 @@ const options: RadioProps[] = [
   { label: "Banana", value: "banana" },
 ];
 
-const Template: Story<{ customOptions: RadioProps[] }> = ({
+const Template = ({
   customOptions = [],
+}: {
+  customOptions: Array<{
+    value: string;
+    label: React.ReactNode;
+    classNames: Record<string, string>;
+  }>;
 }) => {
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -37,7 +43,7 @@ const Template: Story<{ customOptions: RadioProps[] }> = ({
   );
 };
 
-export const CustomLook = Template.bind({});
+export const CustomLook: ComponentStory<typeof Template> = Template.bind({});
 
 CustomLook.args = {
   customOptions: [

@@ -10,7 +10,7 @@ export default {
 
 const icons = Object.entries(exportedIcons);
 
-const IconWrapper: React.FC<{ children: React.ReactNode }> = (props) => (
+const IconWrapper = (props: JSX.IntrinsicElements["div"]) => (
   <div
     className="flex items-center	justify-center flex-col p-8 bg-[#ffffff]"
     {...props}
