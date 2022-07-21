@@ -9,7 +9,7 @@ import image from "@rollup/plugin-image";
 
 const packageJson = require("./package.json");
 
-const isDev = process.env.NODE_ENV !== "production";
+const isProd = process.env.NODE_ENV === "production";
 
 export default [
   {
@@ -18,9 +18,9 @@ export default [
       {
         file: packageJson.module,
         format: "esm",
-        sourcemap: !isDev,
+        sourcemap: isProd,
       },
-      ...(!isDev
+      ...(isProd
         ? [
             {
               file: packageJson.main,
@@ -36,7 +36,7 @@ export default [
       resolve({
         browser: true,
       }),
-      commonjs({ sourceMap: !isDev }),
+      commonjs({ sourceMap: isProd }),
       typescript({
         tsconfig: "./tsconfig.json",
         noEmit: false,
@@ -44,7 +44,7 @@ export default [
       }),
       json(),
       image(),
-      ...(!isDev ? [terser()] : []),
+      ...(isProd ? [terser()] : []),
       postcss({
         extract: true,
         plugins: [
