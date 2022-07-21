@@ -1,6 +1,7 @@
 import { serverEnvVars } from "@/saleor-app-checkout/constants";
 import { SettingValue } from "@/saleor-app-checkout/types/api";
 import CryptoJS from "crypto-js";
+import invariant from "ts-invariant";
 
 export const obfuscateValue = (value: string) => {
   const unobfuscatedLength = Math.min(4, value.length - 4);
@@ -16,11 +17,10 @@ export const obfuscateValue = (value: string) => {
 };
 
 export const encryptSetting = (settingValue: string): SettingValue => {
-  if (!serverEnvVars.settingsEncryptionSecret) {
-    throw new Error(
-      "Cannot encrypt settings when SETTINGS_ENCRYPTION_SECRET is not configured"
-    );
-  }
+  invariant(
+    serverEnvVars.settingsEncryptionSecret,
+    "Cannot encrypt settings when SETTINGS_ENCRYPTION_SECRET is not configured"
+  );
   return {
     encrypted: true,
     value:
@@ -35,11 +35,10 @@ export const decryptSetting = (
   settingValue: SettingValue,
   obfuscateEncryptedData: boolean
 ) => {
-  if (!serverEnvVars.settingsEncryptionSecret) {
-    throw new Error(
-      "Cannot decrypt settings when SETTINGS_ENCRYPTION_SECRET is not configured"
-    );
-  }
+  invariant(
+    serverEnvVars.settingsEncryptionSecret,
+    "Cannot decrypt settings when SETTINGS_ENCRYPTION_SECRET is not configured"
+  );
   const decrypted =
     CryptoJS.AES.decrypt(
       settingValue.value,
