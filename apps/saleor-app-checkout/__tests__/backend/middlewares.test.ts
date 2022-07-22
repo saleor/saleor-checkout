@@ -29,9 +29,7 @@ describe("withSaleorDomainMatch", () => {
 
   it("handles missing Saleor domain in configuration", async () => {
     const handler = jest.fn();
-    mockedGetSaleorDomain.mockImplementationOnce(() => {
-      throw new Error("Missing value");
-    });
+    mockedGetSaleorDomain.mockRejectedValue("Missing value");
 
     const result = await withSaleorDomainMatch(handler)({
       ...mockRequest,
@@ -48,7 +46,7 @@ describe("withSaleorDomainMatch", () => {
 
   it("handles missing Saleor domain in request", async () => {
     const handler = jest.fn();
-    mockedGetSaleorDomain.mockImplementationOnce(() => TEST_SALEOR_DOMAIN);
+    mockedGetSaleorDomain.mockResolvedValue(TEST_SALEOR_DOMAIN);
 
     const result = await withSaleorDomainMatch(handler)(mockRequest);
     expect(result.body).toHaveProperty("success", false);
@@ -59,7 +57,7 @@ describe("withSaleorDomainMatch", () => {
 
   it("handles empty Saleor domain in request", async () => {
     const handler = jest.fn();
-    mockedGetSaleorDomain.mockImplementationOnce(() => TEST_SALEOR_DOMAIN);
+    mockedGetSaleorDomain.mockResolvedValue(TEST_SALEOR_DOMAIN);
 
     const result = await withSaleorDomainMatch(handler)({
       ...mockRequest,
@@ -75,7 +73,7 @@ describe("withSaleorDomainMatch", () => {
 
   it("handles mismatched Saleor domain in request", async () => {
     const handler = jest.fn();
-    mockedGetSaleorDomain.mockImplementationOnce(() => TEST_SALEOR_DOMAIN);
+    mockedGetSaleorDomain.mockResolvedValue(TEST_SALEOR_DOMAIN);
 
     const result = await withSaleorDomainMatch(handler)({
       ...mockRequest,
@@ -91,7 +89,7 @@ describe("withSaleorDomainMatch", () => {
 
   it("handles correct Saleor domain in request", async () => {
     const handler = jest.fn();
-    mockedGetSaleorDomain.mockImplementationOnce(() => TEST_SALEOR_DOMAIN);
+    mockedGetSaleorDomain.mockResolvedValue(TEST_SALEOR_DOMAIN);
 
     await withSaleorDomainMatch(handler)({
       ...mockRequest,

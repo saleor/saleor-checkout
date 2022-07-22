@@ -5,50 +5,50 @@ import { isAuthenticated, isAuthorized } from "./auth";
 
 export const allowCors =
   (fn: NextApiHandler): NextApiHandler =>
-    async (req, res) => {
-      res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "*");
-      res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,POST");
-      res.setHeader(
-        "Access-Control-Allow-Headers",
-        "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-      );
+  async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,POST");
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+    );
 
-      if (req.method === "OPTIONS") {
-        res.status(200).end();
-        return;
-      }
+    if (req.method === "OPTIONS") {
+      res.status(200).end();
+      return;
+    }
 
-      return await fn(req, res);
-    };
+    return await fn(req, res);
+  };
 
 export const requireAuthorization =
   (
     fn: NextApiHandler,
     requiredPermissions?: PermissionEnum[]
   ): NextApiHandler =>
-    async (req, res) => {
-      const authenticated = await isAuthenticated(req);
+  async (req, res) => {
+    const authenticated = await isAuthenticated(req);
 
-      if (!authenticated) {
-        return res.status(401).json({
-          error: {
-            message: "Unauthenticated",
-          },
-        });
-      }
+    if (!authenticated) {
+      return res.status(401).json({
+        error: {
+          message: "Unauthenticated",
+        },
+      });
+    }
 
-      const authorized = isAuthorized(req, requiredPermissions);
+    const authorized = isAuthorized(req, requiredPermissions);
 
-      if (!authorized) {
-        return res.status(403).json({
-          error: {
-            message: "Unauthorized",
-          },
-        });
-      }
+    if (!authorized) {
+      return res.status(403).json({
+        error: {
+          message: "Unauthorized",
+        },
+      });
+    }
 
-      return await fn(req, res);
-    };
+    return await fn(req, res);
+  };
 
 export const getBaseUrl = (req: NextApiRequest) => {
   if (debugEnvVars?.appUrl) {
@@ -61,10 +61,12 @@ export const getBaseUrl = (req: NextApiRequest) => {
   return `${protocol}://${host}`;
 };
 
-export const getSaleorDomain = () => {
-  if (!envVars.apiUrl) {
-    throw new Error(`Missing ${envVarsNames.apiUrl} environment variable`);
-  }
-  const url = new URL(envVars.apiUrl);
-  return url.hostname;
+export const getSaleorDomain = (): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    if (!envVars.apiUrl) {
+      return reject(`Missing ${envVarsNames.apiUrl} environment variable`);
+    }
+    const url = new URL(envVars.apiUrl);
+    return resolve(url.hostname);
+  });
 };

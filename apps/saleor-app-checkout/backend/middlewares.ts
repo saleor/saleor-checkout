@@ -4,14 +4,13 @@ import { withSaleorDomainPresent } from "@saleor/app-sdk/middleware";
 import { SALEOR_DOMAIN_HEADER } from "@saleor/app-sdk/const";
 import { getSaleorDomain } from "./utils";
 import { getErrorMessage } from "@/saleor-app-checkout/utils/errors";
+import { unpackPromise } from "../utils/promises";
 
 export const withSaleorDomainMatch: Middleware = (handler) =>
-  withSaleorDomainPresent((request) => {
-    let saleorDomain: string;
+  withSaleorDomainPresent(async (request) => {
+    const [error, saleorDomain] = await unpackPromise(getSaleorDomain());
 
-    try {
-      saleorDomain = getSaleorDomain();
-    } catch (error) {
+    if (error) {
       return Response.InternalServerError({
         success: false,
         message: getErrorMessage(error),
