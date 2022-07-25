@@ -21,11 +21,10 @@ export const envVars: EnvVars = {
   apiUrl: process.env[envVarsNames.apiUrl]!,
 };
 
-export const serverEnvVarNames: ServerEnvVars = {
+export const serverEnvVarNames: Record<ServerEnvVar, string> = {
   appToken: "SALEOR_APP_TOKEN",
   settingsEncryptionSecret: "SETTINGS_ENCRYPTION_SECRET",
 };
-
 export const serverEnvVars: ServerEnvVars = {
   appToken: process.env[serverEnvVarNames.appToken]!,
   settingsEncryptionSecret:
@@ -36,5 +35,5 @@ export const debugEnvVars: DebugEnvVars | null =
   process.env.NODE_ENV !== "development"
     ? null
     : {
-      appUrl: process.env.DEBUG_APP_URL,
-    };
+        appUrl: process.env.DEBUG_APP_URL,
+      };
