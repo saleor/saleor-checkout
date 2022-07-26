@@ -166,8 +166,8 @@ Read FAQ in [docs/faq.md](./docs/faq.md)
 
 ## Ports
 
-- apps/react-storefront: 3000
-- apps/saleor-app-checkout: 3001
-- packages/checkout-storefront: 3002
-- apps/checkout: 3003
-- packages/ui-kit storybook: 6006
+- `apps/react-storefront`: **3000**
+- `apps/saleor-app-checkout`: **3001**
+- `packages/checkout-storefront`: **3002**
+- `apps/checkout`: **3003**
+- `packages/ui-kit storybook`: **6006**
