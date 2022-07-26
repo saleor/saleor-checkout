@@ -72,5 +72,5 @@ const authConfig: ClientOptions = {
     multipartFetchExchange,
   ],
 };
-
+console.log(process.env.NEXT_PUBLIC_SALEOR_API_URL);
 export const client = createClient(authConfig);
