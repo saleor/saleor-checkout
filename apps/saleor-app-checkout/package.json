@@ -6,7 +6,7 @@
     "dev": "NODE_OPTIONS='--inspect' next dev -p 3001",
     "test": "jest",
     "test:record": "POLLY_MODE=record jest --runInBand --verbose",
-    "build": "npm run i18n && next build",
+    "build": "npm run i18n && next build -p 3001",
     "start": "next start",
     "lint": "next lint",
     "check-types": "tsc --noEmit",
