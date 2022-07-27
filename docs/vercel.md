@@ -42,7 +42,7 @@ On the configuration page:
 - Override the build command to:
 
 ```bash
-cd ../.. && pnpm run build --filter=saleor-app-checkout
+cd ../.. && pnpm run build --filter=saleor-app-checkout...
 ```
 
 - Add environment variables:
@@ -200,7 +200,7 @@ On the configuration page:
 - Override the build command to:
 
 ```bash
-cd ../.. && pnpm run build --filter=checkout
+cd ../.. && pnpm run build --filter=checkout...
 ```
 
 - _Optional_: customise [environment variables](../apps/checkout/README.md#env-variables):
