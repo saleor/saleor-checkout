@@ -1,5 +1,7 @@
 # saleor-checkout
 
+# Migrated into a monorepo: https://github.com/saleor/react-storefront
+
 Extensible, checkout and payment integrations powered by [Saleor API](https://github.com/saleor/saleor).
 
 Project is in active development ([see backlog](https://github.com/orgs/saleor/projects/5)).
